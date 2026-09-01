@@ -1,0 +1,8 @@
+# Identity-only metadata. No dataset records are included or accessed.
+schema_version: 1
+kind: dataset
+id: example-dataset
+dataset: example-dataset-source
+revision: example-dataset-2026-01-01
+split: development
+manifest_sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb

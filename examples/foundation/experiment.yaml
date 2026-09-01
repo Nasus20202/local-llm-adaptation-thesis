@@ -1,0 +1,19 @@
+# Identity-only foundation example. It does not download or test any artifact.
+schema_version: 1
+kind: experiment
+id: foundation-example
+condition_id: baseline
+run_kind: exploratory
+random_seed: 7
+model:
+  path: metadata/model.yaml
+  expected_id: example-model
+hardware:
+  path: metadata/hardware.yaml
+  expected_id: local-rx-5700
+dataset:
+  path: metadata/dataset.yaml
+  expected_id: example-dataset
+evaluation:
+  path: metadata/evaluation.yaml
+  expected_id: example-evaluation

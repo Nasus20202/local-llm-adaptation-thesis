@@ -16,6 +16,7 @@ build/
 .vscode/
 *.swp
 .DS_Store
+.codegraph/
 
 # Secrets and local configuration
 .env

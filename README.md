@@ -6,7 +6,7 @@ The project compares adaptation strategies rather than foundation-model leaderbo
 
 ## Current status
 
-The repository is at **M0 — Research & Project Foundation**. The first implementation change, [`foundation-experiment-platform`](openspec/changes/foundation-experiment-platform/), is specified but intentionally not implemented pending human approval. See the concise [project status](docs/project/status.md) for the current gate and next action.
+The repository is at **M0 — Research & Project Foundation**. The approved [`foundation-experiment-platform`](openspec/changes/foundation-experiment-platform/) change provides the first provenance-only software slice: strict metadata validation, deterministic configuration identity, clean-Git manifests, immutable prepared-run directories, and read-only inspection. It does not execute models or create experimental results. See the concise [project status](docs/project/status.md) for the project gate and current research stage.
 
 The current repository contains the research plan, methodology, architecture, governance, and the first reviewed implementation package. It does not yet contain the experiment platform or experimental results.
 
@@ -21,6 +21,26 @@ The current repository contains the research plan, methodology, architecture, go
 - [GitHub project management](docs/project/github-management.md)
 - [Bootstrap verification](docs/project/bootstrap-verification.md)
 - [Instructions for agents](AGENTS.md)
+
+## Foundation commands
+
+Install the locked environment and validate the identity-only example:
+
+```bash
+uv sync --locked
+uv run thesis-bench validate-config examples/foundation/experiment.yaml
+```
+
+The command boundary is deliberately limited to configuration validation, provenance-only run preparation, and run inspection:
+
+```bash
+uv run thesis-bench --version
+uv run thesis-bench validate-config <experiment-path>
+uv run thesis-bench prepare-run <experiment-path> [--results-root <path>]
+uv run thesis-bench show-run <run-directory>
+```
+
+Versioned schema examples live under `examples/foundation/`; implementation modules and focused tests live under `src/thesis_bench/` and `tests/`. The example identifies external artifacts only; this change does not download or test them.
 
 ## Source-of-truth order
 

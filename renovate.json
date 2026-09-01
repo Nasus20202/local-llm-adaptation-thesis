@@ -1,13 +1,18 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices"],
+  "enabledManagers": ["custom.regex", "pep621", "github-actions"],
+  "ignorePaths": ["openspec/**"],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "semanticCommits": "enabled",
   "semanticCommitType": "chore",
   "semanticCommitScope": "deps",
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["/^pyproject\\.toml$/"],
+      "fileMatch": ["/^pyproject\\.toml$/"],
       "matchStrings": [
         "required-version\\s*=\\s*\"==(?<currentValue>\\d+\\.\\d+\\.\\d+)\""
       ],
@@ -17,10 +22,16 @@
   ],
   "packageRules": [
     {
+      "matchManagers": ["custom.regex", "pep621", "github-actions"],
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "platformAutomerge": false
     }
   ]
 }

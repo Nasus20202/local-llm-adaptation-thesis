@@ -95,15 +95,22 @@ Resolve conflicts using `docs/project/source-of-truth.md`; do not silently choos
 
 ## Current commands
 
-Bootstrap planning validation:
+Foundation implementation and planning validation:
 
 ```bash
+uv lock --check
+uv run ruff format --check src tests
+uv run ruff check src tests
+uv run mypy src
+uv run coverage run -m pytest -q
+uv run coverage report
+uv build
+uv run thesis-bench validate-config examples/foundation/experiment.yaml
 npx --yes --package renovate renovate-config-validator renovate.json
-npx --yes @fission-ai/openspec status --change foundation-experiment-platform
 npx --yes @fission-ai/openspec validate foundation-experiment-platform --strict --no-interactive
 ```
 
-Implementation commands will be added by the approved `foundation-experiment-platform` change. Do not invent them before implementation.
+The foundation CLI intentionally has no inference, model-management, lifecycle-event, RAG, fine-tuning, harness, skill, or reporting commands.
 
 ## Completion evidence
 
