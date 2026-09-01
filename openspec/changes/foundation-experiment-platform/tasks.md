@@ -36,8 +36,8 @@
 
 ## 6. Documentation, CI, and Completion
 
-- [ ] 6.1 Update README, `AGENTS.md`, testing documentation, and example comments with only implemented commands and schema locations; execute every documented command.
-- [ ] 6.2 Add Linux CI for lock consistency, Ruff, mypy, pytest/coverage, build, example validation, Renovate validation, and strict OpenSpec validation; pin Actions to commit SHAs and reproduce the steps locally.
-- [ ] 6.3 Verify routine tests/CI need no credentials, post-install network calls, model download, GPU, inference, or writes outside temporary directories.
-- [ ] 6.4 Map every requirement scenario and acceptance criterion to a test or explicit verification artifact; record exact command results in the pull request.
-- [ ] 6.5 Inspect the final diff, task list, and raw-results tree; confirm there is no event system, inference, benchmark, RAG, fine-tuning, harness, skill, plugin framework, database, model artifact, experimental result, or unrelated refactor.
+- [x] 6.1 Update README, `AGENTS.md`, testing documentation, and example comments with only implemented commands and schema locations; execute every documented command.
+- [x] 6.2 Add Linux CI for lock consistency, Ruff, mypy, pytest/coverage, build, example validation, Renovate validation, and strict OpenSpec validation; pin Actions to commit SHAs and reproduce the steps locally.
+- [x] 6.3 Verify routine tests/CI need no credentials, post-install network calls, model download, GPU, inference, or writes outside temporary directories.
+- [x] 6.4 Map every requirement scenario and acceptance criterion to a test or explicit verification artifact; record exact command results in the pull request.
+- [x] 6.5 Inspect the final diff, task list, and raw-results tree; confirm there is no event system, inference, benchmark, RAG, fine-tuning, harness, skill, plugin framework, database, model artifact, experimental result, or unrelated refactor.
