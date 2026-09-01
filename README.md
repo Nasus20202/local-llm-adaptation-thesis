@@ -6,7 +6,7 @@ The project compares adaptation strategies rather than foundation-model leaderbo
 
 ## Current status
 
-The repository is at **M0 — Research & Project Foundation**. The approved [`foundation-experiment-platform`](openspec/changes/foundation-experiment-platform/) change provides the first provenance-only software slice: strict metadata validation, deterministic configuration identity, clean-Git manifests, immutable prepared-run directories, and read-only inspection. It does not execute models or create experimental results. See the concise [project status](docs/project/status.md) for the project gate and current research stage.
+The repository is at **M1 — Benchmark Dataset and Evaluation Foundation**. The archived [`foundation-experiment-platform`](openspec/changes/archive/2026-09-01-foundation-experiment-platform/) change provides the provenance-only software foundation: strict metadata validation, deterministic configuration identity, clean-Git manifests, immutable prepared-run directories, and read-only inspection. It does not execute models or create experimental results. See the concise [project status](docs/project/status.md) for the current research stage.
 
 The current repository contains the research plan, methodology, architecture, governance, and the reviewed provenance-only foundation implementation. It does not contain model execution or experimental results.
 
@@ -65,7 +65,7 @@ OpenSpec provides the artifact-guided `spec-driven` workflow. Upgrade it deliber
 
 ```bash
 npm ci --ignore-scripts --no-audit --no-fund
-./node_modules/.bin/openspec status --change foundation-experiment-platform
+./node_modules/.bin/openspec status
 ./node_modules/.bin/openspec validate --all --strict --no-interactive
 ```
 

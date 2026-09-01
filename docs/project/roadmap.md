@@ -22,12 +22,16 @@ GitHub milestone and label conventions are defined in [github-management.md](git
 | M11 | Thesis Results and Discussion | Validated results, limitations, and conclusions are integrated into the Polish thesis |
 | M12 | Reproducibility and Final Audit | Independent reproduction checklist, artifact audit, citation audit, GenAI declaration, and final build pass |
 
-## Immediate backlog: M0
+## Completed milestone: M0
 
-1. Approve or revise the [`foundation-experiment-platform` package and Issue #1](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/1).
-2. Implement the approved package in Codex.
-3. Ask Chat for an independent pull-request review; route implementation fixes to Codex and planning defects to Work.
-4. Re-review material fixes, then have the human researcher merge and Work synchronize project state.
+The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/1) was independently reviewed, merged in PR [#18](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/18), and archived. Its canonical software specifications are under `openspec/specs/`.
+
+## Immediate backlog: M1
+
+1. Prepare the Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark decision package without constructing final items.
+2. Compare domain, language, task-class, source-rights, split-ownership, answer-format, and contamination-control alternatives.
+3. Record selected decisions and pilot-only unknowns in research documents; add an ADR only for a consequential decision.
+4. Stop for Human Gate A before dataset-item construction or software work requiring a new OpenSpec change.
 5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
 6. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
 7. Decide the public licensing plan before making the private repository public.

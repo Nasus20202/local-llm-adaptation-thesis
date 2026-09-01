@@ -23,7 +23,7 @@ The amended OpenSpec defines a composite frozen identity rather than claiming un
 
 | Acceptance criterion | Evidence |
 |---|---|
-| Tasks 1.1–6.5 complete without scope expansion | `openspec/changes/foundation-experiment-platform/tasks.md`, final diff inspection |
+| Tasks 1.1–6.5 complete without scope expansion | `openspec/changes/archive/2026-09-01-foundation-experiment-platform/tasks.md`, final diff inspection |
 | Five metadata kinds reject unsafe input and establish the specified composite frozen identities | Configuration tests listed above, including the focused task 2.1 cases; `uv run thesis-bench validate-config examples/foundation/experiment.yaml` |
 | Deterministic source and semantic hashes | Configuration hash tests listed above |
 | Preparation requires committed clean Git and records approved provenance | Provenance/lifecycle tests listed above; CLI dirty-tree test |
