@@ -38,6 +38,8 @@ Each UTF-8 YAML document has `schema_version: 1`, `kind`, and a stable kind-spec
 
 Pydantic forbids unknown fields and enforces strict scalar types. A narrow `SafeLoader` subclass rejects duplicate mapping keys. Validation errors identify safe paths and field locations without echoing arbitrary values.
 
+The model repository revision is provider-narrow by design: the current candidates are Git-backed model repositories, so schema version 1 accepts only a full 40-character lowercase commit ID. The artifact SHA-256 independently binds the selected weight file. Dataset revisions and evaluation versions are stable labels using the repository identifier grammar, with `latest`, `main`, and `master` reserved as moving labels. The validator does not attempt to recognize every possible branch name. Dataset contents are bound by the deterministic manifest SHA-256; evaluation configuration and code are bound by the document semantic hash and prepared run Git commit. This composite contract is scientifically explicit without inventing a general external-version resolver.
+
 ### Configuration identity
 
 For each source, calculate SHA-256 over exact bytes and over the validated value encoded as canonical UTF-8 JSON with sorted object keys, compact separators, preserved list order, and no non-finite values. Byte hashes preserve exact-source traceability; semantic hashes identify equivalent validated configuration despite harmless YAML formatting.

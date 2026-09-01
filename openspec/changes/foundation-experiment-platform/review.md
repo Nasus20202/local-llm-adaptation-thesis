@@ -1,7 +1,7 @@
 # Cross-Artifact Review
 
 **Review date:** 2026-09-01
-**Review status:** Ready for Human Gate A; implementation not authorized.
+**Review status:** Revision-identity amendment ready for Human Gate A; implementation update not authorized.
 
 ## Scientific purpose
 
@@ -32,15 +32,22 @@ These concerns may return only when an approved experiment or runner provides co
 ## Cross-artifact findings resolved
 
 - Proposal, four capability specs, design, tasks, Issue #1, architecture boundary, and status describe the same provenance-only slice.
-- Unknown/duplicate data, mutable revisions, unsafe references, dirty Git, collisions, corrupt manifests, and CLI errors have explicit behavior and tests.
+- Unknown/duplicate data, revision identity, unsafe references, dirty Git, collisions, corrupt manifests, and CLI errors have explicit behavior and test obligations.
 - No task authorizes inference, method implementation, benchmark content, observations, or results.
 - Stable project policy does not pin an OpenSpec release or assume old command syntax.
 - The package is precise enough for a Budget Implementation Model without requiring it to choose methodology or consequential architecture.
 
+## Revision-identity amendment
+
+- Model revision accepts one unambiguous source format: a full 40-character lowercase Git commit ID. The existing artifact SHA-256 remains the independent byte identity.
+- Dataset revision and evaluation version are stable labels, not self-proving immutable locators. Their accepted grammar and three reserved moving labels are exhaustive for schema version 1.
+- Dataset identity is completed by split and manifest SHA-256. Evaluation identity is completed by the evaluation document semantic hash and prepared run Git commit.
+- Exhaustive branch-name detection, remote resolution, new provider abstractions, and new metadata fields remain out of scope.
+
 ## Acceptance coverage
 
-Every requirement has at least one WHEN/THEN scenario, and every scenario maps to a task or explicit verification item. No unresolved question changes approved scope or behavior. The implementation must remain smaller than the specification if equally clear code can satisfy it; document any contradiction instead of adding abstractions.
+Every requirement has at least one WHEN/THEN scenario, and every scenario maps to a task or explicit verification item. Task 2.1 is reopened only for the amended identity grammar and focused regression tests. No other implementation task is reopened. The implementation must remain smaller than the specification if equally clear code can satisfy it; document any contradiction instead of adding abstractions.
 
 ## Decision
 
-The package is internally consistent and ready for Human Gate A. It remains unapplied and unarchived. After human approval, Codex may implement it; after the pull request, Chat performs an independent review before human merge.
+The amended package is internally consistent and ready for focused Human Gate A approval. PR #18 remains open and the change remains unarchived. After human approval, Codex may update only task 2.1 and its evidence; Chat then performs a focused independent re-review before human merge.

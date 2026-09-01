@@ -2,13 +2,13 @@
 
 This map connects the approved `foundation-experiment-platform` scenarios and Issue #1 acceptance criteria to deterministic tests or explicit repository checks. It covers the provenance-only foundation; it does not authorize inference, observations, lifecycle events, or benchmark data.
 
-The approved OpenSpec names `latest`, `main`, and `master` as mutable revision examples but does not define an exhaustive immutable-revision grammar. The evidence below therefore claims rejection of the specified mutable sentinels only. Broader rejection of branch names or symbolic references requires a Work-level specification decision.
+The amended OpenSpec defines a composite frozen identity rather than claiming universal branch detection. Model revisions must be full 40-character lowercase Git commit IDs and are paired with artifact SHA-256. Dataset revision and evaluation version use the repository identifier grammar and reject exactly `latest`, `main`, and `master` case-insensitively; dataset contents are bound by manifest SHA-256, while evaluation configuration and code are bound by the document semantic hash and prepared run Git commit. Exhaustive symbolic-reference detection and remote resolution are intentionally out of scope.
 
 ## Requirement scenarios
 
 | Area | Evidence |
 |---|---|
-| Versioned strict metadata, required fields, strict scalar types, identifiers, hashes, mutable-revision sentinels, whitespace-only identity rejection, unsupported versions, and unknown fields | `tests/test_configuration.py::test_valid_metadata_set_is_typed_and_hashed`, `test_invalid_model_metadata_is_rejected`, `test_whitespace_only_identity_fields_are_rejected`, `test_unknown_metadata_field_and_missing_required_field_are_rejected` |
+| Versioned strict metadata, required fields, strict scalar types, identifiers, hashes, stable-label sentinels, whitespace-only identity rejection, unsupported versions, and unknown fields | Existing configuration tests listed here; **pending after Gate A:** focused cases proving that model revisions accept only 40 lowercase hexadecimal characters and dataset/evaluation labels accept the identifier grammar while rejecting exactly the three reserved moving labels |
 | Duplicate and unhashable YAML keys, malformed/non-UTF-8 YAML, non-finite values, and secret-safe errors | `tests/test_configuration.py::test_duplicate_yaml_keys_are_rejected`, `test_unhashable_yaml_mapping_key_is_rejected`, `test_malformed_yaml_is_rejected`, `test_non_utf8_yaml_is_rejected`, `test_non_finite_numeric_values_are_rejected`, `test_unknown_field_is_rejected_without_echoing_value`; `tests/test_cli.py::test_validate_config_rejects_unhashable_yaml_mapping_key` |
 | Contained relative references, missing/wrong files, URLs, mismatches, parent traversal, and symlink escape | `tests/test_configuration.py::test_missing_reference_is_rejected`, `test_reference_mismatch_and_escape_are_rejected`, `test_reference_urls_and_non_yaml_paths_are_rejected`, `test_symlink_escape_is_rejected` |
 | Exact source and canonical semantic SHA-256 identity, formatting/key-order independence, list order, Unicode, and semantic changes | `tests/test_configuration.py::test_semantic_hash_ignores_yaml_formatting_but_source_hash_does_not`, `test_semantic_hash_preserves_list_order_unicode_and_value_changes` |
@@ -24,7 +24,7 @@ The approved OpenSpec names `latest`, `main`, and `master` as mutable revision e
 | Acceptance criterion | Evidence |
 |---|---|
 | Tasks 1.1–6.5 complete without scope expansion | `openspec/changes/foundation-experiment-platform/tasks.md`, final diff inspection |
-| Five metadata kinds reject unsafe or unfrozen input | Configuration tests listed above; `uv run thesis-bench validate-config examples/foundation/experiment.yaml` |
+| Five metadata kinds reject unsafe input and establish the specified composite frozen identities | Existing configuration tests plus the focused pending task 2.1 cases above; `uv run thesis-bench validate-config examples/foundation/experiment.yaml` |
 | Deterministic source and semantic hashes | Configuration hash tests listed above |
 | Preparation requires committed clean Git and records approved provenance | Provenance/lifecycle tests listed above; CLI dirty-tree test |
 | Atomic, immutable, collision-safe manifests | Lifecycle tests listed above |

@@ -7,7 +7,7 @@
 
 ## 2. Configuration and Identity
 
-- [x] 2.1 Implement strict schema-version-1 models for experiment, reference, model, hardware, dataset, and evaluation metadata; test required fields, strict types, identifiers, hashes, mutable-revision rejection, unknown fields, and unsupported versions.
+- [ ] 2.1 Implement strict schema-version-1 models for experiment, reference, model, hardware, dataset, and evaluation metadata; test required fields, strict types, identifiers, hashes, exact full-commit model revisions, stable dataset/evaluation labels with the three reserved moving labels, unknown fields, and unsupported versions.
 - [x] 2.2 Implement duplicate-key-rejecting safe YAML loading and secret-safe validation errors; test malformed, duplicate, non-finite, and secret-bearing fixtures.
 - [x] 2.3 Implement project-root discovery and contained reference resolution with kind/expected-ID checks; test valid paths, missing files, URLs, wrong extensions, mismatches, traversal, and symlink escape.
 - [x] 2.4 Implement exact-byte and canonical semantic SHA-256 identity; test formatting/key-order independence, list-order sensitivity, Unicode stability, and semantic changes.

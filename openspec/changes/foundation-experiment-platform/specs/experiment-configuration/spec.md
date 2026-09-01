@@ -22,15 +22,21 @@ The system SHALL load UTF-8 YAML documents for experiment, model, hardware, data
 
 ### Requirement: Minimal metadata identities
 
-Model metadata SHALL identify the model repository, immutable revision, artifact filename, artifact SHA-256, quantization, license identifier, and chat-template identifier. Hardware metadata SHALL identify the intended machine profile, operating system, CPU, RAM, GPU, and VRAM. Dataset metadata SHALL identify the dataset, immutable revision, split, and deterministic manifest SHA-256. Evaluation metadata SHALL identify the evaluator and immutable version and SHALL list at least one metric identifier. The experiment document SHALL identify the experiment, condition, run kind (`exploratory` or `formal`), optional integer random seed, and one reference to each metadata kind.
+Model metadata SHALL identify the model repository, a full 40-character lowercase hexadecimal Git commit revision, artifact filename, artifact SHA-256, quantization, license identifier, and chat-template identifier. Hardware metadata SHALL identify the intended machine profile, operating system, CPU, RAM, GPU, and VRAM. Dataset metadata SHALL identify the dataset, a stable revision label, split, and deterministic manifest SHA-256. Evaluation metadata SHALL identify the evaluator and a stable version label and SHALL list at least one metric identifier. Dataset revision and evaluation version labels SHALL match `[a-z0-9][a-z0-9._-]{0,127}` and SHALL NOT equal `latest`, `main`, or `master` case-insensitively. The experiment document SHALL identify the experiment, condition, run kind (`exploratory` or `formal`), optional integer random seed, and one reference to each metadata kind.
+
+Validation SHALL NOT claim to prove that an arbitrary dataset or evaluation label is immutable. The frozen dataset identity is the dataset identifier, accepted revision label, split, and `manifest_sha256` together. The frozen evaluation identity is the evaluator identifier, accepted version label, evaluation document semantic SHA-256, and prepared run Git commit together. The frozen model identity additionally includes `artifact_sha256`, so the repository commit and artifact bytes are independently traceable.
 
 #### Scenario: Complete minimum metadata
 - **WHEN** all required identity fields are present and valid
 - **THEN** the system exposes them without deriving missing scientific identity from directory or file names
 
-#### Scenario: Mutable external identity
-- **WHEN** a model revision, dataset revision, or evaluation version is empty or uses an explicitly mutable sentinel such as `latest`, `main`, or `master`
-- **THEN** the system rejects the metadata as insufficiently frozen
+#### Scenario: Model revision is not a full commit identity
+- **WHEN** a model revision is not exactly 40 lowercase hexadecimal characters
+- **THEN** the system rejects the model metadata as insufficiently pinned
+
+#### Scenario: Dataset or evaluation label is not stable
+- **WHEN** a dataset revision or evaluation version is outside the stable identifier pattern or equals `latest`, `main`, or `master` case-insensitively
+- **THEN** the system rejects the metadata as insufficiently labelled for a frozen composite identity
 
 #### Scenario: Invalid hash
 - **WHEN** a required SHA-256 value is not exactly 64 lowercase hexadecimal characters
