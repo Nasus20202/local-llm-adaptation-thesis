@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:best-practices"],
-  "enabledManagers": ["custom.regex", "pep621", "github-actions"],
   "ignorePaths": ["openspec/**"],
   "lockFileMaintenance": {
     "enabled": true
@@ -12,7 +11,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["/^pyproject\\.toml$/"],
+      "managerFilePatterns": ["//^pyproject\\.toml$//"],
       "matchStrings": [
         "required-version\\s*=\\s*\"==(?<currentValue>\\d+\\.\\d+\\.\\d+)\""
       ],
@@ -22,7 +21,11 @@
   ],
   "packageRules": [
     {
-      "matchManagers": ["custom.regex", "pep621", "github-actions"],
+      "description": "Check npm tooling weekly",
+      "matchManagers": ["npm"],
+      "schedule": ["on sunday"]
+    },
+    {
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true,
       "automergeType": "pr",

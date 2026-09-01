@@ -15,6 +15,16 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
+      - name: Set up repository Node.js
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: .node-version
+
+      - name: Set up repository Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version-file: .python-version
+
       - name: Install uv
         uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
@@ -48,8 +58,11 @@ jobs:
       - name: Validate committed example
         run: uv run thesis-bench validate-config examples/foundation/experiment.yaml
 
+      - name: Install locked Node validation tools
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
       - name: Validate Renovate configuration
-        run: npx --yes --package renovate renovate-config-validator renovate.json
+        run: ./node_modules/.bin/renovate-config-validator renovate.json
 
       - name: Validate OpenSpec change
-        run: npx --yes @fission-ai/openspec validate foundation-experiment-platform --strict --no-interactive
+        run: ./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive

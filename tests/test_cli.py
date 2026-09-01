@@ -42,6 +42,20 @@ def test_validate_config_error_is_json_on_stderr_and_side_effect_free(
     assert not (project.parent.parent / "results").exists()
 
 
+def test_validate_config_rejects_unhashable_yaml_mapping_key(project: Path, capsys) -> None:
+    project.write_text(
+        project.read_text(encoding="utf-8") + "? [a, b]\n: value\n", encoding="utf-8"
+    )
+
+    assert main(["validate-config", str(project)]) == 2
+
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    error = json.loads(captured.err)["error"]
+    assert error["code"] == "invalid_yaml"
+    assert "traceback" not in captured.err.lower()
+
+
 def test_prepare_and_show_form_one_json_stream(project: Path, tmp_path: Path, capsys) -> None:
     init_git(project.parent.parent)
     results_root = tmp_path / "runs"
@@ -70,6 +84,26 @@ def test_prepare_defaults_to_project_raw_results_root(project: Path, capsys) -> 
     payload = json.loads(capsys.readouterr().out)
     assert payload["run_path"].startswith("results/raw/")
     assert (project.parent.parent / payload["run_path"]).is_dir()
+
+
+def test_prepare_collision_returns_integrity_exit_code_and_preserves_run(
+    project: Path, tmp_path: Path, monkeypatch, capsys
+) -> None:
+    init_git(project.parent.parent)
+    results_root = tmp_path / "runs"
+    run_id = "20260901t120000000000z-abcdef123456"
+    monkeypatch.setattr("thesis_bench.lifecycle.generate_run_id", lambda **_: run_id)
+
+    assert main(["prepare-run", str(project), "--results-root", str(results_root)]) == 0
+    existing = (results_root / run_id / "manifest.json").read_bytes()
+    capsys.readouterr()
+
+    assert main(["prepare-run", str(project), "--results-root", str(results_root)]) == 4
+
+    captured = capsys.readouterr()
+    assert captured.out == ""
+    assert json.loads(captured.err)["error"]["code"] == "run_exists"
+    assert (results_root / run_id / "manifest.json").read_bytes() == existing
 
 
 def test_prepare_rejects_dirty_git_without_publishing(

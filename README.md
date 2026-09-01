@@ -8,7 +8,7 @@ The project compares adaptation strategies rather than foundation-model leaderbo
 
 The repository is at **M0 — Research & Project Foundation**. The approved [`foundation-experiment-platform`](openspec/changes/foundation-experiment-platform/) change provides the first provenance-only software slice: strict metadata validation, deterministic configuration identity, clean-Git manifests, immutable prepared-run directories, and read-only inspection. It does not execute models or create experimental results. See the concise [project status](docs/project/status.md) for the project gate and current research stage.
 
-The current repository contains the research plan, methodology, architecture, governance, and the first reviewed implementation package. It does not yet contain the experiment platform or experimental results.
+The current repository contains the research plan, methodology, architecture, governance, and the reviewed provenance-only foundation implementation. It does not contain model execution or experimental results.
 
 ## Start here
 
@@ -64,8 +64,9 @@ Engineering artifacts are written in English. The academic thesis and its captio
 OpenSpec provides the artifact-guided `spec-driven` workflow. Upgrade it deliberately: review release notes, regenerate the Codex skills, inspect their diff, and validate active changes.
 
 ```bash
-npx --yes @fission-ai/openspec status --change foundation-experiment-platform
-npx --yes @fission-ai/openspec validate foundation-experiment-platform --strict --no-interactive
+npm ci --ignore-scripts --no-audit --no-fund
+./node_modules/.bin/openspec status --change foundation-experiment-platform
+./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive
 ```
 
 ## Repository scope

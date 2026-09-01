@@ -87,6 +87,39 @@ def test_duplicate_yaml_keys_are_rejected(tmp_path: Path) -> None:
     assert "duplicate" in str(raised.value).lower()
 
 
+def test_unhashable_yaml_mapping_key_is_rejected(tmp_path: Path) -> None:
+    path = tmp_path / "unhashable-key.yaml"
+    path.write_text("? [a, b]\n: value\n", encoding="utf-8")
+
+    with pytest.raises(ConfigurationError) as raised:
+        load_yaml_document(path)
+
+    assert raised.value.code == "invalid_yaml"
+    assert "mapping key" in str(raised.value).lower()
+
+
+def test_malformed_yaml_is_rejected(tmp_path: Path) -> None:
+    path = tmp_path / "malformed.yaml"
+    path.write_text("schema_version: [1\n", encoding="utf-8")
+
+    with pytest.raises(ConfigurationError) as raised:
+        load_yaml_document(path)
+
+    assert raised.value.code == "invalid_yaml"
+    assert "malformed" in str(raised.value).lower()
+
+
+def test_non_utf8_yaml_is_rejected(tmp_path: Path) -> None:
+    path = tmp_path / "non-utf8.yaml"
+    path.write_bytes(b"schema_version: 1\nvalue: \xff\n")
+
+    with pytest.raises(ConfigurationError) as raised:
+        load_yaml_document(path)
+
+    assert raised.value.code == "invalid_yaml"
+    assert "utf-8" in str(raised.value).lower()
+
+
 def test_non_finite_numeric_values_are_rejected(project: Path, tmp_path: Path) -> None:
     target = tmp_path / "metadata/hardware.yaml"
     target.write_text(
@@ -94,6 +127,38 @@ def test_non_finite_numeric_values_are_rejected(project: Path, tmp_path: Path) -
         "operating_system: os\ncpu: cpu\nram_gb: .nan\ngpu: gpu\nvram_gb: 8\n",
         encoding="utf-8",
     )
+
+    with pytest.raises(ConfigurationError):
+        load_configuration(project)
+
+
+@pytest.mark.parametrize(
+    ("relative_path", "field"),
+    [
+        ("metadata/model.yaml", "repository"),
+        ("metadata/model.yaml", "revision"),
+        ("metadata/model.yaml", "artifact_filename"),
+        ("metadata/model.yaml", "quantization"),
+        ("metadata/model.yaml", "license_id"),
+        ("metadata/model.yaml", "chat_template_id"),
+        ("metadata/hardware.yaml", "profile"),
+        ("metadata/hardware.yaml", "operating_system"),
+        ("metadata/hardware.yaml", "cpu"),
+        ("metadata/hardware.yaml", "gpu"),
+        ("metadata/dataset.yaml", "dataset"),
+        ("metadata/dataset.yaml", "revision"),
+        ("metadata/dataset.yaml", "split"),
+        ("metadata/evaluation.yaml", "evaluator"),
+        ("metadata/evaluation.yaml", "version"),
+    ],
+)
+def test_whitespace_only_identity_fields_are_rejected(
+    project: Path, tmp_path: Path, relative_path: str, field: str
+) -> None:
+    target = tmp_path / relative_path
+    document = load_yaml_document(target)
+    document[field] = "   "
+    target.write_text(json.dumps(document), encoding="utf-8")
 
     with pytest.raises(ConfigurationError):
         load_configuration(project)
@@ -201,3 +266,65 @@ def test_reference_urls_and_non_yaml_paths_are_rejected(project: Path) -> None:
         )
         with pytest.raises(ConfigurationError):
             load_configuration(project)
+
+
+def test_missing_reference_is_rejected(project: Path) -> None:
+    original = project.read_text(encoding="utf-8")
+    project.write_text(
+        original.replace("../metadata/model.yaml", "../metadata/missing.yaml"),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ConfigurationError) as raised:
+        load_configuration(project)
+
+    assert raised.value.code == "unsafe_reference"
+
+
+def test_each_yaml_source_is_read_once(project: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    original_read_bytes = Path.read_bytes
+    read_counts: dict[Path, int] = {}
+
+    def counted_read_bytes(path: Path) -> bytes:
+        resolved = path.resolve()
+        read_counts[resolved] = read_counts.get(resolved, 0) + 1
+        return original_read_bytes(path)
+
+    monkeypatch.setattr(Path, "read_bytes", counted_read_bytes)
+
+    load_configuration(project)
+
+    expected_paths = {
+        project.resolve(),
+        *(path.resolve() for path in (project.parent.parent / "metadata").glob("*.yaml")),
+    }
+    assert {path: read_counts[path] for path in expected_paths} == {
+        path: 1 for path in expected_paths
+    }
+
+
+def test_experiment_source_hash_matches_the_bytes_that_were_validated(
+    project: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    original_read_bytes = Path.read_bytes
+    experiment_path = project.resolve()
+    original_source = original_read_bytes(experiment_path)
+    altered_source = original_source + b"# changed after validation\n"
+    calls = 0
+
+    def changing_read_bytes(path: Path) -> bytes:
+        nonlocal calls
+        if path.resolve() == experiment_path:
+            calls += 1
+            return original_source if calls == 1 else altered_source
+        return original_read_bytes(path)
+
+    monkeypatch.setattr(Path, "read_bytes", changing_read_bytes)
+
+    configuration = load_configuration(project)
+
+    assert calls == 1
+    assert (
+        configuration.metadata["experiment"].source_sha256
+        == hashlib.sha256(original_source).hexdigest()
+    )

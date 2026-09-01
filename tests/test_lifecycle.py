@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 from test_provenance import init_git
 
+from thesis_bench import lifecycle
 from thesis_bench.config import load_configuration
 from thesis_bench.errors import CollisionError, IntegrityError, PreparationError, ThesisBenchError
 from thesis_bench.lifecycle import (
@@ -81,6 +82,55 @@ def test_prepare_collision_preserves_existing_bytes(project: Path, tmp_path: Pat
 
     assert raised.value.exit_code == 4
     assert (first.path / "manifest.json").read_bytes() == existing
+
+
+def test_repeated_preparation_creates_two_distinct_runs(project: Path, tmp_path: Path) -> None:
+    configuration = prepared_configuration(project)
+    results_root = tmp_path / "runs"
+    timestamps = datetime(2026, 9, 1, 12, tzinfo=UTC)
+    uuids = iter((uuid.UUID(int=5), uuid.UUID(int=6)))
+
+    first = prepare_run(
+        configuration,
+        results_root=results_root,
+        now_source=lambda: timestamps,
+        uuid_source=lambda: next(uuids),
+    )
+    second = prepare_run(
+        configuration,
+        results_root=results_root,
+        now_source=lambda: timestamps,
+        uuid_source=lambda: next(uuids),
+    )
+
+    assert first.run_id != second.run_id
+    assert first.path.is_dir()
+    assert second.path.is_dir()
+    assert sorted(path.name for path in results_root.iterdir()) == sorted(
+        (first.run_id, second.run_id)
+    )
+
+
+def test_race_collision_preserves_existing_directory(
+    project: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    configuration = prepared_configuration(project)
+    results_root = tmp_path / "runs"
+    real_noreplace = lifecycle._rename_noreplace
+
+    def create_collision(source: Path, destination: Path) -> None:
+        destination.mkdir()
+        (destination / "intruder").write_bytes(b"preserve me")
+        real_noreplace(source, destination)
+
+    monkeypatch.setattr(lifecycle, "_rename_noreplace", create_collision)
+
+    with pytest.raises(CollisionError):
+        prepare_run(configuration, results_root=results_root)
+
+    run_directories = [path for path in results_root.iterdir() if path.is_dir()]
+    assert len(run_directories) == 1
+    assert (run_directories[0] / "intruder").read_bytes() == b"preserve me"
 
 
 def test_write_failure_leaves_no_published_run(project: Path, tmp_path: Path, monkeypatch) -> None:

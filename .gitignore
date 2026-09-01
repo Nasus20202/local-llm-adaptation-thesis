@@ -17,6 +17,7 @@ build/
 *.swp
 .DS_Store
 .codegraph/
+node_modules/
 
 # Secrets and local configuration
 .env

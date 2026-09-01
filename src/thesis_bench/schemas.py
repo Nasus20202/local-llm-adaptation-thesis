@@ -2,7 +2,14 @@ from __future__ import annotations
 
 from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, StringConstraints, field_validator
+from pydantic import (
+    AfterValidator,
+    BaseModel,
+    ConfigDict,
+    Field,
+    StringConstraints,
+    field_validator,
+)
 from pydantic.types import StrictInt, StrictStr
 
 Identifier = Annotated[
@@ -10,6 +17,19 @@ Identifier = Annotated[
     StringConstraints(strict=True, pattern=r"^[a-z0-9][a-z0-9._-]{0,127}$"),
 ]
 Sha256 = Annotated[str, StringConstraints(strict=True, pattern=r"^[0-9a-f]{64}$")]
+
+
+def _require_non_blank(value: str) -> str:
+    if not value.strip():
+        raise ValueError("value must not be blank")
+    return value
+
+
+NonBlankStr = Annotated[
+    str,
+    StringConstraints(strict=True, min_length=1),
+    AfterValidator(_require_non_blank),
+]
 
 
 class StrictDocument(BaseModel):
@@ -23,19 +43,19 @@ class StrictDocument(BaseModel):
 class Reference(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
 
-    path: StrictStr = Field(min_length=1)
+    path: NonBlankStr
     expected_id: Identifier
 
 
 class ModelMetadata(StrictDocument):
     kind: Literal["model"]
-    repository: StrictStr = Field(min_length=1)
-    revision: StrictStr = Field(min_length=1)
-    artifact_filename: StrictStr = Field(min_length=1)
+    repository: NonBlankStr
+    revision: NonBlankStr
+    artifact_filename: NonBlankStr
     artifact_sha256: Sha256
-    quantization: StrictStr = Field(min_length=1)
-    license_id: StrictStr = Field(min_length=1)
-    chat_template_id: StrictStr = Field(min_length=1)
+    quantization: NonBlankStr
+    license_id: NonBlankStr
+    chat_template_id: NonBlankStr
 
     @field_validator("revision")
     @classmethod
@@ -47,19 +67,19 @@ class ModelMetadata(StrictDocument):
 
 class HardwareMetadata(StrictDocument):
     kind: Literal["hardware"]
-    profile: StrictStr = Field(min_length=1)
-    operating_system: StrictStr = Field(min_length=1)
-    cpu: StrictStr = Field(min_length=1)
+    profile: NonBlankStr
+    operating_system: NonBlankStr
+    cpu: NonBlankStr
     ram_gb: StrictInt = Field(gt=0)
-    gpu: StrictStr = Field(min_length=1)
+    gpu: NonBlankStr
     vram_gb: StrictInt = Field(gt=0)
 
 
 class DatasetMetadata(StrictDocument):
     kind: Literal["dataset"]
-    dataset: StrictStr = Field(min_length=1)
-    revision: StrictStr = Field(min_length=1)
-    split: StrictStr = Field(min_length=1)
+    dataset: NonBlankStr
+    revision: NonBlankStr
+    split: NonBlankStr
     manifest_sha256: Sha256
 
     @field_validator("revision")
@@ -72,8 +92,8 @@ class DatasetMetadata(StrictDocument):
 
 class EvaluationMetadata(StrictDocument):
     kind: Literal["evaluation"]
-    evaluator: StrictStr = Field(min_length=1)
-    version: StrictStr = Field(min_length=1)
+    evaluator: NonBlankStr
+    version: NonBlankStr
     metrics: list[Identifier] = Field(min_length=1)
 
     @field_validator("version")

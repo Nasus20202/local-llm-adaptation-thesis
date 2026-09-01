@@ -106,8 +106,9 @@ uv run coverage run -m pytest -q
 uv run coverage report
 uv build
 uv run thesis-bench validate-config examples/foundation/experiment.yaml
-npx --yes --package renovate renovate-config-validator renovate.json
-npx --yes @fission-ai/openspec validate foundation-experiment-platform --strict --no-interactive
+npm ci --ignore-scripts --no-audit --no-fund
+./node_modules/.bin/renovate-config-validator renovate.json
+./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive
 ```
 
 The foundation CLI intentionally has no inference, model-management, lifecycle-event, RAG, fine-tuning, harness, skill, or reporting commands.

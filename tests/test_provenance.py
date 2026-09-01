@@ -60,6 +60,19 @@ def test_git_provenance_detects_dirty_and_detached_states(project: Path) -> None
     assert detached.commit == dirty.commit
 
 
+def test_git_provenance_detects_tracked_unstaged_change(project: Path) -> None:
+    root = project.parent.parent
+    init_git(root)
+    tracked = root / "openspec/config.yaml"
+    original = tracked.read_bytes()
+    tracked.write_bytes(original + b"changed: true\n")
+
+    try:
+        assert capture_git(root).clean is False
+    finally:
+        tracked.write_bytes(original)
+
+
 def test_git_provenance_rejects_missing_repository_or_commit(tmp_path: Path) -> None:
     with pytest.raises(PreparationError) as no_repository:
         capture_git(tmp_path)

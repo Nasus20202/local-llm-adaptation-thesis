@@ -1,0 +1,9 @@
+{
+  "name": "thesis-bench-verification-tools",
+  "private": true,
+  "description": "Pinned Node.js tools used by routine repository verification.",
+  "devDependencies": {
+    "@fission-ai/openspec": "^1.11.0",
+    "renovate": "^44.56.1"
+  }
+}

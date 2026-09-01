@@ -34,6 +34,10 @@ class _DuplicateKeyError(yaml.YAMLError):  # type: ignore[misc]
     pass
 
 
+class _InvalidMappingKeyError(yaml.YAMLError):  # type: ignore[misc]
+    pass
+
+
 class _UniqueKeyLoader(yaml.SafeLoader):  # type: ignore[misc]
     pass
 
@@ -44,7 +48,11 @@ def _construct_unique_mapping(
     mapping: dict[object, object] = {}
     for key_node, value_node in node.value:
         key = loader.construct_object(key_node, deep=deep)
-        if key in mapping:
+        try:
+            is_duplicate = key in mapping
+        except TypeError as exc:
+            raise _InvalidMappingKeyError("YAML mapping keys must be hashable") from exc
+        if is_duplicate:
             raise _DuplicateKeyError("duplicate YAML mapping key")
         mapping[key] = loader.construct_object(value_node, deep=deep)
     return mapping
@@ -56,7 +64,7 @@ _UniqueKeyLoader.add_constructor(
 )
 
 
-def load_yaml_document(path: Path) -> dict[str, object]:
+def _load_yaml_source(path: Path) -> tuple[bytes, dict[str, object]]:
     try:
         source = path.read_bytes()
     except (FileNotFoundError, IsADirectoryError, PermissionError) as exc:
@@ -75,6 +83,10 @@ def load_yaml_document(path: Path) -> dict[str, object]:
         raise ConfigurationError(
             "invalid_yaml", "duplicate YAML mapping key", location=str(path)
         ) from exc
+    except _InvalidMappingKeyError as exc:
+        raise ConfigurationError(
+            "invalid_yaml", "YAML mapping key must be hashable", location=str(path)
+        ) from exc
     except yaml.YAMLError as exc:
         raise ConfigurationError(
             "invalid_yaml", "malformed YAML document", location=str(path)
@@ -83,7 +95,11 @@ def load_yaml_document(path: Path) -> dict[str, object]:
         raise ConfigurationError(
             "invalid_yaml", "metadata document must be a mapping", location=str(path)
         )
-    return document
+    return source, document
+
+
+def load_yaml_document(path: Path) -> dict[str, object]:
+    return _load_yaml_source(path)[1]
 
 
 def canonical_json_bytes(value: object) -> bytes:
@@ -185,9 +201,7 @@ def _relative_to_root(path: Path, root: Path) -> str:
         ) from exc
 
 
-def _resolve_reference(
-    reference_path: str, *, experiment_path: Path, project_root: Path, expected_kind: str
-) -> Path:
+def _resolve_reference(reference_path: str, *, experiment_path: Path, project_root: Path) -> Path:
     if (
         not reference_path
         or Path(reference_path).is_absolute()
@@ -227,14 +241,14 @@ def load_configuration(experiment_path: Path) -> ValidatedConfiguration:
         raise ConfigurationError("invalid_configuration", "experiment path is not a file")
     project_root = discover_project_root(resolved_experiment)
     experiment_relative_path = _relative_to_root(resolved_experiment, project_root)
-    raw_experiment = load_yaml_document(resolved_experiment)
+    experiment_source, raw_experiment = _load_yaml_source(resolved_experiment)
     experiment = validate_document(raw_experiment, resolved_experiment, expected_kind="experiment")
     assert isinstance(experiment, ExperimentMetadata)
     identities: dict[str, SourceIdentity] = {
         "experiment": SourceIdentity(
             path=experiment_relative_path,
             document=experiment,
-            source_sha256=source_sha256(resolved_experiment.read_bytes()),
+            source_sha256=source_sha256(experiment_source),
             semantic_sha256=semantic_sha256(experiment),
         )
     }
@@ -244,9 +258,8 @@ def load_configuration(experiment_path: Path) -> ValidatedConfiguration:
             reference.path,
             experiment_path=resolved_experiment,
             project_root=project_root,
-            expected_kind=kind,
         )
-        raw_document = load_yaml_document(resolved_reference)
+        source, raw_document = _load_yaml_source(resolved_reference)
         document = validate_document(raw_document, resolved_reference, expected_kind=kind)
         if document.id != reference.expected_id:
             raise ConfigurationError(
@@ -258,7 +271,7 @@ def load_configuration(experiment_path: Path) -> ValidatedConfiguration:
         identities[kind] = SourceIdentity(
             path=_relative_to_root(resolved_reference, project_root),
             document=document,
-            source_sha256=source_sha256(resolved_reference.read_bytes()),
+            source_sha256=source_sha256(source),
             semantic_sha256=semantic_sha256(document),
         )
     return ValidatedConfiguration(

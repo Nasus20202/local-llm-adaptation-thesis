@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import ctypes
+import errno
 import os
 import shutil
 import tempfile
@@ -59,12 +61,41 @@ def write_manifest(run_directory: Path, manifest: Manifest) -> None:
         raise PreparationError("manifest_write_failed", "manifest could not be written") from exc
 
 
-def _publish(
-    manifest: Manifest,
-    results_root: Path,
-    *,
-    writer: Callable[[Path, Manifest], None] | None = None,
-) -> Path:
+def _rename_noreplace(source: Path, destination: Path) -> None:
+    try:
+        libc = ctypes.CDLL(None, use_errno=True)
+        renameat2 = libc.renameat2
+    except AttributeError as exc:
+        raise PreparationError(
+            "atomic_publish_unavailable", "atomic no-replace publication is unavailable"
+        ) from exc
+
+    renameat2.argtypes = [
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_int,
+        ctypes.c_char_p,
+        ctypes.c_uint,
+    ]
+    renameat2.restype = ctypes.c_int
+    result = renameat2(
+        -100,
+        os.fsencode(source),
+        -100,
+        os.fsencode(destination),
+        1,
+    )
+    if result == 0:
+        return
+    error_number = ctypes.get_errno()
+    if error_number == errno.EEXIST:
+        raise CollisionError(
+            "run_exists", "run directory already exists", location=destination.name
+        )
+    raise OSError(error_number, os.strerror(error_number), destination)
+
+
+def _publish(manifest: Manifest, results_root: Path) -> Path:
     try:
         results_root.mkdir(parents=True, exist_ok=True)
     except OSError as exc:
@@ -83,7 +114,7 @@ def _publish(
             "staging_failed", "run staging directory could not be created"
         ) from exc
     try:
-        (writer or write_manifest)(staging_directory, manifest)
+        write_manifest(staging_directory, manifest)
         if load_manifest((staging_directory / "manifest.json").read_bytes()) != manifest:
             raise PreparationError(
                 "manifest_validation_failed", "written manifest failed validation"
@@ -92,7 +123,7 @@ def _publish(
             raise CollisionError(
                 "run_exists", "run directory already exists", location=manifest.run_id
             )
-        os.rename(staging_directory, final_directory)
+        _rename_noreplace(staging_directory, final_directory)
     except ThesisBenchError:
         shutil.rmtree(staging_directory, ignore_errors=True)
         raise
