@@ -1,13 +1,13 @@
 # Project Status
 
-- **Current milestone:** M0 — Research & Project Foundation
-- **Current research objective:** Establish trustworthy experiment configuration and provenance before any model comparison is run.
-- **Active OpenSpec change:** [`foundation-experiment-platform`](../../openspec/changes/foundation-experiment-platform/)
-- **Specification status:** Original package and focused revision-identity amendment approved at Human Gate A.
-- **Implementation status:** Reopened task 2.1 implemented on PR [#18](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/18); second-round review fixes applied.
-- **Independent review status:** Focused re-review is pending after the task 2.1 implementation.
+- **Current milestone:** M1 — Benchmark Dataset and Evaluation Foundation
+- **Current research objective:** Decide the benchmark domain, language balance, task boundaries, source rights, split ownership, and contamination controls before constructing any final items.
+- **Active OpenSpec change:** None. The completed foundation package is [archived](../../openspec/changes/archive/2026-09-01-foundation-experiment-platform/); its normative behavior is synchronized under `openspec/specs/`.
+- **Specification status:** The Issue #1 package was approved, implemented, independently re-reviewed, merged in PR [#18](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/18), and archived.
+- **Implementation status:** The provenance-only foundation is on `main`; no model execution or experimental results exist.
+- **Independent review status:** Final review passed before merge.
 - **Experiment status:** Not started; no experimental results exist.
-- **Current blocker:** PR #18 needs focused independent re-review of the task 2.1 implementation; human merge remains pending.
-- **Next action:** Request focused Chat re-review of PR #18, then have the human researcher merge only if review passes. Do not merge from Codex.
+- **Current blocker:** Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) requires a reviewed benchmark decision package and Human Gate A before item construction.
+- **Next action:** Work from the Issue #2 draft to compare alternatives and prepare the benchmark decision package; do not construct final benchmark items or run models.
 
 This file records the current research/development stage. Toolchain versions belong in project configuration and reproducibility records, not here.
