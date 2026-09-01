@@ -64,5 +64,5 @@ jobs:
       - name: Validate Renovate configuration
         run: ./node_modules/.bin/renovate-config-validator renovate.json
 
-      - name: Validate OpenSpec change
-        run: ./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive
+      - name: Validate OpenSpec artifacts
+        run: ./node_modules/.bin/openspec validate --all --strict --no-interactive

@@ -39,7 +39,7 @@ uv build
 uv run thesis-bench validate-config examples/foundation/experiment.yaml
 npm ci --ignore-scripts --no-audit --no-fund
 ./node_modules/.bin/renovate-config-validator renovate.json
-./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive
+./node_modules/.bin/openspec validate --all --strict --no-interactive
 ```
 
 These checks use metadata fixtures and temporary Git/result roots only. They do not download model weights, load a model, contact an inference backend, or persist observations.

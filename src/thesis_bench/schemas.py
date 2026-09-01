@@ -17,6 +17,9 @@ Identifier = Annotated[
     StringConstraints(strict=True, pattern=r"^[a-z0-9][a-z0-9._-]{0,127}$"),
 ]
 Sha256 = Annotated[str, StringConstraints(strict=True, pattern=r"^[0-9a-f]{64}$")]
+ModelCommitId = Annotated[str, StringConstraints(strict=True, pattern=r"^[0-9a-f]{40}$")]
+
+_MOVING_LABELS = frozenset({"latest", "main", "master"})
 
 
 def _require_non_blank(value: str) -> str:
@@ -25,10 +28,21 @@ def _require_non_blank(value: str) -> str:
     return value
 
 
+def _require_stable_label(value: str) -> str:
+    if value.lower() in _MOVING_LABELS:
+        raise ValueError("label must not be a moving label")
+    return value
+
+
 NonBlankStr = Annotated[
     str,
     StringConstraints(strict=True, min_length=1),
     AfterValidator(_require_non_blank),
+]
+StableLabel = Annotated[
+    str,
+    StringConstraints(strict=True, pattern=r"^[a-z0-9][a-z0-9._-]{0,127}$"),
+    AfterValidator(_require_stable_label),
 ]
 
 
@@ -50,19 +64,12 @@ class Reference(BaseModel):
 class ModelMetadata(StrictDocument):
     kind: Literal["model"]
     repository: NonBlankStr
-    revision: NonBlankStr
+    revision: ModelCommitId
     artifact_filename: NonBlankStr
     artifact_sha256: Sha256
     quantization: NonBlankStr
     license_id: NonBlankStr
     chat_template_id: NonBlankStr
-
-    @field_validator("revision")
-    @classmethod
-    def require_immutable_revision(cls, value: str) -> str:
-        if not value.strip() or value.strip().lower() in {"latest", "main", "master"}:
-            raise ValueError("revision must be immutable")
-        return value
 
 
 class HardwareMetadata(StrictDocument):
@@ -78,30 +85,16 @@ class HardwareMetadata(StrictDocument):
 class DatasetMetadata(StrictDocument):
     kind: Literal["dataset"]
     dataset: NonBlankStr
-    revision: NonBlankStr
+    revision: StableLabel
     split: NonBlankStr
     manifest_sha256: Sha256
-
-    @field_validator("revision")
-    @classmethod
-    def require_immutable_revision(cls, value: str) -> str:
-        if not value.strip() or value.strip().lower() in {"latest", "main", "master"}:
-            raise ValueError("revision must be immutable")
-        return value
 
 
 class EvaluationMetadata(StrictDocument):
     kind: Literal["evaluation"]
     evaluator: NonBlankStr
-    version: NonBlankStr
+    version: StableLabel
     metrics: list[Identifier] = Field(min_length=1)
-
-    @field_validator("version")
-    @classmethod
-    def require_immutable_version(cls, value: str) -> str:
-        if not value.strip() or value.strip().lower() in {"latest", "main", "master"}:
-            raise ValueError("version must be immutable")
-        return value
 
     @field_validator("metrics", mode="before")
     @classmethod

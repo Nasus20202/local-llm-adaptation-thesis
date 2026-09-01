@@ -95,7 +95,7 @@ Resolve conflicts using `docs/project/source-of-truth.md`; do not silently choos
 
 ## Current commands
 
-Foundation implementation and planning validation:
+Project implementation and planning validation:
 
 ```bash
 uv lock --check
@@ -108,7 +108,7 @@ uv build
 uv run thesis-bench validate-config examples/foundation/experiment.yaml
 npm ci --ignore-scripts --no-audit --no-fund
 ./node_modules/.bin/renovate-config-validator renovate.json
-./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive
+./node_modules/.bin/openspec validate --all --strict --no-interactive
 ```
 
 The foundation CLI intentionally has no inference, model-management, lifecycle-event, RAG, fine-tuning, harness, skill, or reporting commands.

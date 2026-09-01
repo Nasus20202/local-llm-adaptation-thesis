@@ -66,7 +66,7 @@ OpenSpec provides the artifact-guided `spec-driven` workflow. Upgrade it deliber
 ```bash
 npm ci --ignore-scripts --no-audit --no-fund
 ./node_modules/.bin/openspec status --change foundation-experiment-platform
-./node_modules/.bin/openspec validate foundation-experiment-platform --strict --no-interactive
+./node_modules/.bin/openspec validate --all --strict --no-interactive
 ```
 
 ## Repository scope

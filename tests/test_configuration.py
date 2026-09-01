@@ -57,6 +57,74 @@ def test_invalid_model_metadata_is_rejected(
         load_configuration(project)
 
 
+@pytest.mark.parametrize(
+    "revision",
+    [
+        "0123456789abcdef0123456789abcdef0123456",
+        "0123456789ABCDEF0123456789abcdef01234567",
+        "HEAD",
+        "refs/heads/main",
+    ],
+)
+def test_model_revision_requires_full_lowercase_commit_id(
+    project: Path, tmp_path: Path, revision: str
+) -> None:
+    target = tmp_path / "metadata/model.yaml"
+    document = load_yaml_document(target)
+    document["revision"] = revision
+    target.write_text(json.dumps(document), encoding="utf-8")
+
+    with pytest.raises(ConfigurationError):
+        load_configuration(project)
+
+
+@pytest.mark.parametrize(
+    ("relative_path", "field", "value"),
+    [
+        ("metadata/dataset.yaml", "revision", "refs/heads/main"),
+        ("metadata/dataset.yaml", "revision", "Release-2026"),
+        ("metadata/dataset.yaml", "revision", "latest"),
+        ("metadata/dataset.yaml", "revision", "main"),
+        ("metadata/dataset.yaml", "revision", "master"),
+        ("metadata/evaluation.yaml", "version", "refs/heads/main"),
+        ("metadata/evaluation.yaml", "version", "Release-2026"),
+        ("metadata/evaluation.yaml", "version", "latest"),
+        ("metadata/evaluation.yaml", "version", "main"),
+        ("metadata/evaluation.yaml", "version", "master"),
+    ],
+)
+def test_dataset_and_evaluation_versions_require_stable_labels(
+    project: Path,
+    tmp_path: Path,
+    relative_path: str,
+    field: str,
+    value: str,
+) -> None:
+    target = tmp_path / relative_path
+    document = load_yaml_document(target)
+    document[field] = value
+    target.write_text(json.dumps(document), encoding="utf-8")
+
+    with pytest.raises(ConfigurationError):
+        load_configuration(project)
+
+
+def test_dataset_and_evaluation_stable_labels_are_accepted(project: Path, tmp_path: Path) -> None:
+    for relative_path, field, value in (
+        ("metadata/dataset.yaml", "revision", "release-2026.01"),
+        ("metadata/evaluation.yaml", "version", "v1.2.3"),
+    ):
+        target = tmp_path / relative_path
+        document = load_yaml_document(target)
+        document[field] = value
+        target.write_text(json.dumps(document), encoding="utf-8")
+
+    configuration = load_configuration(project)
+
+    assert configuration.metadata["dataset"].document.revision == "release-2026.01"
+    assert configuration.metadata["evaluation"].document.version == "v1.2.3"
+
+
 def test_unknown_metadata_field_and_missing_required_field_are_rejected(
     project: Path, tmp_path: Path
 ) -> None:

@@ -1,7 +1,7 @@
 # Cross-Artifact Review
 
-**Review date:** 2026-09-01
-**Review status:** Revision-identity amendment ready for Human Gate A; implementation update not authorized.
+**Review date:** 2026-09-02
+**Review status:** Revision-identity amendment approved at focused Human Gate A; task 2.1 implementation completed on PR #18.
 
 ## Scientific purpose
 
@@ -50,4 +50,4 @@ Every requirement has at least one WHEN/THEN scenario, and every scenario maps t
 
 ## Decision
 
-The amended package is internally consistent and ready for focused Human Gate A approval. PR #18 remains open and the change remains unarchived. After human approval, Codex may update only task 2.1 and its evidence; Chat then performs a focused independent re-review before human merge.
+The amended package was internally consistent for focused Human Gate A approval. PR #18 remains open and the change remains unarchived. Codex updated only task 2.1 and its evidence; Chat should now perform a focused independent re-review before human merge.
