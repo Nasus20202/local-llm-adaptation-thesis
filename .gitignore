@@ -1,0 +1,73 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+dist/
+build/
+*.egg-info/
+
+# Editors and OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Model artifacts and caches
+*.gguf
+*.safetensors
+*.bin
+*.pt
+*.pth
+*.ckpt
+models/
+.cache/
+huggingface/
+
+# Data and experiment payloads; keep documentation/manifests
+data/raw/**
+data/processed/**
+data/corpus/**
+data/benchmark/**
+data/golden/**
+!data/**/.gitkeep
+!data/README.md
+results/raw/**
+results/processed/**
+results/tables/**
+results/figures/**
+results/statistics/**
+!results/**/.gitkeep
+!results/README.md
+
+# Notebooks
+.ipynb_checkpoints/
+
+# LaTeX build products
+thesis/*.aux
+thesis/*.bbl
+thesis/*.bcf
+thesis/*.blg
+thesis/*.fdb_latexmk
+thesis/*.fls
+thesis/*.log
+thesis/*.out
+thesis/*.run.xml
+thesis/*.synctex.gz
+thesis/*.toc
+thesis/*.pdf
+
+# Local research downloads
+.research-cache/
+.firecrawl/

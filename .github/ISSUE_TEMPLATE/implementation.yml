@@ -1,0 +1,56 @@
+name: Substantial implementation
+description: Work governed by an approved OpenSpec change
+title: ""
+labels:
+  - implementation
+body:
+  - type: markdown
+    attributes:
+      value: Use English. Link the normative OpenSpec package; do not duplicate it.
+  - type: textarea
+    id: context
+    attributes:
+      label: Context and scientific motivation
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and goal
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: In scope / out of scope
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and relevant documentation
+  - type: input
+    id: openspec
+    attributes:
+      label: OpenSpec change path
+      placeholder: openspec/changes/change-name/
+    validations:
+      required: true
+  - type: textarea
+    id: criteria
+    attributes:
+      label: Acceptance criteria and test plan
+    validations:
+      required: true
+  - type: textarea
+    id: scientific
+    attributes:
+      label: Scientific validation and expected artifacts
+    validations:
+      required: true
+  - type: textarea
+    id: done
+    attributes:
+      label: Definition of done
+    validations:
+      required: true

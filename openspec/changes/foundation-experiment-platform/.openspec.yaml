@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-09-01
+goal: Provide validated configuration and immutable run provenance primitives
+  without implementing model inference or adaptation methods.

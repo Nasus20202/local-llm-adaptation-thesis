@@ -1,0 +1,31 @@
+name: Research decision
+description: Literature, feasibility, methodology, or validation work
+title: "research: "
+labels:
+  - research
+body:
+  - type: textarea
+    id: question
+    attributes:
+      label: Decision question
+      description: State the uncertainty that must be resolved.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Required evidence and authoritative sources
+    validations:
+      required: true
+  - type: textarea
+    id: consequence
+    attributes:
+      label: Methodological or architectural consequence
+    validations:
+      required: true
+  - type: textarea
+    id: outputs
+    attributes:
+      label: Expected artifacts and completion criteria
+    validations:
+      required: true
