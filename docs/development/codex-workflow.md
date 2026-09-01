@@ -21,7 +21,7 @@
 
 ## Verification and handoff
 
-Run the complete relevant test suite, static checks, configuration validation, OpenSpec validation, and inspect the final diff. Map evidence to acceptance criteria. Report commands, results, remaining risks, and any intentionally deferred work. Open a pull request, but do not archive OpenSpec or merge.
+Run the complete relevant test suite, static checks, configuration validation, all-spec OpenSpec validation (`openspec validate --all --strict --no-interactive`), and inspect the final diff. Map evidence to acceptance criteria. Report commands, results, remaining risks, and any intentionally deferred work. Open a pull request, but do not archive OpenSpec or merge.
 
 The next default step is an independent Chat review. Implementation findings return to Codex; methodology, specification, or consequential architecture findings return to Work. After material fixes, request a focused re-review. The human researcher performs the merge after review passes.
 
