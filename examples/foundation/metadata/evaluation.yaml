@@ -1,0 +1,7 @@
+schema_version: 1
+kind: evaluation
+id: example-evaluation
+evaluator: deterministic-evaluator
+version: example-evaluation-2026-01
+metrics:
+  - exact_match

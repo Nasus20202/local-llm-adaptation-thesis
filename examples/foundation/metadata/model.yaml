@@ -1,0 +1,11 @@
+# Identity-only metadata. The referenced artifact is not part of this repository.
+schema_version: 1
+kind: model
+id: example-model
+repository: example/model
+revision: 0123456789abcdef0123456789abcdef01234567
+artifact_filename: example-model.gguf
+artifact_sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+quantization: Q4_K_M
+license_id: example-license
+chat_template_id: example-chat-template

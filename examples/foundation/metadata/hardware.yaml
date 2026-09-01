@@ -1,0 +1,9 @@
+schema_version: 1
+kind: hardware
+id: local-rx-5700
+profile: thesis-target-machine
+operating_system: Fedora Linux
+cpu: AMD Ryzen 5 3600
+ram_gb: 32
+gpu: AMD Radeon RX 5700
+vram_gb: 8
