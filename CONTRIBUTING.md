@@ -10,8 +10,10 @@ This is a research repository with a human approval gate for consequential chang
 4. Create a focused branch with an English kebab-case name.
 5. Implement the approved package incrementally with tests; avoid unrelated refactoring.
 6. Run the relevant verification suite and OpenSpec validation.
-7. Open a pull request using the repository template and stop for Human Gate B before merging a major change.
-8. After merge, archive/synchronize OpenSpec and update the Issue, roadmap, and evidence logs.
+7. Open a pull request using the repository template. Ask Chat for an independent review against the Issue, OpenSpec, research constraints, and acceptance criteria.
+8. Send implementation defects back to Codex. Return specification, architecture, or methodology defects to Work, then re-review material fixes.
+9. The human researcher merges only after review passes.
+10. After merge, Work archives/synchronizes OpenSpec and updates the Issue, status, roadmap, and evidence logs.
 
 ## Commit and pull-request language
 

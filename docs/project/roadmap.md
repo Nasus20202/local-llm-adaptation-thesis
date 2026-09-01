@@ -26,10 +26,11 @@ GitHub milestone and label conventions are defined in [github-management.md](git
 
 1. Approve or revise the [`foundation-experiment-platform` package and Issue #1](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/1).
 2. Implement the approved package in Codex.
-3. Review technical and scientific verification evidence.
-4. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
-5. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
-6. Decide the public licensing plan before making the private repository public.
+3. Ask Chat for an independent pull-request review; route implementation fixes to Codex and planning defects to Work.
+4. Re-review material fixes, then have the human researcher merge and Work synchronize project state.
+5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
+6. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
+7. Decide the public licensing plan before making the private repository public.
 
 ## Next milestone: M1
 

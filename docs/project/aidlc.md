@@ -1,46 +1,86 @@
-# AI-Driven Development Lifecycle
+# AI-Driven Research and Development Lifecycle
 
-## Roles
+## Purpose
 
-- **Human researcher:** final decision-maker; approves major methodology, architecture, experiment, merge, and publication decisions.
-- **ChatGPT Work:** research lead, methodology reviewer, architect, product owner, documentation owner, OpenSpec author, GitHub coordinator, scientific reviewer, and thesis integrator.
-- **Codex:** implementation, tests, command execution, debugging, experiment execution, raw-result capture, and technical verification.
+This lifecycle supports an MSc scientific study. Research questions, validity, reproducibility, and evidence quality govern the backlog; software is the smallest infrastructure needed to run and audit the experiments. Repository artifacts, not conversation history, are the durable handoff.
 
-Git and repository artifacts are the communication boundary. Conversation history is never the durable specification.
+## Stable model roles
 
-## OpenSpec skill routing
+| Role | Primary environment | Responsibility |
+|---|---|---|
+| Human researcher | — | Final decisions, specification approval, merge, experiment freeze, and academic responsibility |
+| Frontier Planning Model | ChatGPT Work | Literature, methodology, research design, consequential architecture, ADRs, OpenSpec, analysis, and Polish thesis integration |
+| Budget Implementation Model | Codex | Approved code, tests, CI, implementation debugging, experiment execution, raw-output capture, and technical verification |
+| Frontier Reviewer | ChatGPT Chat | Independent review of correctness, scientific fidelity, reproducibility, scope, tests, fairness, and unnecessary complexity |
+| Escalation Implementation Model | Codex | Exceptional implementation-only escalation after the specification is clear and the budget model has failed |
 
-- `$openspec-explore`: investigate and clarify without implementing.
-- `$openspec-propose`: create a new proposal/specs/design/tasks package.
-- `$openspec-update-change`: revise an existing package and reconcile its artifacts.
-- `$openspec-apply-change`: implement only after Human Gate A approval.
-- `$openspec-sync-specs`: synchronize reviewed delta specifications when the workflow requires it.
-- `$openspec-archive-change`: archive only after merge and Human Gate B.
+Concrete model names are runtime recommendations, never stable policy.
 
-These skills are generated under `.agents/skills/`. Do not edit them manually. Upgrade OpenSpec deliberately, regenerate the skills, inspect their diff, and validate the active packages before accepting the upgrade.
+## Core lifecycle
 
-## Lifecycle
+1. **Work designs:** inspect current state and evidence; define the research purpose, methodology, risks, architecture, Issue, and OpenSpec package.
+2. **Human Gate A:** the researcher reviews and explicitly approves the complete implementation package.
+3. **Codex implements:** the Budget Implementation Model builds only the approved minimum, writes tests, verifies it, and opens a pull request without merging.
+4. **Chat reviews:** the Frontier Reviewer independently compares the pull request with research documents, the Issue, OpenSpec, ADRs, and architecture.
+5. **Codex fixes:** implementation defects return to Codex. Specification, architecture, or methodology defects return to Work for an upstream correction. Material fixes are re-reviewed.
+6. **Human merges:** the researcher merges only after the review outcome permits it.
+7. **Work synchronizes:** inspect the merged state, archive/synchronize OpenSpec with the current workflow, update the Issue, milestone, status, and evidence logs, then prepare the next research step.
 
-1. **Governance:** maintain charter, language, AI policy, conventions, and source-of-truth rules.
-2. **Discovery:** inspect repository state and authoritative sources; identify alternatives, uncertainty, and scientific consequences.
-3. **Research design:** define purpose, question, variables, benchmark subset, evaluation, controls, and validity risks.
-4. **Technical architecture:** define boundaries, interfaces, data flow, persistence, failure behavior, observability, reproducibility, and tests.
-5. **Backlog:** create or refine an Issue with motivation, scope, dependencies, validation, and links.
-6. **OpenSpec:** use `explore → change → proposal → specs → design → tasks → review → validation` for substantial changes.
-7. **Human Gate A:** stop when a major implementation package is ready. Implementation requires explicit approval.
-8. **Codex implementation:** Codex reads AGENTS.md, Issue, complete OpenSpec change, references, and current code; then implements incrementally with tests.
-9. **Technical verification:** run tests, static checks, config validation, OpenSpec validation, task review, acceptance review, and diff inspection.
-10. **Scientific review:** Work checks experimental fidelity, hidden variables, leakage, telemetry, reproducibility, and fairness.
-11. **Human Gate B:** obtain merge approval for major changes.
-12. **Archive and synchronize:** archive the OpenSpec change with the current workflow and update work state after merge.
-13. **Experiment freeze and execution:** freeze revisions and hashes, execute approved software, and append a new immutable run.
-14. **Analysis:** separate facts, statistical results, interpretation, and limitations.
-15. **Thesis integration:** add only validated Polish narrative traceable to evidence.
+## Research-driven change preparation
 
-## Gate A review package
+Before substantial engineering work, identify the scientific capability or research question it supports. For experiment-affecting work, define relevant hypotheses, variables, controls, benchmark subsets, leakage risks, confounders, measurements, and validity threats. Do not force this ceremony onto trivial maintenance.
 
-Every major change must present: repository state, linked Issue, proposal/spec/design/tasks summary, acceptance criteria, verification plan, scientific risks, unresolved questions, and the exact recommended Codex instruction.
+For substantial software behavior use the current OpenSpec concepts:
 
-## Emergency rule
+`explore → create change → proposal → specs → design → tasks → cross-artifact review → validate → Human Gate A`
 
-If implementation discovers that a requirement is scientifically invalid or infeasible, Codex stops, records evidence, and returns to Discovery. It does not silently “make it work” by changing the experimental condition.
+The package is ready only if a competent Budget Implementation Model can implement it without making major architectural or methodological decisions. Resolve invariants, errors, edge cases, acceptance criteria, and scientific constraints upstream without overspecifying internals.
+
+Generated OpenSpec skills live under `.agents/skills/`. Do not edit them manually or hard-code an OpenSpec release in stable policy. During an upgrade, inspect the current installation and documentation, regenerate skills, review the diff, and validate active changes.
+
+## Handoffs
+
+### Work to Codex
+
+Stop before implementation and present the scientific goal, implementation goal, scope, non-goals, decisions, requirements, acceptance criteria, tasks, and unresolved risks. After approval, provide one concise prompt that directs Codex to repository sources rather than restating the thesis.
+
+### Codex to Chat
+
+After a substantial pull request, explicitly ask for independent review. The review priority is:
+
+1. scientific requirement compliance;
+2. correctness and reproducibility;
+3. OpenSpec and scope compliance;
+4. tests and experimental integrity;
+5. hidden methodology changes or unfair comparisons;
+6. unnecessary engineering complexity.
+
+Findings use `BLOCKER`, `IMPORTANT`, `MINOR`, or `OPTIONAL`, and conclude `READY TO MERGE`, `READY AFTER MINOR FIXES`, or `CHANGES REQUIRED`.
+
+### Review triage
+
+- Bugs, missing tests, incomplete tasks, and needless code complexity are implementation defects: send a focused fix prompt to the Budget Implementation Model.
+- Ambiguous requirements, invalid research assumptions, leakage, unfair design, or architecture that distorts comparison are planning defects: keep them in Work and amend the authoritative artifacts before implementation continues.
+- Re-review significant fixes, concentrating on prior `BLOCKER`/`IMPORTANT` findings and regressions.
+
+## Experiment and results lifecycle
+
+Before a formal run, freeze and verify Git state, model revision and artifact hash, dataset version/hash and split, experiment configuration, prompt/evaluation versions, generation settings, and applicable method configuration. Raw runs are immutable; invalid runs remain preserved with a predeclared reason.
+
+Codex may execute an approved experiment and perform mechanical validation. Work validates completeness, performs scientific/statistical analysis, separates `FACT`, `STATISTICAL RESULT`, `INTERPRETATION`, and `LIMITATION`, and integrates validated evidence into the Polish thesis. Chat may independently challenge major conclusions.
+
+Engineering artifacts remain English. Thesis prose remains Polish and progresses through `DRAFT`, `EVIDENCE-VALIDATED`, `REVIEWED`, and `READY FOR SUPERVISOR REVIEW` as applicable.
+
+## Required next-action contract
+
+At every meaningful stop, Work provides exactly one concrete next action with:
+
+- **What you should do**
+- **Where**: ChatGPT Work, Codex, ChatGPT Chat, GitHub, local terminal, Kaggle, or another justified tool
+- **Model role**
+- **Current recommended model** when useful, explicitly time-dependent
+- **Reasoning level**
+- **Why**
+- **Exact prompt** whenever another AI session is required
+
+Never leave the researcher to infer whether to approve, dispatch Codex, request review, fix, merge, synchronize, or run an experiment.

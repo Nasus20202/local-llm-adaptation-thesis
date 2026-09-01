@@ -6,7 +6,7 @@ Define a stable, reviewable run manifest that binds a prepared execution attempt
 
 ### Requirement: Versioned run manifest
 
-The system SHALL construct a JSON manifest with schema version `1` containing a unique run ID, experiment ID, condition ID, run kind, optional random seed, UTC preparation timestamp, package version, the project-relative experiment source path, and the source and semantic hashes for the experiment and each referenced metadata document. The manifest SHALL preserve explicit model, hardware, dataset, and evaluation identities and SHALL contain a versioned empty `extensions` object reserved for future approved method-specific provenance.
+The system SHALL construct a JSON manifest with schema version `1` containing a unique run ID, experiment ID, condition ID, run kind, optional random seed, UTC preparation timestamp, package version, the project-relative experiment source path, and the source and semantic hashes for the experiment and each referenced metadata document. The manifest SHALL preserve explicit model, hardware, dataset, and evaluation identities.
 
 #### Scenario: Manifest from valid configuration
 - **WHEN** a run is prepared from a valid metadata set
@@ -22,19 +22,15 @@ The system SHALL construct a JSON manifest with schema version `1` containing a 
 
 ### Requirement: Git provenance
 
-Run preparation SHALL require a Git worktree with a resolvable `HEAD`. The manifest SHALL record the full commit SHA, branch name when attached, clean/dirty state, and a deterministic SHA-256 working-tree digest when dirty. The digest SHALL account for staged, unstaged, deleted, renamed, and non-ignored untracked paths without storing file contents in the manifest. A formal run SHALL be rejected when the worktree is dirty; an exploratory run SHALL be allowed and SHALL retain the dirty digest.
+Run preparation SHALL require a clean Git worktree with a resolvable `HEAD`. The manifest SHALL record the full commit SHA and branch name when attached. Any staged, unstaged, or non-ignored untracked change SHALL prevent preparation. Side-effect-free configuration validation remains available while the tree is dirty.
 
-#### Scenario: Clean formal preparation
-- **WHEN** a formal run is prepared from a clean Git worktree with a commit
-- **THEN** the manifest records the commit, clean state, and no dirty digest
+#### Scenario: Clean preparation
+- **WHEN** a run is prepared from a clean Git worktree with a commit
+- **THEN** the manifest records the commit and branch when attached
 
-#### Scenario: Dirty formal preparation
-- **WHEN** a formal run is prepared while any staged, unstaged, or non-ignored untracked change exists
+#### Scenario: Dirty preparation
+- **WHEN** preparation is requested while any staged, unstaged, or non-ignored untracked change exists
 - **THEN** preparation fails before a run directory is committed
-
-#### Scenario: Dirty exploratory preparation
-- **WHEN** an exploratory run is prepared from a dirty worktree
-- **THEN** preparation succeeds and records a stable non-empty working-tree digest
 
 #### Scenario: Missing Git commit
 - **WHEN** preparation is requested outside a Git worktree or before its first commit

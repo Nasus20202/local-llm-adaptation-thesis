@@ -1,5 +1,7 @@
 # Bootstrap Verification Record
 
+> Historical bootstrap snapshot. For the live research/development stage, use [`status.md`](status.md).
+
 **Verification date:** 2026-09-01
 **Scope:** Parts A–L; no implementation or experiment execution.
 

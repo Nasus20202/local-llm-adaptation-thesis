@@ -15,11 +15,11 @@ Substantial implementation changes need repository-native contracts that a fresh
 
 ## Decision
 
-Use the current reviewed OpenSpec workflow initialized for Codex. Track its six generated workflow skills under `.agents/skills/openspec-*/SKILL.md`; Codex uses skills rather than generated slash commands. Major changes follow proposal, capability specs, design, tasks, cross-artifact review, strict validation, Human Gate A, implementation, technical/scientific review, Human Gate B, then archive/synchronization. Verify commands and regenerate skills with `openspec update --force` before accepting an OpenSpec upgrade.
+Use the current reviewed OpenSpec workflow initialized for Codex. Track its generated workflow skills under `.agents/skills/openspec-*/SKILL.md`; Codex uses skills rather than generated slash commands. Major changes follow exploration, change creation, proposal, capability specs, design, tasks, cross-artifact review, validation, Human Gate A, implementation, verification, independent review, human merge, then archive/synchronization. Inspect current commands and regenerate skills before accepting an OpenSpec upgrade.
 
 ## Rationale
 
-Issues remain concise work trackers while specifications define normative behavior and tasks preserve traceability. Version pinning avoids relying on stale command names.
+Issues remain concise work trackers while specifications define normative behavior and tasks preserve traceability. Stable policy describes workflow concepts rather than freezing release-specific command syntax.
 
 ## Consequences
 

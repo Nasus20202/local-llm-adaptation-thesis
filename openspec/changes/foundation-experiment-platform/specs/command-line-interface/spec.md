@@ -46,7 +46,7 @@ The installed `thesis-bench` command SHALL provide `validate-config <experiment-
 
 ### Requirement: Run inspection command
 
-`show-run` SHALL perform read-only integrity inspection and print a JSON summary containing the run, experiment, condition, run kind, preparation timestamp, Git commit and cleanliness, and latest event type.
+`show-run` SHALL perform read-only manifest integrity inspection and print a JSON summary containing the run, experiment, condition, run kind, preparation timestamp, and Git commit.
 
 #### Scenario: Show intact run
 - **WHEN** `show-run` receives an intact prepared run directory

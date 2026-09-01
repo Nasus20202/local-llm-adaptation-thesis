@@ -45,7 +45,7 @@ flowchart TD
 
 ## Initial implementation boundary
 
-The first approved change may create configuration schemas, deterministic hashing, provenance manifests, an append-only run-directory foundation, a small CLI, tests, and CI. It must not implement model inference, retrieval, fine-tuning, harnesses, skills, benchmark content, or result interpretation.
+The first approved change may create configuration schemas, deterministic hashing, a clean-Git provenance manifest, immutable prepared-run directories, a small CLI, focused tests, and CI. It must not implement observations or lifecycle events, model inference, retrieval, fine-tuning, harnesses, skills, benchmark content, or result interpretation.
 
 ## Failure model
 

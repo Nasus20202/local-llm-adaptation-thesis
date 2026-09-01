@@ -5,6 +5,7 @@
 | Artifact | Question answered | Authority |
 |---|---|---|
 | `docs/project/charter.md` and governance | Why the project exists and which rules are immutable | Highest project-level authority |
+| `docs/project/status.md` | Which research/development stage is current and what happens next | Current-state authority |
 | `docs/research/` | Why the study is designed this way | Scientific methodology authority |
 | `openspec/specs/` and approved active changes | What the research software must do | Normative behavior authority |
 | `docs/adr/` | Why a consequential decision was selected | Decision rationale and status |

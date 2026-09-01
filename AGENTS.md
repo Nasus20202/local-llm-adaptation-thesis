@@ -21,10 +21,18 @@ This repository supports a theoretical-experimental MSc thesis comparing prompt 
 
 ## Read before editing
 
-1. Read the linked GitHub Issue.
+1. Read [`docs/project/status.md`](docs/project/status.md) and the linked GitHub Issue.
 2. Read the complete active OpenSpec change and every referenced research, architecture, and ADR document.
-3. Inspect existing implementation and tests.
-4. Ask for human approval if the work would change methodology, experiment conditions, architecture, datasets, metrics, model revisions, or frozen inputs.
+3. Inspect existing implementation, tests, and Git state.
+4. Confirm that Human Gate A approved substantial implementation work.
+
+## Role boundary
+
+- Work is the Frontier Planning Model: it owns research, methodology, consequential architecture, specifications, and result interpretation.
+- Codex is normally the Budget Implementation Model: implement and verify the approved scope without inventing methodology or architecture.
+- Chat is the Frontier Reviewer: independently reviews substantial pull requests before merge.
+- A stronger implementation model is an exception for a clear implementation problem that the budget model could not solve; it is not a substitute for a complete specification.
+- The human researcher approves specifications and merges. Codex never merges its own substantial change.
 
 ## AIDLC routing
 
@@ -35,8 +43,10 @@ Use [`docs/project/aidlc.md`](docs/project/aidlc.md) for the complete lifecycle.
 3. For a substantial change, prepare and strictly validate proposal, specs, design, and tasks with the generated OpenSpec skills under `.agents/skills/`.
 4. Stop at Human Gate A. Do not implement until the human researcher approves the package.
 5. Implement the approved package with `openspec-apply-change`, tests, and recorded verification evidence.
-6. Stop at Human Gate B before merging a major change.
-7. After merge, archive/synchronize OpenSpec and update the roadmap, Issue, and evidence logs.
+6. Open a pull request and stop. An independent Chat review checks scientific fidelity, correctness, reproducibility, scope, tests, and unnecessary complexity.
+7. Fix implementation defects in Codex. Return methodology, architecture, or specification defects to Work. Re-review material fixes.
+8. The human researcher merges only after review passes.
+9. After merge, Work archives/synchronizes OpenSpec and updates status, roadmap, Issue, and evidence logs.
 
 Use `$openspec-explore` for investigation, `$openspec-propose` for a new change, `$openspec-update-change` for an existing package, `$openspec-apply-change` only after Gate A, `$openspec-sync-specs` when reviewed delta specifications must be synchronized, and `$openspec-archive-change` only after merge. Do not edit the generated OpenSpec skills manually; regenerate and review them during a deliberate OpenSpec upgrade.
 
@@ -59,7 +69,7 @@ Resolve conflicts using `docs/project/source-of-truth.md`; do not silently choos
 - Never implement an unapproved major change.
 - Do not expand scope or perform unrelated refactoring.
 - Do not silently change a model, revision, quantization, prompt, dataset, split, seed, evaluation version, or experiment configuration.
-- If implementation reveals a methodology change, stop and request review.
+- If the specification is ambiguous, contradictory, or requires an undocumented methodological or architectural decision, stop and report the exact blocker. Do not invent a design.
 
 ## Scientific integrity
 
@@ -78,6 +88,7 @@ Resolve conflicts using `docs/project/source-of-truth.md`; do not silently choos
 - Keep `renovate.json` valid. Renovate covers Python, supported package/lockfile managers, GitHub Actions, and the exact `uv` version; patch and minor updates may automerge only after required checks pass. Major updates remain manual. Upgrade OpenSpec deliberately and regenerate its skills; do not add post-upgrade commands to Renovate.
 - Keep pure configuration/domain logic separate from external processes and real-model inference.
 - Write deterministic unit tests for scientific logic and integration tests for critical file/CLI boundaries.
+- Prefer tests that protect scientific invariants and failure behavior over broad tests that merely increase coverage.
 - Routine CI must not download or run multi-gigabyte models; real-model tests are explicit and opt-in.
 - Treat raw result directories as append-only. Derived artifacts may be regenerated from raw data.
 - Do not commit credentials, model weights, generated caches, private data, or license-incompatible content.

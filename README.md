@@ -6,13 +6,14 @@ The project compares adaptation strategies rather than foundation-model leaderbo
 
 ## Current status
 
-The repository is at **M0 — Research & Project Foundation**. The first implementation change, [`foundation-experiment-platform`](openspec/changes/foundation-experiment-platform/), is specified but intentionally not implemented pending human approval.
+The repository is at **M0 — Research & Project Foundation**. The first implementation change, [`foundation-experiment-platform`](openspec/changes/foundation-experiment-platform/), is specified but intentionally not implemented pending human approval. See the concise [project status](docs/project/status.md) for the current gate and next action.
 
 The current repository contains the research plan, methodology, architecture, governance, and the first reviewed implementation package. It does not yet contain the experiment platform or experimental results.
 
 ## Start here
 
 - [Project charter](docs/project/charter.md)
+- [Current project status](docs/project/status.md)
 - [Current feasibility review](docs/research/current-feasibility-review.md)
 - [Research questions](docs/research/research-questions.md)
 - [System overview](docs/architecture/system-overview.md)

@@ -16,6 +16,11 @@
 
 List exact commands and outcomes.
 
+## Independent review
+
+- Reviewer outcome: pending / changes required / ready after minor fixes / ready to merge
+- Blocking or important findings resolved:
+
 ## Checklist
 
 - [ ] Scope matches the approved specification.
@@ -25,3 +30,4 @@ List exact commands and outcomes.
 - [ ] No secret, model weight, cache, or unlicensed data was added.
 - [ ] Documentation and GenAI audit entries are updated where materially required.
 - [ ] OpenSpec validation passes.
+- [ ] An independent Chat review is complete before human merge.

@@ -1,52 +1,43 @@
-## 1. Project and Tooling Foundation
+## 1. Minimal Project Foundation
 
-- [ ] 1.1 Create the Python 3.14 `src/thesis_bench` package, Hatchling `pyproject.toml` with `requires-python = \">=3.14\"`, console entry point, and package version source; verify CPython 3.14.7 is selected from `.python-version`, `uv run thesis-bench --version` succeeds, and `uv build` succeeds.
-- [ ] 1.2 Select and declare an exact `[tool.uv] required-version`, add pinned runtime/development dependencies, and commit `uv.lock`; verify `uv lock --check` succeeds from a clean checkout and CI obtains `uv` from the declared requirement.
-- [ ] 1.3 Configure Ruff, mypy, pytest, and coverage in `pyproject.toml`; verify empty package checks run through the documented `uv run` commands.
-- [ ] 1.4 Verify `renovate.json` extracts the Python pin, the required `uv` version, supported PEP 621 dependencies and lockfiles, and GitHub Actions; verify semantic commits, CI-gated patch/minor automerge, manual major updates, and the configuration with Renovate's config validator. Verify OpenSpec upgrades remain a deliberate manual workflow with skill regeneration and review.
-- [ ] 1.5 Add only the package directories required by the design and verify no inference, RAG, fine-tuning, harness, skill, benchmark, database, or plugin implementation is introduced.
+- [ ] 1.1 Create the `src/thesis_bench` package, `pyproject.toml`, console entry point, and package version source using the repository Python pin; verify `uv run thesis-bench --version` and `uv build` succeed.
+- [ ] 1.2 Select the exact `uv` requirement, declare only approved runtime/development dependencies, and commit `uv.lock`; verify `uv lock --check` from a clean checkout.
+- [ ] 1.3 Configure Ruff, mypy, pytest, and coverage in `pyproject.toml`; expose compact documented commands.
+- [ ] 1.4 Verify Renovate covers the runtime pin, `uv`, supported dependencies/lockfile, and GitHub Actions with semantic commits, CI-gated patch/minor automerge, manual major updates, and deliberate OpenSpec upgrades.
 
-## 2. Versioned Configuration and Identity
+## 2. Configuration and Identity
 
-- [ ] 2.1 Implement strict schema-version-1 models for experiment, references, model, hardware, dataset, and evaluation metadata; verify unit tests cover all required fields, strict scalar types, identifier patterns, hashes, mutable-revision rejection, unknown fields, and unsupported versions.
-- [ ] 2.2 Implement the duplicate-key-rejecting safe YAML loader and secret-safe validation errors; verify malformed, duplicate, and non-finite fixtures fail without echoing fixture secrets.
-- [ ] 2.3 Implement project-root discovery and repository-contained reference resolution with kind/expected-ID checks; verify tests cover valid relative paths, missing files, URLs, wrong extensions, ID/kind mismatch, `..` traversal, and symlink escape.
-- [ ] 2.4 Implement source-byte and canonical semantic SHA-256 identity; verify stable fixtures prove formatting/key-order independence, list-order sensitivity, Unicode stability, and semantic-change sensitivity.
-- [ ] 2.5 Add minimal valid example model, hardware, dataset, evaluation, and exploratory experiment YAML under `configs/`; verify the loader accepts the set and the examples do not claim that external artifacts were downloaded or tested.
+- [ ] 2.1 Implement strict schema-version-1 models for experiment, reference, model, hardware, dataset, and evaluation metadata; test required fields, strict types, identifiers, hashes, mutable-revision rejection, unknown fields, and unsupported versions.
+- [ ] 2.2 Implement duplicate-key-rejecting safe YAML loading and secret-safe validation errors; test malformed, duplicate, non-finite, and secret-bearing fixtures.
+- [ ] 2.3 Implement project-root discovery and contained reference resolution with kind/expected-ID checks; test valid paths, missing files, URLs, wrong extensions, mismatches, traversal, and symlink escape.
+- [ ] 2.4 Implement exact-byte and canonical semantic SHA-256 identity; test formatting/key-order independence, list-order sensitivity, Unicode stability, and semantic changes.
+- [ ] 2.5 Add the smallest valid example metadata set; verify it loads and makes no claim that external artifacts were downloaded or tested.
 
-## 3. Git, Environment, and Manifest Provenance
+## 3. Provenance Manifest
 
-- [ ] 3.1 Implement Git-root/HEAD/branch/status capture using argument-array subprocess calls; verify integration tests cover attached/detached HEAD, no repository, and no commit.
-- [ ] 3.2 Implement deterministic dirty-tree hashing for staged, unstaged, deleted, renamed, symlink, and non-ignored untracked entries; verify identical states hash equally and content/status changes alter the digest without storing file contents.
-- [ ] 3.3 Implement formal-clean enforcement and exploratory-dirty recording; verify formal dirty preparation fails before publication while exploratory preparation records the dirty digest.
-- [ ] 3.4 Implement safe local runtime environment capture; verify tests record required platform/Python/package facts and prove credential environment variables are absent.
-- [ ] 3.5 Implement strict run manifest construction, canonical serialization, validation, and semantic hashing; verify round-trip, unknown-field, portable-path, intended-versus-observed hardware, and trailing-newline tests pass.
+- [ ] 3.1 Capture Git root, full commit, attached branch when present, and cleanliness using argument-array subprocess calls; test detached HEAD, dirty states, no repository, and no commit.
+- [ ] 3.2 Reject preparation for any staged, unstaged, or non-ignored untracked change; verify configuration validation remains side-effect-free and usable while dirty.
+- [ ] 3.3 Capture only the approved local runtime facts; test that credentials, environment values, absolute home paths, diffs, and scientific payloads are absent.
+- [ ] 3.4 Implement strict manifest construction, canonical serialization, validation, and hashing; test round-trip, unknown fields, portable paths, intended-versus-observed hardware, and trailing newline.
 
-## 4. Raw Run Lifecycle
+## 4. Immutable Prepared Run
 
-- [ ] 4.1 Implement UTC-plus-UUID run and event ID generation with injectable time/UUID sources; verify format, safety, sortability, and repeated-run uniqueness tests pass.
-- [ ] 4.2 Implement same-filesystem staging, exclusive file writes, validation, fsync where supported, and non-replacing atomic publication; verify success, destination collision, injected write failure, and no-partial-publication tests pass.
-- [ ] 4.3 Implement immutable manifest enforcement and initial `run_prepared` NDJSON creation; verify overwrite attempts preserve exact manifest bytes and a new run has one valid initial event.
-- [ ] 4.4 Implement append-only event persistence and complete-history validation; verify appends preserve the existing byte prefix and reject malformed history, unsupported schema, and mismatched run IDs.
-- [ ] 4.5 Implement read-only run integrity inspection; verify valid summaries, missing paths, directory/manifest/event ID mismatch, missing initial event, and corrupt JSON behavior.
+- [ ] 4.1 Implement UTC-plus-UUID run IDs with injectable time/UUID sources; test format, privacy, sortability, and uniqueness.
+- [ ] 4.2 Implement same-parent staging, exclusive writes, manifest validation, and non-replacing atomic publication; test success, collision, injected write failure, and no partial published run.
+- [ ] 4.3 Enforce manifest immutability; test that overwrite attempts preserve exact existing bytes.
+- [ ] 4.4 Implement read-only integrity inspection; test valid summaries, missing paths, directory/manifest ID mismatch, and corrupt JSON.
 
-## 5. Command-Line Contract
+## 5. Minimal CLI
 
-- [ ] 5.1 Implement the `argparse` root command, approved subcommands, help, and version behavior; verify CLI tests show no execution or model-management commands.
-- [ ] 5.2 Implement `validate-config` success/error JSON and exit behavior; verify side-effect-free filesystem assertions, stdout/stderr separation, exit `0`, and invalid-input exit `2`.
-- [ ] 5.3 Implement `prepare-run`, default/explicit results roots, and JSON response; verify clean success, dirty formal exit `3`, Git failure exit `3`, and collision/integrity exit `4` without model execution.
-- [ ] 5.4 Implement `show-run` JSON summaries and safe error mapping; verify intact exit `0`, missing exit `2`, corrupt exit `4`, read-only behavior, and absence of routine tracebacks.
-- [ ] 5.5 Add end-to-end CLI integration tests in temporary committed Git repositories; verify validate → prepare → show produces mutually consistent IDs, hashes, Git state, and events.
+- [ ] 5.1 Implement `validate-config`, `prepare-run`, `show-run`, help, and version behavior; expose no execution or model-management commands.
+- [ ] 5.2 Test `validate-config` success/error JSON, streams, exit codes, and absence of side effects.
+- [ ] 5.3 Test `prepare-run` with default/explicit roots, clean success, dirty or missing Git, collisions, and no model execution.
+- [ ] 5.4 Test `show-run` intact/missing/corrupt behavior, JSON streams, exit codes, and read-only operation; add one validate → prepare → show integration test.
 
-## 6. Documentation and Continuous Integration
+## 6. Documentation, CI, and Completion
 
-- [ ] 6.1 Update README, `AGENTS.md`, development/testing documentation, and example comments with the implemented commands and schema locations; verify every documented command executes successfully.
-- [ ] 6.2 Add a Linux GitHub Actions workflow that reads Python from `.python-version`, installs the exact `uv` version required by `pyproject.toml`, checks the lock, formatting/lint, mypy, pytest/coverage, package build, example validation, Renovate configuration, and strict OpenSpec validation; verify workflow syntax and reproduce every step locally.
-- [ ] 6.3 Pin every GitHub Action to a full commit SHA with its release tag in a trailing comment and verify Renovate detects later action releases without replacing the immutable pin policy.
-- [ ] 6.4 Ensure routine tests and CI require no credentials, network calls after dependency installation, model downloads, GPU, or writes outside temporary directories; verify with test instrumentation and workflow review.
-
-## 7. Completion Verification
-
-- [ ] 7.1 Verify the repository-pinned Python is active, then run `uv lock --check`, Ruff format check, Ruff lint, mypy, the complete pytest suite with coverage, package build, example validation, Renovate config validation, and `npx --yes @fission-ai/openspec validate foundation-experiment-platform --strict --no-interactive`; record exact outputs in the pull request.
-- [ ] 7.2 Review every requirement scenario against an automated test or explicit validation artifact and record the mapping in the pull request; leave no uncovered acceptance criterion.
-- [ ] 7.3 Inspect the final Git diff and raw-results tree; verify all tasks are checked, no raw experimental result or model artifact was committed, no substantial feature outside the proposal was implemented, and Git status is accurately reported.
+- [ ] 6.1 Update README, `AGENTS.md`, testing documentation, and example comments with only implemented commands and schema locations; execute every documented command.
+- [ ] 6.2 Add Linux CI for lock consistency, Ruff, mypy, pytest/coverage, build, example validation, Renovate validation, and strict OpenSpec validation; pin Actions to commit SHAs and reproduce the steps locally.
+- [ ] 6.3 Verify routine tests/CI need no credentials, post-install network calls, model download, GPU, inference, or writes outside temporary directories.
+- [ ] 6.4 Map every requirement scenario and acceptance criterion to a test or explicit verification artifact; record exact command results in the pull request.
+- [ ] 6.5 Inspect the final diff, task list, and raw-results tree; confirm there is no event system, inference, benchmark, RAG, fine-tuning, harness, skill, plugin framework, database, model artifact, experimental result, or unrelated refactor.

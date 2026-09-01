@@ -20,7 +20,7 @@ Every valid run must eventually include:
 - start/end timestamps, seed where meaningful, and lifecycle outcome;
 - hashes of raw request/response artifacts.
 
-The foundation change implements only the stable core and extension containers required for later approved conditions. A manifest is rejected if unknown top-level fields could be silently ignored.
+The foundation change implements only identities already required for provenance-only run preparation. Later method fields require reviewed schema evolution. A manifest is rejected if unknown fields could be silently ignored.
 
 ## Hashing
 

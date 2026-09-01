@@ -3,7 +3,7 @@
 ## Test layers
 
 - **Unit tests:** deterministic configuration, canonicalization, hashing, manifest validation, path handling, and lifecycle invariants.
-- **Integration tests:** CLI boundaries, Git metadata capture in temporary repositories, atomic run creation, and append-only event behavior.
+- **Integration tests:** CLI boundaries, Git metadata capture in temporary repositories, atomic run creation, manifest immutability, and read-only inspection.
 - **Contract tests:** future inference adapters against recorded or fake process responses.
 - **Opt-in system tests:** real local models and hardware; never part of routine CI.
 - **Scientific validation:** fixture experiments that confirm conditions differ only where specified and evaluators produce expected metrics.
