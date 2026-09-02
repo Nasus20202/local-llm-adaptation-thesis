@@ -16,8 +16,6 @@ build/
 .vscode/
 *.swp
 .DS_Store
-.codegraph/
-node_modules/
 
 # Secrets and local configuration
 .env
@@ -57,6 +55,8 @@ results/statistics/**
 .ipynb_checkpoints/
 
 # LaTeX build products
+thesis/.local/
+thesis/build/
 thesis/*.aux
 thesis/*.bbl
 thesis/*.bcf
