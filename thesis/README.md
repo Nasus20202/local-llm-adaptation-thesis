@@ -10,9 +10,9 @@ The official WETI diploma page is <https://eti.pg.edu.pl/studenci/dyplomy>. At r
 
 The archive's `main.tex` identifies format version 3.0, dated 2025-11-25, and contains an internal-use notice. The notice permits use, copying, and modification only for WETI students and employees for internal educational and organizational purposes. It prohibits public repositories, websites, public Overleaf projects, cloud services, and transfer to third parties without permission from the rights holder.
 
-Consequently, this repository does not redistribute the archive or any extracted upstream file, including `_formatting.cls`, fonts, sample title/declaration PDFs, examples, or upstream chapter files. The checksum, manifest, source, retrieval procedure, and rights decision are recorded in [`docs/research-log/2026-09-02-weti-template.md`](../docs/research-log/2026-09-02-weti-template.md). Obtain the archive through the official page and keep the extracted tree outside Git. Do not modify that tree.
+This repository is private and is used for the author's WETI thesis. At the project owner's direction, the exact retrieved extraction is versioned under [`thesis/upstream/weti-2026/`](upstream/weti-2026/), without edits or relicensing. Keep the repository private; this project decision is not permission for public redistribution or transfer to third parties. The checksum, manifest, source, retrieval procedure, and rights decision are recorded in [`docs/research-log/2026-09-02-weti-template.md`](../docs/research-log/2026-09-02-weti-template.md).
 
-Project-owned thesis content is kept separately in [`thesis/overlay/`](overlay/). The supplied Moja PG title page is stored at [`thesis/inputs/title-page.pdf`](inputs/title-page.pdf) and is included without modification. The declaration remains a local PDF supplied through the official template's local working copy; this repository does not reconstruct or replace it. The overlay is copied over an unchanged local template only in a temporary build directory.
+Project-owned thesis content is kept separately in [`thesis/overlay/`](overlay/). The supplied Moja PG title page is stored at [`thesis/inputs/title-page.pdf`](inputs/title-page.pdf) and is included without modification. The overlay is copied over the committed upstream tree only in a temporary build directory; upstream files remain unchanged.
 
 ## Local build
 
@@ -30,10 +30,11 @@ vector-free placeholder and does not depend on that example asset.
 The upstream class enables `-shell-escape` for `minted`. Use it only while building trusted local sources. A clean build that preserves the upstream directory is:
 
 ```bash
-export WETI_TEMPLATE_DIR=/absolute/path/to/extracted/Thesis_Template_PL_26
 build_dir="$(mktemp -d)"
-cp -a "$WETI_TEMPLATE_DIR"/. "$build_dir"/
+cp -a thesis/upstream/weti-2026/. "$build_dir"/
 cp -a thesis/overlay/. "$build_dir"/
+mkdir -p "$build_dir/inputs"
+cp thesis/inputs/title-page.pdf "$build_dir/inputs/title-page.pdf"
 (cd "$build_dir" && latexmk -C && latexmk -lualatex -shell-escape -interaction=nonstopmode -halt-on-error main.tex)
 pdfinfo "$build_dir/main.pdf"
 pdftotext "$build_dir/main.pdf" "$build_dir/main.txt"
@@ -44,7 +45,7 @@ The copied staging directory is disposable. Do not run the overlay by editing th
 
 ## Continuous integration
 
-`.github/workflows/thesis-build.yml` runs for changes under `thesis/**` or to the workflow itself. It uses a trusted self-hosted runner labelled `weti-template`, whose repository variable `WETI_TEMPLATE_DIR` points to an unchanged local extraction of the official archive. The runner must have LuaLaTeX, `latexmk`, Biber, Pygments, Poppler, and the WETI template dependencies installed. The workflow stages the official template, project overlay, and title page in a temporary directory, then uploads `main.pdf` as the `thesis-pdf` workflow artifact. Upstream files are never committed to this repository.
+`.github/workflows/thesis-build.yml` runs for changes under `thesis/**` or to the workflow itself on the standard `ubuntu-latest` runner. It installs LuaLaTeX, `latexmk`, Biber, Pygments and Poppler, stages the committed upstream template, project overlay and title page in a temporary directory, then uploads `main.pdf` as the `thesis-pdf` workflow artifact. The upstream directory is never edited during the build.
 
 The expected reproducible path is:
 

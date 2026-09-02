@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: [self-hosted, linux, x64, weti-template]
+    runs-on: ubuntu-latest
     timeout-minutes: 15
 
     steps:
@@ -25,19 +25,28 @@ jobs:
       - name: Check thesis build contract
         run: bash thesis/tests/test_build_contract.sh
 
+      - name: Install TeX build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y \
+            biber \
+            fonts-lmodern \
+            latexmk \
+            poppler-utils \
+            python3-pygments \
+            texlive-bibtex-extra \
+            texlive-extra-utils \
+            texlive-lang-polish \
+            texlive-latex-extra \
+            texlive-luatex
+
       - name: Build thesis PDF
-        env:
-          WETI_TEMPLATE_DIR: ${{ vars.WETI_TEMPLATE_DIR }}
         run: |
           set -euo pipefail
-          test -n "$WETI_TEMPLATE_DIR"
-          test -f "$WETI_TEMPLATE_DIR/_formatting.cls"
-          test -f "$WETI_TEMPLATE_DIR/pages/2_statement.pdf"
-          test -f "$WETI_TEMPLATE_DIR/fonts/arial.ttf"
 
           build_dir="$(mktemp -d)"
           trap 'rm -rf "$build_dir"' EXIT
-          cp -a "$WETI_TEMPLATE_DIR"/. "$build_dir"/
+          cp -a thesis/upstream/weti-2026/. "$build_dir"/
           mkdir -p "$build_dir/inputs"
           cp -a thesis/overlay/. "$build_dir"/
           cp thesis/inputs/title-page.pdf "$build_dir/inputs/title-page.pdf"

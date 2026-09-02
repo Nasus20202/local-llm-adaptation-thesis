@@ -2,7 +2,7 @@
 
 - **Issue:** [#3](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3)
 - **Retrieved:** 2026-09-02 (UTC)
-- **Status:** Retrieved and locally verified; upstream files are not redistributed by this repository.
+- **Status:** Retrieved, locally verified, and committed unchanged under `thesis/upstream/weti-2026/` for this private WETI thesis repository.
 
 ## Source provenance
 
@@ -50,9 +50,9 @@ The archive itself contains no separate `LICENSE`, `COPYING`, `NOTICE`, or `READ
 
 The embedded notice states that the template and accompanying materials may be used, copied, and modified only for educational and organizational purposes of WETI by WETI students and employees. It expressly prohibits public sharing, including public repositories, websites, public Overleaf projects, and cloud services, and prohibits transfer to third parties without the rights holder's permission. It says that attribution is not required for internal WETI use.
 
-This GitHub repository is a cloud-hosted repository and is not an internal WETI system. The upstream archive and all extracted upstream files are therefore kept outside Git. This includes the class, fonts, sample title and declaration PDFs, examples, and the upstream PDF. No redistribution permission was found in the archive or on the linked page. A future permission from the rights holder would need to be recorded separately before any upstream file is committed.
+The repository is private and is used by the WETI student who owns this thesis project. At the project owner's direction, the exact extracted upstream tree—including the class, fonts, sample title and declaration PDFs, examples, and upstream PDF—is committed under `thesis/upstream/weti-2026/` without edits or relicensing. This records project-level authorization for this private repository; it is not a claim that the rights notice permits public redistribution. The repository must remain private and the upstream subtree must not be published, transferred, or moved to public Overleaf/cloud projects without rights-holder permission.
 
-The project-owned overlay under `thesis/overlay/` is not a copy of the template. It is assembled over an unchanged local extraction in a disposable staging directory. The supplied Moja PG title page is stored as `thesis/inputs/title-page.pdf`; its SHA-256 is `a530e3b58bfdee39c4be4e6e7bcf6d8ddc04fde09ac5d12cf8ff6b55bf7b95cd`. The declaration remains a local-only PDF from the template working copy and is not reconstructed here.
+The project-owned overlay under `thesis/overlay/` is not a copy of the template. It is assembled over the unchanged committed upstream tree in a disposable staging directory. The supplied Moja PG title page is stored as `thesis/inputs/title-page.pdf`; its SHA-256 is `a530e3b58bfdee39c4be4e6e7bcf6d8ddc04fde09ac5d12cf8ff6b55bf7b95cd`. The declaration is retained from the upstream tree and is not reconstructed here.
 
 ## Guidance checks
 
@@ -74,7 +74,7 @@ The ordinance also says that high-intervention GenAI content must be included in
 
 The upstream template declares LuaLaTeX, TeX Live 2022 or later, and `-shell-escape` for `minted`. The project overlay additionally uses Biber through the upstream `biblatex` configuration. A clean build command and dependency list are maintained in [`thesis/README.md`](../../thesis/README.md).
 
-The overlay build was intentionally staged from a local extraction so that the upstream tree remained unchanged. The generated PDF and rendered PNG pages are disposable verification artifacts and are not committed.
+The overlay build was intentionally staged from the committed upstream tree so that the upstream files remained unchanged. The generated PDF and rendered PNG pages are disposable verification artifacts and are not committed.
 
 The final clean staging command completed successfully with LuaLaTeX, latexmk, Biber,
 Pygments, and Poppler. The output was a 13-page, A4, unencrypted PDF. `pdftotext`
@@ -85,16 +85,15 @@ environment-specific warning that Polish hyphenation patterns were not registere
 its temporary TeX configuration; this does not occur in a normal registered TeX Live
 installation and did not prevent rendering.
 
-The repository CI workflow runs the build-contract check and the same staged build on a
-trusted self-hosted Linux x64 runner labelled `weti-template`. Its `WETI_TEMPLATE_DIR`
-repository variable must point to the unchanged local extraction. This avoids placing
-the restricted upstream archive in GitHub-hosted CI while still producing a downloadable
-`thesis-pdf` artifact for thesis changes.
+The repository CI workflow runs the build-contract check and the same staged build on
+GitHub's standard `ubuntu-latest` runner. It installs the documented TeX dependencies,
+uses the committed upstream tree, and produces a downloadable `thesis-pdf` artifact for
+thesis changes.
 
 Visual checks of the rendered pages found:
 
 - page 1 is the supplied Moja PG title page, with no visible page number;
-- page 2 remains the local-only declaration PDF from the template working copy;
+- page 2 remains the unchanged declaration PDF from the committed upstream tree;
 - pages 3–4 contain one-page Polish and English abstracts;
 - page 6 contains the resolved contents and page numbers;
 - page 9 places the table title directly above the table and the figure title directly
@@ -107,4 +106,4 @@ with the WETI identity, student/programme details, Polish and English titles, an
 
 ## Limitations
 
-The archive notice is a rights-holder statement, not a legal opinion. The project records the conservative no-redistribution decision and should request permission if a future public or cloud-hosted copy is required. Faculty- or supervisor-specific requirements may add constraints beyond the university-wide ordinance and must be checked before submission.
+The archive notice is a rights-holder statement, not a legal opinion. The repository must remain private under the project-level decision recorded above; permission should be requested before any public or third-party redistribution. Faculty- or supervisor-specific requirements may add constraints beyond the university-wide ordinance and must be checked before submission.
