@@ -1,0 +1,35 @@
+% Project-owned entry point. It is copied over the unchanged local WETI tree.
+\documentclass{_formatting}
+
+\addbibresource{_bibliography.bib}
+
+\begin{document}
+
+% Project-owned input supplied by Moja PG; the declaration remains local-only.
+\includepdf{inputs/title-page.pdf}
+\includepdf{pages/2_statement.pdf}
+\include{pages/3_abstract_PL}
+\include{pages/4_abstract_ENG}
+\include{pages/5_symbols}
+
+\renewcommand{\contentsname}{Spis treści}
+\tableofcontents{}
+\addcontentsline{toc}{chapter}{Spis treści}
+
+\include{chapters/1_introduction}
+\include{chapters/2_methodology}
+\include{chapters/3_results}
+\include{chapters/4_summary}
+
+\printbibliography
+\addcontentsline{toc}{chapter}{Wykaz literatury}
+
+\renewcommand{\listfigurename}{Wykaz rysunków}
+\listoffigures
+\addcontentsline{toc}{chapter}{Wykaz rysunków}
+
+\renewcommand{\listtablename}{Wykaz tabel}
+\listoftables
+\addcontentsline{toc}{chapter}{Wykaz tabel}
+
+\end{document}

@@ -1,0 +1,56 @@
+name: Thesis build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'thesis/**'
+      - '.github/workflows/thesis-build.yml'
+  pull_request:
+    paths:
+      - 'thesis/**'
+      - '.github/workflows/thesis-build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Check thesis build contract
+        run: bash thesis/tests/test_build_contract.sh
+
+      - name: Stage thesis source
+        run: |
+          set -euo pipefail
+          mkdir -p thesis/build/source/inputs
+          cp -a thesis/upstream/weti-2026/. thesis/build/source/
+          cp -a thesis/overlay/. thesis/build/source/
+          cp thesis/inputs/title-page.pdf thesis/build/source/inputs/title-page.pdf
+
+      - name: Build thesis PDF
+        uses: xu-cheng/latex-action@6549dc21effb2730855a1281407ecfcececc6c1b # v4.1.0
+        with:
+          root_file: main.tex
+          working_directory: thesis/build/source
+          os: debian
+          texlive_version: 2024
+          extra_system_packages: python3-pygments
+          latexmk_use_lualatex: true
+          latexmk_shell_escape: true
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+
+      - name: Upload thesis PDF
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: thesis-pdf
+          path: thesis/build/source/main.pdf
+          if-no-files-found: error
+          retention-days: 14
