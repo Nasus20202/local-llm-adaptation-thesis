@@ -13,7 +13,7 @@ GitHub milestone and label conventions are defined in [github-management.md](git
 | M2 | Local Model Inference Baseline | Frozen primary model runs reproducibly through `llama.cpp` on target hardware with telemetry and B0 results |
 | M3 | Prompt Engineering Experiments | P1/P2 are frozen and compared without test-set tuning |
 | M4 | Retrieval-Augmented Generation | Retrieval corpus and simple baseline are frozen; retrieval and answer metrics are reported |
-| M5 | Fine-Tuning / QLoRA | One justified training pipeline produces a locally evaluated adapter/model with adaptation-cost accounting |
+| M5 | Fine-Tuning / QLoRA | One justified training pipeline produces a locally evaluated adapter or model with adaptation-cost accounting |
 | M6 | Model Harness | H1 is defined as an explicit controlled condition and evaluated on procedural tasks |
 | M7 | Skill-Based Adaptation | S1 isolates reusable procedural context from harness-only behavior |
 | M8 | Stability and Combined Experiments | Repeated runs, paraphrases, C1, and a justified C2 are analyzed |
@@ -28,17 +28,16 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 
 ## Immediate backlog: M1
 
-1. Prepare the Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark decision package without constructing final items.
-2. Compare domain, language, task-class, source-rights, split-ownership, answer-format, and contamination-control alternatives.
-3. Record selected decisions and pilot-only unknowns in research documents; add an ADR only for a consequential decision.
-4. Stop for Human Gate A before dataset-item construction or software work requiring a new OpenSpec change.
-5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
-6. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
-7. Decide the public licensing plan before making the private repository public.
+1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark decision package was approved at Human Gate A on 2026-09-02 without constructing items.
+2. Use the selected domain, language, rights, split, answer-format, and contamination policies to specify Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4).
+3. Create a dataset or evaluator OpenSpec package only when approved software behavior is known; do not infer it from the research decision alone.
+4. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
+5. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
+6. Decide the public licensing plan before making the private repository public.
 
 ## Next milestone: M1
 
-M1 will first resolve benchmark task domain, source rights, answer format, annotation process, split sizes, evaluator calibration, and contamination checks. Dataset construction must not start until these decisions have an approved research document and OpenSpec change where software behavior is affected.
+M1 next validates the proposed task families, metrics, annotation process, split sizes, evaluator calibration, and contamination checks on development-only pilot material. Final-test construction and freeze remain separate approvals.
 
 - [Benchmark domain and construction decision](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2)
 - [Benchmark pilot and evaluator calibration protocol](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4)
