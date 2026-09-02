@@ -86,9 +86,9 @@ its temporary TeX configuration; this does not occur in a normal registered TeX 
 installation and did not prevent rendering.
 
 The repository CI workflow runs the build-contract check and the same staged build on
-GitHub's standard `ubuntu-latest` runner. It installs the documented TeX dependencies,
-uses the committed upstream tree, and produces a downloadable `thesis-pdf` artifact for
-thesis changes.
+GitHub's standard `ubuntu-latest` runner. It uses `xu-cheng/latex-action@v4` with a
+pinned TeX Live 2024 container, uses the committed upstream tree, and produces a
+downloadable `thesis-pdf` artifact for thesis changes.
 
 Visual checks of the rendered pages found:
 

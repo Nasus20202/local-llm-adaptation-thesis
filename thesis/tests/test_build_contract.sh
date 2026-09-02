@@ -43,5 +43,14 @@ if grep -Fq 'self-hosted' "$workflow"; then
 fi
 grep -Fq 'thesis/upstream/weti-2026' "$workflow" \
   || fail 'workflow does not stage the committed upstream template'
+grep -Fq 'xu-cheng/latex-action@v4' "$workflow" \
+  || fail 'workflow does not use the containerized LaTeX action'
+grep -Fq 'latexmk_use_lualatex: true' "$workflow" \
+  || fail 'workflow does not request LuaLaTeX'
+grep -Fq 'latexmk_shell_escape: true' "$workflow" \
+  || fail 'workflow does not enable shell-escape for minted'
+if grep -Fq 'apt-get' "$workflow"; then
+  fail 'workflow performs slow host-side TeX package installation'
+fi
 
 printf 'build contract: ok\n'

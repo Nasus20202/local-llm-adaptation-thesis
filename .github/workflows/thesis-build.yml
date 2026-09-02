@@ -25,45 +25,30 @@ jobs:
       - name: Check thesis build contract
         run: bash thesis/tests/test_build_contract.sh
 
-      - name: Install TeX build dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y \
-            biber \
-            fonts-lmodern \
-            latexmk \
-            poppler-utils \
-            python3-pygments \
-            texlive-bibtex-extra \
-            texlive-extra-utils \
-            texlive-lang-polish \
-            texlive-latex-extra \
-            texlive-luatex
-
-      - name: Build thesis PDF
+      - name: Stage thesis source
         run: |
           set -euo pipefail
+          mkdir -p thesis/build/source/inputs
+          cp -a thesis/upstream/weti-2026/. thesis/build/source/
+          cp -a thesis/overlay/. thesis/build/source/
+          cp thesis/inputs/title-page.pdf thesis/build/source/inputs/title-page.pdf
 
-          build_dir="$(mktemp -d)"
-          trap 'rm -rf "$build_dir"' EXIT
-          cp -a thesis/upstream/weti-2026/. "$build_dir"/
-          mkdir -p "$build_dir/inputs"
-          cp -a thesis/overlay/. "$build_dir"/
-          cp thesis/inputs/title-page.pdf "$build_dir/inputs/title-page.pdf"
-
-          mkdir -p "$GITHUB_WORKSPACE/thesis/build"
-          (
-            cd "$build_dir"
-            latexmk -C
-            latexmk -lualatex -shell-escape -interaction=nonstopmode -halt-on-error main.tex
-            pdfinfo main.pdf
-          )
-          cp "$build_dir/main.pdf" "$GITHUB_WORKSPACE/thesis/build/main.pdf"
+      - name: Build thesis PDF
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: thesis/build/source
+          os: debian
+          texlive_version: 2024
+          extra_system_packages: python3-pygments
+          latexmk_use_lualatex: true
+          latexmk_shell_escape: true
+          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
       - name: Upload thesis PDF
         uses: actions/upload-artifact@v4
         with:
           name: thesis-pdf
-          path: thesis/build/main.pdf
+          path: thesis/build/source/main.pdf
           if-no-files-found: error
           retention-days: 14
