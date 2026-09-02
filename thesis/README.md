@@ -47,7 +47,7 @@ The copied staging directory is disposable. Do not run the overlay by editing th
 
 ## Continuous integration
 
-`.github/workflows/thesis-build.yml` runs for changes under `thesis/**` or to the workflow itself on the standard GitHub-hosted `ubuntu-24.04` runner. It stages the committed upstream template, project overlay and title page, then uses the SHA-pinned `xu-cheng/latex-action` action with a TeX Live 2024 container, LuaLaTeX, shell-escape and Pygments support. It uploads `main.pdf` as the `thesis-pdf` workflow artifact. The upstream directory is never edited during the build.
+`.github/workflows/thesis-build.yml` runs for pull requests and for pushes to `main` when `thesis/**` or the workflow itself changes. It uses the standard GitHub-hosted `ubuntu-24.04` runner, stages the committed upstream template, project overlay and title page, then uses the SHA-pinned `xu-cheng/latex-action` action with a TeX Live 2024 container, LuaLaTeX, shell-escape and Pygments support. It uploads `main.pdf` as the `thesis-pdf` workflow artifact. Feature-branch pushes are intentionally covered by the pull-request run rather than a second push run. The upstream directory is never edited during the build.
 
 The expected reproducible path is:
 

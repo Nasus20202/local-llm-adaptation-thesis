@@ -44,6 +44,15 @@ grep -Fq 'main.pdf' "$workflow" \
   || fail 'workflow does not identify main.pdf as its artifact'
 grep -Fq 'runs-on: ubuntu-24.04' "$workflow" \
   || fail 'workflow does not use the pinned standard GitHub-hosted runner'
+if ! awk '
+  /^  push:/ { in_push=1; next }
+  /^  [[:alnum:]_-]+:/ { in_push=0 }
+  in_push && /^    branches:/ { branches=1; next }
+  in_push && branches && /^      - main$/ { found=1 }
+  END { exit(found ? 0 : 1) }
+' "$workflow"; then
+  fail 'workflow does not limit push builds to main'
+fi
 if grep -Fq 'self-hosted' "$workflow"; then
   fail 'workflow still requires a self-hosted runner'
 fi

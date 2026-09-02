@@ -87,8 +87,9 @@ environment-specific warning that Polish hyphenation patterns were not registere
 its temporary TeX configuration; this does not occur in a normal registered TeX Live
 installation and did not prevent rendering.
 
-The repository CI workflow runs the build-contract check and the same staged build on
-GitHub's standard `ubuntu-24.04` hosted runner. It uses SHA-pinned
+The repository CI workflow runs the build-contract check and the same staged build for
+pull requests and for pushes to `main` on GitHub's standard `ubuntu-24.04` hosted
+runner. It uses SHA-pinned
 `xu-cheng/latex-action` with a pinned TeX Live 2024 container, uses the committed
 upstream tree, and produces a permission-restricted `thesis-pdf` artifact for thesis
 changes.
