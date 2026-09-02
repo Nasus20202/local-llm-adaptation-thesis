@@ -57,6 +57,7 @@ results/statistics/**
 .ipynb_checkpoints/
 
 # LaTeX build products
+thesis/.local/
 thesis/build/
 thesis/*.aux
 thesis/*.bbl
