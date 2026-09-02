@@ -85,6 +85,12 @@ environment-specific warning that Polish hyphenation patterns were not registere
 its temporary TeX configuration; this does not occur in a normal registered TeX Live
 installation and did not prevent rendering.
 
+The repository CI workflow runs the build-contract check and the same staged build on a
+trusted self-hosted Linux x64 runner labelled `weti-template`. Its `WETI_TEMPLATE_DIR`
+repository variable must point to the unchanged local extraction. This avoids placing
+the restricted upstream archive in GitHub-hosted CI while still producing a downloadable
+`thesis-pdf` artifact for thesis changes.
+
 Visual checks of the rendered pages found:
 
 - page 1 is the supplied Moja PG title page, with no visible page number;
