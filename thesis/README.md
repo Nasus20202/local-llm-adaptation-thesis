@@ -12,6 +12,8 @@ The archive's `main.tex` identifies format version 3.0, dated 2025-11-25, and co
 
 This repository is private and is used for the author's WETI thesis. At the project owner's direction, the exact retrieved extraction is versioned under [`thesis/upstream/weti-2026/`](upstream/weti-2026/), without edits or relicensing. Keep the repository private; this project decision is not permission for public redistribution or transfer to third parties. The checksum, manifest, source, retrieval procedure, and rights decision are recorded in [`docs/research-log/2026-09-02-weti-template.md`](../docs/research-log/2026-09-02-weti-template.md).
 
+**GitHub-hosted CI: ALLOWED for this private repository only.** The project owner accepts the interpretation that a private GitHub Actions job, triggered from this private repository and producing a permission-restricted artifact, is internal project processing for the WETI student rather than public sharing or transfer to third parties. This is a project-level operating decision, not a public redistribution license. The upstream notice explicitly names cloud services, so residual uncertainty remains about whether the rights holder would treat hosted CI infrastructure as prohibited cloud use; if that interpretation is rejected, disable this workflow and use the documented local build.
+
 Project-owned thesis content is kept separately in [`thesis/overlay/`](overlay/). The supplied Moja PG title page is stored at [`thesis/inputs/title-page.pdf`](inputs/title-page.pdf) and is included without modification. The overlay is copied over the committed upstream tree only in a temporary build directory; upstream files remain unchanged.
 
 ## Local build
@@ -45,7 +47,7 @@ The copied staging directory is disposable. Do not run the overlay by editing th
 
 ## Continuous integration
 
-`.github/workflows/thesis-build.yml` runs for changes under `thesis/**` or to the workflow itself on the standard `ubuntu-latest` runner. It stages the committed upstream template, project overlay and title page, then uses `xu-cheng/latex-action@v4` with a pinned TeX Live 2024 container, LuaLaTeX, shell-escape and Pygments support. It uploads `main.pdf` as the `thesis-pdf` workflow artifact. The upstream directory is never edited during the build.
+`.github/workflows/thesis-build.yml` runs for changes under `thesis/**` or to the workflow itself on the standard GitHub-hosted `ubuntu-24.04` runner. It stages the committed upstream template, project overlay and title page, then uses the SHA-pinned `xu-cheng/latex-action` action with a TeX Live 2024 container, LuaLaTeX, shell-escape and Pygments support. It uploads `main.pdf` as the `thesis-pdf` workflow artifact. The upstream directory is never edited during the build.
 
 The expected reproducible path is:
 

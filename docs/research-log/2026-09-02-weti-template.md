@@ -52,6 +52,8 @@ The embedded notice states that the template and accompanying materials may be u
 
 The repository is private and is used by the WETI student who owns this thesis project. At the project owner's direction, the exact extracted upstream tree—including the class, fonts, sample title and declaration PDFs, examples, and upstream PDF—is committed under `thesis/upstream/weti-2026/` without edits or relicensing. This records project-level authorization for this private repository; it is not a claim that the rights notice permits public redistribution. The repository must remain private and the upstream subtree must not be published, transferred, or moved to public Overleaf/cloud projects without rights-holder permission.
 
+**GitHub-hosted CI: ALLOWED for this private repository only.** The project owner accepts the interpretation that a private GitHub Actions job, triggered from this private repository and producing a permission-restricted artifact, is internal project processing for the WETI student rather than public sharing or transfer to third parties. This is a project-level operating decision, not a public redistribution license. The upstream notice explicitly names cloud services, so **residual uncertainty** remains about whether the rights holder would treat hosted CI infrastructure as prohibited cloud use. If the rights holder rejects this interpretation, the workflow must be disabled and the documented local build used instead. The workflow is therefore intentionally limited to this private repository and must not be copied to a public repository or public cloud project.
+
 The project-owned overlay under `thesis/overlay/` is not a copy of the template. It is assembled over the unchanged committed upstream tree in a disposable staging directory. The supplied Moja PG title page is stored as `thesis/inputs/title-page.pdf`; its SHA-256 is `a530e3b58bfdee39c4be4e6e7bcf6d8ddc04fde09ac5d12cf8ff6b55bf7b95cd`. The declaration is retained from the upstream tree and is not reconstructed here.
 
 ## Guidance checks
@@ -86,9 +88,10 @@ its temporary TeX configuration; this does not occur in a normal registered TeX 
 installation and did not prevent rendering.
 
 The repository CI workflow runs the build-contract check and the same staged build on
-GitHub's standard `ubuntu-latest` runner. It uses `xu-cheng/latex-action@v4` with a
-pinned TeX Live 2024 container, uses the committed upstream tree, and produces a
-downloadable `thesis-pdf` artifact for thesis changes.
+GitHub's standard `ubuntu-24.04` hosted runner. It uses SHA-pinned
+`xu-cheng/latex-action` with a pinned TeX Live 2024 container, uses the committed
+upstream tree, and produces a permission-restricted `thesis-pdf` artifact for thesis
+changes.
 
 Visual checks of the rendered pages found:
 
