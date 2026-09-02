@@ -12,7 +12,7 @@ The archive's `main.tex` identifies format version 3.0, dated 2025-11-25, and co
 
 Consequently, this repository does not redistribute the archive or any extracted upstream file, including `_formatting.cls`, fonts, sample title/declaration PDFs, examples, or upstream chapter files. The checksum, manifest, source, retrieval procedure, and rights decision are recorded in [`docs/research-log/2026-09-02-weti-template.md`](../docs/research-log/2026-09-02-weti-template.md). Obtain the archive through the official page and keep the extracted tree outside Git. Do not modify that tree.
 
-Project-owned thesis content is kept separately in [`thesis/overlay/`](overlay/). The overlay is copied over an unchanged local template only in a temporary build directory. The title page and declaration remain local PDFs supplied through Moja PG or the official template's local working copy; this repository does not reconstruct or replace them.
+Project-owned thesis content is kept separately in [`thesis/overlay/`](overlay/). The supplied Moja PG title page is stored at [`thesis/inputs/title-page.pdf`](inputs/title-page.pdf) and is included without modification. The declaration remains a local PDF supplied through the official template's local working copy; this repository does not reconstruct or replace it. The overlay is copied over an unchanged local template only in a temporary build directory.
 
 ## Local build
 
@@ -41,6 +41,10 @@ pdftoppm -png "$build_dir/main.pdf" "$build_dir/page"
 ```
 
 The copied staging directory is disposable. Do not run the overlay by editing the extracted upstream tree, and do not commit the generated PDF or rendered pages.
+
+## Continuous integration
+
+`.github/workflows/thesis-build.yml` runs for changes under `thesis/**` or to the workflow itself. It uses a trusted self-hosted runner labelled `weti-template`, whose repository variable `WETI_TEMPLATE_DIR` points to an unchanged local extraction of the official archive. The runner must have LuaLaTeX, `latexmk`, Biber, Pygments, Poppler, and the WETI template dependencies installed. The workflow stages the official template, project overlay, and title page in a temporary directory, then uploads `main.pdf` as the `thesis-pdf` workflow artifact. Upstream files are never committed to this repository.
 
 The expected reproducible path is:
 

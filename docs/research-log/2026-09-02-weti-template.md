@@ -52,7 +52,7 @@ The embedded notice states that the template and accompanying materials may be u
 
 This GitHub repository is a cloud-hosted repository and is not an internal WETI system. The upstream archive and all extracted upstream files are therefore kept outside Git. This includes the class, fonts, sample title and declaration PDFs, examples, and the upstream PDF. No redistribution permission was found in the archive or on the linked page. A future permission from the rights holder would need to be recorded separately before any upstream file is committed.
 
-The project-owned overlay under `thesis/overlay/` is not a copy of the template. It is assembled over an unchanged local extraction in a disposable staging directory. The final title page remains a PDF downloaded from Moja PG and is not reconstructed in this repository.
+The project-owned overlay under `thesis/overlay/` is not a copy of the template. It is assembled over an unchanged local extraction in a disposable staging directory. The supplied Moja PG title page is stored as `thesis/inputs/title-page.pdf`; its SHA-256 is `a530e3b58bfdee39c4be4e6e7bcf6d8ddc04fde09ac5d12cf8ff6b55bf7b95cd`. The declaration remains a local-only PDF from the template working copy and is not reconstructed here.
 
 ## Guidance checks
 
@@ -87,15 +87,17 @@ installation and did not prevent rendering.
 
 Visual checks of the rendered pages found:
 
-- pages 1–2 are the local-only title/declaration PDFs, with no visible page number on
-  the title page; they remain placeholders until the final pages are downloaded from
-  Moja PG;
+- page 1 is the supplied Moja PG title page, with no visible page number;
+- page 2 remains the local-only declaration PDF from the template working copy;
 - pages 3–4 contain one-page Polish and English abstracts;
 - page 6 contains the resolved contents and page numbers;
 - page 9 places the table title directly above the table and the figure title directly
   below the figure, with both elements referenced in the prose;
 - page 11 contains the cited bibliography entry, and pages 12–13 contain the figure and
   table lists.
+
+The title page was independently inspected before integration: one page, A4, unencrypted,
+with the WETI identity, student/programme details, Polish and English titles, and supervisor.
 
 ## Limitations
 

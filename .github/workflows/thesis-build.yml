@@ -1,0 +1,57 @@
+name: Thesis build
+
+on:
+  push:
+    paths:
+      - 'thesis/**'
+      - '.github/workflows/thesis-build.yml'
+  pull_request:
+    paths:
+      - 'thesis/**'
+      - '.github/workflows/thesis-build.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux, x64, weti-template]
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build thesis PDF
+        env:
+          WETI_TEMPLATE_DIR: ${{ vars.WETI_TEMPLATE_DIR }}
+        run: |
+          set -euo pipefail
+          test -n "$WETI_TEMPLATE_DIR"
+          test -f "$WETI_TEMPLATE_DIR/_formatting.cls"
+          test -f "$WETI_TEMPLATE_DIR/pages/2_statement.pdf"
+          test -f "$WETI_TEMPLATE_DIR/fonts/arial.ttf"
+
+          build_dir="$(mktemp -d)"
+          trap 'rm -rf "$build_dir"' EXIT
+          cp -a "$WETI_TEMPLATE_DIR"/. "$build_dir"/
+          mkdir -p "$build_dir/inputs"
+          cp -a thesis/overlay/. "$build_dir"/
+          cp thesis/inputs/title-page.pdf "$build_dir/inputs/title-page.pdf"
+
+          mkdir -p "$GITHUB_WORKSPACE/thesis/build"
+          (
+            cd "$build_dir"
+            latexmk -C
+            latexmk -lualatex -shell-escape -interaction=nonstopmode -halt-on-error main.tex
+            pdfinfo main.pdf
+          )
+          cp "$build_dir/main.pdf" "$GITHUB_WORKSPACE/thesis/build/main.pdf"
+
+      - name: Upload thesis PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: thesis-pdf
+          path: thesis/build/main.pdf
+          if-no-files-found: error
+          retention-days: 14
