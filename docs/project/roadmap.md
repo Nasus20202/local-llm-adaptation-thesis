@@ -16,7 +16,7 @@ GitHub milestone and label conventions are defined in [github-management.md](git
 | M5 | Fine-Tuning / QLoRA | One justified training pipeline produces a locally evaluated adapter or model with adaptation-cost accounting |
 | M6 | Model Harness | H1 is defined as an explicit controlled condition and evaluated on procedural tasks |
 | M7 | Skill-Based Adaptation | S1 isolates reusable procedural context from harness-only behavior |
-| M8 | Stability and Combined Experiments | Repeated runs, paraphrases, C1, and a justified C2 are analyzed |
+| M8 | Stability and Combined Experiments | Repeated runs, paraphrases, C1, and a metadata-frozen C2 (or exploratory-only C2 followed by fresh confirmatory families) are analyzed |
 | M9 | Secondary Model Replication | Selected effects are replicated on the frozen second family |
 | M10 | Statistical Analysis | Pre-specified analyses, uncertainty intervals, sensitivity checks, tables, and figures are reproducible |
 | M11 | Thesis Results and Discussion | Validated results, limitations, and conclusions are integrated into the Polish thesis |
@@ -28,16 +28,17 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 
 ## Immediate backlog: M1
 
-1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark decision package was approved at Human Gate A on 2026-09-02 without constructing items.
-2. Use the selected domain, language, rights, split, answer-format, and contamination policies to specify Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4).
-3. Create a dataset or evaluator OpenSpec package only when approved software behavior is known; do not infer it from the research decision alone.
-4. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
-5. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
-6. Decide the public licensing plan before making the private repository public.
+1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark-domain package was approved, merged in PR [#22](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/22), and closed.
+2. Review the Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator methodology and `benchmark-pilot-evaluation-foundation` OpenSpec package at Human Gate A.
+3. After approval, implement only the synthetic validation/evaluation/tool-boundary foundation; do not construct pilot payloads or run real clusters, web tools, or models in that implementation cycle.
+4. Separately authorize development-only pilot/fixture construction and empirical qualification after the software foundation is reviewed and merged.
+5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
+6. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
+7. Decide the public licensing plan before making the private repository public.
 
 ## Next milestone: M1
 
-M1 next validates the proposed task families, metrics, annotation process, split sizes, evaluator calibration, and contamination checks on development-only pilot material. Final-test construction and freeze remain separate approvals.
+M1 next validates task families, metrics, annotation, evaluator calibration, contamination checks, and the separately gated `kind`/W1 strata on development-only material. Final-test construction and freeze remain separate approvals.
 
 - [Benchmark domain and construction decision](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2)
 - [Benchmark pilot and evaluator calibration protocol](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4)
@@ -52,7 +53,7 @@ M1 next validates the proposed task families, metrics, annotation process, split
 | M5 | [QLoRA adaptation](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/6) |
 | M6 | [Model harness](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/7) |
 | M7 | [Reusable skills](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/12) |
-| M8 | [Stability and combined experiments](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/9) |
+| M8 | Stability and Combined Experiments | Repeated runs, paraphrases, C1, and a metadata-frozen C2 (or exploratory-only C2 followed by fresh confirmatory families) are analyzed |
 | M9 | [Secondary-model replication](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/13) |
 | M10 | [Statistical analysis](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/14) |
 | M11 | [Polish thesis results and discussion](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/15) |
