@@ -31,10 +31,9 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark-domain package was approved, merged in PR [#22](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/22), and closed.
 2. The Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator protocol was approved and merged in [PR #25](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/25).
 3. Its bounded synthetic pilot/evaluator, controlled-cluster, and W1 software foundations were implemented, independently reviewed, and merged in [PR #33](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/33). The canonical specifications are synchronized and the completed changes archived.
-4. Separately authorize development-only pilot/fixture construction and empirical qualification. Do not construct final-test material or run models, real clusters, or live web tools until that authorization is approved.
+4. Separately authorize [development-only pilot/fixture construction and empirical qualification](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35). Do not construct final-test material or run models, real clusters, or live web tools until that authorization is approved.
 5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
-6. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
-7. Decide the public licensing plan before making the private repository public.
+6. Decide the public licensing plan through [Issue #36](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/36) before making the private repository public.
 
 ## Next milestone: M1
 
