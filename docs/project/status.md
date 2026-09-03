@@ -1,13 +1,13 @@
 # Project Status
 
 - **Current milestone:** M1 — Benchmark Dataset and Evaluation Foundation
-- **Current research objective:** Review and approve the Issue #4 development-pilot and evaluator-calibration decision package before constructing any pilot material.
-- **Active OpenSpec change:** `benchmark-pilot-evaluation-foundation`, proposed and strictly validated for Human Gate A. The completed foundation package remains [archived](../../openspec/changes/archive/2026-09-01-foundation-experiment-platform/).
-- **Specification status:** The Issue #2 benchmark-domain policy is accepted. The Issue #4 methodology and bounded pilot/evaluator software behavior are proposed in [ADR-0009](../adr/0009-development-pilot-and-calibration-protocol.md), the [pilot protocol](../research/benchmark-pilot-protocol.md), and the active OpenSpec package.
-- **Implementation status:** The provenance-only foundation is on `main`; no dataset/evaluator, inference, retrieval, harness, skill, cluster, or web-search capability is implemented.
-- **Independent review status:** Issue #4 awaits Human Gate A before any implementation handoff.
+- **Current research objective:** Authorize and prepare the development-only benchmark pilot and evaluator-calibration materials without constructing final-test content or running formal experiments.
+- **Canonical OpenSpec specifications:** The implementation contracts for development-only pilot custody/progression, evaluation protocol, controlled cluster tasks, and W1 web-search sensitivity are synchronized under `openspec/specs/`. The completed changes are archived under `openspec/changes/archive/`.
+- **Specification status:** The Issue #2 benchmark-domain policy and Issue #4 pilot/evaluator methodology are accepted. Their bounded software foundations were implemented, independently reviewed, and merged in [PR #33](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/33).
+- **Implementation status:** The provenance foundation and the pilot/evaluation/controlled-boundary validation foundations are on `main`. They use synthetic metadata and deterministic fakes only; no benchmark scenarios, evaluator payloads, goldens, model inference, real clusters, or live web calls are implemented or executed.
+- **Independent review status:** PR #33 passed independent review and CI before merge.
 - **Experiment status:** Not started; no pilot or formal model execution and no experimental results exist.
-- **Current blocker:** Human Gate A must approve, amend, or reject the Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) methodology. Final-test material remains unconstructed and inaccessible.
-- **Next action:** Human researcher reviews the focused Issue #4 PR and explicitly approves or requests changes at Human Gate A. Approval authorizes Codex to implement only the active OpenSpec package; it does not authorize pilot item/fixture-payload construction, real cluster/web/model runs, or final-test construction.
+- **Current blocker:** A separate human authorization is required before constructing development-only pilot/fixture material or performing empirical evaluator, `kind`, W1, or model qualification. Final-test material remains unconstructed and inaccessible.
+- **Next action:** Prepare the next focused, development-only pilot-construction decision package. It must preserve the canonical specifications and keep real external execution opt-in and separately authorized.
 
 This file records the current research and development stage. Toolchain versions belong in project configuration and reproducibility records, not here.
