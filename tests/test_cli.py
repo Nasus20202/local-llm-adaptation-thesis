@@ -3,8 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from test_provenance import init_git
-
+from tests.provenance.test_provenance import init_git
 from thesis_bench.cli import main
 
 
