@@ -13,7 +13,7 @@
       "customType": "regex",
       "managerFilePatterns": ["//^pyproject\\.toml$//"],
       "matchStrings": [
-        "required-version\\s*=\\s*\"==(?<currentValue>\\d+\\.\\d+\\.\\d+)\""
+        "required-version\\s*=\\s*\\"==(?<currentValue>\\d+\\.\\d+\\.\\d+)\\""
       ],
       "depNameTemplate": "astral-sh/uv",
       "datasourceTemplate": "github-releases"
@@ -26,7 +26,7 @@
       "schedule": ["on sunday"]
     },
     {
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["minor", "patch", "lockFileMaintenance"],
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
