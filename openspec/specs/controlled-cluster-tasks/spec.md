@@ -1,8 +1,10 @@
+# controlled-cluster-tasks Specification
+
 ## Purpose
 
 Provide an opt-in, deterministic, and auditable execution boundary for a small paired static/interactive Kubernetes pilot without granting any adaptation condition privileged tools or uncontrolled cluster access.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Pinned disposable environment
 Every interactive attempt SHALL identify the `kind` binary revision, node-image digest, workload-image digests, cluster configuration hash, host/container-runtime identity, namespace, scenario-family/variant identity, reset policy, and validator version. Mutable tags SHALL be rejected.

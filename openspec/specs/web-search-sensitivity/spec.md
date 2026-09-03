@@ -1,8 +1,10 @@
+# web-search-sensitivity Specification
+
 ## Purpose
 
 Define a separately named official-source W1 sensitivity condition whose access, budgets, and retrieved evidence are bounded and auditable without exposing benchmark or golden repositories.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Explicit W1 condition identity
 A web-enabled attempt SHALL identify itself as W1 or as an explicitly approved combined condition. R1 and H1 configurations SHALL reject implicit open-web access.

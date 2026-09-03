@@ -1,8 +1,10 @@
+# benchmark-pilot-dataset Specification
+
 ## Purpose
 
 Define auditable development-only benchmark metadata and progression records without placing protected answers or final-test payloads in the normal repository or model-facing boundary.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Development-only partition boundary
 The system SHALL accept pilot records only when their split is `development`, and SHALL reject any pilot operation that declares or resolves final-test content.

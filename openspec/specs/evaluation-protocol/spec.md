@@ -1,8 +1,10 @@
+# evaluation-protocol Specification
+
 ## Purpose
 
 Provide versioned deterministic and human-evaluation records whose fixture behavior, calibration, adjudication, and invalidity decisions are reproducible without altering raw observations.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: Immutable evaluator identity
 Every evaluation SHALL identify the evaluator schema/version, code or artifact revision, configuration hash, rubric version when applicable, fixture-set hash, input observation identity/hash, and output hash. Re-evaluation with changed inputs SHALL create a new derived record and SHALL NOT modify the raw observation or prior evaluation.
