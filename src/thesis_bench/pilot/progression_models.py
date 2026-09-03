@@ -7,6 +7,7 @@ from pydantic.types import StrictBool, StrictFloat, StrictInt
 
 from ..records import DecisionStatus, ReasonCode, VersionedRecord
 from ..schemas import Identifier, NonBlankStr
+from .contamination import AuditMethod, AuditOutcome, ContaminationAudit
 
 
 class ProgressCriterion(StrEnum):
@@ -32,7 +33,19 @@ class HumanCalibrationEvidence(VersionedRecord):
     lower_bound: StrictFloat = Field(ge=-1.0, le=1.0)
     critical_exact_min: StrictFloat = Field(ge=0.0, le=1.0)
     systematic_critical_disagreement: StrictBool
+    systematic_disagreement_reason: NonBlankStr | None = None
     qualification_attempt: StrictInt = Field(ge=1)
+
+    @model_validator(mode="after")
+    def require_systematic_disagreement_reason(self) -> HumanCalibrationEvidence:
+        if self.systematic_critical_disagreement and self.systematic_disagreement_reason is None:
+            raise ValueError("systematic disagreement requires reviewed evidence")
+        if (
+            not self.systematic_critical_disagreement
+            and self.systematic_disagreement_reason is not None
+        ):
+            raise ValueError("systematic disagreement reason requires the disagreement flag")
+        return self
 
 
 class SolvabilityEvidence(VersionedRecord):
@@ -77,6 +90,29 @@ class FairnessEvidence(VersionedRecord):
 class ContaminationEvidence(VersionedRecord):
     direct_match: StrictBool
     pending_semantic_match: StrictBool
+    audits: tuple[ContaminationAudit, ...] = ()
+
+    @model_validator(mode="after")
+    def require_complete_detector_coverage(self) -> ContaminationEvidence:
+        required = set(AuditMethod)
+        methods = tuple(audit.method for audit in self.audits)
+        if len(methods) != len(set(methods)) or set(methods) != required:
+            raise ValueError("contamination evidence requires every detector")
+        direct_match = any(
+            audit.outcome == AuditOutcome.MATCH and audit.exposure_layer == "direct-item"
+            for audit in self.audits
+        )
+        pending_semantic_match = any(
+            audit.method == AuditMethod.SEMANTIC
+            and audit.progression_status() == DecisionStatus.AMEND
+            for audit in self.audits
+        )
+        if (
+            self.direct_match != direct_match
+            or self.pending_semantic_match != pending_semantic_match
+        ):
+            raise ValueError("contamination summary does not match detector audits")
+        return self
 
 
 class KindEvidence(VersionedRecord):

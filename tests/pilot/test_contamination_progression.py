@@ -2,11 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from tests.pilot.progress import valid_progress_observations
+from tests.pilot.progress import clean_contamination_audits, valid_progress_observations
 from thesis_bench.pilot import (
-    AuditMethod,
-    AuditOutcome,
-    ContaminationAudit,
     ContaminationEvidence,
     FairnessEvidence,
     HeadroomEvidence,
@@ -21,52 +18,6 @@ from thesis_bench.pilot import (
     derive_progression,
 )
 from thesis_bench.records import DecisionStatus, ReasonCode
-
-
-def test_contamination_records_derive_red_amend_and_reject_pretraining_probability() -> None:
-    direct = ContaminationAudit(
-        schema_version=1,
-        audit_id="audit-direct",
-        method=AuditMethod.EXACT,
-        detector_version="detector-v1",
-        artifact_pair=("development-1", "training-1"),
-        threshold="exact",
-        outcome=AuditOutcome.MATCH,
-        exposure_layer="direct-item",
-        adjudication="confirmed",
-    )
-    semantic = direct.model_copy(
-        update={
-            "audit_id": "audit-semantic",
-            "method": AuditMethod.SEMANTIC,
-            "outcome": AuditOutcome.UNRESOLVED,
-            "exposure_layer": "semantic-pattern",
-            "adjudication": "pending",
-        }
-    )
-
-    assert direct.progression_status() == DecisionStatus.STOP_DEFER
-    assert semantic.progression_status() == DecisionStatus.AMEND
-    pending_match = semantic.model_copy(
-        update={"outcome": AuditOutcome.MATCH, "audit_id": "audit-semantic-match"}
-    )
-    assert pending_match.progression_status() == DecisionStatus.AMEND
-    assert direct.parametric_exposure == "unknown"
-    assert ReasonCode.FAMILY_OVERLAP.value not in direct.model_dump_json()
-
-    with pytest.raises(ValueError):
-        ContaminationAudit(
-            schema_version=1,
-            audit_id="audit-probability",
-            method=AuditMethod.EXACT,
-            detector_version="detector-v1",
-            artifact_pair=("a", "b"),
-            threshold="exact",
-            outcome=AuditOutcome.NO_MATCH,
-            exposure_layer="source-domain",
-            adjudication="not_applicable",
-            pretraining_probability=0.1,
-        )
 
 
 def test_progression_preserves_criteria_and_safety_red_governs() -> None:
@@ -93,7 +44,10 @@ def test_progression_preserves_criteria_and_safety_red_governs() -> None:
             evidence=ProgressEvidence(
                 schema_version=1,
                 contamination=ContaminationEvidence(
-                    schema_version=1, direct_match=True, pending_semantic_match=False
+                    schema_version=1,
+                    direct_match=True,
+                    pending_semantic_match=False,
+                    audits=clean_contamination_audits(direct_match=True),
                 ),
             ),
         ),
@@ -186,6 +140,7 @@ def test_progression_treats_systematic_critical_disagreement_as_red() -> None:
                     lower_bound=1.0,
                     critical_exact_min=0.0,
                     systematic_critical_disagreement=True,
+                    systematic_disagreement_reason="reviewed technical label conflict",
                     qualification_attempt=1,
                 ),
             )

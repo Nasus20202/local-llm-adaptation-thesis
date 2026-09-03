@@ -22,7 +22,9 @@ including multi-comparator contrasts and the nested `B0-I` reference. C2
 records reference a hash bound to the canonical pre-outcome declaration and
 typed model-independent metadata; outcome-selected records remain exploratory
 and confirmatory follow-ups carry both their linked exploratory-manifest
-identity and family-disjoint exclusion set.
+identity and a family-disjoint exclusion set derived from that immutable
+manifest. C2 comparator selection order is frozen in the declaration and is
+not inferred from pilot outcomes.
 
 ## Versioning and reason codes
 
@@ -31,6 +33,8 @@ Frozen identities and append-only stores reject mutation, collisions, and
 overwrites. Statuses are `GO`, `AMEND`, and `STOP/DEFER`. Shared reason codes
 cover record, custody, policy, budget, provenance, evaluator, safety, and
 infrastructure decisions; records preserve the specific codes used.
+Contamination progression requires one aggregate record containing all six
+detector methods before it can claim no direct overlap.
 
 ## Opt-in external boundaries
 
@@ -44,10 +48,13 @@ foundation CLI.
 
 W1 providers expose redirect/status metadata through a body-free preparation
 operation; the body-read operation consumes the immutable prepared handle only
-after the W1 policy and budget checks pass. Denied redirects remain in
-protected provenance while model-facing diagnostics are redacted. Cluster
-final-state results come from the injected adapter, and budget exhaustion
-terminates the append-only attempt as a valid failure.
+after the W1 policy and budget checks pass. Actual body tokens are counted and
+provider work is timed before retrieved text can be exposed. Denied redirects
+remain in protected provenance while model-facing diagnostics are redacted.
+Source-drift records retain reviewer identity, rationale, hashes, and the
+semantic compatibility decision. Cluster final-state results come from the
+injected adapter, and budget exhaustion terminates the append-only attempt as a
+valid failure.
 
 Progression consumes typed evidence for every approved feasibility criterion.
 The records preserve per-stratum headroom, provenance/access gates, critical

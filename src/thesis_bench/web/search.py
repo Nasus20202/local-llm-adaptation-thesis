@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from time import perf_counter
+
 from ..records import ReasonCode, content_sha256
 from .policy import _denied_url, _redact_provenance, _safe_error_result
 from .protocols import AttemptContext
@@ -8,10 +10,10 @@ from .records import WebResult
 
 class _SearchOperationsMixin:
     def search(self: AttemptContext, query: str) -> WebResult:
-        self._require_policy(operation="search", url=None)
         if (
             self.search_calls >= self.budget.max_search_calls
             or self.tool_calls >= self.budget.max_tool_calls
+            or self.wall_seconds >= self.budget.max_wall_seconds
         ):
             _safe_error_result(
                 operation="search",
@@ -22,6 +24,7 @@ class _SearchOperationsMixin:
                 error="search budget exhausted",
             )
             raise ValueError("web budget exhausted")
+        self._require_policy(operation="search", url=None)
         lowered = query.lower()
         if any(
             marker in lowered
@@ -37,13 +40,15 @@ class _SearchOperationsMixin:
             )
         self.search_calls += 1
         self.tool_calls += 1
+        provider_version = getattr(self.provider, "provider_version", None)
+        started = perf_counter()
         try:
-            provider_version = getattr(self.provider, "provider_version", None)
             results = tuple(
                 result.model_copy(update={"result_rank": rank})
                 for rank, result in enumerate(self.provider.search(query))
             )
         except Exception:
+            self.wall_seconds += max(0.0, perf_counter() - started)
             return _safe_error_result(
                 operation="search",
                 url=None,
@@ -53,6 +58,18 @@ class _SearchOperationsMixin:
                 error="search provider unavailable",
                 provider_version=provider_version,
             )
+        self.wall_seconds += max(0.0, perf_counter() - started)
+        if self.wall_seconds > self.budget.max_wall_seconds:
+            _safe_error_result(
+                operation="search",
+                url=None,
+                query=query,
+                reason_code=ReasonCode.BUDGET_EXHAUSTED,
+                attempt=self,
+                error="web wall-time budget exhausted",
+                provider_version=provider_version,
+            )
+            raise ValueError("web wall-time budget exhausted")
         if len(results) > self.budget.max_results_per_search:
             _safe_error_result(
                 operation="search",

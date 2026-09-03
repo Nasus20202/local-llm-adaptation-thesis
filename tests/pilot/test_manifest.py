@@ -97,6 +97,41 @@ def test_family_contract_enforces_condition_specific_comparator_matrix() -> None
         FamilyRecord.model_validate(record)
 
 
+def test_c2_family_contract_rejects_outcome_selected_strongest_constituent() -> None:
+    record = family(1, TaskClass.KNOWLEDGE, Language.EN).model_dump(mode="python")
+    target = {**record["target_stratum"], "conditions": ("B0", "C2")}
+    record["target_stratum"] = target
+    record["condition_applicability"] = tuple(
+        {**item, "applicable": item["condition"] in {"B0", "C2"}, "reason": None}
+        if item["condition"] in {"B0", "C2"}
+        else item
+        for item in record["condition_applicability"]
+    )
+    record["analysis_contracts"] = (
+        {
+            **record["analysis_contracts"][0],
+            "target_stratum": target,
+        },
+        {
+            "schema_version": 1,
+            "condition": "C2",
+            "target_stratum": target,
+            "comparators": (
+                {
+                    "schema_version": 1,
+                    "comparator_id": "outcome-selected-c2",
+                    "condition": "R1",
+                    "design_rule": "strongest-constituent-v1",
+                    "selection_order": ("P1", "R1"),
+                },
+            ),
+        },
+    )
+
+    with pytest.raises(ValueError, match="frozen strongest"):
+        FamilyRecord.model_validate(record)
+
+
 def test_model_facing_manifest_rejects_protected_markers_but_allows_references() -> None:
     manifest = balanced_manifest()
     reference = ProtectedArtifactReference(

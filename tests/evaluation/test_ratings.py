@@ -95,3 +95,62 @@ def test_blinded_ratings_require_independence_and_adjudication_is_append_only(
     store.append(unresolved)
     with pytest.raises(ValueError, match="collision"):
         store.append(unresolved)
+
+
+def test_resolved_disagreement_records_value_and_adjudicator_identity() -> None:
+    ratings = (
+        RatingRecord(
+            schema_version=1,
+            rating_id="rating-a",
+            rater_pseudonym="rater-a",
+            randomized_response_id="response-2",
+            criterion_id="correctness",
+            value=2,
+            rubric_version="rubric-v1",
+            rated_at="2026-09-03T10:00:00Z",
+            independent=True,
+            blinded=True,
+        ),
+        RatingRecord(
+            schema_version=1,
+            rating_id="rating-b",
+            rater_pseudonym="rater-b",
+            randomized_response_id="response-2",
+            criterion_id="correctness",
+            value=0,
+            rubric_version="rubric-v1",
+            rated_at="2026-09-03T10:00:00Z",
+            independent=True,
+            blinded=True,
+        ),
+    )
+    rubric = RubricCriterion(
+        schema_version=1,
+        criterion_id="correctness",
+        kind="ordinal",
+        anchors={0: "no", 1: "partial", 2: "yes"},
+        critical=False,
+        atomic=True,
+    )
+
+    resolved = adjudicate_ratings(
+        ratings,
+        criterion_kind="ordinal",
+        rubric=(rubric,),
+        rationale="reviewed evidence",
+        adjudicated_value=1,
+        adjudicator_pseudonyms=("adjudicator-a",),
+    )
+
+    assert resolved.resolved is True
+    assert resolved.labels == (2, 0)
+    assert resolved.adjudicated_value == 1
+    assert resolved.adjudicator_pseudonyms == ("adjudicator-a",)
+    with pytest.raises(ValueError, match="adjudicated value"):
+        adjudicate_ratings(
+            ratings,
+            criterion_kind="ordinal",
+            rubric=(rubric,),
+            rationale="reviewed evidence",
+            adjudicator_pseudonyms=("adjudicator-a",),
+        )

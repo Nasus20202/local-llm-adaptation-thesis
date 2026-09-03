@@ -5,7 +5,8 @@ from pathlib import Path
 
 from ..records import canonical_json_bytes
 from .composition import validate_composition
-from .models import PilotManifest, ProtectedArtifactReference
+from .manifest import PilotManifest
+from .models import ProtectedArtifactReference
 
 
 def load_pilot_manifest(path: Path, *, require_composition: bool = False) -> PilotManifest:

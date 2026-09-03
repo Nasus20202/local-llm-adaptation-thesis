@@ -105,6 +105,10 @@ class ClusterAttempt:
             raise ValueError("attempt did not pass reset verification")
         if self._terminal:
             raise ValueError("attempt has terminated")
+        if len(self.captures) >= self.policy.max_actions:
+            capture = self._capture(request, "denied", ReasonCode.BUDGET_EXHAUSTED)
+            self._terminate(ReasonCode.BUDGET_EXHAUSTED)
+            return capture
         namespace = request.namespace or self.policy.namespace
         if namespace != self.policy.namespace:
             return self._capture(request, "denied", ReasonCode.DENIED_OPERATION)
@@ -119,10 +123,6 @@ class ClusterAttempt:
             return self._capture(request, "denied", ReasonCode.DENIED_OPERATION)
         if request.privileged or request.host_mount or request.cluster_scope or request.egress:
             return self._capture(request, "denied", ReasonCode.SAFETY_FAILURE)
-        if len(self.captures) >= self.policy.max_actions:
-            capture = self._capture(request, "denied", ReasonCode.BUDGET_EXHAUSTED)
-            self._terminate(ReasonCode.BUDGET_EXHAUSTED)
-            return capture
         if len(request.output.encode()) > self.policy.max_output_bytes:
             capture = self._capture(request, "denied", ReasonCode.BUDGET_EXHAUSTED)
             self._terminate(ReasonCode.BUDGET_EXHAUSTED)

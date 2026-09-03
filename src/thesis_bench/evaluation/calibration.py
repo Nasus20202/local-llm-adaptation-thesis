@@ -5,11 +5,11 @@ from collections.abc import Iterable, Sequence
 from enum import StrEnum
 from typing import Literal
 
-from pydantic import Field
+from pydantic import Field, model_validator
 from pydantic.types import StrictBool, StrictInt
 
 from ..records import VersionedRecord
-from ..schemas import Identifier
+from ..schemas import Identifier, NonBlankStr
 from .statistics import adjacent_agreement, exact_agreement
 
 
@@ -29,7 +29,19 @@ class CalibrationSummary(VersionedRecord):
     interval: tuple[float, float]
     critical_exact: dict[Identifier, float]
     systematic_critical_disagreement: StrictBool
+    systematic_disagreement_reason: NonBlankStr | None = None
     qualification_attempt: StrictInt = Field(default=1, ge=1)
+
+    @model_validator(mode="after")
+    def require_systematic_disagreement_reason(self) -> CalibrationSummary:
+        if self.systematic_critical_disagreement and self.systematic_disagreement_reason is None:
+            raise ValueError("systematic disagreement requires reviewed evidence")
+        if (
+            not self.systematic_critical_disagreement
+            and self.systematic_disagreement_reason is not None
+        ):
+            raise ValueError("systematic disagreement reason requires the disagreement flag")
+        return self
 
 
 def calibration_summary(
@@ -42,6 +54,8 @@ def calibration_summary(
     draws: int = 10_000,
     summary_id: str = "calibration-1",
     qualification_attempt: int = 1,
+    systematic_critical_disagreement: bool = False,
+    systematic_disagreement_reason: str | None = None,
 ) -> CalibrationSummary:
     # Resolve patchable public collaborators at call time for compatibility
     # with callers that replace the facade functions in deterministic tests.
@@ -51,6 +65,10 @@ def calibration_summary(
         raise ValueError("calibration requires observations")
     if qualification_attempt < 1:
         raise ValueError("qualification attempt must be positive")
+    if systematic_critical_disagreement and not systematic_disagreement_reason:
+        raise ValueError("systematic disagreement requires reviewed evidence")
+    if not systematic_critical_disagreement and systematic_disagreement_reason is not None:
+        raise ValueError("systematic disagreement reason requires the disagreement flag")
     critical_set = set(critical_criteria)
     by_criterion: dict[str, list[tuple[int, int]]] = defaultdict(list)
     grouped: dict[str, list[tuple[str, tuple[int, int]]]] = defaultdict(list)
@@ -88,9 +106,6 @@ def calibration_summary(
         draws=draws,
     )
     critical = {criterion: exact[criterion] for criterion in critical_set}
-    # A fully disagreeing critical binary label is the frozen operational
-    # definition of systematic critical disagreement for pilot progression.
-    systematic_critical_disagreement = any(value == 0.0 for value in critical.values())
     critical_ok = all(value >= 0.90 for value in critical.values())
     if systematic_critical_disagreement:
         status = CalibrationStatus.STOP_DEFER
@@ -117,5 +132,6 @@ def calibration_summary(
         interval=interval,
         critical_exact=critical,
         systematic_critical_disagreement=systematic_critical_disagreement,
+        systematic_disagreement_reason=systematic_disagreement_reason,
         qualification_attempt=qualification_attempt,
     )

@@ -4,7 +4,8 @@ from collections import Counter
 from typing import Literal
 
 from ..records import VersionedRecord
-from .models import Language, PilotManifest, TaskClass
+from .manifest import PilotManifest
+from .models import Language, TaskClass
 
 
 class CompositionReport(VersionedRecord):

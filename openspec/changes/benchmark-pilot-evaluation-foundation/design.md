@@ -32,7 +32,7 @@ Alternative: one generic workflow/agent engine. Rejected because it hides scient
 
 ### 2. Public manifests and protected evaluator bundles are separate roots
 
-The pilot manifest contains family metadata, inputs only when later authorized, applicability, policy references, and protected artifact identities/hashes. Expected outcomes, evidence maps, rubrics, adjudication notes, and goldens live under a separately supplied evaluator root. Validation takes both roots explicitly when protected evaluation is needed and never copies protected payloads into model-facing artifacts or diagnostic output.
+The pilot manifest contains family metadata, inputs only when later authorized, applicability, policy references, and protected artifact identities/hashes. C2 declarations also freeze an outcome-independent constituent selector/order; confirmatory follow-ups bind to a validated exploratory manifest and derive family exclusions from it. Expected outcomes, evidence maps, rubrics, adjudication notes, and goldens live under a separately supplied evaluator root. Validation takes both roots explicitly when protected evaluation is needed and never copies protected payloads into model-facing artifacts or diagnostic output.
 
 Tests use synthetic non-domain strings and hashes. Repository examples demonstrate schemas without answer-bearing content.
 
@@ -62,7 +62,7 @@ Alternative: give only H1 a cluster tool. Rejected because tool access would be 
 
 ### 6. W1 uses a policy-enforcing proxy boundary
 
-All search/fetch requests pass through one W1 boundary that validates the condition ID, destination/redirect, protected-context marker, and remaining budgets. It persists required provenance before returning text. The provider adapter exposes search and fetch only; it cannot read local files or benchmark stores. A deterministic fake supplies redirects, failures, ranking changes, budget exhaustion, and malicious destinations in tests.
+All search/fetch requests pass through one W1 boundary that validates the condition ID, destination/redirect, protected-context marker, and remaining budgets. It measures provider work and counts extracted tokens from the actual body before persisting provenance and returning text. The provider adapter exposes search and fetch only; it cannot read local files or benchmark stores. A deterministic fake supplies redirects, failures, ranking changes, budget exhaustion, and malicious destinations in tests.
 
 Unknown provider versions are stored explicitly as `not_exposed`. Content is stored only where licensing permits; otherwise store an immutable URL/reference plus hash and the bounded text actually shown to the model.
 
@@ -70,7 +70,7 @@ Alternative: permit the harness to call a general browser. Rejected because it c
 
 ### 7. Calibration and progression are derived, never hand-edited
 
-Raw independent ratings and adjudications are append-only. A calibration command or callable computes confusion tables, exact/adjacent agreement, Krippendorff alpha, a family-clustered interval with frozen seed, and the threshold status. A progression report consumes only approved feasibility summaries and records every criterion status. It rejects method-effect fields and final-test references.
+Raw independent ratings and adjudications are append-only. Resolved disagreements carry a frozen-rubric-valid value, written rationale, and adjudicator identity while retaining source labels; unresolved disagreements retain both labels for sensitivity analysis. A calibration command or callable computes confusion tables, exact/adjacent agreement, Krippendorff alpha, a family-clustered interval with frozen seed, and the threshold status. Systematic critical disagreement is supplied as explicit reviewed evidence rather than inferred from agreement alone. A progression report consumes only approved feasibility summaries and records every criterion status. It rejects method-effect fields and final-test references.
 
 The first implementation exposes these operations as callable domain services and versioned file outputs. Adding stable end-user CLI commands or integrating them with experiment execution requires a later delta to the existing command-line-interface/run capabilities.
 

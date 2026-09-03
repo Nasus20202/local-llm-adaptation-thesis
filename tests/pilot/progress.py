@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 from thesis_bench.pilot import (
+    AuditMethod,
+    AuditOutcome,
+    ContaminationAudit,
     ContaminationEvidence,
     DeterministicEvaluationEvidence,
     FairnessEvidence,
@@ -17,6 +20,26 @@ from thesis_bench.pilot import (
     W1Evidence,
 )
 from thesis_bench.records import DecisionStatus, ReasonCode
+
+
+def clean_contamination_audits(*, direct_match: bool = False) -> tuple[ContaminationAudit, ...]:
+    audits = []
+    for index, method in enumerate(AuditMethod):
+        direct = direct_match and method == AuditMethod.EXACT
+        audits.append(
+            ContaminationAudit(
+                schema_version=1,
+                audit_id=f"audit-{index}",
+                method=method,
+                detector_version="detector-v1",
+                artifact_pair=("development-1", "training-1"),
+                threshold=method.value,
+                outcome=AuditOutcome.MATCH if direct else AuditOutcome.NO_MATCH,
+                exposure_layer="direct-item" if direct else "source-domain",
+                adjudication="confirmed" if direct else "not_applicable",
+            )
+        )
+    return tuple(audits)
 
 
 def valid_progress_observations() -> tuple[ProgressObservation, ...]:
@@ -78,7 +101,10 @@ def valid_progress_observations() -> tuple[ProgressObservation, ...]:
         ProgressCriterion.CONTAMINATION: ProgressEvidence(
             schema_version=1,
             contamination=ContaminationEvidence(
-                schema_version=1, direct_match=False, pending_semantic_match=False
+                schema_version=1,
+                direct_match=False,
+                pending_semantic_match=False,
+                audits=clean_contamination_audits(),
             ),
         ),
         ProgressCriterion.KIND: ProgressEvidence(

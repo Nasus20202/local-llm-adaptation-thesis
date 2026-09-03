@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from .protocols import AttemptContext
 import hashlib
 import ipaddress
+import re
 from urllib.parse import unquote, urlparse
 
 from .models import AllowlistEntry, FetchResponse
@@ -43,7 +44,16 @@ def _denied_url(url: str, allowlist: Sequence[AllowlistEntry]) -> bool:
         or address.is_unspecified
     ):
         return True
-    decoded_path = unquote(parsed.path)
+    decoded_path = parsed.path
+    for _ in range(8):
+        next_path = unquote(decoded_path)
+        if next_path == decoded_path:
+            break
+        decoded_path = next_path
+    else:
+        return True
+    if "\\" in decoded_path or re.search(r"%(?:2e|2f|5c)", decoded_path, flags=re.IGNORECASE):
+        return True
     if any(part in {".", ".."} for part in decoded_path.split("/")):
         return True
     lowered_path = decoded_path.lower()

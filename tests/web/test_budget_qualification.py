@@ -41,12 +41,22 @@ def test_w1_budgets_allow_exact_boundaries_and_deny_the_next_operation() -> None
 def test_source_drift_and_feasibility_are_explicit_progression_inputs() -> None:
     assert (
         source_drift_precheck(
-            frozen_hash="a" * 64, current_hash="a" * 64, source_available=True
+            frozen_hash="a" * 64,
+            current_hash="b" * 64,
+            source_available=True,
+            reviewer_id="reviewer-1",
+            semantic_compatible=True,
+            rationale="answer contract unchanged",
         ).status
         == DecisionStatus.GO
     )
     drift = source_drift_precheck(
-        frozen_hash="a" * 64, current_hash="b" * 64, source_available=True
+        frozen_hash="a" * 64,
+        current_hash="b" * 64,
+        source_available=True,
+        reviewer_id="reviewer-1",
+        semantic_compatible=False,
+        rationale="required constraint changed",
     )
     assert drift.status == DecisionStatus.STOP_DEFER
     assert drift.reason_code == ReasonCode.SOURCE_DRIFT
@@ -69,6 +79,18 @@ def test_source_drift_and_feasibility_are_explicit_progression_inputs() -> None:
         within_budget=(True,) * 10,
     )
     assert unsafe.status == DecisionStatus.STOP_DEFER
+
+
+def test_source_drift_requires_human_semantic_compatibility_evidence() -> None:
+    with pytest.raises(ValueError, match="review"):
+        source_drift_precheck(
+            frozen_hash="a" * 64,
+            current_hash="a" * 64,
+            source_available=True,
+            reviewer_id="",
+            semantic_compatible=True,
+            rationale="",
+        )
 
 
 def test_w1_feasibility_counts_only_predeclared_eligible_attempts() -> None:

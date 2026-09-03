@@ -94,8 +94,28 @@ class AdjudicationRecord(VersionedRecord):
     source_rating_ids: tuple[Identifier, ...] = Field(min_length=2)
     labels: tuple[StrictInt, ...] = Field(min_length=2)
     resolved: StrictBool
+    adjudicated_value: StrictInt | None = None
+    adjudicator_pseudonyms: tuple[Identifier, ...] = ()
     rationale: NonBlankStr | None = None
     sensitivity_flag: StrictBool
+
+    @model_validator(mode="after")
+    def validate_resolution(self) -> AdjudicationRecord:
+        disagreement = len(set(self.labels)) > 1
+        if self.resolved and disagreement:
+            if self.adjudicated_value is None:
+                raise ValueError("resolved disagreement requires an adjudicated value")
+            if self.rationale is None:
+                raise ValueError("resolved disagreement requires written rationale")
+            if not self.adjudicator_pseudonyms:
+                raise ValueError("resolved disagreement requires adjudicator identity")
+        if not self.resolved and self.adjudicated_value is not None:
+            raise ValueError("unresolved disagreement cannot contain an adjudicated value")
+        if len(set(self.adjudicator_pseudonyms)) != len(self.adjudicator_pseudonyms):
+            raise ValueError("adjudicator identities must be unique")
+        if self.sensitivity_flag != (disagreement and not self.resolved):
+            raise ValueError("sensitivity flag must reflect unresolved disagreement")
+        return self
 
 
 def adjudicate_ratings(
@@ -103,6 +123,9 @@ def adjudicate_ratings(
     *,
     criterion_kind: Literal["ordinal", "binary"],
     rationale: str | None,
+    rubric: Sequence[RubricCriterion] | None = None,
+    adjudicated_value: int | None = None,
+    adjudicator_pseudonyms: Sequence[str] = (),
     adjudication_id: str = "adjudication-1",
 ) -> AdjudicationRecord:
     if len(ratings) < 2:
@@ -115,13 +138,30 @@ def adjudicate_ratings(
         raise ValueError("adjudication requires distinct raters")
     if len({rating.rating_id for rating in ratings}) != len(ratings):
         raise ValueError("adjudication requires distinct rating identities")
+    if len({rating.rubric_version for rating in ratings}) != 1:
+        raise ValueError("adjudication requires one frozen rubric version")
+    if criterion_kind not in {"ordinal", "binary"}:
+        raise ValueError("unknown criterion kind")
     labels = tuple(rating.value for rating in ratings)
     disagreement = len(set(labels)) > 1
     resolved = not disagreement or rationale is not None
-    if resolved and disagreement and not rationale:
-        raise ValueError("resolved adjudication requires written rationale")
-    if disagreement and criterion_kind not in {"ordinal", "binary"}:
-        raise ValueError("unknown criterion kind")
+    if resolved and disagreement:
+        if not rationale:
+            raise ValueError("resolved adjudication requires written rationale")
+        if adjudicated_value is None:
+            raise ValueError("resolved disagreement requires an adjudicated value")
+        if not adjudicator_pseudonyms:
+            raise ValueError("resolved disagreement requires adjudicator identity")
+        if rubric is None:
+            raise ValueError("resolved disagreement requires the frozen rubric")
+        criteria = {criterion.criterion_id: criterion for criterion in validate_rubric(rubric)}
+        criterion = criteria.get(ratings[0].criterion_id)
+        if criterion is None or criterion.kind != criterion_kind:
+            raise ValueError("adjudication criterion does not match the frozen rubric")
+        if adjudicated_value not in criterion.anchors:
+            raise ValueError("adjudicated value is not in the frozen rubric anchors")
+    elif adjudicated_value is not None or adjudicator_pseudonyms:
+        raise ValueError("adjudicator details require a resolved disagreement")
     return AdjudicationRecord(
         schema_version=1,
         adjudication_id=adjudication_id,
@@ -130,6 +170,8 @@ def adjudicate_ratings(
         source_rating_ids=tuple(rating.rating_id for rating in ratings),
         labels=labels,
         resolved=resolved,
+        adjudicated_value=adjudicated_value,
+        adjudicator_pseudonyms=tuple(adjudicator_pseudonyms),
         rationale=rationale,
         sensitivity_flag=disagreement and not resolved,
     )

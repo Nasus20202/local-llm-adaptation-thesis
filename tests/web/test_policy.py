@@ -95,6 +95,8 @@ def test_redirects_and_protected_local_or_private_targets_fail_before_body_read(
         "http://192.168.1.10/private",
         "https://kubernetes.io/docs/../private",
         "https://kubernetes.io/docs/%2e%2e/private",
+        "https://kubernetes.io/docs/%252e%252e/private",
+        "https://kubernetes.io/docs/%255c..%255cprivate",
         "https://github.com/Nasus20202/local-llm-adaptation-thesis/blob/main/secret",
     ):
         denied = attempt.fetch(forbidden)

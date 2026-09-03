@@ -1,6 +1,6 @@
 ## Context
 
-See [proposal.md](proposal.md) for motivation. Six production modules currently combine several distinct responsibilities: `pilot.py` (893 lines), `web.py` (733), `cluster.py` (661), `evaluation.py` (629), `provenance.py` (290), and `config.py` (282). Four corresponding test modules are also above 250 lines. These modules implement approved scientific and safety boundaries, so this refactor must make them easier to inspect without changing their behavior.
+See [proposal.md](proposal.md) for motivation. The pilot-foundation implementation combines several distinct responsibilities across capability code and tests. These responsibilities implement approved scientific and safety boundaries, so this package organization makes them easier to inspect without changing their behavior. The change is an implementation-organization record, not a claim that the final package modules or their characterization tests existed in the baseline.
 
 The existing import paths are already used by the CLI, lifecycle code, examples, and tests. The current schemas, canonical serialization and hashing, redacted errors, append-only stores, deterministic statistics, and opt-in external boundaries are implementation evidence for the active pilot-foundation requirements. They are compatibility constraints for this change.
 
@@ -26,7 +26,7 @@ The existing import paths are already used by the CLI, lifecycle code, examples,
 
 ## Decisions
 
-### 1. Convert oversized capability modules into compatibility packages
+### 1. Organize capability implementations behind compatibility packages
 
 Replace each oversized module with a same-named package whose `__init__.py` explicitly re-exports the existing public API. Existing imports such as `from thesis_bench.pilot import PilotManifest` therefore remain valid. Internal callers may use direct submodule imports only when doing so makes the dependency clearer; external consumers are not required to adopt new paths.
 
@@ -39,7 +39,7 @@ The target responsibility groups are:
 - `config`: YAML parsing; document validation and hashing; path/reference resolution; configuration assembly;
 - `provenance`: manifest records; Git/environment capture; manifest construction and serialization.
 
-Compatibility facades use explicit imports and `__all__`; wildcard imports and dynamic export discovery are prohibited. Import-compatibility tests enumerate the pre-refactor public names. The refactor does not promise compatibility for private underscore-prefixed names or new direct imports from internal submodules.
+Compatibility facades use explicit imports and `__all__`; wildcard imports and dynamic export discovery are prohibited. Import-compatibility tests enumerate the intended public names captured for the organized implementation. The change does not promise compatibility for private underscore-prefixed names or new direct imports from internal submodules.
 
 Alternative: strict class-per-file organization. Rejected because the code contains many small Pydantic records that form readable domain vocabularies; separating all of them would multiply files and cross-imports without isolating behavior. Alternative: split only into broad `models.py` and `services.py` files. Rejected because the largest domains would remain oversized and mix unrelated model groups.
 
@@ -55,7 +55,7 @@ Alternative: make 250 lines an unconditional limit. Rejected because a mechanica
 
 ### 3. Enforce a one-way internal dependency structure
 
-Within each capability package, dependencies flow from shared primitives to domain records, then pure validation/calculation logic, then persistence or external adapters, and finally orchestration and the compatibility facade. Pure modules must not import adapters or opt-in entry points. Shared code remains in the existing `records`, `schemas`, and `errors` modules unless at least two capabilities already require the same invariant; this refactor does not create a new generic utilities layer.
+Within each capability package, dependencies flow from shared primitives to domain records, then pure validation/calculation logic, then persistence or external adapters, and finally orchestration and the compatibility facade. Pure modules must not import adapters or opt-in entry points. Shared code remains in the existing `records`, `schemas`, and `errors` modules unless at least two capabilities already require the same invariant; this package organization does not create a new generic utilities layer.
 
 Type-only imports and small local protocols may break legitimate annotation cycles. Runtime import cycles, service locators, and import-time registration are prohibited. Importing any facade must remain side-effect free and must not contact a model, network service, Git process, or cluster.
 
@@ -63,13 +63,13 @@ Alternative: centralize all records in one global models package. Rejected becau
 
 ### 4. Preserve behavior with characterization and compatibility tests
 
-Before moving each responsibility group, retain or add focused characterization tests for its public surface. Tests must cover representative model validation, canonical bytes and hashes, redacted failures, append-only collisions, deterministic seeded calculations, policy denials, and import-time external-effect isolation as applicable. The move is complete only when the same assertions pass against the compatibility facade.
+For each responsibility group, maintain focused characterization tests for its public surface. Tests must cover representative model validation, canonical bytes and hashes, redacted failures, append-only collisions, deterministic seeded calculations, policy denials, and import-time external-effect isolation as applicable. The organized implementation is complete only when these assertions pass against the compatibility facade; the tests must not claim to have run against pre-organization modules that were absent from the baseline.
 
 Large tests are split by behavior rather than by arbitrary line ranges and live under the
 matching capability test package. Shared fixtures move to the narrowest relevant
 `conftest.py` or helper module; helpers must not hide the assertion or scientific condition
 being tested. Test names continue to describe the invariant. No expected value may be
-weakened merely to accommodate the refactor.
+weakened merely to accommodate the package organization.
 
 The final verification compares the facade exports with the captured public-name inventory, runs every existing project check, and inspects the diff for accidental schema, constant, default, threshold, error-message, or execution-boundary changes.
 
@@ -92,7 +92,7 @@ No compatibility shim is scheduled for later removal: the same-named package fac
 
 ## Migration Plan
 
-1. Capture the current public export inventory and add structural/compatibility characterization tests without changing implementation behavior.
+1. Record the intended public export inventory and add structural/compatibility characterization tests for the organized implementation without changing approved behavior. Do not describe these tests as a pre-organization run.
 2. Convert `config` and `provenance` to packages, split their tests, and run focused plus configuration/lifecycle integration checks.
 3. Convert `pilot` and `evaluation`, split their tests by scientific responsibility, and run the pilot/evaluation integration path.
 4. Convert `cluster` and `web`, split their tests, and verify routine imports and tests remain fake-backed and side-effect free.

@@ -42,13 +42,22 @@ def test_confirmatory_c2_requires_frozen_metadata_only_design_and_fresh_families
                 }
             )
         )
+    exploratory = c2_manifest(
+        eligibility_id="c2-exploratory-linked",
+        analysis_status="exploratory",
+        outcome_derived_fields=("selected_from_failures",),
+    )
     follow_up = c2_manifest(
         eligibility_id="c2-follow-up",
         confirmatory_follow_up=True,
-        excluded_family_ids=("family-03",),
-        exploratory_manifest_id="c2-exploratory",
+        family_ids=("family-03", "family-04"),
+        excluded_family_ids=exploratory.family_ids,
+        exploratory_manifest_id=exploratory.eligibility_id,
     )
-    assert validate_c2_eligibility(follow_up).confirmatory_follow_up is True
+    assert (
+        validate_c2_eligibility(follow_up, exploratory_manifest=exploratory).confirmatory_follow_up
+        is True
+    )
 
 
 def test_confirmatory_c2_rejects_outcome_signals_in_metadata_or_comparator() -> None:
@@ -127,3 +136,49 @@ def test_c2_freeze_hash_is_bound_to_the_canonical_declaration() -> None:
 
     with pytest.raises(ValueError, match="C2 eligibility validation failed"):
         validate_c2_eligibility(changed)
+
+
+def test_c2_rejects_outcome_independent_selector_order_alternatives() -> None:
+    with pytest.raises(ValueError, match="selection order"):
+        c2_manifest(eligibility_id="c2-order", selection_order=("R1", "P1"))
+
+
+def test_c2_derives_follow_up_exclusion_from_linked_exploratory_manifest() -> None:
+    exploratory = c2_manifest(
+        eligibility_id="c2-exploratory-linked",
+        analysis_status="exploratory",
+        outcome_derived_fields=("selected_from_failures",),
+        family_ids=("family-01", "family-02"),
+    )
+    overlapping_follow_up = c2_manifest(
+        eligibility_id="c2-follow-up-overlap",
+        family_ids=("family-01", "family-03"),
+        confirmatory_follow_up=True,
+        excluded_family_ids=("family-03",),
+        exploratory_manifest_id=exploratory.eligibility_id,
+    )
+
+    with pytest.raises(ValueError, match="exploratory manifest"):
+        validate_c2_eligibility(overlapping_follow_up, exploratory_manifest=exploratory)
+
+    with pytest.raises(ValueError, match="exploratory manifest"):
+        validate_c2_eligibility(overlapping_follow_up)
+
+
+def test_c2_rejects_a_mutated_linked_exploratory_manifest() -> None:
+    exploratory = c2_manifest(
+        eligibility_id="c2-exploratory-hash-bound",
+        analysis_status="exploratory",
+        outcome_derived_fields=("selected_from_failures",),
+    )
+    mutated = exploratory.model_copy(update={"family_ids": ("family-11", "family-12")})
+    follow_up = c2_manifest(
+        eligibility_id="c2-follow-up-hash-bound",
+        family_ids=("family-03", "family-04"),
+        confirmatory_follow_up=True,
+        excluded_family_ids=mutated.family_ids,
+        exploratory_manifest_id=exploratory.eligibility_id,
+    )
+
+    with pytest.raises(ValueError, match="hash-bound"):
+        validate_c2_eligibility(follow_up, exploratory_manifest=mutated)

@@ -7,7 +7,7 @@ from pydantic.types import StrictBool, StrictStr
 
 from ..records import VersionedRecord, content_sha256
 from ..schemas import Identifier, NonBlankStr, Sha256
-from .models import ComparatorRecord, Language, TaskClass
+from .models import _FROZEN_CONSTITUENT_ORDER, ComparatorRecord, Language, TaskClass
 
 
 class C2EligibilityMetadata(VersionedRecord):
@@ -62,12 +62,23 @@ class C2EligibilityManifest(VersionedRecord):
             raise ValueError("C2 comparator must be one of the frozen constituents")
         if self.comparator.design_rule != "strongest-constituent-v1":
             raise ValueError("C2 comparator must use the approved design-time rule")
-        if self.confirmatory_follow_up and not self.excluded_family_ids:
-            raise ValueError("confirmatory follow-up requires an exploratory family set")
         if self.confirmatory_follow_up and self.exploratory_manifest_id is None:
             raise ValueError("confirmatory follow-up requires its exploratory manifest identity")
-        if set(self.family_ids) & set(self.excluded_family_ids):
-            raise ValueError("confirmatory C2 requires fresh family-disjoint families")
+        if self.confirmatory_follow_up and self.analysis_status != "confirmatory":
+            raise ValueError("confirmatory follow-up must be a confirmatory manifest")
+        expected_order = tuple(
+            condition
+            for condition in _FROZEN_CONSTITUENT_ORDER
+            if condition in self.constituent_conditions
+        )
+        if self.comparator.selection_order != expected_order:
+            raise ValueError("C2 comparator selection order is not frozen")
+        if self.comparator.condition != expected_order[0]:
+            raise ValueError("C2 comparator must use the frozen strongest constituent")
+        if not self.confirmatory_follow_up and (
+            self.excluded_family_ids or self.exploratory_manifest_id is not None
+        ):
+            raise ValueError("exploratory linkage is only valid for confirmatory follow-ups")
         if self.analysis_status == "confirmatory" and self.outcome_derived_fields:
             raise ValueError("confirmatory C2 cannot use outcome-derived eligibility")
         if self.analysis_status == "exploratory" and not self.outcome_derived_fields:
@@ -95,6 +106,8 @@ class C2EligibilityManifest(VersionedRecord):
 
 def validate_c2_eligibility(
     manifest: C2EligibilityManifest,
+    *,
+    exploratory_manifest: C2EligibilityManifest | None = None,
 ) -> C2EligibilityManifest:
     try:
         parsed = C2EligibilityManifest.model_validate(manifest.model_dump(mode="python"))
@@ -102,4 +115,22 @@ def validate_c2_eligibility(
         raise ValueError("C2 eligibility validation failed") from exc
     if parsed.freeze_identity.stage != "pre_outcome":
         raise ValueError("C2 eligibility must be frozen before outcomes")
+    if parsed.confirmatory_follow_up:
+        if exploratory_manifest is None:
+            raise ValueError("confirmatory C2 requires the linked exploratory manifest")
+        try:
+            linked = C2EligibilityManifest.model_validate(
+                exploratory_manifest.model_dump(mode="python")
+            )
+        except (TypeError, ValueError) as exc:
+            raise ValueError("linked exploratory manifest is not valid or hash-bound") from exc
+        if parsed.exploratory_manifest_id != linked.eligibility_id:
+            raise ValueError("confirmatory C2 exploratory manifest identity does not match")
+        if linked.analysis_status != "exploratory":
+            raise ValueError("confirmatory C2 must link an exploratory manifest")
+        excluded = set(linked.family_ids)
+        if parsed.excluded_family_ids and set(parsed.excluded_family_ids) != excluded:
+            raise ValueError("confirmatory C2 exclusion must come from the exploratory manifest")
+        if set(parsed.family_ids) & excluded:
+            raise ValueError("confirmatory C2 requires fresh family-disjoint families")
     return parsed

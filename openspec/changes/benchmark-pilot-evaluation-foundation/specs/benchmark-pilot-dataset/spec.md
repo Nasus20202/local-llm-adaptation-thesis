@@ -60,7 +60,7 @@ The model-facing pilot manifest SHALL contain only inputs and permitted context.
 - **THEN** validation succeeds without copying the protected payload into model-facing output
 
 ### Requirement: Contamination audit record
-The system SHALL record exact, normalized, token-overlap, code/configuration-structure, semantic, and cross-language audit outcomes by artifact pair, method version, threshold, and adjudication status. It SHALL distinguish source/domain, semantic-pattern, and direct-item exposure and SHALL NOT emit a numerical pre-training exposure probability.
+The system SHALL record exact, normalized, token-overlap, code/configuration-structure, semantic, and cross-language audit outcomes by artifact pair, method version, threshold, and adjudication status. An aggregate contamination record SHALL prove that every required detector ran before claiming no direct overlap. It SHALL distinguish source/domain, semantic-pattern, and direct-item exposure and SHALL NOT emit a numerical pre-training exposure probability.
 
 #### Scenario: Audit with no detected direct overlap
 - **WHEN** all required detectors ran and no direct match passed its threshold
@@ -71,10 +71,10 @@ The system SHALL record exact, normalized, token-overlap, code/configuration-str
 - **THEN** progression is `STOP/DEFER`, affected identifiers are recorded, and no automatic deletion or replacement occurs
 
 ### Requirement: C2 applicability and comparator freeze
-For any C2 record, the system SHALL require an eligibility manifest frozen before pilot outcomes, containing only model-independent family metadata, the complete constituent set, and a versioned design-time comparator rule. Confirmatory C2 validation SHALL reject outcome-derived eligibility or comparator fields.
+For any C2 record, the system SHALL require an eligibility manifest frozen before pilot outcomes, containing only model-independent family metadata, the complete constituent set, a frozen outcome-independent constituent selector/order, and a versioned design-time comparator rule. Confirmatory C2 validation SHALL reject outcome-derived eligibility or comparator fields. A confirmatory follow-up SHALL bind to the immutable exploratory manifest identity and derive its excluded family set from that linked manifest rather than trusting a self-declared exclusion list.
 
 #### Scenario: Metadata-frozen C2 accepted
-- **WHEN** a C2 manifest contains model-independent family metadata, a complete constituent set, a design-time comparator rule, and a pre-outcome freeze identity
+- **WHEN** a C2 manifest contains model-independent family metadata, a complete constituent set, a frozen constituent selector/order, a design-time comparator rule, and a pre-outcome freeze identity
 - **THEN** validation accepts the C2 target stratum and comparator for confirmatory analysis
 
 #### Scenario: Outcome-selected C2 marked exploratory
@@ -82,7 +82,7 @@ For any C2 record, the system SHALL require an eligibility manifest frozen befor
 - **THEN** the record is marked exploratory and confirmatory C2 analysis is denied without a fresh family-disjoint manifest
 
 #### Scenario: Fresh C2 confirmation
-- **WHEN** a new C2 manifest is frozen before outcomes, contains no family overlap with the exploratory selection, and satisfies the approved metadata rule
+- **WHEN** a new C2 manifest is frozen before outcomes, is linked to the exploratory manifest whose family IDs are used to derive the exclusion set, contains no family overlap with that manifest, and satisfies the approved metadata rule
 - **THEN** validation permits the confirmatory C2 comparison
 
 ### Requirement: Pilot progression report

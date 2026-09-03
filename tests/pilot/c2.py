@@ -14,6 +14,8 @@ from thesis_bench.records import content_sha256
 def c2_manifest(
     *,
     eligibility_id: str,
+    family_ids: tuple[str, ...] = ("family-01", "family-02"),
+    selection_order: tuple[str, ...] = ("P1", "R1"),
     analysis_status: str = "confirmatory",
     outcome_derived_fields: tuple[str, ...] = (),
     confirmatory_follow_up: bool = False,
@@ -23,7 +25,7 @@ def c2_manifest(
     values: dict[str, object] = {
         "schema_version": 1,
         "eligibility_id": eligibility_id,
-        "family_ids": ("family-01", "family-02"),
+        "family_ids": family_ids,
         "metadata": {
             "schema_version": 1,
             "task_classes": (TaskClass.MIXED,),
@@ -39,6 +41,7 @@ def c2_manifest(
             "comparator_id": "c2-strongest-v1",
             "condition": "P1",
             "design_rule": "strongest-constituent-v1",
+            "selection_order": selection_order,
         },
         "analysis_status": analysis_status,
         "outcome_derived_fields": outcome_derived_fields,

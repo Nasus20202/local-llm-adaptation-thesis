@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from tests.pilot.progress import clean_contamination_audits
 from thesis_bench.evaluation import (
     DeterministicFixture,
     FixtureCategory,
@@ -154,6 +155,7 @@ def test_synthetic_manifest_flows_through_offline_fixture_calibration_and_progre
                             schema_version=1,
                             direct_match=False,
                             pending_semantic_match=False,
+                            audits=clean_contamination_audits(),
                         ),
                     ),
                 ),

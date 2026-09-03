@@ -9,17 +9,17 @@
 - [x] 2.1 Write failing tests and implement pilot manifest models for family/variant identity, development split, task class, language, answer contract, metric applicability, target stratum, and comparator; verify final-test declarations and nested-unit miscounts fail.
 - [x] 2.2 Implement the 24-family class/language composition validator from versioned policy; verify balanced metadata passes and every count/allocation deviation reports the affected rule without requiring item content.
 - [x] 2.3 Implement model-facing/protected evaluator bundle separation; verify golden/rubric/expected-result fixture markers are rejected from model-facing manifests while identity/hash references pass.
-- [x] 2.4 Implement contamination audit records for exact, normalized, token, code/configuration, semantic, and cross-language checks; verify direct leakage forces `STOP/DEFER`, unresolved semantic matches force `AMEND`, and numerical pre-training probabilities are rejected.
+- [x] 2.4 Implement contamination audit records for exact, normalized, token, code/configuration, semantic, and cross-language checks plus an aggregate coverage record; verify every detector is present before a clean claim, direct leakage forces `STOP/DEFER`, unresolved semantic matches force `AMEND`, and numerical pre-training probabilities are rejected.
 - [x] 2.5 Implement derived pilot progression reports; verify individual criterion statuses are preserved, safety/leakage red governs overall progression, and method-win/final-test fields are rejected.
-- [x] 2.6 Implement C2 eligibility/comparator freeze validation; verify confirmatory C2 accepts only pre-outcome model-independent metadata and a design-time comparator, outcome-selected pilot C2 is marked exploratory, and confirmation requires a fresh family-disjoint manifest.
+- [x] 2.6 Implement C2 eligibility/comparator freeze validation; verify confirmatory C2 accepts only pre-outcome model-independent metadata and a frozen outcome-independent selector/order, outcome-selected pilot C2 is marked exploratory, and confirmation binds to a validated exploratory manifest whose derived family set is disjoint.
 
 ## 3. Evaluator and calibration capability
 
 - [x] 3.1 Write failing tests and implement immutable evaluator/fixture/input/output identity records; verify changed evaluator inputs create a new derived identity and never mutate raw or prior records.
 - [x] 3.2 Implement deterministic fixture qualification for positive, negative, boundary, malformed, and ambiguous classes; verify 100% idempotent outcomes produce `GO`, mismatches block qualification, and unresolved ambiguity routes to rejection/human review.
 - [x] 3.3 Implement task-specific atomic rubric validation with three-level ordinal anchors and separate critical binary labels; verify vague, conflated, or incomplete criteria fail before rating.
-- [x] 3.4 Implement blinded independent rating import and append-only adjudication; verify unblinded qualification records, missing independence declarations, and overwritten ratings fail while unresolved labels remain available.
-- [x] 3.5 Implement exact/adjacent agreement, nominal/ordinal Krippendorff alpha, family-clustered seeded intervals, and green/amber/red decisions; verify calculations against fixed non-domain fixtures and boundary-threshold cases.
+- [x] 3.4 Implement blinded independent rating import and append-only adjudication; verify unblinded qualification records, missing independence declarations, and overwritten ratings fail, while resolved disagreements record a rubric-valid value/rationale/adjudicator identity and unresolved labels remain available.
+- [x] 3.5 Implement exact/adjacent agreement, nominal/ordinal Krippendorff alpha, family-clustered seeded intervals, and green/amber/red decisions; verify calculations against fixed non-domain fixtures and boundary-threshold cases, with systematic critical disagreement supplied as explicit reviewed evidence rather than inferred from agreement alone.
 - [x] 3.6 Implement frozen invalidity classification and all-fail/complete-case sensitivity inputs; verify malformed answers, refusals, budget exhaustion, evaluated-system timeouts, and remediation failures remain valid failures while capture/hash/infrastructure failures are invalid.
 - [x] 3.7 Implement supplemental-judge policy validation; verify an uncalibrated or sole-primary judge configuration is rejected and a frozen qualified supporting judge is accepted.
 
@@ -37,10 +37,10 @@
 
 - [x] 5.1 Define search/fetch provider interfaces and a deterministic fake; verify routine tests simulate ranking, redirects, errors, unavailable versions, and malicious targets without network access.
 - [x] 5.2 Implement explicit W1/combined-condition validation and R1/H1 web denial; verify implicit web access fails with a policy reason.
-- [x] 5.3 Implement path-aware allowlist, redirect revalidation, local/private-address denial, and thesis/benchmark/golden denial; verify bypass forms and redirect chains fail before protected content is read.
-- [x] 5.4 Implement per-response search/result/fetch/tool/token/time budgets; verify exact boundaries pass, the next over-budget request is denied, and exhaustion remains a captured valid W1 failure.
+- [x] 5.3 Implement path-aware allowlist, iterative URL canonicalization, redirect revalidation, local/private-address denial, and thesis/benchmark/golden denial; verify single- and double-encoded traversal/separator bypass forms and redirect chains fail before protected content is read.
+- [x] 5.4 Implement per-response search/result/fetch/tool/token/time budgets; verify exact boundaries pass, actual body token counts and measured provider time are enforced before exposure, the next over-budget request is denied, and exhaustion remains a captured valid W1 failure.
 - [x] 5.5 Implement write-before-expose retrieval provenance and lawful body/reference handling; verify missing capture prevents context exposure and unavailable provider version is recorded as `not_exposed`.
-- [x] 5.6 Implement source-drift precheck and W1 feasibility report; verify changed/unavailable source defers execution, complete safe attempts calculate availability, and any provenance/access failure forces `STOP/DEFER`.
+- [x] 5.6 Implement source-drift precheck and W1 feasibility report; verify reviewer-backed semantic compatibility evidence (including hashes and rationale) governs execution, changed/unavailable source defers execution, complete safe attempts calculate availability, and any provenance/access failure forces `STOP/DEFER`.
 - [x] 5.7 Add an explicit opt-in provider qualification entry point; verify default tests and imports cannot contact an external service.
 
 ## 6. Cross-capability verification and handoff

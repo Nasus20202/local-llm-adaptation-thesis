@@ -89,10 +89,33 @@ def test_calibration_requires_declared_critical_criteria_and_separates_primary_a
 
     assert summary.alpha == 1.0
     assert summary.critical_exact == {"critical": 0.0}
-    assert summary.systematic_critical_disagreement is True
-    assert summary.status == CalibrationStatus.STOP_DEFER
+    assert summary.systematic_critical_disagreement is False
+    assert summary.status == CalibrationStatus.AMEND
     with pytest.raises(ValueError, match="critical"):
         calibration_summary(observations[:2], critical_criteria=("critical",))
+
+
+def test_systematic_critical_disagreement_requires_explicit_review_evidence() -> None:
+    observations = (
+        ("family-1", "primary", 0, 0),
+        ("family-2", "primary", 1, 1),
+        ("family-1", "critical", 0, 1),
+        ("family-2", "critical", 1, 0),
+        ("family-3", "critical", 0, 0),
+        ("family-4", "critical", 1, 1),
+    )
+
+    summary = calibration_summary(
+        observations,
+        critical_criteria=("critical",),
+        systematic_critical_disagreement=True,
+        systematic_disagreement_reason="reviewed technical label conflict",
+        draws=100,
+    )
+
+    assert summary.status == CalibrationStatus.STOP_DEFER
+    assert summary.critical_exact == {"critical": 0.5}
+    assert summary.systematic_disagreement_reason == "reviewed technical label conflict"
 
 
 def test_critical_binary_exact_agreement_includes_the_ninety_percent_boundary() -> None:

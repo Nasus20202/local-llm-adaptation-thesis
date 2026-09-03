@@ -6,16 +6,16 @@ from .c2 import (
 )
 from .composition import validate_composition
 from .contamination import AuditMethod, AuditOutcome, ContaminationAudit
+from .family import FamilyRecord
+from .manifest import PilotManifest
 from .models import (
     AnswerContract,
     Comparator,
     ComparatorRecord,
     ConditionAnalysisContract,
     ConditionApplicability,
-    FamilyRecord,
     Language,
     MetricApplicability,
-    PilotManifest,
     ProtectedArtifactReference,
     TargetStratum,
     TargetStratumRecord,
