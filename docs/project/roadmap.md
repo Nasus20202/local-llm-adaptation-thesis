@@ -29,9 +29,9 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 ## Immediate backlog: M1
 
 1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark-domain package was approved, merged in PR [#22](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/22), and closed.
-2. Review the Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator methodology and `benchmark-pilot-evaluation-foundation` OpenSpec package at Human Gate A.
-3. After approval, implement only the synthetic validation/evaluation/tool-boundary foundation; do not construct pilot payloads or run real clusters, web tools, or models in that implementation cycle.
-4. Separately authorize development-only pilot/fixture construction and empirical qualification after the software foundation is reviewed and merged.
+2. The Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator protocol was approved and merged in [PR #25](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/25).
+3. Its bounded synthetic pilot/evaluator, controlled-cluster, and W1 software foundations were implemented, independently reviewed, and merged in [PR #33](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/33). The canonical specifications are synchronized and the completed changes archived.
+4. Separately authorize development-only pilot/fixture construction and empirical qualification. Do not construct final-test material or run models, real clusters, or live web tools until that authorization is approved.
 5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
 6. [Import and verify the official WETI template](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/3).
 7. Decide the public licensing plan before making the private repository public.
@@ -57,7 +57,7 @@ M1 next validates task families, metrics, annotation, evaluator calibration, con
 | M9 | [Secondary-model replication](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/13) |
 | M10 | [Statistical analysis](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/14) |
 | M11 | [Polish thesis results and discussion](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/15) |
-| M12 | [Reproducibility and final audit](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/16) |
+| M12 | [Reproducibility and final thesis audit](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/16) |
 
 ## Dependency principles
 
