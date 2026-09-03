@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "manifest_id": "synthetic-pilot-example",
+  "policy_version": "pilot-policy-v1",
+  "families": [
+    {
+      "schema_version": 1,
+      "family_id": "synthetic-family-01",
+      "split": "development",
+      "task_class": "knowledge",
+      "language": "en",
+      "answer_contract": {
+        "schema_version": 1,
+        "form": "structured-response",
+        "deterministic_gates": ["format"],
+        "candidate_primary_metric": "task-score"
+      },
+      "metric_applicability": {
+        "schema_version": 1,
+        "applicable_metrics": ["task-score"],
+        "inapplicable_metrics": [],
+        "inapplicability_reasons": {}
+      },
+      "target_stratum": {
+        "schema_version": 1,
+        "stratum_id": "synthetic-knowledge",
+        "conditions": ["B0"],
+        "selection_rule": "approved synthetic target-stratum rule"
+      },
+      "comparator": {
+        "schema_version": 1,
+        "comparator_id": "b0-reference",
+        "condition": "B0",
+        "design_rule": "approved reference-condition rule"
+      },
+      "analysis_contracts": [
+        {
+          "schema_version": 1,
+          "condition": "B0",
+          "target_stratum": {
+            "schema_version": 1,
+            "stratum_id": "synthetic-knowledge",
+            "conditions": ["B0"],
+            "selection_rule": "approved synthetic target-stratum rule"
+          },
+          "comparators": [
+            {
+              "schema_version": 1,
+              "comparator_id": "b0-reference",
+              "condition": "B0",
+              "design_rule": "approved reference-condition rule"
+            }
+          ]
+        }
+      ],
+      "condition_applicability": [
+        {"schema_version": 1, "condition": "B0", "applicable": true},
+        {"schema_version": 1, "condition": "P1", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "P2", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "R1", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "F1", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "H1", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "S1", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "C1", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "C2", "applicable": false, "reason": "not in this synthetic family stratum"},
+        {"schema_version": 1, "condition": "W1", "applicable": false, "reason": "not in this synthetic family stratum"}
+      ],
+      "evaluator_references": [
+        {
+          "schema_version": 1,
+          "artifact_id": "evaluator-synthetic-01",
+          "artifact_kind": "evaluator",
+          "root_reference": {
+            "schema_version": 1,
+            "root_id": "protected-evaluators",
+            "relative_path": "evaluators/evaluator-synthetic-01.json",
+            "content_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+          }
+        }
+      ]
+    }
+  ],
+  "variants": []
+}

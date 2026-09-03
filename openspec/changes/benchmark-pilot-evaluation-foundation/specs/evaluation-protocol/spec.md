@@ -53,7 +53,7 @@ Rating import SHALL require rater pseudonym, randomized response identity, crite
 - **THEN** the system rejects the blinded qualification record or marks the rating explicitly unblinded and ineligible for green qualification
 
 ### Requirement: Calibration summary and thresholds
-The system SHALL report criterion confusion tables, exact agreement, adjacent-category agreement for ordinal criteria, and nominal or ordinal Krippendorff alpha with a family-clustered 95% interval. It SHALL apply the approved green/amber/red thresholds without substituting a different coefficient silently.
+The system SHALL report criterion confusion tables, exact agreement, adjacent-category agreement for ordinal criteria, and nominal or ordinal Krippendorff alpha with a family-clustered 95% interval. Systematic critical disagreement SHALL be an explicit reviewed calibration finding with supporting evidence, not an inference from an agreement percentage. It SHALL apply the approved green/amber/red thresholds without substituting a different coefficient silently.
 
 #### Scenario: Green human qualification
 - **WHEN** each critical binary label has at least 90% exact agreement, pooled primary-rubric alpha is at least 0.80, and its lower 95% interval bound is at least 0.67
@@ -68,11 +68,11 @@ The system SHALL report criterion confusion tables, exact agreement, adjacent-ca
 - **THEN** the affected human metric is `STOP/DEFER` for confirmatory use until narrowed or replaced
 
 ### Requirement: Written adjudication
-The system SHALL preserve both independent ratings and require a written evidence-based adjudication for critical-label disagreement or ordinal disagreement greater than one level. It SHALL preserve unresolved labels rather than silently selecting one.
+The system SHALL preserve both independent ratings and require a written evidence-based adjudication for critical-label disagreement or ordinal disagreement greater than one level. A resolved disagreement SHALL record the adjudicated value, frozen-rubric validation, rationale, and adjudicator identity or identities. It SHALL preserve unresolved labels rather than silently selecting one.
 
 #### Scenario: Disagreement resolved
-- **WHEN** adjudicators resolve a qualifying disagreement
-- **THEN** the derived adjudicated label records the rationale and rater identities while original ratings remain unchanged
+- **WHEN** adjudicators resolve a qualifying disagreement with a value supported by the frozen rubric
+- **THEN** the derived adjudicated label records that value, rationale, adjudicator identity, and source rater identities while original ratings remain unchanged
 
 #### Scenario: Disagreement unresolved
 - **WHEN** no approved adjudicator resolves a critical disagreement

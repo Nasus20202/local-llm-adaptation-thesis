@@ -31,7 +31,7 @@ The web boundary SHALL allow only versioned policy entries for official Kubernet
 - **THEN** access is denied regardless of remaining budget
 
 ### Requirement: Frozen per-response budgets
-W1 SHALL enforce at most three search calls, five results per search, two page fetches, five total tool calls, 4,000 extracted context tokens, and 120 seconds of tool wall time per response. A combined condition SHALL use the same W1 budget unless separately approved before outputs.
+W1 SHALL enforce at most three search calls, five results per search, two page fetches, five total tool calls, 4,000 extracted context tokens, and 120 seconds of tool wall time per response. Extracted tokens SHALL be counted from the actual body before exposure, and search/fetch wall time SHALL include measured provider work rather than trusting preparation metadata alone. A combined condition SHALL use the same W1 budget unless separately approved before outputs.
 
 #### Scenario: Request within budget
 - **WHEN** the next operation remains within every frozen limit
@@ -57,7 +57,7 @@ Before retrieved text is exposed to a model, the system SHALL persist query, res
 - **THEN** the record uses an explicit `not_exposed` value rather than inventing or omitting identity
 
 ### Requirement: Source-drift precheck
-Each W1 family SHALL record a human pre-run decision that the currently reachable official source preserves the frozen answer contract or identify a changed/unavailable source before model execution.
+Each W1 family SHALL record a human pre-run decision, reviewer identity, rationale, frozen/current source hashes, and semantic-compatibility decision that the currently reachable official source preserves the frozen answer contract or identify a changed/unavailable source before model execution.
 
 #### Scenario: Contract remains valid
 - **WHEN** the human precheck confirms semantic compatibility with the pinned source snapshot

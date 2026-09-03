@@ -56,7 +56,7 @@ The executor SHALL append an ordered record for every requested action, normaliz
 - **THEN** its ordered capture and updated budget are persisted before the next action
 
 #### Scenario: Budget exhausted
-- **WHEN** the next action would exceed the frozen action, output, or time budget
+- **WHEN** the next requested action would exceed the frozen action, output, or time budget, including when the request would otherwise be denied by a policy gate
 - **THEN** the action is denied and the attempt ends as a valid evaluated-system failure with captured reason
 
 ### Requirement: Automatic final-state evaluation

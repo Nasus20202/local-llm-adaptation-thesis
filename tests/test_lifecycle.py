@@ -5,8 +5,8 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 import pytest
-from test_provenance import init_git
 
+from tests.provenance.test_provenance import init_git
 from thesis_bench import lifecycle
 from thesis_bench.config import load_configuration
 from thesis_bench.errors import CollisionError, IntegrityError, PreparationError, ThesisBenchError
