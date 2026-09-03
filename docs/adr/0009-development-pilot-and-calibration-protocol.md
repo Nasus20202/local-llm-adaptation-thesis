@@ -1,6 +1,6 @@
 # ADR-0009: Development Pilot and Evaluator Calibration Protocol
 
-- **Status:** Proposed for Human Gate A
+- **Status:** Accepted
 - **Date:** 2026-09-02
 - **Decision owner:** Human researcher
 
@@ -14,7 +14,7 @@ The accepted benchmark domain supports several adaptation mechanisms, but a fina
 2. Run a bounded development-only feasibility pilot with preregistered target strata, calibrated evaluators, and separately gated `kind` and W1 conditions.
 3. Build a broad live-agent and open-web benchmark before the core static study.
 
-## Proposed decision
+## Decision
 
 Select alternative 2 and use [the development-only protocol](../research/benchmark-pilot-protocol.md) as the authoritative methodology.
 
@@ -37,7 +37,7 @@ Alternative 1 risks freezing ambiguous tasks, insensitive metrics, and unreliabl
 - A second technically competent rater is required for bounded calibration and a stratified reliability subset, not for every final rating.
 - Interactive and web conditions may be deferred without invalidating the static benchmark if their gates fail.
 - Negative and inconclusive method effects remain reportable outcomes.
-- The accompanying OpenSpec package must be approved before Codex implements dataset, evaluator, tool-capture, or cluster-execution behavior.
+- The accompanying OpenSpec package was approved, implemented in PR #33, synchronized, and archived in PR #34 before development-only construction was authorized.
 
 ## OpenSpec decision
 
@@ -45,4 +45,4 @@ Create the narrow `benchmark-pilot-evaluation-foundation` change because protect
 
 ## Approval record
 
-Pending explicit Human Gate A approval. Approval will authorize Codex implementation of the accompanying software package only. It will not authorize pilot/final item or fixture-payload construction, real cluster/web/model execution, or final-test access.
+Human Gate A approved this methodology and its bounded software package on 2026-09-02. PR #33 implemented the approved synthetic foundation, and PR #34 synchronized and archived the canonical specifications. That approval did not authorize pilot/final item or fixture-payload construction, real cluster/web/model execution, or final-test access. Issue #35 owns the next dedicated construction authorization.
