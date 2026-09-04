@@ -31,13 +31,13 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark-domain package was approved, merged in PR [#22](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/22), and closed.
 2. The Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator protocol was approved and merged in [PR #25](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/25).
 3. Its bounded synthetic pilot/evaluator, controlled-cluster, and W1 software foundations were implemented, independently reviewed, and merged in [PR #33](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/33). The canonical specifications are synchronized and the completed changes archived.
-4. Review the focused [development-only pilot construction and model-free qualification package](../research/development-pilot-authorization.md) tracked by [Issue #35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35). Its core gate keeps model execution, final-test work, real `kind`, and live W1 separately closed.
+4. [Issue #35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35) is approved for development-only pilot construction and model-free qualification. Obtain independent Chat review and human merge of the focused [authorization PR #38](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/38), then freeze source/release rights before authoring. Model execution, final-test work, real `kind`, and live W1 remain separately closed.
 5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
 6. Decide the public licensing plan through [Issue #36](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/36) before making the private repository public.
 
 ## Next milestone: M1
 
-M1 next constructs and model-free qualifies task families, evaluator mechanics, contamination controls, and optional-stratum readiness on development-only material after the Issue #35 gate. Model execution, real `kind`, live W1, and final-test construction/freeze remain separate approvals.
+M1 next constructs and model-free qualifies task families, evaluator mechanics, contamination controls, and optional-stratum readiness on development-only material after PR #38 review/merge and source/rights freeze. Model execution, real `kind`, live W1, and final-test construction/freeze remain separate approvals.
 
 - [Benchmark domain and construction decision](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2)
 - [Benchmark pilot and evaluator calibration protocol](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4)
