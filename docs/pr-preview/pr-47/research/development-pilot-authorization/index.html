@@ -1,0 +1,2856 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human-readable research and engineering documentation for the MSc thesis project.">
+      
+      
+      
+        <link rel="canonical" href="https://nasus20202.github.io/local-llm-adaptation-thesis/research/development-pilot-authorization/">
+      
+      
+        <link rel="prev" href="../benchmark-pilot-protocol/">
+      
+      
+        <link rel="next" href="../development-pilot-scenario-inputs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Authorization - Local LLM Adaptation Thesis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#development-only-pilot-construction-and-qualification-authorization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-header__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Local LLM Adaptation Thesis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Authorization
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-nav__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Local LLM Adaptation Thesis
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/charter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/aidlc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDLC workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/source-of-truth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Source of truth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development pilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development pilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-pilot-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authorization
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#decision-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-register" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision register
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision register">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#already-approved-and-unchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Already approved and unchanged
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposed-operational-details-for-this-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proposed operational details for this gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remaining-choices-not-resolved-by-this-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remaining choices not resolved by this gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construction-and-custody-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construction and custody boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Construction and custody boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#composition-and-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composition and identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-facing-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model-facing material
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-evaluator-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected evaluator material
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-exclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit exclusions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preregistered-construction-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preregistered construction sequence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preregistered construction sequence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confirmatory-c2-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirmatory C2 follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contamination-audit-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contamination audit plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contamination audit plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit-inputs-and-artifact-pair-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit inputs and artifact-pair identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-detectors-and-threshold-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required detectors and threshold governance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjudication-and-evidence-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjudication and evidence retention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopdefer-and-amendment-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STOP/DEFER and amendment handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluator-calibration-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator calibration plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluator calibration plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthetic-non-domain-material-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthetic non-domain material only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rubrics-and-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rubrics and labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-sequence-and-decision-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration sequence and decision rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjudication-and-invalidity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjudication and invalidity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-controlled-strata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional controlled strata
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional controlled strata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paired-staticinteractive-kind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paired static/interactive kind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#official-source-w1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Official-source W1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pilot-acceptance-and-stopping-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pilot acceptance and stopping rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#msc-feasibility-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSc feasibility envelope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openspec-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSpec assessment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authorized-after-this-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authorized after this gate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exact-approval-sentence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exact approval sentence
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenario inputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-protected-evaluator-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protected evaluator design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/system-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/experiment-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/reproducibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-repository-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0001 — Repository architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-primary-secondary-model-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0002 — Model strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-local-inference-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0003 — Local inference backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-fine-tuning-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0004 — Fine-tuning environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-openspec-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0005 — OpenSpec workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-experiment-provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0006 — Experiment provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-evaluation-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0007 — Evaluation architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0008-benchmark-domain-and-language-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0008 — Benchmark domain and language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0009-development-pilot-and-calibration-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0009 — Development pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/codex-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/pilot-foundation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot foundation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#decision-purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-register" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision register
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Decision register">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#already-approved-and-unchanged" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Already approved and unchanged
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proposed-operational-details-for-this-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proposed operational details for this gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remaining-choices-not-resolved-by-this-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Remaining choices not resolved by this gate
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#construction-and-custody-boundary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construction and custody boundary
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Construction and custody boundary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#composition-and-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composition and identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-facing-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model-facing material
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-evaluator-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Protected evaluator material
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explicit-exclusions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explicit exclusions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preregistered-construction-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preregistered construction sequence
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preregistered construction sequence">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#confirmatory-c2-follow-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirmatory C2 follow-up
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contamination-audit-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contamination audit plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contamination audit plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#audit-inputs-and-artifact-pair-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Audit inputs and artifact-pair identity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-detectors-and-threshold-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required detectors and threshold governance
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjudication-and-evidence-retention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjudication and evidence retention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stopdefer-and-amendment-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        STOP/DEFER and amendment handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluator-calibration-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator calibration plan
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluator calibration plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthetic-non-domain-material-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthetic non-domain material only
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rubrics-and-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rubrics and labels
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calibration-sequence-and-decision-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calibration sequence and decision rules
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjudication-and-invalidity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adjudication and invalidity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-controlled-strata" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional controlled strata
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional controlled strata">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#paired-staticinteractive-kind" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paired static/interactive kind
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#official-source-w1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Official-source W1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pilot-acceptance-and-stopping-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pilot acceptance and stopping rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#msc-feasibility-envelope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MSc feasibility envelope
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openspec-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenSpec assessment
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authorized-after-this-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authorized after this gate
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exact-approval-sentence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exact approval sentence
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis/edit/main/docs/research/development-pilot-authorization.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="development-only-pilot-construction-and-qualification-authorization">Development-only Pilot Construction and Qualification Authorization<a class="headerlink" href="#development-only-pilot-construction-and-qualification-authorization" title="Permanent link">&para;</a></h1>
+<h2 id="decision-purpose">Decision purpose<a class="headerlink" href="#decision-purpose" title="Permanent link">&para;</a></h2>
+<p>This package is the dedicated authorization gate for the first development-only benchmark pilot under Issue #35. It translates the accepted <a href="../benchmark-design/">benchmark design</a>, <a href="../benchmark-pilot-protocol/">pilot protocol</a>, canonical OpenSpec specifications, and merged pilot foundation into a bounded construction and qualification sequence.</p>
+<p>Approval of this package authorizes only the core work listed under <a href="#authorized-after-this-gate">Authorized after this gate</a>. It does not authorize model execution, formal experiments, real <code>kind</code>, live W1 access, training-data construction, or any final-test action. Pilot evidence remains feasibility evidence and cannot support a claim that an adaptation method improves over B0.</p>
+<h2 id="decision-register">Decision register<a class="headerlink" href="#decision-register" title="Permanent link">&para;</a></h2>
+<h3 id="already-approved-and-unchanged">Already approved and unchanged<a class="headerlink" href="#already-approved-and-unchanged" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The independent unit is the scenario family; variants and repeats remain nested.</li>
+<li>The pilot contains exactly 24 development families: eight knowledge, eight procedural, and eight mixed; every class contains four Polish and four English families.</li>
+<li>At most one Polish/English semantic pair per task class may be added without increasing the independent-family count.</li>
+<li>Up to four procedural families may later receive paired static/interactive variants through the separate <code>kind</code> path.</li>
+<li>Five stochastic generations and three frozen formulations apply only to the balanced six-family stability subset when model execution is separately authorized.</li>
+<li>The answer contract, condition applicability, target stratum, comparator, metric applicability, custody, evaluator identity, invalidity, calibration, contamination, C2, <code>kind</code>, W1, and progression rules remain those in the accepted protocol and canonical specifications.</li>
+<li>C2 constituent selection order remains <code>P1</code>, <code>R1</code>, <code>H1</code>, <code>S1</code>, filtered to the declared constituents. The first remaining constituent is the design-time comparator under <code>strongest-constituent-v1</code>; no outcome may change that order.</li>
+<li>Final-test inputs, final goldens, and final-test access do not exist within this package and remain outside the normal checkout and every AI-accessible workspace.</li>
+</ul>
+<h3 id="proposed-operational-details-for-this-gate">Proposed operational details for this gate<a class="headerlink" href="#proposed-operational-details-for-this-gate" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Construction proceeds through the frozen sequence below and uses the merged <code>pilot-policy-v1</code> records as validation evidence.</li>
+<li>The repository receives only redistributable model-facing metadata and hashes. Development inputs may be committed only after rights review; protected evaluator material stays in a separately identified protected root.</li>
+<li>Calibration at this stage uses synthetic non-domain fixtures and responses only. It qualifies evaluator mechanics, rubric clarity, blinding, rating import, adjudication, and agreement computation; it does not qualify a Kubernetes-domain human metric for confirmatory scoring.</li>
+<li>The core authorization ends with a model-free readiness report. Criteria requiring model, real-cluster, or live-web observations remain explicitly <code>not measured — separate authorization required</code>; they are not filled with synthetic success values and do not enter an overall empirical <code>GO</code> report prematurely.</li>
+<li>Optional <code>kind</code> and W1 strata default to <code>DEFER</code> until each receives its separate opt-in authorization.</li>
+</ul>
+<h3 id="remaining-choices-not-resolved-by-this-gate">Remaining choices not resolved by this gate<a class="headerlink" href="#remaining-choices-not-resolved-by-this-gate" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The exact compatible Kubernetes release, <code>kubernetes/website</code> commit, <code>kubernetes/kubernetes</code> commit, included paths, and redistribution decisions are frozen in the <a href="../development-pilot-source-rights-manifest/">development-pilot source and rights manifest</a>. The human researcher approved it on 2026-09-04 and it was squash-merged in <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/40">PR #40</a>. Any source-boundary change requires a successor manifest and human review. Selection used no model outcomes.</li>
+<li>The four optional procedural families for static/interactive pairing are not selected here. If proposed later, selection uses frozen coverage metadata and must cover diagnosis and remediation before any interactive outcome.</li>
+<li>The W1-eligible subset and allowlist revision are not selected here. They require a pre-outcome eligibility manifest and a separate live-access authorization.</li>
+<li>Detector implementations and numerical thresholds for token-overlap and semantic detectors are not invented here. They are calibrated on seeded synthetic positives and hard negatives, frozen with detector identity, and approved before scanning pilot artifacts.</li>
+<li>Domain-specific evaluator calibration and any development-only B0/headroom execution wait for a separately approved execution package after the required runner boundary exists.</li>
+</ul>
+<h2 id="construction-and-custody-boundary">Construction and custody boundary<a class="headerlink" href="#construction-and-custody-boundary" title="Permanent link">&para;</a></h2>
+<h3 id="composition-and-identity">Composition and identity<a class="headerlink" href="#composition-and-identity" title="Permanent link">&para;</a></h3>
+<p>The construction ledger SHALL create 24 family slots before scenario prose is authored. Slot allocation is fixed as follows:</p>
+<table>
+<thead>
+<tr>
+<th>Task class</th>
+<th style="text-align: right;">Polish</th>
+<th style="text-align: right;">English</th>
+<th style="text-align: right;">Independent total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Knowledge</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td>Procedural</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td>Mixed</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>12</strong></td>
+<td style="text-align: right;"><strong>12</strong></td>
+<td style="text-align: right;"><strong>24</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Each family receives a stable <code>family_id</code>, <code>split=development</code>, class, language, planned subtype, source-role references, answer-form class, and construction status. Every language, static/interactive, formulation, and repeat record receives its own <code>variant_id</code>, refers to exactly one <code>family_id</code>, preserves <code>split=development</code>, and sets <code>counts_as_independent=false</code>. The pilot manifest receives its own immutable <code>manifest_id</code>, <code>policy_version=pilot-policy-v1</code>, canonical serialization, and SHA-256 identity.</p>
+<p>Changes before freeze create a new manifest revision. After freeze, corrections create a successor manifest linked to the prior identity; neither family records nor prior manifests are overwritten.</p>
+<h3 id="model-facing-material">Model-facing material<a class="headerlink" href="#model-facing-material" title="Permanent link">&para;</a></h3>
+<p>The model-facing root may contain only:</p>
+<ul>
+<li>development input and permitted-context references whose rights allow storage;</li>
+<li>family and variant identities, task class, language, answer form, deterministic-gate identities, metric applicability, condition applicability, target-stratum tags, and comparators;</li>
+<li>source/provenance identities and hashes;</li>
+<li>protected-root references consisting only of approved identity, relative path, artifact kind, and SHA-256 hash.</li>
+</ul>
+<p>It SHALL NOT contain expected results, protected evidence maps, scoring anchors tied to an answer, rubric decisions, adjudication notes, goldens, evaluator implementation details that reveal answers, final-test locations, or redacted payload recovery data.</p>
+<h3 id="protected-evaluator-material">Protected evaluator material<a class="headerlink" href="#protected-evaluator-material" title="Permanent link">&para;</a></h3>
+<p>The protected evaluator root may contain development-only expected results, evidence maps, evaluator fixtures, rubrics, and adjudication records. It has a distinct root identity, access ledger, canonical manifest, and content hashes. It is never indexed for RAG or training, passed to prompts, skills, harnesses, W1, or model-facing logs, or copied into validation errors.</p>
+<p>Access, freeze, supersession, redaction, and disclosure events are append-only. Published or model-facing reports use stable IDs, status/reason codes, and hashes; any excerpt capable of revealing an answer is replaced with a redaction marker and retained only in the protected evidence record.</p>
+<h3 id="explicit-exclusions">Explicit exclusions<a class="headerlink" href="#explicit-exclusions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No final-test family is created, reserved, sampled, inspected, hashed from content, or accessed.</li>
+<li>No final-test golden, evidence map, rubric payload, or expected answer is created or referenced by a resolvable path.</li>
+<li>No training family is constructed in this authorization. A future F1 training set must use a separate root and manifest and be family-disjoint from development and final material.</li>
+<li>No external GenAI service receives development payloads or protected evaluator material.</li>
+</ul>
+<h2 id="preregistered-construction-sequence">Preregistered construction sequence<a class="headerlink" href="#preregistered-construction-sequence" title="Permanent link">&para;</a></h2>
+<p>The sequence is order-sensitive. A failed gate stops downstream work; it does not permit a later step to repair earlier records after seeing outcomes.</p>
+<ol>
+<li><strong>Freeze source-selection rules.</strong> Record the supported release window, permitted upstream repositories, inclusion/exclusion rules, license review fields, authoring rules, and family-slot allocation. Then select and hash compatible upstream revisions. No family prose is authored before human source and rights review.</li>
+<li><strong>Freeze custody.</strong> Create distinct model-facing, protected-evaluator, and future training root identities; record access roles, redaction rules, append-only locations, and final-test prohibition. Verify that protected markers and final-test declarations fail closed.</li>
+<li><strong>Freeze construction metadata.</strong> Assign all 24 family slots to class, language, planned subtype, and model-independent coverage tags. Record family eligibility and target strata from the accepted matrix without using model scores, errors, rater disagreement, or runtime behavior.</li>
+<li><strong>Freeze condition and C2 declarations.</strong> For every family, record all approved condition applicability decisions with reasons, answer-contract/metric applicability, target stratum, and comparator. If C2 is declared, freeze the complete constituent set, filtered selector order <code>P1 → R1 → H1 → S1</code>, comparator rule, eligibility manifest, and pre-outcome hash before any output exists.</li>
+<li><strong>Construct development inputs.</strong> Author fresh source-transformed scenarios within the fixed slots. Human-review technical correctness, language quality, answerability, provenance, licensing, and realism without consulting a model response. A rejected scenario leaves an append-only exclusion/reason record; replacement occupies the same predeclared cell and cannot be selected for favorable performance.</li>
+<li><strong>Construct protected evaluator material.</strong> Independently create evidence maps, answer contracts, deterministic checks, and atomic rubrics in the protected root. Reviewers verify each mapping against the pinned source and family input. Model-facing serialization is regenerated only from permitted fields.</li>
+<li><strong>Calibrate contamination detectors.</strong> Use synthetic seeded positives and hard negatives to select token-overlap and semantic thresholds and validate all six detector methods. Freeze method version, configuration, threshold expression, normalization/tokenization rules, and calibration evidence before scanning pilot artifacts.</li>
+<li><strong>Run the contamination audit.</strong> Audit every required available artifact-pair class, retain candidates and adjudication evidence, and produce a complete six-method aggregate. Direct leakage stops qualification; unresolved semantic candidates require amendment.</li>
+<li><strong>Qualify deterministic evaluators and rating mechanics.</strong> Use only synthetic non-domain positive, negative, boundary, malformed, and ambiguous fixtures. Freeze fixture-set and evaluator identities, require repeated identical outcomes/reason codes, then run the blinded human calibration sequence below.</li>
+<li><strong>Perform independent solvability review.</strong> Two technically competent reviewers inspect each development family against its protected evidence/validator mapping without model outputs. Record family-level decisions and reasons; do not rewrite a family because of an adaptation hypothesis.</li>
+<li><strong>Issue the model-free readiness report.</strong> Report custody/integrity, composition, source/rights review, deterministic qualification, synthetic calibration, contamination, and independent solvability separately. Keep headroom, run invalidity, condition fidelity, real <code>kind</code>, and live W1 unmeasured pending their own prerequisites and authorizations.</li>
+<li><strong>Request the next gate.</strong> Any later model execution requires a focused execution package and an approved runner boundary. Real <code>kind</code> and live W1 additionally require their separate opt-in releases below.</li>
+</ol>
+<p>Training, development, and evaluation custody are therefore separated by root identity, manifest, access role, and data flow. Construction decisions precede model outcomes. No outcome is available in steps 1–11.</p>
+<h3 id="confirmatory-c2-follow-up">Confirmatory C2 follow-up<a class="headerlink" href="#confirmatory-c2-follow-up" title="Permanent link">&para;</a></h3>
+<p>If later pilot error analysis motivates C2 eligibility or changes its comparator, that pilot C2 is labeled exploratory. Confirmatory use then requires a new development-family manifest that:</p>
+<ul>
+<li>is frozen before its outcomes;</li>
+<li>links the immutable exploratory-manifest identity and hash;</li>
+<li>derives the excluded family set from that linked manifest rather than a self-declared list;</li>
+<li>contains no overlapping family ID or semantic family;</li>
+<li>repeats the model-independent eligibility and frozen comparator validation.</li>
+</ul>
+<p>The exploratory record and all exclusions remain append-only.</p>
+<h2 id="contamination-audit-plan">Contamination audit plan<a class="headerlink" href="#contamination-audit-plan" title="Permanent link">&para;</a></h2>
+<h3 id="audit-inputs-and-artifact-pair-identity">Audit inputs and artifact-pair identity<a class="headerlink" href="#audit-inputs-and-artifact-pair-identity" title="Permanent link">&para;</a></h3>
+<p>Each input artifact unit records <code>artifact_id</code>, root/role, split where applicable, family/variant membership, language, media type, canonical content hash, parent-manifest identity, and detector-readable representation hash. An <code>artifact_pair_id</code> is derived from the ordered pair of immutable artifact identities plus detector version and configuration hash.</p>
+<p>Required pair classes for material that exists at this stage are:</p>
+<ul>
+<li>development input ↔ every other development input, to detect undeclared families/near-duplicates;</li>
+<li>development input ↔ source chunks and public examples, to characterize source transformation rather than treat expected source grounding as hidden;</li>
+<li>development input ↔ prompts, examples, skills, harness text, tool fixtures, and captured tool outputs available to model-facing conditions;</li>
+<li>development input ↔ any pre-existing training material; if none exists, the training manifest identity and empty-state evidence are recorded;</li>
+<li>protected evaluator material ↔ every model-facing, corpus, prompt, skill, harness, tool-fixture, and training artifact, to detect answer leakage;</li>
+<li>Polish ↔ English artifacts, including declared translations and independent families, to identify intended and unintended semantic-family relationships.</li>
+</ul>
+<p>Future training and final-test manifests trigger a complete rerun. The current audit does not inspect or imply the existence of final-test content.</p>
+<h3 id="required-detectors-and-threshold-governance">Required detectors and threshold governance<a class="headerlink" href="#required-detectors-and-threshold-governance" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Audit</th>
+<th>Input representation</th>
+<th>Match decision before human adjudication</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exact</td>
+<td>Original bytes/text with encoding identity</td>
+<td>Identical content hash or exact declared representation equality</td>
+</tr>
+<tr>
+<td>Normalized</td>
+<td>Frozen whitespace, line-ending, Unicode, comment, and safe formatting normalization</td>
+<td>Equality of the frozen normalized representation</td>
+</tr>
+<tr>
+<td>Token-overlap</td>
+<td>Frozen tokenizer and n-gram/shingle configuration</td>
+<td>Score meets the threshold calibrated and frozen on seeded positives and hard negatives before pilot scanning</td>
+</tr>
+<tr>
+<td>Code/configuration structure</td>
+<td>Parsed or normalized Kubernetes/code structure with non-semantic values handled by a frozen rule</td>
+<td>Structural signature match under the frozen detector rule</td>
+</tr>
+<tr>
+<td>Semantic</td>
+<td>Frozen embedding/model or other semantic representation and distance function</td>
+<td>Score meets the pre-pilot calibrated threshold; detector/model identity and artifact hash are mandatory</td>
+</tr>
+<tr>
+<td>Cross-language</td>
+<td>Frozen multilingual or translate-then-compare representation plus declared family relationships</td>
+<td>Score meets the pre-pilot calibrated threshold or a declared translation/family relation requires review</td>
+</tr>
+</tbody>
+</table>
+<p>No new numerical token or semantic threshold is asserted by this package. Calibration evidence, selected threshold, detector identity, configuration, false-positive/false-negative observations on synthetic controls, and rationale must be frozen before actual pairs are scanned. Family and declared translation relationships override an automated non-match.</p>
+<h3 id="adjudication-and-evidence-retention">Adjudication and evidence retention<a class="headerlink" href="#adjudication-and-evidence-retention" title="Permanent link">&para;</a></h3>
+<p>Every detector candidate receives one of <code>pending</code>, <code>confirmed</code>, or <code>rejected</code>, a written rationale, reviewer identity, UTC timestamp, artifact-pair identity, detector output/hash, and protected evidence reference. Automated non-matches retain summary/count evidence and the aggregate six-detector completeness record. Reports distinguish:</p>
+<ul>
+<li><code>public-domain exposure expected</code>;</li>
+<li><code>semantic overlap detected/not detected under method</code>;</li>
+<li><code>direct overlap detected/not detected under method</code>;</li>
+<li><code>parametric exposure unknown</code>.</li>
+</ul>
+<p>No numerical probability of pre-training exposure and no contamination-free claim is permitted.</p>
+<h3 id="stopdefer-and-amendment-handling">STOP/DEFER and amendment handling<a class="headerlink" href="#stopdefer-and-amendment-handling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Confirmed direct train/development overlap, final/development overlap if a future final manifest exists, or any golden/evaluator leakage is <code>STOP/DEFER</code>. Preserve the event and affected identities; do not silently delete or auto-replace them.</li>
+<li>An unresolved semantic, structural, token, or cross-language candidate is <code>AMEND</code> until human adjudication.</li>
+<li>A missing required detector, detector failure, missing artifact identity, or incomplete aggregate prevents a no-overlap claim and is <code>STOP/DEFER</code> for qualification until complete evidence is produced.</li>
+<li>Expected source/domain exposure is recorded as a limitation, not an automatic exclusion.</li>
+<li>Replacement of affected non-final material is allowed only for leakage, ambiguity, unsolvability, missing evidence, or construct mismatch, with a successor manifest and reason record—not because a method performed poorly.</li>
+</ul>
+<h2 id="evaluator-calibration-plan">Evaluator calibration plan<a class="headerlink" href="#evaluator-calibration-plan" title="Permanent link">&para;</a></h2>
+<h3 id="synthetic-non-domain-material-only">Synthetic non-domain material only<a class="headerlink" href="#synthetic-non-domain-material-only" title="Permanent link">&para;</a></h3>
+<p>At this gate, fixtures and responses are synthetic, non-Kubernetes, non-benchmark material designed to exercise evaluator contracts without carrying a benchmark answer. They span Polish and English, knowledge-like, procedural-like, and mixed-like answer forms, but they cannot be reused as pilot families, training examples, goldens, prompts, or few-shot demonstrations.</p>
+<p>Each deterministic evaluator component must include positive, negative, boundary, malformed, and ambiguous fixtures. Expected results remain protected. Qualification requires 100% expected outcomes and identical outcome and reason codes on repeated execution. An unresolved ambiguous fixture is rejected or routed to a named human criterion; it never receives an arbitrary substantive score.</p>
+<h3 id="rubrics-and-labels">Rubrics and labels<a class="headerlink" href="#rubrics-and-labels" title="Permanent link">&para;</a></h3>
+<p>Every human rubric is task-specific and decomposed into named atomic criteria with observable applicability and anchors. Ordinal criteria use exactly <code>0</code>, <code>1</code>, and <code>2</code>. Critical safety, answerability, and task-success decisions remain separate binary labels. A universal overall-quality score is prohibited.</p>
+<p>The candidate rubric, fixture set, rating schema, randomized response-ID map, and permitted evidence bundle are frozen before qualification ratings. Raters see no method, model, prompt, seed, condition, or each other's ratings. Each immutable rating records rater pseudonym, randomized response identity, criterion values, rubric version, timestamp, and declarations of independence and blinding.</p>
+<h3 id="calibration-sequence-and-decision-rules">Calibration sequence and decision rules<a class="headerlink" href="#calibration-sequence-and-decision-rules" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Two technically competent raters independently score 12 synthetic training responses covering both languages, the three form classes, and correct, incorrect, boundary, and malformed behavior.</li>
+<li>They discuss disagreements, revise observable anchors, and freeze the candidate rubric. These 12 responses are excluded from reliability estimation.</li>
+<li>They independently score a disjoint 24-response synthetic qualification set balanced across class-like form and language.</li>
+<li>Report per-criterion confusion tables, exact agreement, adjacent-category agreement for ordinal criteria, and nominal or ordinal Krippendorff alpha with a family-clustered 95% interval.</li>
+<li><code>GO</code> requires at least 90% exact agreement for every critical binary label, pooled primary-rubric alpha at least 0.80, and lower 95% interval bound at least 0.67.</li>
+<li><code>AMEND</code> applies when pooled alpha is 0.67–0.79 or the lower bound is below 0.67 without systematic critical disagreement. Revise anchors and permit at most one new disjoint qualification set.</li>
+<li><code>STOP/DEFER</code> applies when pooled alpha is below 0.67, systematic critical disagreement remains, or the second qualification attempt is not green. The affected human metric must be narrowed, replaced, or kept exploratory before final freeze.</li>
+</ol>
+<p>Synthetic green status qualifies the workflow and schema only. Domain-specific human scoring remains disabled until a later Kubernetes-domain calibration is approved and green.</p>
+<h3 id="adjudication-and-invalidity">Adjudication and invalidity<a class="headerlink" href="#adjudication-and-invalidity" title="Permanent link">&para;</a></h3>
+<p>Preserve both independent ratings. Critical-label disagreement or ordinal disagreement greater than one level requires written evidence-based adjudication containing the adjudicated value, frozen-rubric validation, rationale, adjudicator identity, and source-rating identities. If unresolved, preserve both labels and set the conservative sensitivity-analysis flag.</p>
+<p>Corrupted capture, missing required provenance, hash mismatch, evaluator-infrastructure failure, or required measurement failure is invalid and remains append-only. Wrong answers, refusals, malformed evaluated outputs, action-budget exhaustion, evaluated-system timeouts, failed remediation, and failures belonging to the deployed condition are valid task failures. Later exclusion-sensitive conclusions require both complete-case and all-fail sensitivity bounds.</p>
+<p>An LLM judge remains supplemental, disabled for confirmatory scoring at this stage, and receives no protected material.</p>
+<h2 id="optional-controlled-strata">Optional controlled strata<a class="headerlink" href="#optional-controlled-strata" title="Permanent link">&para;</a></h2>
+<h3 id="paired-staticinteractive-kind">Paired static/interactive <code>kind</code><a class="headerlink" href="#paired-staticinteractive-kind" title="Permanent link">&para;</a></h3>
+<p><strong>Offline readiness, allowed by the core gate:</strong> propose up to four procedural family IDs using only frozen coverage metadata; define paired static/interactive variant identities; prepare versioned validator fixtures and neutral-policy metadata using deterministic fakes; verify pinned-identity, reset, permission, matched-access, budget, final-state, and append-only capture requirements without starting a cluster. This preparation does not select families from model outcomes.</p>
+<p><strong>Separate authorization required:</strong> an exact opt-in must name the approved family manifest, <code>kind</code> revision, node/workload digests, cluster-policy hash, host/container identity, namespace policy, reset policy, action/output/time budgets, validator version, and evidence location. Only then may a disposable real cluster be created.</p>
+<p><strong>Qualification:</strong> ten consecutive resets must reproduce the declared initial-state hash and validator result; ten independent DNS and outbound HTTP(S) probes must be denied; allowed permissions must succeed and all prohibited permissions fail; validator fixtures must be deterministic across all five fixture classes; applicable conditions must have identical neutral policies; all four variants must be semantically paired; median reset plus validation must be at most three minutes and no attempt may exceed five minutes. Any isolation or privilege failure is <code>STOP/DEFER</code>. Timing/reset instability is <code>AMEND</code> with one bounded redesign; a repeated non-green result defers interactive confirmatory evidence while static families remain eligible.</p>
+<h3 id="official-source-w1">Official-source W1<a class="headerlink" href="#official-source-w1" title="Permanent link">&para;</a></h3>
+<p><strong>Offline readiness, allowed by the core gate:</strong> propose a model-independent eligible family subset, versioned official-source allowlist/deny policy, redirect cases, budget manifest, provenance schema, and synthetic provider fixtures. All default checks use deterministic fakes and cannot contact a service.</p>
+<p><strong>Separate authorization required:</strong> an exact opt-in must name the eligible manifest, W1/combined-condition identity, provider/tool identity, allowlist/policy hash, frozen budgets, deny fixtures, source-drift reviewer, protected-storage boundary, and append-only capture location. W1 remains separate from R1 and H1; any combined condition has its own preapproved identity.</p>
+<p><strong>Qualification:</strong> allow only approved official Kubernetes paths and revalidate every redirect; deny the thesis repository, benchmark/golden storage, user files, local addresses, and non-allowlisted domains. Enforce per response at most three searches, five results per search, two fetches, five total tool calls, 4,000 extracted context tokens, and 120 seconds of measured tool wall time. Persist complete provenance before body text is exposed. A human source-drift precheck records reviewer, rationale, frozen/current hashes, and semantic compatibility. <code>GO</code> requires complete provenance, safe access and redirects, and at least 90% within-budget completion across eligible attempts. Prohibited access or missing provenance is <code>STOP/DEFER</code>; availability/reproducibility limitations are <code>AMEND</code> and may leave W1 exploratory.</p>
+<p>Both optional strata may be deferred independently without invalidating the static development benchmark.</p>
+<h2 id="pilot-acceptance-and-stopping-rules">Pilot acceptance and stopping rules<a class="headerlink" href="#pilot-acceptance-and-stopping-rules" title="Permanent link">&para;</a></h2>
+<p>The accepted protocol remains authoritative. The following table restates it for execution planning; it does not alter a threshold.</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>GO</th>
+<th>AMEND</th>
+<th>STOP/DEFER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Deterministic evaluation</td>
+<td>100% fixture agreement and idempotence</td>
+<td>Correctable non-critical specification ambiguity before outputs</td>
+<td>Any unexplained or post-output evaluator change</td>
+</tr>
+<tr>
+<td>Human calibration</td>
+<td>Every critical binary label ≥90% exact agreement; pooled alpha ≥0.80; lower 95% bound ≥0.67</td>
+<td>Pooled alpha 0.67–0.79 or lower bound &lt;0.67 without systematic critical disagreement; one disjoint requalification</td>
+<td>Alpha &lt;0.67, unresolved systematic critical disagreement, or second non-green attempt</td>
+</tr>
+<tr>
+<td>Solvability/evidence</td>
+<td>≥90% of families independently judged solvable with complete evidence/validator mapping</td>
+<td>80–89% or localized ambiguity</td>
+<td>&lt;80% or construct mismatch</td>
+</tr>
+<tr>
+<td>Headroom</td>
+<td>B0 success 20–80% overall and success plus failure in every target stratum</td>
+<td>One stratum outside range while controls discriminate</td>
+<td>Ceiling/floor cannot be repaired without changing the construct</td>
+</tr>
+<tr>
+<td>Infrastructure/evaluator invalidity</td>
+<td>≤5%</td>
+<td>&gt;5% and ≤10% with an identified fix</td>
+<td>&gt;10% or condition-dependent invalidation</td>
+</tr>
+<tr>
+<td>Condition fidelity/fairness</td>
+<td>100% required provenance and matched declared controls</td>
+<td>Non-outcome-informed implementation correction</td>
+<td>Hidden information, unequal permission, or uncaptured mutation</td>
+</tr>
+<tr>
+<td>Contamination</td>
+<td>No direct leakage; semantic candidates adjudicated</td>
+<td>Unresolved semantic candidates</td>
+<td>Direct item/golden exposure or an incomplete required audit preventing qualification</td>
+</tr>
+<tr>
+<td><code>kind</code></td>
+<td>Every approved feasibility check green</td>
+<td>One bounded redesign for timing/reset instability</td>
+<td>Isolation/privilege failure or repeated non-green result</td>
+</tr>
+<tr>
+<td>W1</td>
+<td>All provenance/access checks and ≥90% completion</td>
+<td>Availability/reproducibility limitation</td>
+<td>Prohibited access or missing provenance</td>
+</tr>
+<tr>
+<td>Researcher feasibility</td>
+<td>Final work fits the pre-freeze time/compute cap with 20% contingency</td>
+<td>Scope reduction preserving primary strata</td>
+<td>Work exceeds the cap or needs unavailable raters/hardware</td>
+</tr>
+</tbody>
+</table>
+<p>The worst safety, leakage, or evaluator-validity outcome governs progression. Missing measurements are reported as missing and cannot be converted to success. Infrastructure failure that breaks capture, identity, provenance, evaluator operation, or required measurement is invalid; it is retained and counted in the invalidity rule. Evaluated-system failure with intact capture remains a valid failure.</p>
+<p>At the present model-free gate, only criteria with genuine observations receive a status. Headroom, model-run invalidity, condition fidelity under execution, real <code>kind</code>, and live W1 remain pending separate authorization rather than being populated with synthetic evidence. A full pilot progression report is produced only when all approved criteria have legitimate evidence.</p>
+<h2 id="msc-feasibility-envelope">MSc feasibility envelope<a class="headerlink" href="#msc-feasibility-envelope" title="Permanent link">&para;</a></h2>
+<p>These are workload estimates and scope controls, not scientific acceptance thresholds.</p>
+<table>
+<thead>
+<tr>
+<th>Work</th>
+<th>Fixed limit or realistic envelope</th>
+<th>Deferral rule</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core families</td>
+<td>Exactly 24 independent families; no expansion during pilot qualification</td>
+<td>Reduce subtype ambition within the approved cells rather than add families</td>
+</tr>
+<tr>
+<td>Nested language variants</td>
+<td>At most three pairs, one per task class</td>
+<td>Defer any or all without changing class/language family counts</td>
+</tr>
+<tr>
+<td>Stability observations</td>
+<td>Six families × three frozen formulations × five generations when model execution is later authorized</td>
+<td>Do not increase repeats to compensate for too few families; seven belongs only to the approved final-study rule</td>
+</tr>
+<tr>
+<td>Human calibration</td>
+<td>24 training ratings plus 48 first qualification ratings across two raters; at most 48 more ratings for one disjoint requalification</td>
+<td>A second non-green attempt defers/narrows the metric</td>
+</tr>
+<tr>
+<td>Pilot human scoring</td>
+<td>Double-rate only responses whose primary outcome genuinely requires human judgment; deterministic outcomes remain primary where valid</td>
+<td>Stage by class and stop when a criterion is red rather than rate unusable downstream material</td>
+</tr>
+<tr>
+<td>Contamination</td>
+<td>Six detectors over batched immutable pair classes; human review only for flagged or relationship-mandated pairs</td>
+<td>A detector may be replaced before pilot scanning; a missing required detector blocks qualification</td>
+</tr>
+<tr>
+<td>Core calendar</td>
+<td>Approximately 3–4 part-time weeks for source freeze, 24-family authoring/review, protected evaluators, audit, calibration, and readiness reporting, plus 20% contingency</td>
+<td>Stop and reduce optional subtypes if the envelope is exceeded</td>
+</tr>
+<tr>
+<td>Core storage/compute</td>
+<td>Text/manifests/evaluator evidence should remain below roughly 1 GB; semantic detection is a bounded one-off CPU/GPU job over the pilot corpus</td>
+<td>Keep large caches outside Git and retain only identities, lawful evidence, and required reproducibility artifacts</td>
+</tr>
+<tr>
+<td>Optional <code>kind</code></td>
+<td>Up to four paired families; approximately one additional week plus external image storage and repeated reset/probe time</td>
+<td>Independently defer; static procedural families remain valid</td>
+</tr>
+<tr>
+<td>Optional W1</td>
+<td>One predeclared subset; approximately 2–4 additional researcher days plus live-service qualification time</td>
+<td>Independently defer or report exploratory</td>
+</tr>
+</tbody>
+</table>
+<p>The dominant human burden is careful family/evidence review and double rating, not software architecture. Construction should stop at the fixed family count, reuse atomic evaluator components only where constructs truly match, and avoid product-scale orchestration.</p>
+<h2 id="openspec-assessment">OpenSpec assessment<a class="headerlink" href="#openspec-assessment" title="Permanent link">&para;</a></h2>
+<p>No OpenSpec change is created by this package. The canonical <code>benchmark-pilot-dataset</code>, <code>evaluation-protocol</code>, <code>controlled-cluster-tasks</code>, and <code>web-search-sensitivity</code> specifications already define the observable custody, identity, C2, evaluator, invalidity, cluster, W1, and progression behavior needed for this authorization. The merged implementation provides typed records, validators, deterministic fakes, and fail-closed opt-in boundaries.</p>
+<p>This gate intentionally excludes model execution and real external integration, which the merged foundation also excludes. A later request to integrate actual model inference, execute real <code>kind</code>, contact a live provider, or automate detector algorithms beyond the existing record contract must be assessed as a separate narrow OpenSpec change before implementation.</p>
+<h2 id="authorized-after-this-gate">Authorized after this gate<a class="headerlink" href="#authorized-after-this-gate" title="Permanent link">&para;</a></h2>
+<p>After explicit human approval, the researcher and Codex may:</p>
+<ul>
+<li>freeze the source/custody/construction manifests;</li>
+<li>construct and human-review the 24 development-only family inputs and protected evaluator material;</li>
+<li>calibrate and execute all six contamination audits on development material;</li>
+<li>construct only synthetic non-domain evaluator fixtures and calibration responses;</li>
+<li>run deterministic evaluator qualification, blinded human workflow calibration, and independent model-free solvability review;</li>
+<li>prepare offline <code>kind</code> and W1 readiness metadata and deterministic-fake fixtures;</li>
+<li>record append-only evidence and a model-free readiness decision.</li>
+</ul>
+<p>They may not run a model, create or access final-test material, construct training data, create a real cluster, access a live web service, perform formal experiments, or claim method improvement. Those actions require their later explicit gates.</p>
+<h2 id="exact-approval-sentence">Exact approval sentence<a class="headerlink" href="#exact-approval-sentence" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>I approve the Issue #35 development-only pilot construction and model-free qualification package. This authorizes the 24-family development pilot, protected evaluator materials, six-detector contamination audit, synthetic non-domain evaluator calibration, independent solvability review, and offline <code>kind</code>/W1 readiness preparation exactly as specified; it does not authorize model execution, training data, final-test material or access, a real <code>kind</code> cluster, live web access, formal experiments, or method-effect claims.</p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.indexes", "navigation.sections", "navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

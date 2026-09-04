@@ -1,0 +1,1933 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human-readable research and engineering documentation for the MSc thesis project.">
+      
+      
+      
+        <link rel="canonical" href="https://nasus20202.github.io/local-llm-adaptation-thesis/research/current-feasibility-review/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Current Research and Feasibility Review - Local LLM Adaptation Thesis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#current-research-and-feasibility-review" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-header__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Local LLM Adaptation Thesis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Current Research and Feasibility Review
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-nav__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Local LLM Adaptation Thesis
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/charter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/aidlc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDLC workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/source-of-truth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Source of truth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development pilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development pilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-pilot-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-authorization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenario inputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/system-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/experiment-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/reproducibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-repository-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0001 — Repository architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-primary-secondary-model-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0002 — Model strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-local-inference-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0003 — Local inference backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-fine-tuning-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0004 — Fine-tuning environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-openspec-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0005 — OpenSpec workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-experiment-provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0006 — Experiment provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-evaluation-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0007 — Evaluation architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0008-benchmark-domain-and-language-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0008 — Benchmark domain and language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0009-development-pilot-and-calibration-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0009 — Development pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/codex-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/pilot-foundation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot foundation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#executive-recommendation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Executive recommendation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-primary-model-candidate-gemma-4-e4b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Primary model candidate: Gemma 4 E4B
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Primary model candidate: Gemma 4 E4B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#facts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feasibility-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feasibility interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-secondary-model-candidate-qwen35-9b" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Secondary model candidate: Qwen3.5-9B
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Secondary model candidate: Qwen3.5-9B">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#facts_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Facts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feasibility-interpretation_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feasibility interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-llamacpp-vulkan-and-rx-5700" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. llama.cpp, Vulkan, and RX 5700
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fine-tuning-feasibility" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Fine-tuning feasibility
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-kaggle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Kaggle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-openspec" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. OpenSpec
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-current-weti-thesis-template-and-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Current WETI thesis template and requirements
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-university-genai-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. University GenAI rules
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-gate-before-m1m2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Decision gate before M1/M2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis/edit/main/docs/research/current-feasibility-review.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="current-research-and-feasibility-review">Current Research and Feasibility Review<a class="headerlink" href="#current-research-and-feasibility-review" title="Permanent link">&para;</a></h1>
+<p><strong>Review date:</strong> 2026-08-31
+<strong>Decision horizon:</strong> bootstrap only; model and training choices remain unfrozen until target-hardware smoke tests and human approval.</p>
+<p>Labels in this report have strict meanings:</p>
+<ul>
+<li><strong>FACT:</strong> supported by the linked primary or authoritative source.</li>
+<li><strong>ASSUMPTION:</strong> plausible project-specific inference requiring measurement.</li>
+<li><strong>RECOMMENDATION:</strong> proposed project action.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> decision or fact that must be closed before the affected freeze.</li>
+</ul>
+<h2 id="executive-recommendation">Executive recommendation<a class="headerlink" href="#executive-recommendation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>RECOMMENDATION:</strong> retain <strong>Gemma 4 E4B Instruction-Tuned QAT Q4_0 GGUF</strong> as the primary candidate because Google publishes a first-party <code>llama.cpp</code>-ready artifact that fits the 8 GB target at modest context lengths.</li>
+<li><strong>RECOMMENDATION:</strong> retain <strong>Qwen3.5-9B</strong> as the selected secondary candidate for a limited replication. Newer Qwen3.8 is currently available at 27B rather than a comparable small size, and 27B is unsuitable for an 8 GB replication target.</li>
+<li><strong>RECOMMENDATION:</strong> use <code>llama.cpp</code> Vulkan for local evaluation, pinned to a tested commit/container digest. Treat the advertised 128K/262K model contexts as capabilities, not feasible target settings.</li>
+<li><strong>RECOMMENDATION:</strong> do not use the RX 5700 for the main QLoRA pipeline. Use one pinned Unsloth pipeline on an NVIDIA Kaggle P100 or dual-T4 session, export the adapter/model, and evaluate it locally. Keep Hugging Face PEFT/TRL as the fallback, not a second experimental pipeline.</li>
+<li><strong>RECOMMENDATION:</strong> freeze none of these choices until the M0 hardware smoke-test issue records load success, maximum safe context, RAM/VRAM, throughput, output sanity, and exact hashes.</li>
+</ul>
+<h2 id="1-primary-model-candidate-gemma-4-e4b">1. Primary model candidate: Gemma 4 E4B<a class="headerlink" href="#1-primary-model-candidate-gemma-4-e4b" title="Permanent link">&para;</a></h2>
+<h3 id="facts">Facts<a class="headerlink" href="#facts" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FACT:</strong> Google released Gemma 4 in E2B, E4B, 12B, 26B A4B, and 31B sizes. E4B is a dense model with <strong>4.5B effective parameters and 8B parameters including embeddings</strong>, 42 layers, 262K vocabulary, 512-token sliding attention windows, and 128K advertised context. It uses Per-Layer Embeddings, so memory tracks total embeddings rather than the effective count alone. <a href="https://ai.google.dev/gemma/docs/core/model_card_4">Gemma 4 model card</a></li>
+<li><strong>FACT:</strong> the E4B model supports text, image, and audio inputs and generates text. It is pretrained on more than 140 languages and explicitly supports multilingual use. The experiment is currently text-only; multimodal support is not a reason to select it. <a href="https://ai.google.dev/gemma/docs/core/model_card_4">Gemma 4 model card</a></li>
+<li><strong>FACT:</strong> the official model card identifies the license as Apache-2.0. The exact license file and model revision must still be archived with the freeze manifest. <a href="https://ai.google.dev/gemma/docs/core/model_card_4">Gemma 4 model card</a></li>
+<li><strong>FACT:</strong> Google estimates E4B inference memory for static weights plus 20% loading overhead at approximately 4.5 GB for Q4_0, excluding context KV cache and other runtime allocations. <a href="https://ai.google.dev/gemma/docs/core">Gemma 4 overview</a></li>
+<li><strong>FACT:</strong> Google publishes <code>google/gemma-4-E4B-it-qat-q4_0-gguf</code>; the current Q4_0 GGUF is 5.15 GB and the optional multimodal projector is approximately 992 MB. The artifact is explicitly routed to <code>llama.cpp</code>/LM Studio. <a href="https://huggingface.co/google/gemma-4-E4B-it-qat-q4_0-gguf">Official GGUF repository</a></li>
+<li><strong>FACT:</strong> Quantization-Aware Training checkpoints are intended to preserve quality better than ordinary post-training quantization at the target precision, but this is a vendor claim that the thesis must not treat as an experimental result. <a href="https://ai.google.dev/gemma/docs/core#qat">Gemma 4 overview</a></li>
+</ul>
+<h3 id="feasibility-interpretation">Feasibility interpretation<a class="headerlink" href="#feasibility-interpretation" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ASSUMPTION:</strong> text-only Q4_0 inference should fit into 8 GB VRAM at a modest context length if the multimodal projector is omitted. The 5.15 GB file size, allocator overhead, KV cache, Vulkan buffers, and Fedora desktop usage leave limited headroom.</li>
+<li><strong>ASSUMPTION:</strong> 128K context is infeasible on the target and irrelevant to the planned benchmark. Context limits of 4K, 8K, and possibly 16K must be measured rather than inferred.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> does the official QAT Q4_0 artifact produce correct, stable text on the selected <code>llama.cpp</code> Vulkan build and RX 5700 driver stack?</li>
+<li><strong>UNRESOLVED QUESTION:</strong> should thinking mode be disabled for all primary comparisons or treated as a fixed model-level control? It must not vary silently by condition.</li>
+</ul>
+<h2 id="2-secondary-model-candidate-qwen35-9b">2. Secondary model candidate: Qwen3.5-9B<a class="headerlink" href="#2-secondary-model-candidate-qwen35-9b" title="Permanent link">&para;</a></h2>
+<h3 id="facts_1">Facts<a class="headerlink" href="#facts_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>FACT:</strong> <code>Qwen/Qwen3.5-9B</code> is an Apache-2.0 post-trained causal language model with a vision encoder, 9B language-model parameters, 32 layers, a hybrid Gated DeltaNet/attention layout, 262,144 native context, and claimed extensibility beyond one million tokens. <a href="https://huggingface.co/Qwen/Qwen3.5-9B">Official model card</a></li>
+<li><strong>FACT:</strong> Qwen reports support for 201 languages and dialects, making it a reasonable cross-family Polish-capable replication candidate. <a href="https://huggingface.co/Qwen/Qwen3.5-9B">Official model card</a></li>
+<li><strong>FACT:</strong> <code>llama.cpp</code> merged Qwen3.5 dense and MoE support on 2026-02-10 in PR <a href="https://github.com/ggml-org/llama.cpp/pull/19468">#19468</a>, merge commit <code>fc0fe4004985d6749a7a05e250d161f9dbe41d65</code>.</li>
+<li><strong>FACT:</strong> the official Qwen repository does not currently provide a first-party GGUF surfaced in the model search. Community GGUFs exist, including Unsloth, so provenance and conversion quality require explicit verification.</li>
+<li><strong>FACT:</strong> Qwen3.8 currently exposes a 27B dense model and a Flash-Next line; no official 4B/9B Qwen3.8 variant was found. <a href="https://huggingface.co/Qwen/Qwen3.8-27B">Qwen3.8-27B model card</a></li>
+</ul>
+<h3 id="feasibility-interpretation_1">Feasibility interpretation<a class="headerlink" href="#feasibility-interpretation_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>ASSUMPTION:</strong> a 4-bit 9B GGUF is likely to fit only with tight context and possibly partial CPU offload; theoretical 4-bit weights alone are 4.5 GB before scales, metadata, embeddings, cache, and runtime buffers.</li>
+<li><strong>RECOMMENDATION:</strong> use the secondary model only for pre-selected replication contrasts, not the full development matrix.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> which exact GGUF repository, quantization, file hash, and conversion path passes local quality and memory checks?</li>
+<li><strong>UNRESOLVED QUESTION:</strong> if 9B cannot meet a pre-declared minimum usable context without excessive offload, should Qwen3.5-4B replace it? This fallback requires a human decision before model freeze.</li>
+</ul>
+<h2 id="3-llamacpp-vulkan-and-rx-5700">3. <code>llama.cpp</code>, Vulkan, and RX 5700<a class="headerlink" href="#3-llamacpp-vulkan-and-rx-5700" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FACT:</strong> Google lists the Gemma 4 QAT GGUF as a drop-in local format for <code>llama.cpp</code>. Qwen3.5 support is merged upstream. Gemma 4 Multi-Token Prediction support was merged in <code>llama.cpp</code> PR <a href="https://github.com/ggml-org/llama.cpp/pull/23398">#23398</a> on 2026-06-07, but speculative decoding is not required for the baseline.</li>
+<li><strong>FACT:</strong> <code>llama.cpp</code> provides a Vulkan backend used on AMD Linux systems. Current upstream guidance notes that RDNA1 lacks native BF16 support; the experiment should use quantized weights and supported cache types rather than assuming BF16 kernels. <a href="https://github.com/ggml-org/llama.cpp/discussions/23295">RADV discussion</a></li>
+<li><strong>FACT:</strong> historical RDNA1/MoltenVK regressions exist, demonstrating why a build pin and correctness smoke test are necessary. The reported issue was specific to MoltenVK/macOS, not proof of a current Fedora RADV failure. <a href="https://github.com/ggml-org/llama.cpp/issues/15846">Issue #15846</a></li>
+<li><strong>RECOMMENDATION:</strong> pin a known-good <code>llama.cpp</code> Git commit and container digest only after testing; record Mesa/RADV, kernel, firmware, and Vulkan device information.</li>
+<li><strong>RECOMMENDATION:</strong> measure CPU-only and Vulkan runs during environment validation, but use the approved Vulkan condition for the experiment unless an ADR records a failure.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> which weight and KV-cache quantizations are supported and quality-safe on the chosen build?</li>
+</ul>
+<h2 id="4-fine-tuning-feasibility">4. Fine-tuning feasibility<a class="headerlink" href="#4-fine-tuning-feasibility" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FACT:</strong> current Unsloth AMD training support targets RDNA3+, selected RDNA2 (<code>gfx1030</code>), and supported Instinct GPUs. RX 5700/RDNA1 (<code>gfx1010</code>) is absent, and Unsloth states that older GPUs lack required hardware support. <a href="https://unsloth.ai/docs/basics/amd">Unsloth AMD guide</a></li>
+<li><strong>FACT:</strong> Unsloth advertises Gemma 4 fine-tuning in 8 GB VRAM and Qwen3.5 in lower VRAM on supported hardware. This does not establish support for RX 5700 and must be validated on the chosen Kaggle accelerator. <a href="https://unsloth.ai/docs/basics/amd">Unsloth AMD guide</a></li>
+<li><strong>FACT:</strong> QLoRA trains LoRA adapters through a frozen 4-bit base model and was introduced as a memory-efficient alternative to full fine-tuning. <a href="https://arxiv.org/abs/2305.14314">QLoRA paper</a></li>
+<li><strong>RECOMMENDATION:</strong> use Unsloth on NVIDIA Kaggle as the single main training pipeline because it offers a maintained path for Gemma 4 and QLoRA. Pin Unsloth, Transformers, PEFT, TRL, bitsandbytes, CUDA, notebook source, dataset manifest, seeds, and exported artifact hashes.</li>
+<li><strong>RECOMMENDATION:</strong> use raw Hugging Face PEFT/TRL only if a documented incompatibility blocks Unsloth. Such a switch is an ADR change, not an extra experimental condition.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> can the E4B adapter be exported or merged into a <code>llama.cpp</code>-compatible artifact without changing chat template or quantization semantics?</li>
+<li><strong>UNRESOLVED QUESTION:</strong> which target modules and adapter rank are supported by the PLE architecture? Resolve through official examples and a pilot, never by tuning on the final test split.</li>
+</ul>
+<h2 id="5-kaggle">5. Kaggle<a class="headerlink" href="#5-kaggle" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FACT:</strong> current Kaggle notebook documentation offers either one NVIDIA Tesla P100 or two NVIDIA Tesla T4 GPUs. Availability is capacity-dependent. <a href="https://www.kaggle.com/docs/notebooks">Kaggle notebooks documentation</a></li>
+<li><strong>FACT:</strong> Kaggle enforces a weekly GPU budget and may change quotas; a historical fixed number must not be encoded as a guarantee. <a href="https://www.kaggle.com/discussions/general/108481">Kaggle GPU policy discussion</a></li>
+<li><strong>RECOMMENDATION:</strong> record accelerator model/count, observed quota, session limits, image/package versions, start/end timestamps, and failure/restart events for every training run.</li>
+<li><strong>ASSUMPTION:</strong> a 16 GB P100 or one/two 16 GB T4 devices should be sufficient for the planned QLoRA pilot with conservative sequence length and micro-batch size; the actual peak memory must be captured.</li>
+</ul>
+<h2 id="6-openspec">6. OpenSpec<a class="headerlink" href="#6-openspec" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FACT:</strong> the OpenSpec release observed during bootstrap requires Node.js 20.19 or later; the environment uses Node.js 24.19.0.</li>
+<li><strong>FACT:</strong> OpenSpec's current <code>spec-driven</code> schema is <code>proposal → specs → design → tasks</code>. Repository commands include <code>new</code>, <code>status</code>, <code>instructions</code>, <code>validate</code>, and <code>archive</code>; exploration, continuation, application, and verification are exposed to agents through the current skill/instruction workflow rather than assumed legacy CLI commands. <a href="https://github.com/Fission-AI/OpenSpec">OpenSpec repository</a></li>
+<li><strong>FACT:</strong> the repository was initialized non-interactively for Codex in English with a <code>spec-driven</code> change.</li>
+<li><strong>RECOMMENDATION:</strong> pin the bootstrap version in documentation and CI validation. Upgrade only in a dedicated maintenance change after reviewing generated files and workflow behavior.</li>
+</ul>
+<h2 id="7-current-weti-thesis-template-and-requirements">7. Current WETI thesis template and requirements<a class="headerlink" href="#7-current-weti-thesis-template-and-requirements" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FACT:</strong> the WETI diploma page currently provides <strong><code>Thesis_Template_PL_26.zip</code></strong> and <strong><code>WytPracDyp_2026_v3.docx</code></strong>, alongside Gdańsk University of Technology Rector's Order 45/2024 effective 2024-12-02. <a href="https://eti.pg.edu.pl/studenci/dyplomy">WETI diploma page</a></li>
+<li><strong>FACT:</strong> current university guidance describes a typical MSc thesis as approximately 60–80 pages but states there is no formal page-count requirement. It requires Polish and English abstracts, a title page from Moja PG, contents, abbreviations where useful, introduction/objective, substantive chapters, summary, bibliography, and appendices as applicable. <a href="https://cdn.files.pg.edu.pl/eti/Dziekanat/regulaminy/ZR%2045-2024.pdf">Rector's Order 45/2024</a></li>
+<li><strong>FACT:</strong> tables are captioned above and figures below; each must be cited in text. Citations must be consistent with PN-ISO 690:2012 guidance. <a href="https://cdn.files.pg.edu.pl/eti/Dziekanat/regulaminy/ZR%2045-2024.pdf">Rector's Order 45/2024</a></li>
+<li><strong>RECOMMENDATION:</strong> import the official Polish 2026 LaTeX template verbatim in a dedicated issue, preserve upstream provenance, then place chapter content around it. The bootstrap records the official link but does not reconstruct the template manually.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> supervisor-specific structural or citation preferences and the final Moja PG title-page export.</li>
+</ul>
+<h2 id="8-university-genai-rules">8. University GenAI rules<a class="headerlink" href="#8-university-genai-rules" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>FACT:</strong> Rector's Circular 29/2024, effective 2024-10-01, permits GenAI subject to instructor scope, personal responsibility, critical verification, privacy protection, and transparent documentation. <a href="https://files.pg.edu.pl/api/v1/file/preview?path=eia%2F03-studia%2F03-proces-dyplomowania%2F09+-+Wytyczne+dotycz%C4%85ce+stosowania+narz%C4%99dzi+GenAI+na+Politechnice+Gda%C5%84skiej.pdf&amp;response-content-disposition=attachment">Official GenAI guidelines</a></li>
+<li><strong>FACT:</strong> low-intervention uses such as language correction, translation, transcription, and search do not require granular documentation, though a critical-verification declaration applies.</li>
+<li><strong>FACT:</strong> generation of content, code, or images is high-intervention. Inclusion requires informed, transparent, ethical use; the declaration must identify the area/range and tool. Generated content must be cited at the end of the thesis, and an LLM cannot be an author.</li>
+<li><strong>FACT:</strong> users must not submit confidential/non-public data to generally available GenAI tools.</li>
+<li><strong>RECOMMENDATION:</strong> maintain a lightweight repository log for significant Work/Codex contributions, then generate the final Polish declaration table from verified entries. Log decisions and material generation, not trivial completion.</li>
+<li><strong>UNRESOLVED QUESTION:</strong> confirm with the supervisor whether repository-native AI logs plus the university declaration table satisfy any faculty-specific expectation.</li>
+</ul>
+<h2 id="decision-gate-before-m1m2">Decision gate before M1/M2<a class="headerlink" href="#decision-gate-before-m1m2" title="Permanent link">&para;</a></h2>
+<p>The human researcher must approve:</p>
+<ol>
+<li>the specialized benchmark domain and language balance;</li>
+<li>the primary/secondary candidate and fallback rule;</li>
+<li>thinking and sampling controls;</li>
+<li>text-only scope;</li>
+<li>QLoRA training environment and export route;</li>
+<li>minimum usable context and performance thresholds from target-hardware smoke tests.</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.indexes", "navigation.sections", "navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
