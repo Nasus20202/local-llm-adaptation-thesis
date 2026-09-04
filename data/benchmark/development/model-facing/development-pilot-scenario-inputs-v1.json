@@ -169,19 +169,19 @@
     {
       "task_class": "knowledge",
       "path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json",
-      "sha256": "12e9ff7c987f4fea96985b0309b9b2d0225fb58f75cdfd02b64b67fd75b228d2",
+      "sha256": "24ac49211c10c986bd37730e2afefa04b262ba951e097d06528fd6f2c78111db",
       "scenario_count": 8
     },
     {
       "task_class": "procedural",
       "path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json",
-      "sha256": "2ae283bb85b238285d42584e146cc35ba92101ccfc21493862e8165ae01a3ca8",
+      "sha256": "3dc0bd56c79b07dabe3e343e7598b9b01a328764063109b662d6f33e37779066",
       "scenario_count": 8
     },
     {
       "task_class": "mixed",
       "path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json",
-      "sha256": "e666190bf164bdb962bc787b8a020d93ee52900962dcd8fed8f7f7fa560b4b28",
+      "sha256": "e4d64c75fa9204651a85163926cf80c84ea56badb8da87581544823386c9cab6",
       "scenario_count": 8
     }
   ],
@@ -192,7 +192,7 @@
       "task_class": "knowledge",
       "language": "pl",
       "coverage_subtype": "direct-evidence",
-      "input_sha256": "c656ada790aaba970c8b9b0c1349a6da2b2dc085805e8d89adf2bde6b7a66e6c",
+      "input_sha256": "d8824e1bd0dde581e0cc43d15c84d2251dc4c91298001ddb6ea1132c2abe5a42",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -201,7 +201,7 @@
       "task_class": "knowledge",
       "language": "pl",
       "coverage_subtype": "synthesis",
-      "input_sha256": "d11afa3ea3e5d84aedf2550d1139e860076d95672a4d21da994336d58d0d686d",
+      "input_sha256": "72c2b8cf9a2fe836643d6f510547d37cc01c220f3d7e88ae7c37c09e7579c167",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -210,7 +210,7 @@
       "task_class": "knowledge",
       "language": "pl",
       "coverage_subtype": "absent-answer-abstention",
-      "input_sha256": "886f8cb466f09b8e978fac2602803bf03bdcbaed1df6193e8d389710bafc5940",
+      "input_sha256": "ffac9af9e2e8f5eb3c7ad29c2fb9ee6ea286f1f1393498f68ee7d029f59628ed",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -219,7 +219,7 @@
       "task_class": "knowledge",
       "language": "pl",
       "coverage_subtype": "distractor-heavy-evidence",
-      "input_sha256": "61d32a7d4a79dd3a4a2f482315ff08f87ff83136c00bd5bb1e72dcf9730f61f8",
+      "input_sha256": "8a16e7d5e082da798b0c14570ae9dbe3dc462a320b465d70265c7813126272d8",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -228,7 +228,7 @@
       "task_class": "knowledge",
       "language": "en",
       "coverage_subtype": "direct-evidence",
-      "input_sha256": "b2df1948e85a1579975ea9b57f72791ccd64a12bd9e5b61b43de2bac2a2189ef",
+      "input_sha256": "7afd1deae655b31eda368ba6aa6bc8b9f6f2f3bfcbeffcf31ef51453654e4aee",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -237,7 +237,7 @@
       "task_class": "knowledge",
       "language": "en",
       "coverage_subtype": "synthesis",
-      "input_sha256": "f46203f0eb9c7238a770005d8de7ceedd30e8d57e152928670f742e6f55a8ce4",
+      "input_sha256": "5a2e1f4673f3a844ecf7528798141c30d8a77a160e7c8c54c7c95b592bc37712",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -246,7 +246,7 @@
       "task_class": "knowledge",
       "language": "en",
       "coverage_subtype": "absent-answer-abstention",
-      "input_sha256": "a4109d2ce0c94de90886c27e5926950d415342769f2bd6b96fcd43683cb159d7",
+      "input_sha256": "b12c72e565b22f6cd7aa2a1a5afde747dd815cbd618d80a18b1c26d0d9972232",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -255,7 +255,7 @@
       "task_class": "knowledge",
       "language": "en",
       "coverage_subtype": "distractor-heavy-evidence",
-      "input_sha256": "0d69ac1a6d3f1bda16cf71d388546954b0d5945f10e8cc43101520b2988b0ec3",
+      "input_sha256": "e85a2acbabff4ecaf766ca134c838fdd94453962e6c757c1f88161ea6dbacf72",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
     },
     {
@@ -264,7 +264,7 @@
       "task_class": "procedural",
       "language": "pl",
       "coverage_subtype": "diagnosis",
-      "input_sha256": "a8634afc3e778b7296a64474dcce2a43d810f9e3129ca49bc4de2a515c60eaeb",
+      "input_sha256": "c9e57e5c525c31c9035b646e55e9f4a7c6d39db0c5dc1118add55d1e0dbf941a",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
     },
     {
@@ -336,7 +336,7 @@
       "task_class": "mixed",
       "language": "pl",
       "coverage_subtype": "evidence-backed-configuration-decision",
-      "input_sha256": "bfaa6eb5e11e4c805baca3b4f38ea6d265d6f92f04cf2066d7f2876c27ea4894",
+      "input_sha256": "a83256b1389f27edb35a01dd420e8b3387b98695163a3ff047b703dca5a53529",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -345,7 +345,7 @@
       "task_class": "mixed",
       "language": "pl",
       "coverage_subtype": "evidence-backed-bounded-procedure",
-      "input_sha256": "4e32f0d0de7e633ff3c450fa701b05187609a1d8b61f16d55acd86bf1db6da04",
+      "input_sha256": "1fb96420ce4013e5efba52435814a6741d5e13baf92bfe3fe9e7c84311d69238",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -354,7 +354,7 @@
       "task_class": "mixed",
       "language": "pl",
       "coverage_subtype": "evidence-backed-artifact-validation",
-      "input_sha256": "d56115ec70ff370cb5d1bb7fa9e94ba4f7a642623614eac15bf82fa22152a9c0",
+      "input_sha256": "79236d780658dac4055c42fbc71f09e01bd41f703327d6464820940fc4178663",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -363,7 +363,7 @@
       "task_class": "mixed",
       "language": "pl",
       "coverage_subtype": "evidence-backed-repair-plan",
-      "input_sha256": "bc39e796e0b62e1df2d93ff61009d4f1706d6773f187854446d2d668850258d7",
+      "input_sha256": "1b3a8ee20eddb5e604018e9a8a77ca8ed5734b6ab3bec90aabe8620466721165",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -372,7 +372,7 @@
       "task_class": "mixed",
       "language": "en",
       "coverage_subtype": "evidence-backed-configuration-decision",
-      "input_sha256": "bd1108fc89c76990c58c759f45bb0257749a31b09b3661d221b1d69a45efa586",
+      "input_sha256": "fc5aa48b3cc9c7f7391f86527bf40655c984ba0ebc21ee8a3cb491092c1167da",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -381,7 +381,7 @@
       "task_class": "mixed",
       "language": "en",
       "coverage_subtype": "evidence-backed-bounded-procedure",
-      "input_sha256": "a3c7465921ff340d9b8072495c3ee14f401014f645fe3769f9927750e4e64ce5",
+      "input_sha256": "223220d0b05a101e9cd89abb4995bd2ce54604fc662689e9568f65f99ee945e9",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -390,7 +390,7 @@
       "task_class": "mixed",
       "language": "en",
       "coverage_subtype": "evidence-backed-artifact-validation",
-      "input_sha256": "52825ccbe96adcf65cb2ff07b11e899b783beaf1af4248d7187db6e6ea414adf",
+      "input_sha256": "7a4dfc3d96b19dbc28a3c9bb8c6eda721b58610d4b36d932dbdce48d6ceb4100",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     },
     {
@@ -399,7 +399,7 @@
       "task_class": "mixed",
       "language": "en",
       "coverage_subtype": "evidence-backed-repair-plan",
-      "input_sha256": "d0350b038cdce939e25dd8eeebf39b450e53f48f6eac853b9c5f369d7991a721",
+      "input_sha256": "94ebb59c031cbdb5469e35af036f8be3f7a5c4860014f889a9602ef2bba00fa4",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     }
   ],
@@ -419,5 +419,14 @@
     "additional_context_rule": "Only context or tools explicitly authorized by a later experimental condition contract may accompany input_text.",
     "custody_note": "Presence in development/model-facing custody does not itself make metadata prompt-visible."
   },
-  "human_review_artifact": "docs/research/development-pilot-scenario-review.md"
+  "human_review_artifact": "docs/research/development-pilot-scenario-review.md",
+  "evaluation_clarification": {
+    "manifest_id": "development-pilot-evaluation-clarification-v1",
+    "path": "docs/research/development-pilot-evaluation-clarification-v1.json",
+    "citations_required_in_model_answer": false,
+    "source_paths_required_in_model_answer": false,
+    "citation_correctness_scored": false,
+    "lexical_overlap_scored": false,
+    "semantic_equivalence_required": true
+  }
 }

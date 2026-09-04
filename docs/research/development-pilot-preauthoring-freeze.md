@@ -228,3 +228,18 @@ Approval of this gate still does **not** authorize protected evaluator payload a
 Recorded approval:
 
 > I approve `development-pilot-preauthoring-freeze-v1` exactly as committed. This freezes the three logical custody roots, access/redaction/evidence rules, 24 metadata-only development slots, and existing condition/comparator/dependency declarations, and authorizes only the next sequenced authoring of development-only scenario inputs within those frozen slots; it does not authorize protected evaluator payloads out of sequence, model execution, training data or training, final-test material or access, a real `kind` cluster, live W1, outcome-selected C2, formal experiments, or harness implementation.
+
+## Post-freeze evaluation clarification
+
+On 2026-09-04 the human researcher explicitly approved `development-pilot-evaluation-clarification-v1`. The exact approved `development-pilot-preauthoring-freeze-v1.json` remains byte-identical; its historical wording is not rewritten. The clarification supersedes only the interpretation that a model answer must reproduce an evidence identifier, citation, source path, or URL.
+
+For this development pilot:
+
+- model answers do **not** require or score citations, source paths, evidence IDs, or URLs;
+- source and retrieval provenance remain system/evaluator-side evidence;
+- open prose is scored by semantic atomic claims and task-specific rubrics, not by lexical overlap with protected reference prose or Kubernetes documentation;
+- semantically equivalent paraphrases receive equivalent credit; verbatim documentation receives no bonus;
+- exact-string checks remain only where an exact technical literal or output format is itself part of the construct;
+- the candidate primary metric families, condition profiles, comparators, source freeze, custody rules, optional-stratum state, and execution gates remain unchanged.
+
+This clarification is recorded machine-readably in `development-pilot-evaluation-clarification-v1.json`.

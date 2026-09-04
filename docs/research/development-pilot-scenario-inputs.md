@@ -9,8 +9,8 @@
 - **Pre-authoring freeze:** `development-pilot-preauthoring-freeze-v1`
 - **Source/rights freeze:** `development-pilot-source-rights-v1`
 - **Kubernetes release:** `v1.36.4`
-- **Top-level manifest SHA-256:** `29189ea62c7b82f5fbe93e7d66a0d6bf9c3344a1737ec6ce52dbe2eccfb2de42`
-- **Construction-event log SHA-256:** `4427e1829008a5083f20054329d0fd78c2c17bbdc4c799d5c37a341b209d54b4`
+- **Top-level manifest SHA-256:** `c23af39a049e992692865aa6e7a3ab5cab0d17e01db812e58e9daf15143ca3ad`
+- **Construction-event log SHA-256:** `b85180089f1e1758e4ae05d219fc5dc69338dd9a76655e7bf51d61f1de7e0864`
 
 This package performs only the authorized development-input authoring step. It does not perform protected evaluator construction, contamination-detector calibration/audit, evaluator qualification, model execution, real `kind`, live W1, C2 selection, training, harness implementation, or final-test work.
 
@@ -30,16 +30,24 @@ These 24 independent families are the **development-only pilot / feasibility sam
 
 The base model does not receive family/authoring metadata, source or provenance metadata, source-evidence identifiers, OpenAPI schema identities, hashes, condition-profile metadata, review metadata, evaluator metadata, or the top-level source registry. Those fields remain repository governance/provenance data for reproducibility. A later experimental condition may add only context or tools explicitly authorized by that condition's frozen contract.
 
-The per-scenario `source_evidence_ids` and `openapi_schema_identities` fields were removed from the three scenario payloads after human review identified their unnecessary leakage risk. Their provenance relationship remains preserved in the append-only construction ledger and source registry. The 24 `input_text` values and individual `input_sha256` identities are unchanged.
+The per-scenario `source_evidence_ids` and `openapi_schema_identities` fields were removed from the three scenario payloads after human review identified their unnecessary leakage risk. Their provenance relationship remains preserved in the append-only construction ledger and source registry.
+
+A subsequent human review also removed citation/source-path requests from every scenario and removed the one residual phrase that told a procedural item to rely on an approved source. Seventeen `input_text` values therefore receive new SHA-256 identities; seven unaffected procedural inputs retain their prior hashes. The prior hashes remain preserved in append-only provenance and Git history.
+
+### Source-reference and semantic-scoring clarification
+
+`development-pilot-evaluation-clarification-v1` records the human-approved rule that citations, source paths, evidence identifiers, and URLs are not required or scored model outputs. RAG/W1 provenance is captured by the harness/evaluator, while answer groundedness is assessed against the context actually supplied or fetched.
+
+Open prose is evaluated by required/unsupported semantic claims and calibrated task-specific rubrics. Lexical overlap with reference prose or Kubernetes documentation contributes no score, and copying documentation verbatim receives no bonus. Exact matching is reserved for construct-critical literals and explicit output constraints.
 
 ## Model-facing artifacts
 
 All candidate inputs are under `development-model-facing-v1`:
 
 - `data/benchmark/development/model-facing/development-pilot-scenario-inputs-v1.json` — package index, exact source registry, frozen identities, boundary assertions, and payload hashes;
-- `data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json` — 8 knowledge inputs, SHA-256 `12e9ff7c987f4fea96985b0309b9b2d0225fb58f75cdfd02b64b67fd75b228d2`;
-- `data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json` — 8 procedural inputs, SHA-256 `2ae283bb85b238285d42584e146cc35ba92101ccfc21493862e8165ae01a3ca8`;
-- `data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json` — 8 mixed inputs, SHA-256 `e666190bf164bdb962bc787b8a020d93ee52900962dcd8fed8f7f7fa560b4b28`;
+- `data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json` — 8 knowledge inputs, SHA-256 `24ac49211c10c986bd37730e2afefa04b262ba951e097d06528fd6f2c78111db`;
+- `data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json` — 8 procedural inputs, SHA-256 `3dc0bd56c79b07dabe3e343e7598b9b01a328764063109b662d6f33e37779066`;
+- `data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json` — 8 mixed inputs, SHA-256 `e4d64c75fa9204651a85163926cf80c84ea56badb8da87581544823386c9cab6`;
 - `data/benchmark/development/model-facing/development-pilot-construction-events-v1.jsonl` — append-only construction/provenance/hash evidence.
 
 The split payloads are an implementation detail for reviewability. The package remains one logical manifest, `development-pilot-scenario-inputs-v1`.

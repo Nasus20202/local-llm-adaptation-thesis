@@ -12,9 +12,20 @@ The pilot remains exactly 8 knowledge + 8 procedural + 8 mixed families, with 4 
 
 For the base scenario export, the canonical scenario payload is **only `input_text`**. The surrounding JSON is repository governance and custody metadata, not prompt content.
 
-The base model does **not** receive family IDs, source/provenance metadata, source-evidence identifiers, OpenAPI schema identities, hashes, condition profiles, review metadata, evaluator metadata, or other scenario-record fields. A later experimental condition may add only context or tools explicitly authorized by that condition contract.
+The model is **not asked to reproduce citations, source paths, evidence IDs, or URLs**. Those identities remain evaluator/harness-side provenance. A later experimental condition may add only context or tools explicitly authorized by that condition contract.
 
 **Model-facing custody is not the same thing as prompt-visible content.**
+
+## How answers will be scored fairly
+
+Open answers are judged by **meaning, not wording overlap**. The protected reference will encode required concepts, acceptable alternatives, unsupported/contradictory claims, constraints, and only construct-critical exact literals.
+
+- A correct paraphrase receives the same credit as wording similar to Kubernetes documentation.
+- Copying documentation verbatim receives **no bonus**.
+- String similarity, token overlap, ROUGE/BLEU-like similarity, and edit distance do not contribute to the open-answer score.
+- Exact matching is used only when an exact technical literal or explicit output format is itself part of the task.
+- Ambiguous semantic equivalence is routed to the calibrated human rubric.
+- Extra copied material can hurt only when it adds irrelevant, unsupported, contradictory, or incorrect claims.
 
 ## How to review
 
@@ -25,9 +36,9 @@ Review the scenario prose without consulting model outputs or protected answers.
 - answerability (or intentional unanswerability for abstention);
 - unambiguous constraints and response form;
 - whether the item tests the stated capability rather than trivia;
-- whether it is suitable for a pilot that can reveal meaningful adaptation differences without being selected around observed model performance.
+- whether the wording is neutral across closed-book, prompting, fine-tuning, RAG, and combined conditions.
 
-The exact scenario inputs below are the unchanged `input_text` values; every individual input SHA-256 remains unchanged.
+The exact scenario inputs below reflect the human-directed citation/source-reference correction. Updated SHA-256 values identify the revised prompt bytes.
 
 ## Pilot index
 
@@ -62,7 +73,7 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 
 ### `dev-k-pl-01` — Polish — `direct-evidence`
 
-**Purpose:** Tests direct factual grounding against the frozen Kubernetes source snapshot.
+**Purpose:** Tests direct technical correctness against the frozen Kubernetes version.
 
 **Exact model scenario input:**
 
@@ -72,16 +83,14 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > 1. Czy taka zmienna środowiskowa jest automatycznie aktualizowana w już uruchomionym kontenerze?
 > 2. Co musi się stać z Podem, aby proces zobaczył nową wartość?
->
-> Na końcu wskaż ścieżkę źródłową w zatwierdzonym snapshotcie, która uzasadnia odpowiedź.
 
-**Input SHA-256:** `c656ada790aaba970c8b9b0c1349a6da2b2dc085805e8d89adf2bde6b7a66e6c`
+**Input SHA-256:** `d8824e1bd0dde581e0cc43d15c84d2251dc4c91298001ddb6ea1132c2abe5a42`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-k-pl-02` — Polish — `synthesis`
 
-**Purpose:** Tests combining multiple documented facts without inventing missing behavior.
+**Purpose:** Tests combining multiple technical facts without inventing missing behavior.
 
 **Exact model scenario input:**
 
@@ -92,24 +101,22 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 > - co ma chronić długi start aplikacji,
 > - co decyduje o kierowaniu ruchu,
 > - co powinno wykrywać stan wymagający restartu.
->
-> Wskaż ścieżki źródłowe z zatwierdzonego snapshotu.
 
-**Input SHA-256:** `d11afa3ea3e5d84aedf2550d1139e860076d95672a4d21da994336d58d0d686d`
+**Input SHA-256:** `72c2b8cf9a2fe836643d6f510547d37cc01c220f3d7e88ae7c37c09e7579c167`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-k-pl-03` — Polish — `absent-answer-abstention`
 
-**Purpose:** Tests calibrated abstention when the approved source does not provide the requested universal guarantee.
+**Purpose:** Tests calibrated abstention when Kubernetes does not define the requested universal guarantee.
 
 **Exact model scenario input:**
 
 > Nowy Pod StatefulSet `orders-2` ma stan `Running`. Zespół chce wpisać do procedury operacyjnej dokładną, gwarantowaną przez Kubernetes v1.36.4 maksymalną liczbę sekund od utworzenia Poda, po której jego nazwa DNS musi już zawsze być rozwiązywalna.
 >
-> Na podstawie wyłącznie zatwierdzonego snapshotu odpowiedz, czy dokumentacja ustanawia taki uniwersalny maksymalny czas. Jeżeli nie ustanawia, powiedz to wprost zamiast zgadywać liczbę i wskaż, jakie zachowanie opisuje źródło. Podaj ścieżkę źródłową.
+> Odpowiedz, czy Kubernetes v1.36.4 ustanawia taki uniwersalny maksymalny czas. Jeżeli nie, powiedz to wprost zamiast zgadywać liczbę i opisz, jakie zachowanie można stwierdzić bez wymyślania gwarancji czasowej.
 
-**Input SHA-256:** `886f8cb466f09b8e978fac2602803bf03bdcbaed1df6193e8d389710bafc5940`
+**Input SHA-256:** `ffac9af9e2e8f5eb3c7ad29c2fb9ee6ea286f1f1393498f68ee7d029f59628ed`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
@@ -126,56 +133,54 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > Pod `report` używa `batch-high`, a Pod `api` używa `api-low`. Oba Pody mają ten sam `LOG_LEVEL`, podobne requests CPU, etykietę `team=payments` i są osiągalne przez różne Service. W klastrze chwilowo brakuje zasobów, aby zaplanować `report`.
 >
-> Czy `report` może przez samą swoją PriorityClass wywłaszczyć działający Pod `api`, aby zwolnić miejsce? Wyjaśnij, które podane informacje są istotne dla odpowiedzi, a które są dystraktorami. Wskaż ścieżkę źródłową.
+> Czy `report` może przez samą swoją PriorityClass wywłaszczyć działający Pod `api`, aby zwolnić miejsce? Wyjaśnij, które podane informacje są istotne dla odpowiedzi, a które są dystraktorami.
 
-**Input SHA-256:** `61d32a7d4a79dd3a4a2f482315ff08f87ff83136c00bd5bb1e72dcf9730f61f8`
+**Input SHA-256:** `8a16e7d5e082da798b0c14570ae9dbe3dc462a320b465d70265c7813126272d8`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-k-en-01` — English — `direct-evidence`
 
-**Purpose:** Tests direct factual grounding against the frozen Kubernetes source snapshot.
+**Purpose:** Tests direct technical correctness against the frozen Kubernetes version.
 
 **Exact model scenario input:**
 
 > A Kubernetes v1.36.4 CronJob `nightly-report` uses `concurrencyPolicy: Forbid`. Its previous Job is still running when the next scheduled time arrives. Another unrelated CronJob also has a running Job.
 >
-> State what happens to the new `nightly-report` occurrence and whether `Forbid` prevents Jobs from the other CronJob from running concurrently. Cite the approved source path.
+> State what happens to the new `nightly-report` occurrence and whether `Forbid` prevents Jobs from the other CronJob from running concurrently.
 
-**Input SHA-256:** `b2df1948e85a1579975ea9b57f72791ccd64a12bd9e5b61b43de2bac2a2189ef`
+**Input SHA-256:** `7afd1deae655b31eda368ba6aa6bc8b9f6f2f3bfcbeffcf31ef51453654e4aee`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-k-en-02` — English — `synthesis`
 
-**Purpose:** Tests combining multiple documented facts without inventing missing behavior.
+**Purpose:** Tests combining multiple technical facts without inventing missing behavior.
 
 **Exact model scenario input:**
 
 > A team is defining a Kubernetes v1.36.4 CronJob whose generated Jobs should retry work after a container failure. A draft Pod template uses `restartPolicy: Always`.
 >
-> Using the approved snapshot, synthesize the relationship between CronJob and Job for this case:
+> Synthesize the relationship between CronJob and Job for this case:
 >
 > - which object the CronJob creates for each occurrence;
 > - which `restartPolicy` values are permitted in the Job's Pod template.
->
-> Cite the relevant approved source paths.
 
-**Input SHA-256:** `f46203f0eb9c7238a770005d8de7ceedd30e8d57e152928670f742e6f55a8ce4`
+**Input SHA-256:** `5a2e1f4673f3a844ecf7528798141c30d8a77a160e7c8c54c7c95b592bc37712`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-k-en-03` — English — `absent-answer-abstention`
 
-**Purpose:** Tests calibrated abstention when the approved source does not provide the requested universal guarantee.
+**Purpose:** Tests calibrated abstention when Kubernetes does not define the requested universal guarantee.
 
 **Exact model scenario input:**
 
-> A Service selector in Kubernetes v1.36.4 has just been changed so that a different set of Pods matches it. An operations runbook needs a single exact maximum number of seconds, guaranteed by the approved documentation, within which the corresponding EndpointSlices must reflect the new matching Pod set.
+> A Service selector in Kubernetes v1.36.4 has just been changed so that a different set of Pods matches it. An operations runbook needs a single exact maximum number of seconds, guaranteed by Kubernetes v1.36.4, within which the corresponding EndpointSlices must reflect the new matching Pod set.
 >
-> Determine whether the approved snapshot states such a universal numeric guarantee. If it does not, explicitly abstain from inventing one and summarize only what the source actually promises. Cite the source path.
+> Determine whether Kubernetes v1.36.4 defines such a universal numeric guarantee. If it does not, explicitly abstain from inventing one and summarize the behavior that can be stated without inventing an SLA.
 
-**Input SHA-256:** `a4109d2ce0c94de90886c27e5926950d415342769f2bd6b96fcd43683cb159d7`
+**Input SHA-256:** `b12c72e565b22f6cd7aa2a1a5afde747dd815cbd618d80a18b1c26d0d9972232`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
@@ -187,9 +192,9 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 
 > A Pod in Kubernetes v1.36.4 mounts key `settings.yaml` from ConfigMap `app-settings` using a volume mount with `subPath`. The ConfigMap is later updated. The Pod also has a Service on port 8080, label `tier=backend`, CPU request `250m`, and a readiness probe that is currently passing.
 >
-> Will the file mounted through `subPath` receive the ConfigMap update automatically? Identify which details determine the answer and which supplied details are distractors. Cite the approved source path.
+> Will the file mounted through `subPath` receive the ConfigMap update automatically? Identify which details determine the answer and which supplied details are distractors.
 
-**Input SHA-256:** `0d69ac1a6d3f1bda16cf71d388546954b0d5945f10e8cc43101520b2988b0ec3`
+**Input SHA-256:** `e85a2acbabff4ecaf766ca134c838fdd94453962e6c757c1f88161ea6dbacf72`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
@@ -214,9 +219,9 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 > Zwróć wyłącznie JSON z kluczami:
 > `stan`, `najlepsze_nastepne_sprawdzenie`, `polecenie_tylko_do_odczytu`, `uzasadnienie`.
 >
-> `polecenie_tylko_do_odczytu` ma zawierać dokładnie jedno polecenie `kubectl`, które według zatwierdzonego źródła najlepiej dostarczy danych o błędzie init containera. Nie proponuj naprawy ani mutacji klastra.
+> `polecenie_tylko_do_odczytu` ma zawierać dokładnie jedno polecenie `kubectl`, które najlepiej dostarczy danych o błędzie init containera. Nie proponuj naprawy ani mutacji klastra.
 
-**Input SHA-256:** `a8634afc3e778b7296a64474dcce2a43d810f9e3129ca49bc4de2a515c60eaeb`
+**Input SHA-256:** `c9e57e5c525c31c9035b646e55e9f4a7c6d39db0c5dc1118add55d1e0dbf941a`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
@@ -413,7 +418,7 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 
 ### `dev-m-pl-01` — Polish — `evidence-backed-configuration-decision`
 
-**Purpose:** Tests a source-grounded technical decision plus a verifiable configuration artifact.
+**Purpose:** Tests a technically justified decision plus a verifiable configuration artifact.
 
 **Exact model scenario input:**
 
@@ -428,17 +433,16 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > Odpowiedź ma zawierać:
 >
-> 1. decyzję i uzasadnienie oparte na źródłach,
-> 2. fragment YAML,
-> 3. ścieżki źródłowe z zatwierdzonego snapshotu.
+> 1. decyzję i krótkie techniczne uzasadnienie,
+> 2. fragment YAML.
 
-**Input SHA-256:** `bfaa6eb5e11e4c805baca3b4f38ea6d265d6f92f04cf2066d7f2876c27ea4894`
+**Input SHA-256:** `a83256b1389f27edb35a01dd420e8b3387b98695163a3ff047b703dca5a53529`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-pl-02` — Polish — `evidence-backed-bounded-procedure`
 
-**Purpose:** Tests a source-grounded diagnosis plus a bounded verification procedure.
+**Purpose:** Tests a technically justified diagnosis plus a bounded verification procedure.
 
 **Exact model scenario input:**
 
@@ -451,15 +455,15 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 > - bezpośredni test do portu aplikacji na IP Poda działa;
 > - nie wolno teraz zmieniać żadnego obiektu.
 >
-> Na podstawie zatwierdzonej dokumentacji wskaż najbardziej uzasadnioną hipotezę konfiguracji i podaj maksymalnie 4 uporządkowane, tylko-do-odczytu kroki `kubectl`, które potwierdzą albo obalą tę hipotezę. Nie proponuj mutacji. Wskaż ścieżki źródłowe.
+> Wskaż najbardziej uzasadnioną hipotezę konfiguracji i podaj maksymalnie 4 uporządkowane, tylko-do-odczytu kroki `kubectl`, które potwierdzą albo obalą tę hipotezę. Nie proponuj mutacji.
 
-**Input SHA-256:** `4e32f0d0de7e633ff3c450fa701b05187609a1d8b61f16d55acd86bf1db6da04`
+**Input SHA-256:** `1fb96420ce4013e5efba52435814a6741d5e13baf92bfe3fe9e7c84311d69238`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-pl-03` — Polish — `evidence-backed-artifact-validation`
 
-**Purpose:** Tests evidence-backed validation of an artifact followed by a minimal correction.
+**Purpose:** Tests technical validation of an artifact followed by a minimal correction.
 
 **Exact model scenario input:**
 
@@ -488,18 +492,18 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 > Podaj:
 >
 > 1. werdykt, czy artefakt spełnia wymaganie i reguły v1.36.4;
-> 2. listę wykrytych problemów popartą ścieżkami źródłowymi;
+> 2. listę wykrytych problemów z krótkim technicznym uzasadnieniem;
 > 3. minimalnie poprawiony manifest YAML.
 >
 > Nie dodawaj innych funkcji CronJob.
 
-**Input SHA-256:** `d56115ec70ff370cb5d1bb7fa9e94ba4f7a642623614eac15bf82fa22152a9c0`
+**Input SHA-256:** `79236d780658dac4055c42fbc71f09e01bd41f703327d6464820940fc4178663`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-pl-04` — Polish — `evidence-backed-repair-plan`
 
-**Purpose:** Tests an evidence-grounded repair plan bounded by the stated constraints.
+**Purpose:** Tests a technically justified repair plan bounded by the stated constraints.
 
 **Exact model scenario input:**
 
@@ -507,21 +511,19 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > Przygotuj plan naprawy, który:
 >
-> - wyjaśnia na podstawie źródła, dlaczego sama zmiana ConfigMap nie wystarczy dla zmiennej środowiskowej;
+> - wyjaśnia, dlaczego sama zmiana ConfigMap nie wystarczy dla zmiennej środowiskowej;
 > - powoduje kontrolowane odtworzenie Podów przez zmianę wyłącznie metadanych Pod template Deployment;
 > - podaje minimalny fragment YAML pokazujący taką zmianę;
 > - zawiera krok weryfikacji rolloutu;
 > - nie wykonuje żadnej operacji.
->
-> Wskaż ścieżki źródłowe.
 
-**Input SHA-256:** `bc39e796e0b62e1df2d93ff61009d4f1706d6773f187854446d2d668850258d7`
+**Input SHA-256:** `1b3a8ee20eddb5e604018e9a8a77ca8ed5734b6ab3bec90aabe8620466721165`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-en-01` — English — `evidence-backed-configuration-decision`
 
-**Purpose:** Tests a source-grounded technical decision plus a verifiable configuration artifact.
+**Purpose:** Tests a technically justified decision plus a verifiable configuration artifact.
 
 **Exact model scenario input:**
 
@@ -531,19 +533,18 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > Your response must:
 >
-> 1. justify the decision from the approved source;
+> 1. briefly justify the decision technically;
 > 2. preserve label matching on `app=checkout`;
 > 3. use `maxSkew: 1`;
 > 4. make the constraint hard rather than a soft preference;
-> 5. cite approved source paths.
 
-**Input SHA-256:** `bd1108fc89c76990c58c759f45bb0257749a31b09b3661d221b1d69a45efa586`
+**Input SHA-256:** `fc5aa48b3cc9c7f7391f86527bf40655c984ba0ebc21ee8a3cb491092c1167da`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-en-02` — English — `evidence-backed-bounded-procedure`
 
-**Purpose:** Tests a source-grounded diagnosis plus a bounded verification procedure.
+**Purpose:** Tests a technically justified diagnosis plus a bounded verification procedure.
 
 **Exact model scenario input:**
 
@@ -556,15 +557,15 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 > - the ReplicaSets created for the rollout;
 > - the Pods and their current status.
 >
-> Explain briefly what each observation contributes before any repair decision is made. Cite the approved source paths. Do not execute commands and do not propose a mutation.
+> Explain briefly what each observation contributes before any repair decision is made. Do not execute commands and do not propose a mutation.
 
-**Input SHA-256:** `a3c7465921ff340d9b8072495c3ee14f401014f645fe3769f9927750e4e64ce5`
+**Input SHA-256:** `223220d0b05a101e9cd89abb4995bd2ce54604fc662689e9568f65f99ee945e9`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-en-03` — English — `evidence-backed-artifact-validation`
 
-**Purpose:** Tests evidence-backed validation of an artifact followed by a minimal correction.
+**Purpose:** Tests technical validation of an artifact followed by a minimal correction.
 
 **Exact model scenario input:**
 
@@ -584,19 +585,18 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > Return:
 >
-> 1. a validity verdict and evidence-based reason;
+> 1. a validity verdict and technical reason;
 > 2. the minimal corrected `resources` YAML fragment;
-> 3. the approved source path.
 >
 > Do not change memory values or CPU limit.
 
-**Input SHA-256:** `52825ccbe96adcf65cb2ff07b11e899b783beaf1af4248d7187db6e6ea414adf`
+**Input SHA-256:** `7a4dfc3d96b19dbc28a3c9bb8c6eda721b58610d4b36d932dbdce48d6ceb4100`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ### `dev-m-en-04` — English — `evidence-backed-repair-plan`
 
-**Purpose:** Tests an evidence-grounded repair plan bounded by the stated constraints.
+**Purpose:** Tests a technically justified repair plan bounded by the stated constraints.
 
 **Exact model scenario input:**
 
@@ -606,14 +606,14 @@ The exact scenario inputs below are the unchanged `input_text` values; every ind
 >
 > The workload is allowed to run on that node, but the repair must not force the Pod onto that node; it should only make the taint no longer exclude it. Other scheduler constraints must remain free to choose another node.
 >
-> Prepare an evidence-backed repair plan and the minimal Pod-template YAML fragment required for that goal. Explain why the change permits scheduling onto the tainted node without guaranteeing placement there. Cite the approved source path.
+> Prepare a repair plan and the minimal Pod-template YAML fragment required for that goal. Explain why the change permits scheduling onto the tainted node without guaranteeing placement there.
 
-**Input SHA-256:** `d0350b038cdce939e25dd8eeebf39b450e53f48f6eac853b9c5f369d7991a721`
+**Input SHA-256:** `94ebb59c031cbdb5469e35af036f8be3f7a5c4860014f889a9602ef2bba00fa4`
 
 **Human review:** ☐ approve as written · ☐ revise · ☐ reject
 
 ## What happens after this review
 
-Human approval of these candidate inputs authorizes only the next sequenced step: protected development-evaluator construction. It does not authorize formal experiments, final-test construction or access, training, live `kind`, live W1, outcome-selected C2, or unrestricted harness execution.
+Human approval of these candidate inputs authorizes only the next sequenced step: protected development-evaluator construction. The protected evaluator will encode semantic atomic criteria and deterministic construct-critical checks without exposing answer-bearing material to the model.
 
 The final benchmark size and final family composition are deliberately **not fixed by this 24-item pilot**. They will be decided from the approved methodology and pilot evidence without consulting final-test outcomes.

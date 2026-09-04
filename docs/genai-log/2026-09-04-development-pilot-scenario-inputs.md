@@ -22,8 +22,14 @@ No external source beyond the exact frozen `kubernetes/website@1de955ebabe7e17da
 
 ## Evidence
 
-- Top-level candidate manifest SHA-256: `54311a43c48d8c64b312a676bd1ada70c1941e13cf31b779262b07f5dd111e3c`
-- Append-only construction-event log SHA-256: `4c59db842505544e337e2832f05e065c6bfff262879531fdd663dab876959238`
+- Top-level candidate manifest SHA-256: `c23af39a049e992692865aa6e7a3ab5cab0d17e01db812e58e9daf15143ca3ad`
+- Append-only construction-event log SHA-256: `b85180089f1e1758e4ae05d219fc5dc69338dd9a76655e7bf51d61f1de7e0864`
 - Formal candidate rejections/replacements in this batch: `0`
 
 If human review rejects an item for leakage, ambiguity, unsolvability, missing evidence, or construct mismatch, the rejection and any same-slot replacement must be appended rather than overwriting the prior event.
+
+## Human-directed citation and scoring correction
+
+During human review, the researcher identified that asking models to reproduce source paths would unfairly disadvantage conditions without source access and would mix technical task quality with citation-generation ability. The researcher also required explicit protection against scoring open answers by similarity to documentation wording.
+
+The candidate package was therefore revised before scientific approval: source-path/citation requests were removed from Knowledge and Mixed prompts, one residual Procedural source-access phrase was removed, and the evaluation documentation now requires semantic atomic-claim/rubric scoring with no bonus for verbatim documentation. The immutable approved pre-authoring freeze v1 was not rewritten; the narrow correction is captured by `development-pilot-evaluation-clarification-v1`. No model output was consulted in making these changes.

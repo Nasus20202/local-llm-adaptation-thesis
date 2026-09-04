@@ -11,8 +11,8 @@
       "counts_as_independent": true,
       "coverage_subtype": "diagnosis",
       "family_id": "dev-p-pl-01",
-      "input_sha256": "a8634afc3e778b7296a64474dcce2a43d810f9e3129ca49bc4de2a515c60eaeb",
-      "input_text": "Masz wyłącznie poniższe zapisane obserwacje z Poda `checkout-7f6d` w Kubernetes v1.36.4; nie wykonuj żadnych poleceń:\n\n`kubectl get pod checkout-7f6d` pokazuje `STATUS=Init:CrashLoopBackOff`.\n\nFragment `kubectl describe pod checkout-7f6d`:\n- init container `prepare`: `State: Waiting`, `Reason: CrashLoopBackOff`\n- `Last State: Terminated`, `Reason: Error`, `Exit Code: 1`\n- główny kontener aplikacji nie został jeszcze uruchomiony.\n\nZwróć wyłącznie JSON z kluczami:\n`stan`, `najlepsze_nastepne_sprawdzenie`, `polecenie_tylko_do_odczytu`, `uzasadnienie`.\n\n`polecenie_tylko_do_odczytu` ma zawierać dokładnie jedno polecenie `kubectl`, które według zatwierdzonego źródła najlepiej dostarczy danych o błędzie init containera. Nie proponuj naprawy ani mutacji klastra.",
+      "input_sha256": "c9e57e5c525c31c9035b646e55e9f4a7c6d39db0c5dc1118add55d1e0dbf941a",
+      "input_text": "Masz wyłącznie poniższe zapisane obserwacje z Poda `checkout-7f6d` w Kubernetes v1.36.4; nie wykonuj żadnych poleceń:\n\n`kubectl get pod checkout-7f6d` pokazuje `STATUS=Init:CrashLoopBackOff`.\n\nFragment `kubectl describe pod checkout-7f6d`:\n- init container `prepare`: `State: Waiting`, `Reason: CrashLoopBackOff`\n- `Last State: Terminated`, `Reason: Error`, `Exit Code: 1`\n- główny kontener aplikacji nie został jeszcze uruchomiony.\n\nZwróć wyłącznie JSON z kluczami:\n`stan`, `najlepsze_nastepne_sprawdzenie`, `polecenie_tylko_do_odczytu`, `uzasadnienie`.\n\n`polecenie_tylko_do_odczytu` ma zawierać dokładnie jedno polecenie `kubectl`, które najlepiej dostarczy danych o błędzie init containera. Nie proponuj naprawy ani mutacji klastra.",
       "language": "pl",
       "provenance_references": [
         {

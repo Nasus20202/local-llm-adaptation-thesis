@@ -61,13 +61,15 @@ C2 eligibility and its comparator are frozen before any pilot output or error an
 
 Each family freezes one answer contract across conditions. The pilot evaluates candidate outcomes but does not change a contract because a particular method failed.
 
-| Task class | Candidate primary outcome for pilot                                     | Required deterministic layer                                                                   | Human layer when required                                    |
-| ---------- | ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Knowledge  | atomic-claim F1 on required and unsupported claims, normalized to [0,1] | format, citation/evidence identifier, answerability, and exact facts where applicable          | claim correctness/completeness and abstention quality        |
-| Procedural | binary end-to-end task success                                          | parse/schema, prohibited action, required constraint, and static or cluster final-state checks | diagnosis quality only when success checks do not capture it |
-| Mixed      | normalized task-specific score with procedural hard gates               | artifact/state success and evidence/citation checks                                            | atomic evidence-grounded decision rubric                     |
+| Task class | Candidate primary outcome for pilot                                     | Required deterministic layer                                                                        | Human layer when required                                      |
+| ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Knowledge  | atomic-claim F1 on required and unsupported claims, normalized to [0,1] | format, answerability, and construct-critical exact facts where applicable                          | semantic claim correctness/completeness and abstention quality |
+| Procedural | binary end-to-end task success                                          | parse/schema, prohibited action, required constraint, and static or cluster final-state checks      | diagnosis quality only when success checks do not capture it   |
+| Mixed      | normalized task-specific score with procedural hard gates               | artifact/state success, required constraints, and construct-critical exact literals when applicable | atomic technical-decision rubric                               |
 
-Lexical similarity is never a primary outcome. A malformed or prohibited output can fail a deterministic gate; a well-formed but wrong answer is a valid observation. Metrics that are not meaningful for a family are marked inapplicable rather than zero.
+Lexical similarity is never a primary outcome and does not contribute score for open prose. The protected expected-answer material decomposes open answers into required, acceptable, unsupported, and contradictory semantic claims rather than one canonical wording. Semantically equivalent paraphrases score equivalently; verbatim documentation wording receives no bonus. Exact-string checks are limited to construct-critical technical literals and explicit format constraints. Ambiguous semantic equivalence routes to the calibrated human rubric instead of string similarity.
+
+Citation generation, source-path reproduction, evidence IDs, and URLs are **not required or scored model outputs in this pilot**. For R1 and any later W1 subset, retrieval/search provenance and groundedness are evaluated from the captured context on the evaluator/harness side. A malformed or prohibited output can fail a deterministic gate; a well-formed but wrong answer is a valid observation. Metrics that are not meaningful for a family are marked inapplicable rather than zero.
 
 ## Evaluator fixture and calibration design
 
