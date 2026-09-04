@@ -1,6 +1,6 @@
 # Local LLM Adaptation Thesis
 
-Research and reproducible software for the MSc thesis **“Comparison of Optimization and Adaptation Methods for Large Language Models in Local Environment.”** The Polish thesis title is *„Porównanie metod optymalizacji i dostosowania dużych modeli językowych pracujących w warunkach lokalnych”*.
+Research and reproducible software for the MSc thesis **“Comparison of Optimization and Adaptation Methods for Large Language Models in Local Environment.”** The Polish thesis title is _„Porównanie metod optymalizacji i dostosowania dużych modeli językowych pracujących w warunkach lokalnych”_.
 
 The project compares adaptation strategies rather than foundation-model leaderboards. One primary local model will be used across the main matrix; a second model family will replicate selected conclusions. Target inference hardware is an AMD Radeon RX 5700 8 GB, Ryzen 5 3600, 32 GB RAM, Fedora Linux system using `llama.cpp` with Vulkan.
 

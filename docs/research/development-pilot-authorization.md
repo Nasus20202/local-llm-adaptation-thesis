@@ -42,11 +42,11 @@ Approval of this package authorizes only the core work listed under [Authorized 
 The construction ledger SHALL create 24 family slots before scenario prose is authored. Slot allocation is fixed as follows:
 
 | Task class | Polish | English | Independent total |
-|---|---:|---:|---:|
-| Knowledge | 4 | 4 | 8 |
-| Procedural | 4 | 4 | 8 |
-| Mixed | 4 | 4 | 8 |
-| **Total** | **12** | **12** | **24** |
+| ---------- | -----: | ------: | ----------------: |
+| Knowledge  |      4 |       4 |                 8 |
+| Procedural |      4 |       4 |                 8 |
+| Mixed      |      4 |       4 |                 8 |
+| **Total**  | **12** |  **12** |            **24** |
 
 Each family receives a stable `family_id`, `split=development`, class, language, planned subtype, source-role references, answer-form class, and construction status. Every language, static/interactive, formulation, and repeat record receives its own `variant_id`, refers to exactly one `family_id`, preserves `split=development`, and sets `counts_as_independent=false`. The pilot manifest receives its own immutable `manifest_id`, `policy_version=pilot-policy-v1`, canonical serialization, and SHA-256 identity.
 
@@ -126,14 +126,14 @@ Future training and final-test manifests trigger a complete rerun. The current a
 
 ### Required detectors and threshold governance
 
-| Audit | Input representation | Match decision before human adjudication |
-|---|---|---|
-| Exact | Original bytes/text with encoding identity | Identical content hash or exact declared representation equality |
-| Normalized | Frozen whitespace, line-ending, Unicode, comment, and safe formatting normalization | Equality of the frozen normalized representation |
-| Token-overlap | Frozen tokenizer and n-gram/shingle configuration | Score meets the threshold calibrated and frozen on seeded positives and hard negatives before pilot scanning |
-| Code/configuration structure | Parsed or normalized Kubernetes/code structure with non-semantic values handled by a frozen rule | Structural signature match under the frozen detector rule |
-| Semantic | Frozen embedding/model or other semantic representation and distance function | Score meets the pre-pilot calibrated threshold; detector/model identity and artifact hash are mandatory |
-| Cross-language | Frozen multilingual or translate-then-compare representation plus declared family relationships | Score meets the pre-pilot calibrated threshold or a declared translation/family relation requires review |
+| Audit                        | Input representation                                                                             | Match decision before human adjudication                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Exact                        | Original bytes/text with encoding identity                                                       | Identical content hash or exact declared representation equality                                             |
+| Normalized                   | Frozen whitespace, line-ending, Unicode, comment, and safe formatting normalization              | Equality of the frozen normalized representation                                                             |
+| Token-overlap                | Frozen tokenizer and n-gram/shingle configuration                                                | Score meets the threshold calibrated and frozen on seeded positives and hard negatives before pilot scanning |
+| Code/configuration structure | Parsed or normalized Kubernetes/code structure with non-semantic values handled by a frozen rule | Structural signature match under the frozen detector rule                                                    |
+| Semantic                     | Frozen embedding/model or other semantic representation and distance function                    | Score meets the pre-pilot calibrated threshold; detector/model identity and artifact hash are mandatory      |
+| Cross-language               | Frozen multilingual or translate-then-compare representation plus declared family relationships  | Score meets the pre-pilot calibrated threshold or a declared translation/family relation requires review     |
 
 No new numerical token or semantic threshold is asserted by this package. Calibration evidence, selected threshold, detector identity, configuration, false-positive/false-negative observations on synthetic controls, and rationale must be frozen before actual pairs are scanned. Family and declared translation relationships override an automated non-match.
 
@@ -214,18 +214,18 @@ Both optional strata may be deferred independently without invalidating the stat
 
 The accepted protocol remains authoritative. The following table restates it for execution planning; it does not alter a threshold.
 
-| Criterion | GO | AMEND | STOP/DEFER |
-|---|---|---|---|
-| Deterministic evaluation | 100% fixture agreement and idempotence | Correctable non-critical specification ambiguity before outputs | Any unexplained or post-output evaluator change |
-| Human calibration | Every critical binary label ≥90% exact agreement; pooled alpha ≥0.80; lower 95% bound ≥0.67 | Pooled alpha 0.67–0.79 or lower bound <0.67 without systematic critical disagreement; one disjoint requalification | Alpha <0.67, unresolved systematic critical disagreement, or second non-green attempt |
-| Solvability/evidence | ≥90% of families independently judged solvable with complete evidence/validator mapping | 80–89% or localized ambiguity | <80% or construct mismatch |
-| Headroom | B0 success 20–80% overall and success plus failure in every target stratum | One stratum outside range while controls discriminate | Ceiling/floor cannot be repaired without changing the construct |
-| Infrastructure/evaluator invalidity | ≤5% | >5% and ≤10% with an identified fix | >10% or condition-dependent invalidation |
-| Condition fidelity/fairness | 100% required provenance and matched declared controls | Non-outcome-informed implementation correction | Hidden information, unequal permission, or uncaptured mutation |
-| Contamination | No direct leakage; semantic candidates adjudicated | Unresolved semantic candidates | Direct item/golden exposure or an incomplete required audit preventing qualification |
-| `kind` | Every approved feasibility check green | One bounded redesign for timing/reset instability | Isolation/privilege failure or repeated non-green result |
-| W1 | All provenance/access checks and ≥90% completion | Availability/reproducibility limitation | Prohibited access or missing provenance |
-| Researcher feasibility | Final work fits the pre-freeze time/compute cap with 20% contingency | Scope reduction preserving primary strata | Work exceeds the cap or needs unavailable raters/hardware |
+| Criterion                           | GO                                                                                          | AMEND                                                                                                              | STOP/DEFER                                                                            |
+| ----------------------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| Deterministic evaluation            | 100% fixture agreement and idempotence                                                      | Correctable non-critical specification ambiguity before outputs                                                    | Any unexplained or post-output evaluator change                                       |
+| Human calibration                   | Every critical binary label ≥90% exact agreement; pooled alpha ≥0.80; lower 95% bound ≥0.67 | Pooled alpha 0.67–0.79 or lower bound <0.67 without systematic critical disagreement; one disjoint requalification | Alpha <0.67, unresolved systematic critical disagreement, or second non-green attempt |
+| Solvability/evidence                | ≥90% of families independently judged solvable with complete evidence/validator mapping     | 80–89% or localized ambiguity                                                                                      | <80% or construct mismatch                                                            |
+| Headroom                            | B0 success 20–80% overall and success plus failure in every target stratum                  | One stratum outside range while controls discriminate                                                              | Ceiling/floor cannot be repaired without changing the construct                       |
+| Infrastructure/evaluator invalidity | ≤5%                                                                                         | >5% and ≤10% with an identified fix                                                                                | >10% or condition-dependent invalidation                                              |
+| Condition fidelity/fairness         | 100% required provenance and matched declared controls                                      | Non-outcome-informed implementation correction                                                                     | Hidden information, unequal permission, or uncaptured mutation                        |
+| Contamination                       | No direct leakage; semantic candidates adjudicated                                          | Unresolved semantic candidates                                                                                     | Direct item/golden exposure or an incomplete required audit preventing qualification  |
+| `kind`                              | Every approved feasibility check green                                                      | One bounded redesign for timing/reset instability                                                                  | Isolation/privilege failure or repeated non-green result                              |
+| W1                                  | All provenance/access checks and ≥90% completion                                            | Availability/reproducibility limitation                                                                            | Prohibited access or missing provenance                                               |
+| Researcher feasibility              | Final work fits the pre-freeze time/compute cap with 20% contingency                        | Scope reduction preserving primary strata                                                                          | Work exceeds the cap or needs unavailable raters/hardware                             |
 
 The worst safety, leakage, or evaluator-validity outcome governs progression. Missing measurements are reported as missing and cannot be converted to success. Infrastructure failure that breaks capture, identity, provenance, evaluator operation, or required measurement is invalid; it is retained and counted in the invalidity rule. Evaluated-system failure with intact capture remains a valid failure.
 
@@ -235,18 +235,18 @@ At the present model-free gate, only criteria with genuine observations receive 
 
 These are workload estimates and scope controls, not scientific acceptance thresholds.
 
-| Work | Fixed limit or realistic envelope | Deferral rule |
-|---|---|---|
-| Core families | Exactly 24 independent families; no expansion during pilot qualification | Reduce subtype ambition within the approved cells rather than add families |
-| Nested language variants | At most three pairs, one per task class | Defer any or all without changing class/language family counts |
-| Stability observations | Six families × three frozen formulations × five generations when model execution is later authorized | Do not increase repeats to compensate for too few families; seven belongs only to the approved final-study rule |
-| Human calibration | 24 training ratings plus 48 first qualification ratings across two raters; at most 48 more ratings for one disjoint requalification | A second non-green attempt defers/narrows the metric |
-| Pilot human scoring | Double-rate only responses whose primary outcome genuinely requires human judgment; deterministic outcomes remain primary where valid | Stage by class and stop when a criterion is red rather than rate unusable downstream material |
-| Contamination | Six detectors over batched immutable pair classes; human review only for flagged or relationship-mandated pairs | A detector may be replaced before pilot scanning; a missing required detector blocks qualification |
-| Core calendar | Approximately 3–4 part-time weeks for source freeze, 24-family authoring/review, protected evaluators, audit, calibration, and readiness reporting, plus 20% contingency | Stop and reduce optional subtypes if the envelope is exceeded |
-| Core storage/compute | Text/manifests/evaluator evidence should remain below roughly 1 GB; semantic detection is a bounded one-off CPU/GPU job over the pilot corpus | Keep large caches outside Git and retain only identities, lawful evidence, and required reproducibility artifacts |
-| Optional `kind` | Up to four paired families; approximately one additional week plus external image storage and repeated reset/probe time | Independently defer; static procedural families remain valid |
-| Optional W1 | One predeclared subset; approximately 2–4 additional researcher days plus live-service qualification time | Independently defer or report exploratory |
+| Work                     | Fixed limit or realistic envelope                                                                                                                                        | Deferral rule                                                                                                     |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------- |
+| Core families            | Exactly 24 independent families; no expansion during pilot qualification                                                                                                 | Reduce subtype ambition within the approved cells rather than add families                                        |
+| Nested language variants | At most three pairs, one per task class                                                                                                                                  | Defer any or all without changing class/language family counts                                                    |
+| Stability observations   | Six families × three frozen formulations × five generations when model execution is later authorized                                                                     | Do not increase repeats to compensate for too few families; seven belongs only to the approved final-study rule   |
+| Human calibration        | 24 training ratings plus 48 first qualification ratings across two raters; at most 48 more ratings for one disjoint requalification                                      | A second non-green attempt defers/narrows the metric                                                              |
+| Pilot human scoring      | Double-rate only responses whose primary outcome genuinely requires human judgment; deterministic outcomes remain primary where valid                                    | Stage by class and stop when a criterion is red rather than rate unusable downstream material                     |
+| Contamination            | Six detectors over batched immutable pair classes; human review only for flagged or relationship-mandated pairs                                                          | A detector may be replaced before pilot scanning; a missing required detector blocks qualification                |
+| Core calendar            | Approximately 3–4 part-time weeks for source freeze, 24-family authoring/review, protected evaluators, audit, calibration, and readiness reporting, plus 20% contingency | Stop and reduce optional subtypes if the envelope is exceeded                                                     |
+| Core storage/compute     | Text/manifests/evaluator evidence should remain below roughly 1 GB; semantic detection is a bounded one-off CPU/GPU job over the pilot corpus                            | Keep large caches outside Git and retain only identities, lawful evidence, and required reproducibility artifacts |
+| Optional `kind`          | Up to four paired families; approximately one additional week plus external image storage and repeated reset/probe time                                                  | Independently defer; static procedural families remain valid                                                      |
+| Optional W1              | One predeclared subset; approximately 2–4 additional researcher days plus live-service qualification time                                                                | Independently defer or report exploratory                                                                         |
 
 The dominant human burden is careful family/evidence review and double rating, not software architecture. Construction should stop at the fixed family count, reuse atomic evaluator components only where constructs truly match, and avoid product-scale orchestration.
 

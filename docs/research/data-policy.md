@@ -13,10 +13,10 @@
 
 The Issue #2 benchmark uses a pinned subset of official Kubernetes upstream material:
 
-| Source | Intended use | License basis |
-|---|---|---|
-| `kubernetes/website` | Concepts, tasks, and references | CC BY 4.0, subject to path-level review and attribution |
-| `kubernetes/kubernetes` | Matching API schemas and source-controlled fixtures where required | Apache-2.0, subject to NOTICE and path-level review |
+| Source                  | Intended use                                                       | License basis                                           |
+| ----------------------- | ------------------------------------------------------------------ | ------------------------------------------------------- |
+| `kubernetes/website`    | Concepts, tasks, and references                                    | CC BY 4.0, subject to path-level review and attribution |
+| `kubernetes/kubernetes` | Matching API schemas and source-controlled fixtures where required | Apache-2.0, subject to NOTICE and path-level review     |
 
 The source manifest records repository, full commit ID, compatible Kubernetes release, path, retrieval date, SHA-256 hash, license, attribution, modification status, redistribution status, and role. Third-party pages linked from upstream are excluded unless their rights are reviewed independently.
 

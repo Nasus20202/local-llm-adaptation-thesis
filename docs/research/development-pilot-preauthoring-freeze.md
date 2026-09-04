@@ -43,11 +43,11 @@ No new methodology, threshold, metric, comparator rule, source, release, conditi
 
 Logical identities are stable project identifiers. Runtime filesystem, object-store, or secret bindings are deliberately not committed; a binding is later recorded as custody evidence without making a protected locator model-visible.
 
-| Root ID | Logical identity | Current state | Model-facing resolution |
-|---|---|---|---|
-| `development-model-facing-v1` | `development/model-facing` | metadata only at approval; scenario-input payloads absent before authoring | allowed only when the relevant later process is authorized |
-| `development-protected-evaluator-v1` | `development/protected-evaluator` | identity only; no protected payload committed | **deny / fail closed** |
-| `future-training-v1` | `future-training` | sealed empty; no training material selected or created | **deny / fail closed** |
+| Root ID                              | Logical identity                  | Current state                                                              | Model-facing resolution                                    |
+| ------------------------------------ | --------------------------------- | -------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `development-model-facing-v1`        | `development/model-facing`        | metadata only at approval; scenario-input payloads absent before authoring | allowed only when the relevant later process is authorized |
+| `development-protected-evaluator-v1` | `development/protected-evaluator` | identity only; no protected payload committed                              | **deny / fail closed**                                     |
+| `future-training-v1`                 | `future-training`                 | sealed empty; no training material selected or created                     | **deny / fail closed**                                     |
 
 No final-test root identity, placeholder, relative locator, payload hash, family ID, or resolvable reference is created by this package.
 
@@ -60,14 +60,14 @@ No final-test root identity, placeholder, relative locator, payload hash, family
 
 ## Access roles
 
-| Role | Development model-facing | Protected evaluator | Future training |
-|---|---|---|---|
-| `human-researcher-custodian` | read/write after this gate | read/write only when the sequenced protected-authoring step begins | identity only until a separate training authorization |
-| `development-author` | read/write after this gate | deny | deny |
-| `evaluator-author-reviewer` | read | read/write only during the protected-authoring/review step | deny |
-| `blinded-rater-adjudicator` | scoped input export only | scoped rating/adjudication subset only | deny |
-| `model-facing-runner-retriever-prompt-harness-skill-or-w1` | read-only when separately authorized | **deny / fail closed** | **deny / fail closed** |
-| `future-training-builder-or-trainer` | deny | deny | disabled until separate training authorization |
+| Role                                                       | Development model-facing             | Protected evaluator                                                | Future training                                       |
+| ---------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------ | ----------------------------------------------------- |
+| `human-researcher-custodian`                               | read/write after this gate           | read/write only when the sequenced protected-authoring step begins | identity only until a separate training authorization |
+| `development-author`                                       | read/write after this gate           | deny                                                               | deny                                                  |
+| `evaluator-author-reviewer`                                | read                                 | read/write only during the protected-authoring/review step         | deny                                                  |
+| `blinded-rater-adjudicator`                                | scoped input export only             | scoped rating/adjudication subset only                             | deny                                                  |
+| `model-facing-runner-retriever-prompt-harness-skill-or-w1` | read-only when separately authorized | **deny / fail closed**                                             | **deny / fail closed**                                |
+| `future-training-builder-or-trainer`                       | deny                                 | deny                                                               | disabled until separate training authorization        |
 
 Access is least-privilege and purpose-bound. A denied read remains an append-only access event; a process does not fall back to another root or copy protected content into an error.
 
@@ -109,32 +109,32 @@ Abbreviations:
 
 Every row has `split=development`, `counts_as_independent=true`, and `construction_status=empty-preauthoring`. No language, static/interactive, formulation, or repeat variant exists yet.
 
-| Family ID | Class | Lang | Coverage/subtype | Answer contract | Source roles | Provenance | Condition profile |
-|---|---|---|---|---|---|---|---|
-| `dev-k-pl-01` | knowledge | pl | `direct-evidence` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-pl-02` | knowledge | pl | `synthesis` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-pl-03` | knowledge | pl | `absent-answer-abstention` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-pl-04` | knowledge | pl | `distractor-heavy-evidence` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-en-01` | knowledge | en | `direct-evidence` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-en-02` | knowledge | en | `synthesis` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-en-03` | knowledge | en | `absent-answer-abstention` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-k-en-04` | knowledge | en | `distractor-heavy-evidence` | `knowledge` | W-E, W-R | SR/W | `knowledge-standard-v1` |
-| `dev-p-pl-01` | procedural | pl | `diagnosis` | `procedural` | W-E | SR/W | `procedural-structured-v1` |
-| `dev-p-pl-02` | procedural | pl | `constrained-repair` | `procedural` | W-E, O-S | SR/W, SR/O | `procedural-general-v1` |
-| `dev-p-pl-03` | procedural | pl | `ordered-action` | `procedural` | W-E | SR/W | `procedural-general-v1` |
-| `dev-p-pl-04` | procedural | pl | `structured-artifact-schema-adherence` | `procedural` | W-E, O-S | SR/W, SR/O | `procedural-structured-v1` |
-| `dev-p-en-01` | procedural | en | `diagnosis` | `procedural` | W-E | SR/W | `procedural-structured-v1` |
-| `dev-p-en-02` | procedural | en | `constrained-repair` | `procedural` | W-E, O-S | SR/W, SR/O | `procedural-general-v1` |
-| `dev-p-en-03` | procedural | en | `ordered-action` | `procedural` | W-E | SR/W | `procedural-general-v1` |
-| `dev-p-en-04` | procedural | en | `structured-artifact-schema-adherence` | `procedural` | W-E, O-S | SR/W, SR/O | `procedural-structured-v1` |
-| `dev-m-pl-01` | mixed | pl | `evidence-backed-configuration-decision` | `mixed` | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1` |
-| `dev-m-pl-02` | mixed | pl | `evidence-backed-bounded-procedure` | `mixed` | W-E, W-R | SR/W | `mixed-standard-v1` |
-| `dev-m-pl-03` | mixed | pl | `evidence-backed-artifact-validation` | `mixed` | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1` |
-| `dev-m-pl-04` | mixed | pl | `evidence-backed-repair-plan` | `mixed` | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1` |
-| `dev-m-en-01` | mixed | en | `evidence-backed-configuration-decision` | `mixed` | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1` |
-| `dev-m-en-02` | mixed | en | `evidence-backed-bounded-procedure` | `mixed` | W-E, W-R | SR/W | `mixed-standard-v1` |
-| `dev-m-en-03` | mixed | en | `evidence-backed-artifact-validation` | `mixed` | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1` |
-| `dev-m-en-04` | mixed | en | `evidence-backed-repair-plan` | `mixed` | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1` |
+| Family ID     | Class      | Lang | Coverage/subtype                         | Answer contract | Source roles  | Provenance | Condition profile          |
+| ------------- | ---------- | ---- | ---------------------------------------- | --------------- | ------------- | ---------- | -------------------------- |
+| `dev-k-pl-01` | knowledge  | pl   | `direct-evidence`                        | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-pl-02` | knowledge  | pl   | `synthesis`                              | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-pl-03` | knowledge  | pl   | `absent-answer-abstention`               | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-pl-04` | knowledge  | pl   | `distractor-heavy-evidence`              | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-en-01` | knowledge  | en   | `direct-evidence`                        | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-en-02` | knowledge  | en   | `synthesis`                              | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-en-03` | knowledge  | en   | `absent-answer-abstention`               | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-k-en-04` | knowledge  | en   | `distractor-heavy-evidence`              | `knowledge`     | W-E, W-R      | SR/W       | `knowledge-standard-v1`    |
+| `dev-p-pl-01` | procedural | pl   | `diagnosis`                              | `procedural`    | W-E           | SR/W       | `procedural-structured-v1` |
+| `dev-p-pl-02` | procedural | pl   | `constrained-repair`                     | `procedural`    | W-E, O-S      | SR/W, SR/O | `procedural-general-v1`    |
+| `dev-p-pl-03` | procedural | pl   | `ordered-action`                         | `procedural`    | W-E           | SR/W       | `procedural-general-v1`    |
+| `dev-p-pl-04` | procedural | pl   | `structured-artifact-schema-adherence`   | `procedural`    | W-E, O-S      | SR/W, SR/O | `procedural-structured-v1` |
+| `dev-p-en-01` | procedural | en   | `diagnosis`                              | `procedural`    | W-E           | SR/W       | `procedural-structured-v1` |
+| `dev-p-en-02` | procedural | en   | `constrained-repair`                     | `procedural`    | W-E, O-S      | SR/W, SR/O | `procedural-general-v1`    |
+| `dev-p-en-03` | procedural | en   | `ordered-action`                         | `procedural`    | W-E           | SR/W       | `procedural-general-v1`    |
+| `dev-p-en-04` | procedural | en   | `structured-artifact-schema-adherence`   | `procedural`    | W-E, O-S      | SR/W, SR/O | `procedural-structured-v1` |
+| `dev-m-pl-01` | mixed      | pl   | `evidence-backed-configuration-decision` | `mixed`         | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1`        |
+| `dev-m-pl-02` | mixed      | pl   | `evidence-backed-bounded-procedure`      | `mixed`         | W-E, W-R      | SR/W       | `mixed-standard-v1`        |
+| `dev-m-pl-03` | mixed      | pl   | `evidence-backed-artifact-validation`    | `mixed`         | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1`        |
+| `dev-m-pl-04` | mixed      | pl   | `evidence-backed-repair-plan`            | `mixed`         | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1`        |
+| `dev-m-en-01` | mixed      | en   | `evidence-backed-configuration-decision` | `mixed`         | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1`        |
+| `dev-m-en-02` | mixed      | en   | `evidence-backed-bounded-procedure`      | `mixed`         | W-E, W-R      | SR/W       | `mixed-standard-v1`        |
+| `dev-m-en-03` | mixed      | en   | `evidence-backed-artifact-validation`    | `mixed`         | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1`        |
+| `dev-m-en-04` | mixed      | en   | `evidence-backed-repair-plan`            | `mixed`         | W-E, W-R, O-S | SR/W, SR/O | `mixed-standard-v1`        |
 
 This creates exactly 8/8/8 families and exactly 4 Polish plus 4 English families inside every class. No Polish/English semantic pair is selected.
 
@@ -142,11 +142,11 @@ This creates exactly 8/8/8 families and exactly 4 Polish plus 4 English families
 
 The class contracts are frozen from the accepted evaluation strategy; they do not contain expected answers.
 
-| Class | Permitted answer-form class | Candidate pilot primary metric | Deterministic gate classes | Supporting metric classes |
-|---|---|---|---|---|
-| knowledge | concise prose or atomic claims with requested evidence references | atomic-claim F1 on required/unsupported claims | format; evidence identifier; answerability; exact facts when applicable | completeness; evidence correctness; abstention quality |
-| procedural | YAML/JSON, patch, bounded action sequence, or structured diagnosis | binary end-to-end task success | parse/schema; prohibited action; required constraint; static/final-state check when applicable | constraint adherence; step errors; schema validity |
-| mixed | evidence-grounded decision plus verifiable artifact or bounded procedure | normalized task-specific score with procedural hard gates | artifact/state success; evidence/citation checks | knowledge correctness; procedural success; cost |
+| Class      | Permitted answer-form class                                              | Candidate pilot primary metric                            | Deterministic gate classes                                                                     | Supporting metric classes                              |
+| ---------- | ------------------------------------------------------------------------ | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| knowledge  | concise prose or atomic claims with requested evidence references        | atomic-claim F1 on required/unsupported claims            | format; evidence identifier; answerability; exact facts when applicable                        | completeness; evidence correctness; abstention quality |
+| procedural | YAML/JSON, patch, bounded action sequence, or structured diagnosis       | binary end-to-end task success                            | parse/schema; prohibited action; required constraint; static/final-state check when applicable | constraint adherence; step errors; schema validity     |
+| mixed      | evidence-grounded decision plus verifiable artifact or bounded procedure | normalized task-specific score with procedural hard gates | artifact/state success; evidence/citation checks                                               | knowledge correctness; procedural success; cost        |
 
 Metrics not meaningful for a later concrete family are recorded explicitly as inapplicable with a reason; they are never encoded as zero. Final primary outcomes still freeze only after the approved development-pilot evidence review.
 
@@ -154,29 +154,29 @@ Metrics not meaningful for a later concrete family are recorded explicitly as in
 
 The profiles are pre-outcome metadata only. `applicable` means scientifically valid for a later comparison; it does **not** authorize execution. `deferred` means the accepted mechanism could become applicable only after the named separate gate. All model execution remains closed.
 
-| Profile | Applicable conditions | Mechanism-aligned targets | Deferred | Explicitly outside this profile |
-|---|---|---|---|---|
-| `knowledge-standard-v1` | B0, P1, R1 | B0, P1, R1 | W1 | P2, F1, H1, S1, C1, C2 |
-| `procedural-general-v1` | B0, P1, F1 | B0, P1, F1 | H1, S1, C2 | P2, R1, C1, W1 |
-| `procedural-structured-v1` | B0, P1, P2, F1 | B0, P1, P2, F1 | H1, S1, C2 | R1, C1, W1 |
-| `mixed-standard-v1` | B0, P1, R1, C1 | B0, R1, C1 | C2, W1 | P2, F1, H1, S1 |
+| Profile                    | Applicable conditions | Mechanism-aligned targets | Deferred   | Explicitly outside this profile |
+| -------------------------- | --------------------- | ------------------------- | ---------- | ------------------------------- |
+| `knowledge-standard-v1`    | B0, P1, R1            | B0, P1, R1                | W1         | P2, F1, H1, S1, C1, C2          |
+| `procedural-general-v1`    | B0, P1, F1            | B0, P1, F1                | H1, S1, C2 | P2, R1, C1, W1                  |
+| `procedural-structured-v1` | B0, P1, P2, F1        | B0, P1, P2, F1            | H1, S1, C2 | R1, C1, W1                      |
+| `mixed-standard-v1`        | B0, P1, R1, C1        | B0, R1, C1                | C2, W1     | P2, F1, H1, S1                  |
 
 For `mixed-standard-v1`, P1 is applicable as the preregistered C1 constituent/comparator but is not promoted to the P1 mechanism-aligned target stratum. The JSON ledger preserves explicit reasons for every deferred or inapplicable condition.
 
 ### Frozen comparator/dependency rules
 
-| Condition | Comparator(s) / selector | Dependency retained |
-|---|---|---|
-| B0 | B0 self-reference in validation metadata | reference condition |
-| P1 | B0 | none beyond later model-execution authorization |
-| P2 | P1 and B0 | only structured-diagnosis/taxonomy/output-schema target families |
-| R1 | matched no-retrieval and B0 | pinned closed corpus; later execution authorization |
-| F1 | B0 under the same inference contract | `future-training-v1` remains empty; training-data construction/training require separate authorization |
-| H1 | B0-I | no family selected; separate `kind` family selection and opt-in required |
-| S1 | H1 | requires H1 applicability plus an approved reusable non-answer-bearing skill and its separate execution gate |
-| C1 | design-time strongest constituent under `strongest-constituent-v1`; constituents P1/R1; frozen selector order P1 → R1 | no outcome may select the comparator |
-| C2 | no comparator instantiated because no C2 family is eligible in this freeze | separate pre-outcome eligibility manifest must freeze the complete declared constituent set and filtered P1 → R1 → H1 → S1 selector before applicability |
-| W1 | B0 and R1 | no family selected; separate W1 eligibility and live-access authorization required |
+| Condition | Comparator(s) / selector                                                                                              | Dependency retained                                                                                                                                      |
+| --------- | --------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| B0        | B0 self-reference in validation metadata                                                                              | reference condition                                                                                                                                      |
+| P1        | B0                                                                                                                    | none beyond later model-execution authorization                                                                                                          |
+| P2        | P1 and B0                                                                                                             | only structured-diagnosis/taxonomy/output-schema target families                                                                                         |
+| R1        | matched no-retrieval and B0                                                                                           | pinned closed corpus; later execution authorization                                                                                                      |
+| F1        | B0 under the same inference contract                                                                                  | `future-training-v1` remains empty; training-data construction/training require separate authorization                                                   |
+| H1        | B0-I                                                                                                                  | no family selected; separate `kind` family selection and opt-in required                                                                                 |
+| S1        | H1                                                                                                                    | requires H1 applicability plus an approved reusable non-answer-bearing skill and its separate execution gate                                             |
+| C1        | design-time strongest constituent under `strongest-constituent-v1`; constituents P1/R1; frozen selector order P1 → R1 | no outcome may select the comparator                                                                                                                     |
+| C2        | no comparator instantiated because no C2 family is eligible in this freeze                                            | separate pre-outcome eligibility manifest must freeze the complete declared constituent set and filtered P1 → R1 → H1 → S1 selector before applicability |
+| W1        | B0 and R1                                                                                                             | no family selected; separate W1 eligibility and live-access authorization required                                                                       |
 
 The C2 state is deliberately `not-declared-in-this-freeze`, with zero eligible family IDs. This is not a negative C2 result. It preserves the already-approved choice that eligibility must be made from model-independent metadata before outcomes. If later pilot error analysis informs eligibility or comparator selection, that contrast is exploratory; confirmatory C2 then requires fresh family-disjoint development families linked to the exploratory manifest.
 

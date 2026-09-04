@@ -15,20 +15,20 @@ The platform will execute controlled local-LLM adaptation experiments while pres
 
 ## Planned components
 
-| Component | Responsibility | Explicit boundary |
-|---|---|---|
-| Configuration loader | Parse and validate versioned experiment and referenced metadata | Does not execute an experiment |
-| Model metadata registry | Identify model repository, revision, artifact, quantization, chat template, license, and hashes | Does not download or serve weights |
-| Experiment runner | Resolve a frozen configuration, create a run, invoke a selected condition, and append observations | Does not decide research questions |
-| Inference adapter | Translate a normalized request to a pinned backend and capture its raw response and timings | No method-specific prompting logic |
-| Prompt resolver | Materialize approved prompt variants and hashes | No retrieval or scoring |
-| Retrieval component | Build/query an approved corpus index and return traceable passages | No answer grading |
-| Fine-tuning artifact registry | Describe training input, environment, adapter/export, and adaptation cost | Training pipeline remains separate from inference |
-| Harness | Execute approved procedural steps and tools under explicit limits | No implicit skills or hidden prompt mutation |
-| Skill resolver | Load versioned reusable procedural context for S1/C2 | No autonomous skill discovery in formal runs |
-| Evaluation engine | Apply versioned deterministic metrics and recorded rubric judgments | Does not rewrite raw observations |
-| Telemetry collector | Capture latency, tokens, memory, backend, environment, and failures | No production monitoring stack |
-| Reporting pipeline | Transform immutable raw observations into regenerated tables, figures, and statistics | Does not manually edit raw data |
+| Component                     | Responsibility                                                                                     | Explicit boundary                                 |
+| ----------------------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Configuration loader          | Parse and validate versioned experiment and referenced metadata                                    | Does not execute an experiment                    |
+| Model metadata registry       | Identify model repository, revision, artifact, quantization, chat template, license, and hashes    | Does not download or serve weights                |
+| Experiment runner             | Resolve a frozen configuration, create a run, invoke a selected condition, and append observations | Does not decide research questions                |
+| Inference adapter             | Translate a normalized request to a pinned backend and capture its raw response and timings        | No method-specific prompting logic                |
+| Prompt resolver               | Materialize approved prompt variants and hashes                                                    | No retrieval or scoring                           |
+| Retrieval component           | Build/query an approved corpus index and return traceable passages                                 | No answer grading                                 |
+| Fine-tuning artifact registry | Describe training input, environment, adapter/export, and adaptation cost                          | Training pipeline remains separate from inference |
+| Harness                       | Execute approved procedural steps and tools under explicit limits                                  | No implicit skills or hidden prompt mutation      |
+| Skill resolver                | Load versioned reusable procedural context for S1/C2                                               | No autonomous skill discovery in formal runs      |
+| Evaluation engine             | Apply versioned deterministic metrics and recorded rubric judgments                                | Does not rewrite raw observations                 |
+| Telemetry collector           | Capture latency, tokens, memory, backend, environment, and failures                                | No production monitoring stack                    |
+| Reporting pipeline            | Transform immutable raw observations into regenerated tables, figures, and statistics              | Does not manually edit raw data                   |
 
 ## High-level data flow
 
