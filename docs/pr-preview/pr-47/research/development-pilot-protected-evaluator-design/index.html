@@ -943,6 +943,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluator-resolution-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator resolution hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluator resolution hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-deterministic-verification-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Deterministic verification first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-qualified-frozen-llm-judge-for-residual-semantic-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Qualified frozen LLM judge for residual semantic criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-human-adjudication-and-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Human adjudication and audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#judge-qualification-against-human-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Judge qualification against human labels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-semantic-scoring-avoids-lexical-bias" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1840,6 +1901,67 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#evaluator-resolution-hierarchy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator resolution hierarchy
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluator resolution hierarchy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-deterministic-verification-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Deterministic verification first
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-qualified-frozen-llm-judge-for-residual-semantic-criteria" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Qualified frozen LLM judge for residual semantic criteria
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-human-adjudication-and-audit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Human adjudication and audit
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#judge-qualification-against-human-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Judge qualification against human labels
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#how-semantic-scoring-avoids-lexical-bias" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1933,7 +2055,7 @@
 <h1 id="development-pilot-protected-evaluator-design">Development-pilot Protected Evaluator Design<a class="headerlink" href="#development-pilot-protected-evaluator-design" title="Permanent link">&para;</a></h1>
 <h2 id="status-and-boundary">Status and boundary<a class="headerlink" href="#status-and-boundary" title="Permanent link">&para;</a></h2>
 <p>The 24 development-only scenario inputs were human-approved and squash-merged in PR #44. The next Issue #35 step is to define the evaluator that can later score those scenarios without leaking answer truth or rewarding documentation-like wording.</p>
-<p>This document explains the scientific design for review. The normative software behavior is the active OpenSpec change <code>development-protected-evaluator-contract</code>. No production evaluator, protected Kubernetes answer payload, model output, training material, final-test material, real <code>kind</code> task, or live W1 access is created here.</p>
+<p>This document explains the scientific design for review. The normative software behavior is the active OpenSpec change <code>development-protected-evaluator-contract</code>. No production evaluator, protected Kubernetes answer payload, participant-model output, training material, final-test material, real <code>kind</code> task, or live W1 access is created here.</p>
 <p>The approved metric families do not change:</p>
 <table>
 <thead>
@@ -1960,10 +2082,10 @@
 <p>For reusable definitions of atomic claims, F1, semantic scoring, deterministic evaluators, rubrics, metamorphic fairness fixtures, and calibration statistics, see the <a href="../../glossary/">glossary</a>. The broader method remains in the <a href="../evaluation/">evaluation strategy</a> and <a href="../benchmark-pilot-protocol/">development-pilot protocol</a>.</p>
 <h2 id="three-layers-that-must-stay-separate">Three layers that must stay separate<a class="headerlink" href="#three-layers-that-must-stay-separate" title="Permanent link">&para;</a></h2>
 <h3 id="scientific-specification-committed-now">Scientific specification — committed now<a class="headerlink" href="#scientific-specification-committed-now" title="Permanent link">&para;</a></h3>
-<p>The specification defines the shape and invariants of a protected per-scenario contract: atomic criteria, exact construct-critical checks, score derivation, human-review routing, source evidence identity, anti-copying qualification, custody, hashes, and provenance.</p>
+<p>The specification defines the shape and invariants of a protected per-scenario contract: atomic criteria, exact construct-critical checks, score derivation, semantic-assessor routing, judge qualification, human adjudication/audit, source evidence identity, anti-copying qualification, custody, hashes, and provenance.</p>
 <p>It deliberately does <strong>not</strong> state the correct Kubernetes answer to any of the 24 questions.</p>
 <h3 id="protected-content-instantiated-later">Protected content — instantiated later<a class="headerlink" href="#protected-content-instantiated-later" title="Permanent link">&para;</a></h3>
-<p>Each approved family will later receive a protected bundle under <code>development-protected-evaluator-v1</code>. Depending on the task, the bundle contains the required claims, accepted semantic alternatives, unsupported/contradictory criteria, exact values or structures that are genuinely part of the construct, deterministic predicates, task-specific rubric criteria, Mixed point table, evidence map, and protected qualification fixtures.</p>
+<p>Each approved family will later receive a protected bundle under <code>development-protected-evaluator-v1</code>. Depending on the task, the bundle contains the required claims, accepted semantic alternatives, unsupported/contradictory criteria, exact values or structures that are genuinely part of the construct, deterministic predicates, task-specific semantic criteria and observable anchors, Mixed point table, evidence map, and protected qualification fixtures.</p>
 <p>Those artifacts are authored from only:</p>
 <ul>
 <li>the approved scenario input and its immutable hash; and</li>
@@ -1971,20 +2093,61 @@
 </ul>
 <p>The one-sentence <code>Expected answer — reviewer note</code> text in the human scenario-review page is convenience material only. It is not an evaluator source and cannot be copied into protected contracts, rubrics, fixtures, RAG, prompts, training, or final-test construction.</p>
 <h3 id="implementation-codex-after-human-gate-a">Implementation — Codex after Human Gate A<a class="headerlink" href="#implementation-codex-after-human-gate-a" title="Permanent link">&para;</a></h3>
-<p>Codex implements the typed schemas, validators, score calculations, protected-root access boundary, safe references/errors, provenance checks, and qualification machinery. Repository tests use synthetic non-domain fixtures.</p>
-<p>Codex does not invent or author the protected Kubernetes criteria. Missing protected scientific content is an error, not permission to infer an answer.</p>
+<p>Codex implements the typed schemas, validators, deterministic score calculations, model-agnostic semantic-assessment records/interfaces, protected-root access boundary, safe references/errors, provenance checks, qualification records, and adjudication/audit routing. Repository tests use synthetic non-domain fixtures.</p>
+<p>Codex does not select or execute a real LLM judge in this implementation step, and it does not invent or author the protected Kubernetes criteria. Missing protected scientific content or an unqualified semantic assessor is an error, not permission to infer an answer.</p>
+<h2 id="evaluator-resolution-hierarchy">Evaluator resolution hierarchy<a class="headerlink" href="#evaluator-resolution-hierarchy" title="Permanent link">&para;</a></h2>
+<p>The evaluator uses the most objective valid evidence path available. Open semantics are not sent directly to a human by default, and an LLM judge never overrides a criterion that can be decided mechanically.</p>
+<h3 id="1-deterministic-verification-first">1. Deterministic verification first<a class="headerlink" href="#1-deterministic-verification-first" title="Permanent link">&para;</a></h3>
+<p>Where correctness is mechanically observable, the contract uses a deterministic rule: for example schema structure, an exact API field/value, an explicit command count, an allowed mutation scope, a required action/final state, or another construct-critical requirement.</p>
+<p>A semantic judge is not consulted for such a criterion. This follows the same broad preference for objective verification seen in benchmarks such as <a href="https://arxiv.org/abs/2311.07911">IFEval</a>, <a href="https://arxiv.org/abs/2406.19314">LiveBench</a>, and execution-based benchmarks such as <a href="https://arxiv.org/abs/2310.06770">SWE-bench</a>.</p>
+<h3 id="2-qualified-frozen-llm-judge-for-residual-semantic-criteria">2. Qualified frozen LLM judge for residual semantic criteria<a class="headerlink" href="#2-qualified-frozen-llm-judge-for-residual-semantic-criteria" title="Permanent link">&para;</a></h3>
+<p>If an atomic criterion cannot be resolved by a legitimate deterministic rule, it may be assessed by a <strong>qualified frozen semantic judge</strong>. The judge receives the protected task-specific criterion, observable anchors and permitted frozen evidence needed for that criterion rather than one canonical answer paragraph to imitate.</p>
+<p>The judge returns a structured criterion disposition such as <code>satisfied</code>, <code>not_satisfied</code>, <code>contradicted</code>, or <code>unresolved</code>; it does not directly choose the task score or weighting. The deterministic score kernel converts resolved criterion dispositions into Knowledge F1, Procedural success, or Mixed points.</p>
+<p>Before a judge can be used for primary criterion dispositions, its exact evaluation configuration must be frozen and independently identifiable, including at least:</p>
+<ul>
+<li>model/provider or model artifact identity and version sufficient for reproducibility;</li>
+<li>inference backend/version where relevant;</li>
+<li>judge prompt/template hash and response schema;</li>
+<li>decoding and retry configuration;</li>
+<li>protected criterion/evidence input contract;</li>
+<li>qualification fixture-set identity;</li>
+<li>predeclared qualification thresholds and human-audit policy.</li>
+</ul>
+<p>The exact judge model and thresholds are <strong>not selected by this PR</strong>. They require a later explicit freeze/approval before any judge-model execution.</p>
+<p>LLM-as-a-judge is therefore treated as a calibrated measurement instrument rather than ground truth. This is consistent with the validation approach used by <a href="https://arxiv.org/abs/2306.05685">MT-Bench</a>, while taking seriously judge biases documented there and in <a href="https://arxiv.org/abs/2404.04475">AlpacaEval 2</a>. The criterion-specific checklist/rubric style is also aligned with the direction used by <a href="https://arxiv.org/abs/2406.04770">WildBench</a>.</p>
+<h3 id="3-human-adjudication-and-audit">3. Human adjudication and audit<a class="headerlink" href="#3-human-adjudication-and-audit" title="Permanent link">&para;</a></h3>
+<p>A calibrated human reviewer is the final authority only for predefined escalation and audit paths. Human review is required when, for example:</p>
+<ul>
+<li>no qualified judge is approved for the criterion;</li>
+<li>the judge returns <code>unresolved</code> or an invalid/non-conforming assessment;</li>
+<li>qualification or audit detects a dispute that the frozen policy routes to adjudication; or</li>
+<li>the response is part of the predeclared blinded human-audit sample.</li>
+</ul>
+<p>Human assessment is criterion-level and uses the same protected observable anchors. The reviewer is not asked to assign an intuitive whole-answer score.</p>
+<p>The audit sample and any rule that can suspend/requalify a judge version must be frozen before the evaluated outputs are inspected, so human review cannot become outcome-driven cherry-picking.</p>
+<h2 id="judge-qualification-against-human-labels">Judge qualification against human labels<a class="headerlink" href="#judge-qualification-against-human-labels" title="Permanent link">&para;</a></h2>
+<p>A semantic judge cannot become primary merely because it is a strong model. Before use it must pass protected qualification against human-labelled criterion fixtures representing the actual task/language cells in which it will operate.</p>
+<p>Qualification records at least:</p>
+<ul>
+<li>criterion-level agreement with the calibrated human labels;</li>
+<li>a disposition confusion matrix;</li>
+<li>an agreement statistic such as Cohen's kappa where the sample/design supports it;</li>
+<li>copying-neutral metamorphic results for paraphrase/source-like/synonym/wrong/partial/irrelevant variants;</li>
+<li>all failures, unresolved outputs, schema errors and adjudications.</li>
+</ul>
+<p>The acceptance thresholds are predeclared and human-approved with the exact judge configuration; they are not tuned after seeing candidate-model outcomes. If the judge fails qualification, it cannot issue primary semantic dispositions. The evaluator then fails closed or uses the approved human route.</p>
+<p>This structure deliberately separates <strong>semantic assessment</strong> from <strong>score calculation</strong>. Even when an LLM supplies a criterion disposition, the score itself is still deterministically derived from the frozen contract.</p>
 <h2 id="how-semantic-scoring-avoids-lexical-bias">How semantic scoring avoids lexical bias<a class="headerlink" href="#how-semantic-scoring-avoids-lexical-bias" title="Permanent link">&para;</a></h2>
-<p>The score kernel does not decide open meaning from string resemblance. It has no input for token overlap, n-grams, edit distance, ROUGE, BLEU, or source-prose similarity.</p>
-<p>Where correctness is mechanically observable, the contract uses a deterministic rule: for example schema structure, an exact API field/value, an explicit command count, an allowed mutation scope, or another construct-critical requirement.</p>
-<p>Where an open claim must be judged semantically, a calibrated human criterion records the claim disposition. Only after required semantic assessments are resolved does the implementation calculate the score. Genuinely ambiguous primary criteria remain pending human review/adjudication rather than receiving an arbitrary automatic label.</p>
-<p>This keeps a correct paraphrase and a correct source-like sentence equivalent by construction: wording is not a score feature.</p>
+<p>The score kernel does not decide open meaning from string resemblance. It has no input for token overlap, n-grams, edit distance, ROUGE, BLEU, embeddings, source-prose similarity, or verbatim overlap.</p>
+<p>A qualified LLM judge is also not a similarity scorer. It evaluates one protected criterion against the candidate response and frozen evidence/anchors. Correct source-like wording receives no bonus, and a lexically similar technical error must still fail the affected criterion.</p>
+<p>A correct paraphrase and a correct source-like sentence are therefore intended to remain equivalent by construction: wording is not a score feature.</p>
 <h2 id="class-specific-score-flow">Class-specific score flow<a class="headerlink" href="#class-specific-score-flow" title="Permanent link">&para;</a></h2>
 <p><strong>Knowledge.</strong> Required claims are stable atomic criterion IDs. Each satisfied required criterion counts once as TP; an unsatisfied required criterion is FN. FP comes only from unsupported/contradictory criteria declared by the protected contract and assessed for the response. Repeating a claim creates no extra credit. After primary assessments resolve, F1 is <code>2TP / (2TP + FP + FN)</code>.</p>
-<p><strong>Procedural.</strong> The primary result is one binary end-to-end success label. All primary-required constraints must pass and primary prohibited actions must remain absent. Mechanical parts are deterministic. If an essential diagnosis is genuinely semantic, the protected contract may make it a calibrated human binary criterion; lexical approximation is forbidden.</p>
+<p><strong>Procedural.</strong> The primary result is one binary end-to-end success label. All primary-required constraints must pass and primary prohibited actions must remain absent. Mechanical parts are deterministic. If an essential diagnosis is genuinely semantic, the protected contract may route that binary criterion through the qualified semantic judge and then to human adjudication if necessary; lexical approximation is forbidden.</p>
 <p><strong>Mixed.</strong> Primary procedural hard gates run first. Any failed hard gate makes the primary score <code>0</code>, so fluent prose cannot compensate for an invalid artifact or forbidden action. If all hard gates pass, the evaluator applies the contract's pre-frozen criterion point table and divides by its declared positive maximum to obtain <code>[0,1]</code>. There are no default weights and no post-output reweighting.</p>
 <h2 id="evidence-and-provenance">Evidence and provenance<a class="headerlink" href="#evidence-and-provenance" title="Permanent link">&para;</a></h2>
-<p>Every score-affecting criterion maps to one or more frozen Kubernetes v1.36.4 source identities. The protected map records the approved inventory/repository revision and the path/blob or OpenAPI identity/hash needed to audit support. The model is not asked to reproduce any source path, evidence ID, URL, or citation.</p>
-<p>Every protected bundle is also bound to the approved <code>family_id</code>, scenario-input identity/hash, source-rights manifest, evaluator version, and exact protected content hash. Corrections create successor identities; frozen artifacts are never overwritten.</p>
+<p>Every score-affecting criterion maps to one or more frozen Kubernetes v1.36.4 source identities. The protected map records the approved inventory/repository revision and the path/blob or OpenAPI identity/hash needed to audit support. The participant model is not asked to reproduce any source path, evidence ID, URL, or citation.</p>
+<p>Every protected bundle is also bound to the approved <code>family_id</code>, scenario-input identity/hash, source-rights manifest, evaluator version, and exact protected content hash. Judge assessments additionally bind the exact qualified judge-configuration identity. Corrections create successor identities; frozen artifacts are never overwritten.</p>
 <p>This is criterion-level provenance, not a hidden prose golden.</p>
 <h2 id="fairness-qualification">Fairness qualification<a class="headerlink" href="#fairness-qualification" title="Permanent link">&para;</a></h2>
 <p>Actual Kubernetes fairness fixture responses and their expected criterion outcomes stay protected. At minimum, each Knowledge/Mixed × Polish/English cell has a fixture group containing:</p>
@@ -1997,14 +2160,15 @@
 <li>a valid answer with irrelevant source text appended.</li>
 </ol>
 <p>The first three must receive the same semantic dispositions and primary score. Wrong or incomplete variants must be worse on the affected criteria. Appending irrelevant text can never improve a score and may reduce it when it introduces a declared unsupported/contradictory claim.</p>
-<p>This is a form of <a href="https://www.cse.ust.hk/~scc/publ/CS98-01-metamorphictesting.pdf">metamorphic testing</a>: related inputs are constructed with a known relation that the evaluator must preserve. The fixture checks are about evaluator behavior; they are not benchmark families, model training examples, or final-test material.</p>
+<p>Qualification applies both to the pure score kernel and, when enabled, to the frozen semantic judge. A judge that violates the required equivalence/order relations cannot qualify for primary assessment.</p>
+<p>This is a form of <a href="https://www.cse.ust.hk/~scc/publ/CS98-01-metamorphictesting.pdf">metamorphic testing</a>: related inputs are constructed with a known relation that the evaluator must preserve. The fixture checks are about evaluator behavior; they are not benchmark families, participant-model training examples, or final-test material.</p>
 <h2 id="custody-flow">Custody flow<a class="headerlink" href="#custody-flow" title="Permanent link">&para;</a></h2>
 <p>Protected evaluator payloads resolve only through logical root <code>development-protected-evaluator-v1</code>. The concrete private storage binding is runtime custody configuration, not a model-visible or machine-specific path committed to the repository.</p>
-<p>Authorized evaluation can resolve the protected payload only after checking role/purpose, root identity, root-relative reference, scenario binding, and SHA-256. Model-facing runners, retrievers, prompts, harnesses, skills, W1 processes, and future-training roles fail closed on the same reference.</p>
-<p>Safe public/model-facing metadata may retain only permitted identities, protected-relative handles, hashes, status/reason codes, and non-answer-bearing provenance. Validation errors never echo protected claims, expected values, source excerpts, answer-bearing evidence relationships, or absolute protected locators.</p>
+<p>Authorized evaluation can resolve the protected payload only after checking role/purpose, root identity, root-relative reference, scenario binding, and SHA-256. Model-facing runners, retrievers, prompts, harnesses, skills, W1 processes, and future-training roles fail closed on the same reference. A judge role may receive only the protected criterion/evidence material authorized for the judge assessment and must never expose it to the participant model.</p>
+<p>Safe public/model-facing metadata may retain only permitted identities, protected-relative handles, hashes, status/reason codes, assessor-type/config identities that do not reveal answers, and non-answer-bearing provenance. Validation errors never echo protected claims, expected values, source excerpts, answer-bearing evidence relationships, judge prompt payloads, or absolute protected locators.</p>
 <h2 id="what-approval-of-this-design-authorizes">What approval of this design authorizes<a class="headerlink" href="#what-approval-of-this-design-authorizes" title="Permanent link">&para;</a></h2>
-<p>Human approval of the accompanying Work PR authorizes Codex to implement only the generic evaluator contract and qualification machinery described by the OpenSpec tasks. It does not authorize model execution or allow Codex to fabricate the per-scenario protected truth.</p>
-<p>After that implementation is independently reviewed and merged, the 24 protected bundles can be instantiated and reviewed under the protected custody root. Model-derived pilot scoring still requires its later execution gate.</p>
+<p>Human approval of the accompanying Work PR authorizes Codex to implement only the generic evaluator contract, deterministic scoring, model-agnostic semantic-assessor/qualification records, protected routing, and synthetic qualification machinery described by the OpenSpec tasks. It does <strong>not</strong> authorize selection or execution of a real LLM judge, participant-model execution, or Codex fabrication of the per-scenario protected truth.</p>
+<p>After that implementation is independently reviewed and merged, the 24 protected bundles can be instantiated and reviewed under the protected custody root. A separate human-approved judge freeze then selects the exact semantic judge configuration, human-labelled qualification fixtures/thresholds and audit policy. Only after that gate may judge qualification execute. Participant-model pilot scoring still requires its later execution gate.</p>
 
 
 
