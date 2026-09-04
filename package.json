@@ -8,6 +8,8 @@
     "renovate": "44.56.1"
   },
   "scripts": {
+    "docs:build": "uv run --no-project --with-requirements docs/requirements.txt mkdocs build --strict",
+    "docs:serve": "uv run --no-project --with-requirements docs/requirements.txt mkdocs serve",
     "format": "prettier --ignore-path=.prettierignore --write \"**/*.{md,json,yml,yaml}\"",
     "format:check": "prettier --ignore-path=.prettierignore --check \"**/*.{md,json,yml,yaml}\""
   }
