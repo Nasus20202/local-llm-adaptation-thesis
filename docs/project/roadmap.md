@@ -31,18 +31,23 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark-domain package was approved, merged in PR [#22](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/22), and closed.
 2. The Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator protocol was approved and merged in [PR #25](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/25).
 3. Its bounded synthetic pilot/evaluator, controlled-cluster, and W1 software foundations were implemented, independently reviewed, and merged in [PR #33](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/33). The canonical specifications are synchronized and the completed changes archived.
-4. [Issue #35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35) is approved and its focused authorization package was independently reviewed and squash-merged in [PR #38](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/38). The exact Kubernetes `v1.36.4` [source/release rights manifest](../research/development-pilot-source-rights-manifest.md) received explicit human approval and was squash-merged in [PR #40](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/40). The [pre-authoring custody and metadata freeze](../research/development-pilot-preauthoring-freeze.md) received explicit human approval on [PR #42](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/42) and was squash-merged as `575fc4df4597c6b13ad3535e34474ddc455b4527`. Development-only scenario-input authoring inside the 24 frozen slots is now the next sequenced activity; model execution, protected evaluator payload construction, final-test work, training, real `kind`, live W1, outcome-selected C2, formal experiments, and harness implementation remain closed.
-5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
-6. Decide the public licensing plan through [Issue #36](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/36) before making the private repository public.
+4. [Issue #35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35) is active. Its focused authorization package was merged in PR #38; the exact Kubernetes `v1.36.4` [source/release rights manifest](../research/development-pilot-source-rights-manifest.md) was approved and merged in PR #40; the [pre-authoring custody and metadata freeze](../research/development-pilot-preauthoring-freeze.md) was approved and merged in PR #42; and the 24 development-only model-facing scenario inputs were human-approved and squash-merged in PR #44 as `a4e377a189fbd5ba74fdd143c7bcea9ad9458141`. The current step is Human Gate A review of the protected evaluator scientific/OpenSpec contract, including the `deterministic verifier → qualified frozen semantic judge → human adjudication/audit` hierarchy. Production evaluator implementation, protected answer-bearing payload instantiation, concrete judge execution, participant-model execution, real `kind`, live W1, training, C2, and final-test work remain closed.
+5. After Gate A, implement only the generic evaluator machinery: protected contract/custody records, deterministic score kernel, model-agnostic semantic-assessment and judge-qualification records, human adjudication/audit routing, evidence binding, fairness qualification, and synthetic tests. Do not select or execute a concrete judge model in this implementation step.
+6. After that implementation is independently reviewed, merged, and synchronized, instantiate/review the 24 protected evaluator bundles under `development-protected-evaluator-v1`, including human-labelled semantic/fairness qualification fixtures, and freeze their hashes/custody evidence.
+7. Prepare a separate semantic-judge freeze: exact model/provider or artifact identity, backend/version, prompt/template hash, response schema, decoding/retry behavior, protected input contract, predeclared human-agreement/fairness thresholds, blinded audit sample/policy, and suspension/requalification rules. Human approval is required before any judge-model execution.
+8. Execute judge qualification only after that approval. A judge that fails any required threshold remains ineligible for primary semantic dispositions; unresolved criteria use the calibrated human route or fail closed. Participant-model scoring remains separately gated.
+9. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5) only when the M1/M2 sequencing gate authorizes them.
+10. Decide the public licensing plan through [Issue #36](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/36) before making the repository public if that decision has not already been completed.
 
 ## Next milestone: M1
 
-M1 next authors fresh development-only scenario inputs inside the approved 24 slots using only the frozen source/rights boundary and `development-model-facing-v1` custody. Protected evaluator construction and model-free qualification follow later under the already-approved sequence and gates. Model execution, real `kind`, live W1, training, outcome-selected C2, formal experiments, harness implementation, and final-test construction/freeze remain separate approvals.
+M1 next completes the protected evaluator contract and its bounded generic implementation, then instantiates protected criterion/evidence/qualification bundles, freezes and qualifies the semantic judge against protected human labels, and preserves calibrated human adjudication/audit for residual cases. Participant-model execution follows only through a later focused authorization. Real `kind`, live W1, training, outcome-selected C2, formal experiments, and final-test construction/freeze remain separate approvals.
 
 - [Benchmark domain and construction decision](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2)
 - [Benchmark pilot and evaluator calibration protocol](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4)
 - [Development-only pilot construction authorization](../research/development-pilot-authorization.md)
 - [Development-pilot pre-authoring custody and metadata freeze](../research/development-pilot-preauthoring-freeze.md)
+- [Protected development evaluator design](../research/development-pilot-protected-evaluator-design.md)
 
 ## Later tracking issues
 
@@ -54,7 +59,7 @@ M1 next authors fresh development-only scenario inputs inside the approved 24 sl
 | M5        | [QLoRA adaptation](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/6)                        |
 | M6        | [Model harness](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/7)                           |
 | M7        | [Reusable skills](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/12)                        |
-| M8        | Stability and Combined Experiments                                                                            | Repeated runs, paraphrases, C1, and a metadata-frozen C2 (or exploratory-only C2 followed by fresh confirmatory families) are analyzed |
+| M8        | Stability and Combined Experiments                                                                            |
 | M9        | [Secondary-model replication](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/13)            |
 | M10       | [Statistical analysis](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/14)                   |
 | M11       | [Polish thesis results and discussion](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/15)   |
@@ -64,6 +69,9 @@ M1 next authors fresh development-only scenario inputs inside the approved 24 sl
 
 - M2 depends on M1 interfaces and the M0 runner foundation, not on a complete final dataset.
 - Method milestones depend on a frozen baseline and evaluator version.
+- Any primary semantic judge is part of the evaluator version and must be frozen/qualified against protected human labels before participant-model scoring.
+- Deterministic verification takes precedence over semantic judging whenever the task construct permits it.
+- Human audit/adjudication is predeclared and blinded; it is not selected post hoc from surprising condition outcomes.
 - Combined experiments start only after individual conditions produce interpretable evidence.
 - Secondary replication targets selected findings; it does not repeat every development iteration.
 - Thesis results are generated from validated analysis artifacts, never transcribed from ad hoc notebooks.

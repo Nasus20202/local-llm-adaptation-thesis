@@ -9,7 +9,8 @@ This folder is the human-readable explanation of the thesis project. OpenSpec is
 3. [Experimental design](research/experimental-design.md) — conditions and comparisons.
 4. [Evaluation strategy](research/evaluation.md) — how answers and runs are scored.
 5. [Glossary](glossary.md) — algorithms, metrics, tools, and project terminology.
-6. [Current development-pilot questions](research/development-pilot-scenario-review.md) — the 24 questions currently waiting for human review.
+6. [Approved development-pilot questions](research/development-pilot-scenario-review.md) — the 24 model-facing questions approved in PR #44; reviewer notes on that page are not evaluator truth.
+7. [Protected development evaluator design](research/development-pilot-protected-evaluator-design.md) — the current scientific design and custody boundary before Codex implementation.
 
 ## What the folders are for
 
