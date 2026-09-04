@@ -48,7 +48,7 @@ The model emits a structured request for an external operation, the harness exec
 
 ### Atomic claim
 
-A single independently judgeable proposition in an answer, such as “`Forbid` applies only to Jobs from the same CronJob.” Breaking open answers into claims lets the evaluator score meaning without requiring one canonical sentence.
+A single independently judgeable proposition in an answer, such as “`Forbid` applies only to Jobs from the same CronJob.” Breaking open answers into claims lets the evaluator score meaning without requiring one canonical sentence. [FActScore](https://arxiv.org/abs/2305.14251) is a primary example of decomposing generated text into atomic facts for fine-grained factual evaluation; this thesis uses its own protected task-specific claim contracts rather than FActScore's automated scorer.
 
 ### Precision, recall, and F1
 
@@ -60,7 +60,11 @@ A rule-based check whose result is mechanically reproducible, for example JSON p
 
 ### Semantic scoring
 
-Judging whether the response expresses the required technical meaning rather than matching reference wording. Correct paraphrases and source-like wording receive the same credit; lexical similarity is not a score component in this project.
+Judging whether the response expresses the required technical meaning rather than matching reference wording. Correct paraphrases and source-like wording receive the same credit; lexical similarity is not a score component in this project. Open semantic criteria are resolved through protected task-specific criteria and calibrated human assessment when exact/value/structure rules cannot decide them. Fine-grained atomic evaluation is exemplified by [FActScore](https://arxiv.org/abs/2305.14251); the project's no-lexical-bonus rule is an explicit methodological control.
+
+### Construct-critical literal
+
+A string, value, identifier, count, enum, key, or structure whose exact identity is itself part of the task construct—for example a required Kubernetes API field or explicitly requested numeric value. Exact comparison is allowed only for such criteria; it is not a shortcut for grading open prose. Kubernetes schema identity is audited against the frozen [OpenAPI specification](https://spec.openapis.org/oas/latest.html) and Kubernetes v1.36.4 source snapshot.
 
 ### Rubric
 
@@ -72,7 +76,7 @@ Another language model used to rate an answer. It is convenient for open text bu
 
 ### Metamorphic fairness fixture
 
-A test pair or set where the technical meaning is deliberately held constant while wording changes, or wording is held similar while correctness changes. A valid semantic evaluator must score correct paraphrases equivalently and must not reward a technically wrong answer merely because it resembles documentation.
+A test pair or set where the technical meaning is deliberately held constant while wording changes, or wording is held similar while correctness changes. A valid semantic evaluator must score correct paraphrases equivalently and must not reward a technically wrong answer merely because it resembles documentation. This adapts the metamorphic-testing idea of checking known relations between related test cases; see Chen, Cheung, and Yiu, [Metamorphic Testing: A New Approach for Generating Next Test Cases](https://www.cse.ust.hk/~scc/publ/CS98-01-metamorphictesting.pdf).
 
 ### Krippendorff's alpha
 

@@ -53,6 +53,7 @@ nav:
           - Authorization: research/development-pilot-authorization.md
           - Scenario inputs: research/development-pilot-scenario-inputs.md
           - Human review: research/development-pilot-scenario-review.md
+          - Protected evaluator design: research/development-pilot-protected-evaluator-design.md
   - Architecture:
       - System overview: architecture/system-overview.md
       - Data flow: architecture/data-flow.md

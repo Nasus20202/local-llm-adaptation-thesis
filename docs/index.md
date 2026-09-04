@@ -13,7 +13,7 @@ This site is the human-readable documentation for the MSc thesis project compari
 
 ## Current development pilot
 
-The development-only pilot package is documented in the [pilot protocol](research/benchmark-pilot-protocol.md), [authorization](research/development-pilot-authorization.md), [approved scenario inputs](research/development-pilot-scenario-inputs.md), and [human review record](research/development-pilot-scenario-review.md).
+The development-only pilot package is documented in the [pilot protocol](research/benchmark-pilot-protocol.md), [authorization](research/development-pilot-authorization.md), [approved scenario inputs](research/development-pilot-scenario-inputs.md), [human review record](research/development-pilot-scenario-review.md), and current [protected evaluator design](research/development-pilot-protected-evaluator-design.md). The evaluator design is awaiting Human Gate A approval; implementation and protected answer-bearing payloads remain closed.
 
 ## Documentation areas
 
