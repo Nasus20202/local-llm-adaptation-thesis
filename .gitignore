@@ -53,6 +53,9 @@ results/statistics/**
 !results/**/.gitkeep
 !results/README.md
 
+# Generated documentation site
+site/
+
 # Notebooks
 .ipynb_checkpoints/
 

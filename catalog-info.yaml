@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: local-llm-adaptation-thesis
+  description: Research and reproducible software for the local LLM adaptation MSc thesis.
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: documentation
+  lifecycle: experimental
+  owner: user:default/nasus20202

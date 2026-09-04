@@ -22,6 +22,22 @@ The current repository contains the research plan, methodology, architecture, go
 - [Bootstrap verification](docs/project/bootstrap-verification.md)
 - [Instructions for agents](AGENTS.md)
 
+## Documentation site
+
+The human-facing `docs/` tree is rendered with MkDocs Material and is compatible with Backstage TechDocs through `catalog-info.yaml` and `mkdocs.yml`. The main site is published to [GitHub Pages](https://nasus20202.github.io/local-llm-adaptation-thesis/), and documentation pull requests receive a per-PR preview link from CI.
+
+Serve the same documentation locally with live reload:
+
+```bash
+npm run docs:serve
+```
+
+Build and validate the static site with:
+
+```bash
+npm run docs:build
+```
+
 ## Foundation commands
 
 Install the locked environment and validate the identity-only example:

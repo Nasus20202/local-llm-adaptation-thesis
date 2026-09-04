@@ -1,0 +1,76 @@
+site_name: Local LLM Adaptation Thesis
+site_description: Human-readable research and engineering documentation for the MSc thesis project.
+site_url: https://nasus20202.github.io/local-llm-adaptation-thesis/
+repo_url: https://github.com/Nasus20202/local-llm-adaptation-thesis
+repo_name: Nasus20202/local-llm-adaptation-thesis
+edit_uri: edit/main/docs/
+
+exclude_docs: |
+  /README.md
+  experiment-log/**
+  genai-log/**
+  research-log/**
+
+theme:
+  name: material
+  language: en
+  font: false
+  features:
+    - content.action.edit
+    - content.code.copy
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Project:
+      - Status: project/status.md
+      - Roadmap: project/roadmap.md
+      - Charter: project/charter.md
+      - AIDLC workflow: project/aidlc.md
+      - Source of truth: project/source-of-truth.md
+  - Research:
+      - Overview: research/README.md
+      - Research questions: research/research-questions.md
+      - Experimental design: research/experimental-design.md
+      - Evaluation: research/evaluation.md
+      - Benchmark design: research/benchmark-design.md
+      - Development pilot:
+          - Pilot protocol: research/benchmark-pilot-protocol.md
+          - Authorization: research/development-pilot-authorization.md
+          - Scenario inputs: research/development-pilot-scenario-inputs.md
+          - Human review: research/development-pilot-scenario-review.md
+  - Architecture:
+      - System overview: architecture/system-overview.md
+      - Data flow: architecture/data-flow.md
+      - Experiment lifecycle: architecture/experiment-lifecycle.md
+      - Reproducibility: architecture/reproducibility.md
+  - Decisions:
+      - ADR 0001 — Repository architecture: adr/0001-repository-architecture.md
+      - ADR 0002 — Model strategy: adr/0002-primary-secondary-model-strategy.md
+      - ADR 0003 — Local inference backend: adr/0003-local-inference-backend.md
+      - ADR 0004 — Fine-tuning environment: adr/0004-fine-tuning-environment.md
+      - ADR 0005 — OpenSpec workflow: adr/0005-openspec-workflow.md
+      - ADR 0006 — Experiment provenance: adr/0006-experiment-provenance.md
+      - ADR 0007 — Evaluation architecture: adr/0007-evaluation-architecture.md
+      - ADR 0008 — Benchmark domain and language: adr/0008-benchmark-domain-and-language-policy.md
+      - ADR 0009 — Development pilot protocol: adr/0009-development-pilot-and-calibration-protocol.md
+  - Development:
+      - Conventions: development/conventions.md
+      - Testing: development/testing.md
+      - Codex workflow: development/codex-workflow.md
+      - Pilot foundation: development/pilot-foundation.md
+  - Glossary: glossary.md
