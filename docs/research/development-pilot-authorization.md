@@ -27,9 +27,9 @@ Approval of this package authorizes only the core work listed under [Authorized 
 - The core authorization ends with a model-free readiness report. Criteria requiring model, real-cluster, or live-web observations remain explicitly `not measured — separate authorization required`; they are not filled with synthetic success values and do not enter an overall empirical `GO` report prematurely.
 - Optional `kind` and W1 strata default to `DEFER` until each receives its separate opt-in authorization.
 
-### Choices not resolved by this gate
+### Remaining choices not resolved by this gate
 
-- The exact compatible Kubernetes release, `kubernetes/website` commit, `kubernetes/kubernetes` commit, included paths, and redistribution decisions are proposed in the [development-pilot source and rights manifest](development-pilot-source-rights-manifest.md). They remain unresolved until that exact manifest is human-approved and merged; no family may be authored before then. Selection cannot use model outcomes.
+- The exact compatible Kubernetes release, `kubernetes/website` commit, `kubernetes/kubernetes` commit, included paths, and redistribution decisions are frozen in the [development-pilot source and rights manifest](development-pilot-source-rights-manifest.md). The human researcher approved it on 2026-09-04 and it was squash-merged in [PR #40](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/40). Any source-boundary change requires a successor manifest and human review. Selection used no model outcomes.
 - The four optional procedural families for static/interactive pairing are not selected here. If proposed later, selection uses frozen coverage metadata and must cover diagnosis and remediation before any interactive outcome.
 - The W1-eligible subset and allowlist revision are not selected here. They require a pre-outcome eligibility manifest and a separate live-access authorization.
 - Detector implementations and numerical thresholds for token-overlap and semantic detectors are not invented here. They are calibrated on seeded synthetic positives and hard negatives, frozen with detector identity, and approved before scanning pilot artifacts.
