@@ -4,6 +4,11 @@
   "description": "Pinned Node.js tools used by routine repository verification.",
   "devDependencies": {
     "@fission-ai/openspec": "1.11.0",
+    "prettier": "3.9.6",
     "renovate": "44.56.1"
+  },
+  "scripts": {
+    "format": "prettier --ignore-path=.prettierignore --write \"**/*.{md,json,yml,yaml}\"",
+    "format:check": "prettier --ignore-path=.prettierignore --check \"**/*.{md,json,yml,yaml}\""
   }
 }

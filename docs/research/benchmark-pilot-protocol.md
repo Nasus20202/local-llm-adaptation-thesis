@@ -26,11 +26,11 @@ The first pilot construction is capped at **24 development-only families**: eigh
 
 Planned coverage, not item content:
 
-| Task class | Development families | Required coverage |
-|---|---:|---|
-| Knowledge | 8 | direct evidence, synthesis, absent-answer/abstention, and distractor-heavy evidence |
-| Procedural | 8 | diagnosis, constrained repair, ordered action, and structured artifact/schema adherence |
-| Mixed | 8 | source-grounded decision plus verifiable artifact or bounded procedure |
+| Task class | Development families | Required coverage                                                                       |
+| ---------- | -------------------: | --------------------------------------------------------------------------------------- |
+| Knowledge  |                    8 | direct evidence, synthesis, absent-answer/abstention, and distractor-heavy evidence     |
+| Procedural |                    8 | diagnosis, constrained repair, ordered action, and structured artifact/schema adherence |
+| Mixed      |                    8 | source-grounded decision plus verifiable artifact or bounded procedure                  |
 
 At most one paired Polish/English semantic variant per task class may be added for equivalence checks. Such variants retain one family ID and do not change the independent-family count. Four procedural families may additionally receive paired static and interactive `kind` variants under the controlled stratum below.
 
@@ -40,18 +40,18 @@ No final-test family is authored, sampled, inspected, or reserved during this pi
 
 The matrix identifies where each mechanism should have an opportunity to help. It is not a promise of improvement, a task-selection target, or permission to tune against final outcomes.
 
-| Condition | Mechanism-aligned target stratum | Preregistered directional hypothesis | Primary comparator | Important non-target or regression check |
-|---|---|---|---|---|
-| B0 | All applicable families | Reference condition; no positive direction assumed | — | Failure mode and headroom profile |
-| P1 | Constraint-dense knowledge and procedural families with explicit answer contracts | Engineered zero-shot instructions improve constraint adherence and retry-free valid output | B0 | Token/latency cost, verbosity, factual regressions |
-| P2 | Recurring structured diagnosis, taxonomy, and output-schema families | Structured or few-shot examples improve schema adherence and classification consistency beyond P1 | P1 and B0 | Anchoring, copied errors, context cost |
-| R1 | Knowledge and mixed families whose required evidence is present in the pinned corpus, including absent-answer cases | Closed-corpus retrieval improves evidence recall, grounded correctness, and calibrated abstention | Matched no-retrieval prompt and B0 | Retrieval failure, distractor sensitivity, unsupported claims |
-| F1 | Recurring learnable behavior: diagnosis structure, manifest repair pattern, controlled terminology/taxonomy, Polish technical phrasing, concision, and schema adherence | LoRA/QLoRA improves recurring behavior and format reliability | B0 under the same inference contract | Rare/version-specific facts, live-state observation, knowledge regressions, training cost |
-| H1 | Multi-step interactive diagnosis/remediation in the controlled `kind` stratum | Orchestration, observation management, stopping, and verification improve end-to-end success under matched tools and budgets | B0-I: B0 under the interactive observation form and neutral executor | Excess actions, unsafe actions, hidden information, latency |
-| S1 | Procedural families whose reusable, non-answer-bearing skill matches the required workflow | Versioned procedural context improves constraint adherence and reduces avoidable action errors beyond H1 | H1 | Skill leakage, irrelevant-skill interference, context cost |
-| C1 | Mixed families requiring both source evidence and structured response control | P1 plus R1 improves the complementary prompt-plus-retrieval failure profile | Stronger of P1 and R1 | Redundant context and cost without incremental gain |
-| C2 | A mixed or interactive stratum frozen from model-independent family metadata before any pilot outcome: both constituent capabilities are required by the answer contract and distinct failure opportunities are declared in advance | The complete stack may improve over its strongest constituent when components address distinct preregistered failure opportunities; direction remains empirical | Predeclared strongest constituent under the frozen comparator rule | Complexity, instability, cost, untraceable interactions; outcome-selected applicability is exploratory only |
-| W1 | Official-source-searchable knowledge/mixed sensitivity subset | Live official-source search changes performance or evidence behavior relative to B0/R1; no positive direction is required | B0 and R1 | Source drift, service variability, provenance failure, latency |
+| Condition | Mechanism-aligned target stratum                                                                                                                                                                                                    | Preregistered directional hypothesis                                                                                                                            | Primary comparator                                                   | Important non-target or regression check                                                                    |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| B0        | All applicable families                                                                                                                                                                                                             | Reference condition; no positive direction assumed                                                                                                              | —                                                                    | Failure mode and headroom profile                                                                           |
+| P1        | Constraint-dense knowledge and procedural families with explicit answer contracts                                                                                                                                                   | Engineered zero-shot instructions improve constraint adherence and retry-free valid output                                                                      | B0                                                                   | Token/latency cost, verbosity, factual regressions                                                          |
+| P2        | Recurring structured diagnosis, taxonomy, and output-schema families                                                                                                                                                                | Structured or few-shot examples improve schema adherence and classification consistency beyond P1                                                               | P1 and B0                                                            | Anchoring, copied errors, context cost                                                                      |
+| R1        | Knowledge and mixed families whose required evidence is present in the pinned corpus, including absent-answer cases                                                                                                                 | Closed-corpus retrieval improves evidence recall, grounded correctness, and calibrated abstention                                                               | Matched no-retrieval prompt and B0                                   | Retrieval failure, distractor sensitivity, unsupported claims                                               |
+| F1        | Recurring learnable behavior: diagnosis structure, manifest repair pattern, controlled terminology/taxonomy, Polish technical phrasing, concision, and schema adherence                                                             | LoRA/QLoRA improves recurring behavior and format reliability                                                                                                   | B0 under the same inference contract                                 | Rare/version-specific facts, live-state observation, knowledge regressions, training cost                   |
+| H1        | Multi-step interactive diagnosis/remediation in the controlled `kind` stratum                                                                                                                                                       | Orchestration, observation management, stopping, and verification improve end-to-end success under matched tools and budgets                                    | B0-I: B0 under the interactive observation form and neutral executor | Excess actions, unsafe actions, hidden information, latency                                                 |
+| S1        | Procedural families whose reusable, non-answer-bearing skill matches the required workflow                                                                                                                                          | Versioned procedural context improves constraint adherence and reduces avoidable action errors beyond H1                                                        | H1                                                                   | Skill leakage, irrelevant-skill interference, context cost                                                  |
+| C1        | Mixed families requiring both source evidence and structured response control                                                                                                                                                       | P1 plus R1 improves the complementary prompt-plus-retrieval failure profile                                                                                     | Stronger of P1 and R1                                                | Redundant context and cost without incremental gain                                                         |
+| C2        | A mixed or interactive stratum frozen from model-independent family metadata before any pilot outcome: both constituent capabilities are required by the answer contract and distinct failure opportunities are declared in advance | The complete stack may improve over its strongest constituent when components address distinct preregistered failure opportunities; direction remains empirical | Predeclared strongest constituent under the frozen comparator rule   | Complexity, instability, cost, untraceable interactions; outcome-selected applicability is exploratory only |
+| W1        | Official-source-searchable knowledge/mixed sensitivity subset                                                                                                                                                                       | Live official-source search changes performance or evidence behavior relative to B0/R1; no positive direction is required                                       | B0 and R1                                                            | Source drift, service variability, provenance failure, latency                                              |
 
 Any combined harness-plus-web or harness-plus-RAG condition receives its own identifier, factor declaration, comparator, and approval. It is never reported as H1, R1, or W1 alone. A C2 stratum is admitted only from a pre-outcome metadata manifest and a design-time comparator rule; exhaustive combinations remain out of scope.
 
@@ -61,13 +61,15 @@ C2 eligibility and its comparator are frozen before any pilot output or error an
 
 Each family freezes one answer contract across conditions. The pilot evaluates candidate outcomes but does not change a contract because a particular method failed.
 
-| Task class | Candidate primary outcome for pilot | Required deterministic layer | Human layer when required |
-|---|---|---|---|
-| Knowledge | atomic-claim F1 on required and unsupported claims, normalized to [0,1] | format, citation/evidence identifier, answerability, and exact facts where applicable | claim correctness/completeness and abstention quality |
-| Procedural | binary end-to-end task success | parse/schema, prohibited action, required constraint, and static or cluster final-state checks | diagnosis quality only when success checks do not capture it |
-| Mixed | normalized task-specific score with procedural hard gates | artifact/state success and evidence/citation checks | atomic evidence-grounded decision rubric |
+| Task class | Candidate primary outcome for pilot                                     | Required deterministic layer                                                                        | Human layer when required                                      |
+| ---------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| Knowledge  | atomic-claim F1 on required and unsupported claims, normalized to [0,1] | format, answerability, and construct-critical exact facts where applicable                          | semantic claim correctness/completeness and abstention quality |
+| Procedural | binary end-to-end task success                                          | parse/schema, prohibited action, required constraint, and static or cluster final-state checks      | diagnosis quality only when success checks do not capture it   |
+| Mixed      | normalized task-specific score with procedural hard gates               | artifact/state success, required constraints, and construct-critical exact literals when applicable | atomic technical-decision rubric                               |
 
-Lexical similarity is never a primary outcome. A malformed or prohibited output can fail a deterministic gate; a well-formed but wrong answer is a valid observation. Metrics that are not meaningful for a family are marked inapplicable rather than zero.
+Lexical similarity is never a primary outcome and does not contribute score for open prose. The protected expected-answer material decomposes open answers into required, acceptable, unsupported, and contradictory semantic claims rather than one canonical wording. Semantically equivalent paraphrases score equivalently; verbatim documentation wording receives no bonus. Exact-string checks are limited to construct-critical technical literals and explicit format constraints. Ambiguous semantic equivalence routes to the calibrated human rubric instead of string similarity.
+
+Citation generation, source-path reproduction, evidence IDs, and URLs are **not required or scored model outputs in this pilot**. For R1 and any later W1 subset, retrieval/search provenance and groundedness are evaluated from the captured context on the evaluator/harness side. A malformed or prohibited output can fail a deterministic gate; a well-formed but wrong answer is a valid observation. Metrics that are not meaningful for a family are marked inapplicable rather than zero.
 
 ## Evaluator fixture and calibration design
 
@@ -169,18 +171,18 @@ Any direct train/development/final overlap or golden leakage is red. The affecte
 
 Pilot decisions use `GO`, `AMEND`, or `STOP/DEFER`. Each criterion is judged separately and the worst safety, leakage, or evaluator-validity outcome governs progression.
 
-| Criterion | GO | AMEND | STOP/DEFER |
-|---|---|---|---|
-| Deterministic evaluation | 100% fixture agreement and idempotence | Correctable non-critical specification ambiguity before outputs | Any unexplained or post-output evaluator change |
-| Human calibration | Green thresholds above | One amber recalibration | Red or second non-green qualification |
-| Solvability/evidence | At least 90% of families independently judged solvable with complete evidence/validator mapping | 80–89% or localized ambiguity | Below 80% or construct mismatch |
-| Headroom | B0 family success lies between 20% and 80% overall and each target stratum contains both success and failure | One stratum outside range but evaluator positive/negative controls discriminate | Ceiling/floor cannot be repaired without changing the construct |
-| Invalid output rate | At most 5% infrastructure/evaluator invalidity | Above 5% and at most 10% with identified fix | Above 10% or condition-dependent invalidation |
-| Condition fidelity/fairness | 100% required provenance and matched declared controls | Non-outcome-informed implementation correction | Hidden information, unequal permissions, or uncaptured mutation |
-| Contamination | No direct leakage; semantic matches adjudicated | Unresolved semantic matches | Direct item/golden exposure |
-| `kind` | All feasibility checks green | One bounded redesign | Isolation/privilege failure or repeated non-green result |
-| W1 | All provenance/access checks and at least 90% completion | Availability/reproducibility limitation | Prohibited access or missing provenance |
-| Researcher feasibility | Projected final construction, rating, and compute fit the pre-freeze time/compute cap with 20% contingency | Scope reduction that preserves all primary strata | Required work exceeds cap or needs unavailable raters/hardware |
+| Criterion                   | GO                                                                                                           | AMEND                                                                           | STOP/DEFER                                                      |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| Deterministic evaluation    | 100% fixture agreement and idempotence                                                                       | Correctable non-critical specification ambiguity before outputs                 | Any unexplained or post-output evaluator change                 |
+| Human calibration           | Green thresholds above                                                                                       | One amber recalibration                                                         | Red or second non-green qualification                           |
+| Solvability/evidence        | At least 90% of families independently judged solvable with complete evidence/validator mapping              | 80–89% or localized ambiguity                                                   | Below 80% or construct mismatch                                 |
+| Headroom                    | B0 family success lies between 20% and 80% overall and each target stratum contains both success and failure | One stratum outside range but evaluator positive/negative controls discriminate | Ceiling/floor cannot be repaired without changing the construct |
+| Invalid output rate         | At most 5% infrastructure/evaluator invalidity                                                               | Above 5% and at most 10% with identified fix                                    | Above 10% or condition-dependent invalidation                   |
+| Condition fidelity/fairness | 100% required provenance and matched declared controls                                                       | Non-outcome-informed implementation correction                                  | Hidden information, unequal permissions, or uncaptured mutation |
+| Contamination               | No direct leakage; semantic matches adjudicated                                                              | Unresolved semantic matches                                                     | Direct item/golden exposure                                     |
+| `kind`                      | All feasibility checks green                                                                                 | One bounded redesign                                                            | Isolation/privilege failure or repeated non-green result        |
+| W1                          | All provenance/access checks and at least 90% completion                                                     | Availability/reproducibility limitation                                         | Prohibited access or missing provenance                         |
+| Researcher feasibility      | Projected final construction, rating, and compute fit the pre-freeze time/compute cap with 20% contingency   | Scope reduction that preserves all primary strata                               | Required work exceeds cap or needs unavailable raters/hardware  |
 
 The pilot cannot replace or select final tasks based on which method wins. Changes must trace to ambiguity, unsolvability, missing evidence, evaluator failure, ceiling/floor, implementation infidelity, contamination, or infeasibility. Every excluded family and reason remains in the decision log.
 
@@ -215,13 +217,13 @@ These values represent changes worth discussing for a small local system. The pi
 
 ### Interpretation categories
 
-| Result | Rule |
-|---|---|
-| Clear practical benefit | Estimate reaches the positive SESOI and the 95% interval excludes zero |
-| Promising but uncertain | Estimate reaches the SESOI but the interval includes zero |
-| Detectable but below practical threshold | Interval excludes zero but estimate does not reach the SESOI |
-| Inconclusive | Interval includes both zero and the positive SESOI |
-| Clear regression | Upper 95% interval bound is below zero |
+| Result                                   | Rule                                                                   |
+| ---------------------------------------- | ---------------------------------------------------------------------- |
+| Clear practical benefit                  | Estimate reaches the positive SESOI and the 95% interval excludes zero |
+| Promising but uncertain                  | Estimate reaches the SESOI but the interval includes zero              |
+| Detectable but below practical threshold | Interval excludes zero but estimate does not reach the SESOI           |
+| Inconclusive                             | Interval includes both zero and the positive SESOI                     |
+| Clear regression                         | Upper 95% interval bound is below zero                                 |
 
 Zero, negative, or inconclusive effects remain valid results. No task is replaced, no metric is reweighted, and no condition is repeatedly tuned because it failed to improve.
 

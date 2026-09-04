@@ -1,0 +1,219 @@
+{
+  "manifest_id": "development-pilot-scenario-inputs-v1",
+  "payload_id": "development-pilot-knowledge-scenario-inputs-v1",
+  "root_id": "development-model-facing-v1",
+  "scenario_count": 8,
+  "scenarios": [
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "direct-evidence",
+      "family_id": "dev-k-pl-01",
+      "input_sha256": "d8824e1bd0dde581e0cc43d15c84d2251dc4c91298001ddb6ea1132c2abe5a42",
+      "input_text": "W Kubernetes v1.36.4 kontener pobiera `LOG_LEVEL` z ConfigMap `app-settings` przez `env[].valueFrom.configMapKeyRef`. ConfigMap zmieniono z `info` na `debug`, ale proces w już działającym Podzie nadal widzi `info`.\n\nOdpowiedz zwięźle na dwa pytania:\n1. Czy taka zmienna środowiskowa jest automatycznie aktualizowana w już uruchomionym kontenerze?\n2. Co musi się stać z Podem, aby proces zobaczył nową wartość?",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Two numbered factual claims. Do not add unrelated remediation.",
+      "scenario_input_id": "dev-k-pl-01-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "synthesis",
+      "family_id": "dev-k-pl-02",
+      "input_sha256": "72c2b8cf9a2fe836643d6f510547d37cc01c220f3d7e88ae7c37c09e7579c167",
+      "input_text": "Aplikacja w Kubernetes v1.36.4 zwykle potrzebuje około 90 sekund na pełne uruchomienie. Podczas tego czasu endpoint aplikacji nie powinien powodować restartów kontenera, a Pod nie powinien jeszcze otrzymywać ruchu z Service. Po zakończeniu startu aplikacja może czasem chwilowo nie być gotowa do obsługi ruchu, ale nadal działa poprawnie.\n\nWyjaśnij, jak role `startupProbe`, `livenessProbe` i `readinessProbe` powinny się uzupełniać w tym scenariuszu. Odpowiedź ma opisać:\n- co ma chronić długi start aplikacji,\n- co decyduje o kierowaniu ruchu,\n- co powinno wykrywać stan wymagający restartu.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Three concise role statements; no YAML.",
+      "scenario_input_id": "dev-k-pl-02-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "absent-answer-abstention",
+      "family_id": "dev-k-pl-03",
+      "input_sha256": "ffac9af9e2e8f5eb3c7ad29c2fb9ee6ea286f1f1393498f68ee7d029f59628ed",
+      "input_text": "Nowy Pod StatefulSet `orders-2` ma stan `Running`. Zespół chce wpisać do procedury operacyjnej dokładną, gwarantowaną przez Kubernetes v1.36.4 maksymalną liczbę sekund od utworzenia Poda, po której jego nazwa DNS musi już zawsze być rozwiązywalna.\n\nOdpowiedz, czy Kubernetes v1.36.4 ustanawia taki uniwersalny maksymalny czas. Jeżeli nie, powiedz to wprost zamiast zgadywać liczbę i opisz, jakie zachowanie można stwierdzić bez wymyślania gwarancji czasowej.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "One answerability decision and one short explanation. Do not invent a numeric bound.",
+      "scenario_input_id": "dev-k-pl-03-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "distractor-heavy-evidence",
+      "family_id": "dev-k-pl-04",
+      "input_sha256": "8a16e7d5e082da798b0c14570ae9dbe3dc462a320b465d70265c7813126272d8",
+      "input_text": "W klastrze Kubernetes v1.36.4 zdefiniowano dwie PriorityClass:\n\n- `batch-high`: `value: 900`, `preemptionPolicy: Never`\n- `api-low`: `value: 100`\n\nPod `report` używa `batch-high`, a Pod `api` używa `api-low`. Oba Pody mają ten sam `LOG_LEVEL`, podobne requests CPU, etykietę `team=payments` i są osiągalne przez różne Service. W klastrze chwilowo brakuje zasobów, aby zaplanować `report`.\n\nCzy `report` może przez samą swoją PriorityClass wywłaszczyć działający Pod `api`, aby zwolnić miejsce? Wyjaśnij, które podane informacje są istotne dla odpowiedzi, a które są dystraktorami.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A direct yes/no conclusion, a brief reason, and a list of ignored distractors.",
+      "scenario_input_id": "dev-k-pl-04-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "direct-evidence",
+      "family_id": "dev-k-en-01",
+      "input_sha256": "7afd1deae655b31eda368ba6aa6bc8b9f6f2f3bfcbeffcf31ef51453654e4aee",
+      "input_text": "A Kubernetes v1.36.4 CronJob `nightly-report` uses `concurrencyPolicy: Forbid`. Its previous Job is still running when the next scheduled time arrives. Another unrelated CronJob also has a running Job.\n\nState what happens to the new `nightly-report` occurrence and whether `Forbid` prevents Jobs from the other CronJob from running concurrently.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Two concise factual claims.",
+      "scenario_input_id": "dev-k-en-01-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "synthesis",
+      "family_id": "dev-k-en-02",
+      "input_sha256": "5a2e1f4673f3a844ecf7528798141c30d8a77a160e7c8c54c7c95b592bc37712",
+      "input_text": "A team is defining a Kubernetes v1.36.4 CronJob whose generated Jobs should retry work after a container failure. A draft Pod template uses `restartPolicy: Always`.\n\nSynthesize the relationship between CronJob and Job for this case:\n- which object the CronJob creates for each occurrence;\n- which `restartPolicy` values are permitted in the Job's Pod template.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Two atomic claims; no replacement manifest.",
+      "scenario_input_id": "dev-k-en-02-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "absent-answer-abstention",
+      "family_id": "dev-k-en-03",
+      "input_sha256": "b12c72e565b22f6cd7aa2a1a5afde747dd815cbd618d80a18b1c26d0d9972232",
+      "input_text": "A Service selector in Kubernetes v1.36.4 has just been changed so that a different set of Pods matches it. An operations runbook needs a single exact maximum number of seconds, guaranteed by Kubernetes v1.36.4, within which the corresponding EndpointSlices must reflect the new matching Pod set.\n\nDetermine whether Kubernetes v1.36.4 defines such a universal numeric guarantee. If it does not, explicitly abstain from inventing one and summarize the behavior that can be stated without inventing an SLA.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "One answerability decision and one short explanation. Do not invent a numeric SLA.",
+      "scenario_input_id": "dev-k-en-03-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "distractor-heavy-evidence",
+      "family_id": "dev-k-en-04",
+      "input_sha256": "e85a2acbabff4ecaf766ca134c838fdd94453962e6c757c1f88161ea6dbacf72",
+      "input_text": "A Pod in Kubernetes v1.36.4 mounts key `settings.yaml` from ConfigMap `app-settings` using a volume mount with `subPath`. The ConfigMap is later updated. The Pod also has a Service on port 8080, label `tier=backend`, CPU request `250m`, and a readiness probe that is currently passing.\n\nWill the file mounted through `subPath` receive the ConfigMap update automatically? Identify which details determine the answer and which supplied details are distractors.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A direct conclusion and a short relevance explanation.",
+      "scenario_input_id": "dev-k-en-04-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    }
+  ],
+  "schema_version": 1,
+  "split": "development",
+  "task_class": "knowledge"
+}

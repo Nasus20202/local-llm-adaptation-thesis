@@ -1,0 +1,249 @@
+{
+  "manifest_id": "development-pilot-scenario-inputs-v1",
+  "payload_id": "development-pilot-mixed-scenario-inputs-v1",
+  "root_id": "development-model-facing-v1",
+  "scenario_count": 8,
+  "scenarios": [
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-configuration-decision",
+      "family_id": "dev-m-pl-01",
+      "input_sha256": "a83256b1389f27edb35a01dd420e8b3387b98695163a3ff047b703dca5a53529",
+      "input_text": "Aplikacja w Kubernetes v1.36.4:\n- potrzebuje zwykle 75–100 sekund na start;\n- podczas startu endpoint `/healthz` może zwracać błąd, choć jest to stan oczekiwany;\n- po starcie chwilowe przeciążenie powinno wyłączyć Pod z ruchu, ale nie restartować kontenera;\n- trwałe zakleszczenie procesu powinno prowadzić do restartu.\n\nPodejmij decyzję, jak rozdzielić role między `startupProbe`, `readinessProbe` i `livenessProbe`, a następnie podaj przykładowy fragment `containers[].startupProbe/readinessProbe/livenessProbe` używający HTTP GET do `/healthz` na porcie `8080`. Parametry czasowe dobierz jawnie i krótko uzasadnij; nie zakładaj obserwacji z żywego klastra.\n\nOdpowiedź ma zawierać:\n1. decyzję i krótkie techniczne uzasadnienie,\n2. fragment YAML.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Technically justified decision and one Pod-container YAML fragment.",
+      "scenario_input_id": "dev-m-pl-01-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-bounded-procedure",
+      "family_id": "dev-m-pl-02",
+      "input_sha256": "1fb96420ce4013e5efba52435814a6741d5e13baf92bfe3fe9e7c84311d69238",
+      "input_text": "W Kubernetes v1.36.4 aplikacja działa bezpośrednio pod adresami IP Podów, ale Service `payments` nie zwraca odpowiedzi.\n\nZapisane obserwacje:\n- Service istnieje i ma selector `app=payments`;\n- trzy zdrowe Pody mają etykietę `app=pay`;\n- bezpośredni test do portu aplikacji na IP Poda działa;\n- nie wolno teraz zmieniać żadnego obiektu.\n\nWskaż najbardziej uzasadnioną hipotezę konfiguracji i podaj maksymalnie 4 uporządkowane, tylko-do-odczytu kroki `kubectl`, które potwierdzą albo obalą tę hipotezę. Nie proponuj mutacji.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "One diagnosis followed by at most four read-only verification steps.",
+      "scenario_input_id": "dev-m-pl-02-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-artifact-validation",
+      "family_id": "dev-m-pl-03",
+      "input_sha256": "79236d780658dac4055c42fbc71f09e01bd41f703327d6464820940fc4178663",
+      "input_text": "Oceń poniższy fragment CronJob dla Kubernetes v1.36.4:\n\n```yaml\napiVersion: batch/v1\nkind: CronJob\nmetadata:\n  name: billing\nspec:\n  schedule: \"TZ=Europe/Warsaw 0 2 * * *\"\n  jobTemplate:\n    spec:\n      template:\n        spec:\n          restartPolicy: Always\n          containers:\n          - name: billing\n            image: registry.example/billing:5.0\n            command: [\"/app/bill\"]\n```\n\nWymaganie biznesowe: uruchomienie codziennie o 02:00 w strefie `Europe/Warsaw`.\n\nPodaj:\n1. werdykt, czy artefakt spełnia wymaganie i reguły v1.36.4;\n2. listę wykrytych problemów z krótkim technicznym uzasadnieniem;\n3. minimalnie poprawiony manifest YAML.\n\nNie dodawaj innych funkcji CronJob.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Verdict, technically justified issue list, then one corrected YAML document.",
+      "scenario_input_id": "dev-m-pl-03-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-repair-plan",
+      "family_id": "dev-m-pl-04",
+      "input_sha256": "1b3a8ee20eddb5e604018e9a8a77ca8ed5734b6ab3bec90aabe8620466721165",
+      "input_text": "Deployment `gateway` w Kubernetes v1.36.4 pobiera `FEATURE_MODE` z ConfigMap przez zmienną środowiskową. ConfigMap zmieniono, ale działające Pody nadal mają starą wartość. Obraz, liczba replik i pozostała konfiguracja mają pozostać bez zmian.\n\nPrzygotuj plan naprawy, który:\n- wyjaśnia, dlaczego sama zmiana ConfigMap nie wystarczy dla zmiennej środowiskowej;\n- powoduje kontrolowane odtworzenie Podów przez zmianę wyłącznie metadanych Pod template Deployment;\n- podaje minimalny fragment YAML pokazujący taką zmianę;\n- zawiera krok weryfikacji rolloutu;\n- nie wykonuje żadnej operacji.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Technical explanation, bounded repair plan, and one minimal Deployment Pod-template YAML fragment.",
+      "scenario_input_id": "dev-m-pl-04-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-configuration-decision",
+      "family_id": "dev-m-en-01",
+      "input_sha256": "fc5aa48b3cc9c7f7391f86527bf40655c984ba0ebc21ee8a3cb491092c1167da",
+      "input_text": "A Kubernetes v1.36.4 Deployment has 4 replicas labeled `app=checkout`. Eligible nodes are spread across three zones using node label `topology.kubernetes.io/zone`. The requirement is to keep matching Pods as evenly spread across zones as possible and refuse a new placement when it would make the skew greater than 1.\n\nDecide whether a Pod topology spread constraint is appropriate, then provide the minimal `spec.template.spec.topologySpreadConstraints` YAML fragment that expresses the requirement.\n\nYour response must:\n1. briefly justify the decision technically;\n2. preserve label matching on `app=checkout`;\n3. use `maxSkew: 1`;\n4. make the constraint hard rather than a soft preference;",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Technically justified decision and one minimal YAML fragment.",
+      "scenario_input_id": "dev-m-en-01-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-bounded-procedure",
+      "family_id": "dev-m-en-02",
+      "input_sha256": "223220d0b05a101e9cd89abb4995bd2ce54604fc662689e9568f65f99ee945e9",
+      "input_text": "A Kubernetes v1.36.4 Deployment rollout has stopped making progress after a Pod-template change. No mutation is authorized yet.\n\nPrepare a bounded read-only investigation procedure of at most four `kubectl` commands that checks:\n- rollout status;\n- Deployment state and conditions;\n- the ReplicaSets created for the rollout;\n- the Pods and their current status.\n\nExplain briefly what each observation contributes before any repair decision is made. Do not execute commands and do not propose a mutation.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "At most four ordered read-only commands with a one-line purpose each.",
+      "scenario_input_id": "dev-m-en-02-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-artifact-validation",
+      "family_id": "dev-m-en-03",
+      "input_sha256": "7a4dfc3d96b19dbc28a3c9bb8c6eda721b58610d4b36d932dbdce48d6ceb4100",
+      "input_text": "Validate this Kubernetes v1.36.4 container resource fragment:\n\n```yaml\nresources:\n  requests:\n    cpu: \"0.0005\"\n    memory: \"128Mi\"\n  limits:\n    cpu: \"500m\"\n    memory: \"256Mi\"\n```\n\nThe workload owner needs the smallest change that makes the CPU request use a valid precision while preserving the intended very small request as closely as Kubernetes permits.\n\nReturn:\n1. a validity verdict and technical reason;\n2. the minimal corrected `resources` YAML fragment;\n\nDo not change memory values or CPU limit.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Verdict and one corrected resources YAML fragment.",
+      "scenario_input_id": "dev-m-en-03-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    },
+    {
+      "answer_contract_class": "mixed",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "mixed-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "evidence-backed-repair-plan",
+      "family_id": "dev-m-en-04",
+      "input_sha256": "94ebb59c031cbdb5469e35af036f8be3f7a5c4860014f889a9602ef2bba00fa4",
+      "input_text": "A Pod template in Kubernetes v1.36.4 is pending because the only currently suitable node has this taint:\n\n`dedicated=payments:NoSchedule`\n\nThe workload is allowed to run on that node, but the repair must not force the Pod onto that node; it should only make the taint no longer exclude it. Other scheduler constraints must remain free to choose another node.\n\nPrepare a repair plan and the minimal Pod-template YAML fragment required for that goal. Explain why the change permits scheduling onto the tainted node without guaranteeing placement there.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Repair explanation and one minimal Pod-template YAML fragment.",
+      "scenario_input_id": "dev-m-en-04-input-v1",
+      "semantic_pair_id": null,
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "mixed"
+    }
+  ],
+  "schema_version": 1,
+  "split": "development",
+  "task_class": "mixed"
+}

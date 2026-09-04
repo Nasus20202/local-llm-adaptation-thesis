@@ -7,16 +7,16 @@
 
 ## Scientific traceability
 
-| Issue #4 requirement | Authoritative research decision | Normative capability |
-|---|---|---|
-| Development pilot and task coverage | `docs/research/benchmark-pilot-protocol.md` — Units, partitions, and pilot size | `benchmark-pilot-dataset` |
-| Method-to-task hypotheses and visible unbiased effects | Protocol — Preregistered matrix and Statistical decision rules | Dataset applicability/comparator and progression requirements |
-| Deterministic fixtures, human rubric, blinding, agreement, adjudication | Protocol — Evaluator fixture and calibration design | `evaluation-protocol` |
-| Repetition, paraphrase, invalidity, and sample-size rules | Protocol — Repetition and statistics; `docs/research/statistics.md` | Evaluation invalidity and dataset progression requirements |
-| Controlled paired `kind` stratum | Protocol — Controlled interactive stratum | `controlled-cluster-tasks` |
-| Official-source web-search sensitivity | Protocol — W1 condition | `web-search-sensitivity` |
-| Contamination and custody | Protocol — Contamination controls; accepted data policy | Dataset audits plus protected boundaries in all capabilities |
-| One-researcher feasibility and progression | Protocol — Pilot progression rules | Derived progression and opt-in external qualification |
+| Issue #4 requirement                                                    | Authoritative research decision                                                 | Normative capability                                          |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Development pilot and task coverage                                     | `docs/research/benchmark-pilot-protocol.md` — Units, partitions, and pilot size | `benchmark-pilot-dataset`                                     |
+| Method-to-task hypotheses and visible unbiased effects                  | Protocol — Preregistered matrix and Statistical decision rules                  | Dataset applicability/comparator and progression requirements |
+| Deterministic fixtures, human rubric, blinding, agreement, adjudication | Protocol — Evaluator fixture and calibration design                             | `evaluation-protocol`                                         |
+| Repetition, paraphrase, invalidity, and sample-size rules               | Protocol — Repetition and statistics; `docs/research/statistics.md`             | Evaluation invalidity and dataset progression requirements    |
+| Controlled paired `kind` stratum                                        | Protocol — Controlled interactive stratum                                       | `controlled-cluster-tasks`                                    |
+| Official-source web-search sensitivity                                  | Protocol — W1 condition                                                         | `web-search-sensitivity`                                      |
+| Contamination and custody                                               | Protocol — Contamination controls; accepted data policy                         | Dataset audits plus protected boundaries in all capabilities  |
+| One-researcher feasibility and progression                              | Protocol — Pilot progression rules                                              | Derived progression and opt-in external qualification         |
 
 ## Boundary review
 

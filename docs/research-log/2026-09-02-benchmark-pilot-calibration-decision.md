@@ -33,7 +33,6 @@ Agreement thresholds are progression criteria, not universal definitions of qual
 
 The accompanying OpenSpec package resolves the observable validation, custody, evaluator, cluster, and web-boundary behavior needed for implementation while leaving internal class/library choices to Codex. Stable CLI integration with the existing runner remains a later change. No item, fixture payload, golden, model output, or software implementation was produced in this decision step.
 
-
 ## Protocol correction before Human Gate A
 
 The initial draft allowed C2 applicability to be identified from pilot error analysis while comparing C2 with its strongest constituent. That is outcome-informed selection. The protocol now freezes C2 eligibility and comparator identity from model-independent family metadata and a design-time rule before any pilot output. Any error-analysis-selected pilot C2 result is exploratory, and confirmatory C2 requires a fresh, family-disjoint development-family set with a new frozen manifest. No pilot outcome exists, so this correction changes the preregistration safeguard, not an empirical result.

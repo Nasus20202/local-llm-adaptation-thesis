@@ -2,18 +2,18 @@
 
 ## Hierarchy
 
-| Artifact | Question answered | Authority |
-|---|---|---|
-| `docs/project/charter.md` and governance | Why the project exists and which rules are immutable | Highest project-level authority |
-| `docs/project/status.md` | Which research/development stage is current and what happens next | Current-state authority |
-| `docs/research/` | Why the study is designed this way | Scientific methodology authority |
-| `openspec/specs/` and approved active changes | What the research software must do | Normative behavior authority |
-| `docs/adr/` | Why a consequential decision was selected | Decision rationale and status |
-| GitHub Issues and Milestones | What work is queued and its status | Work-management authority only |
-| Source code and tests | How approved behavior is implemented and verified | Implementation evidence |
-| `results/raw/` | What was observed | Immutable observation authority |
-| `results/processed/` and analysis code | What was derived from observations | Reproducible analysis authority |
-| `thesis/` | How validated work is explained academically in Polish | Narrative, not numerical authority |
+| Artifact                                      | Question answered                                                 | Authority                          |
+| --------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------- |
+| `docs/project/charter.md` and governance      | Why the project exists and which rules are immutable              | Highest project-level authority    |
+| `docs/project/status.md`                      | Which research/development stage is current and what happens next | Current-state authority            |
+| `docs/research/`                              | Why the study is designed this way                                | Scientific methodology authority   |
+| `openspec/specs/` and approved active changes | What the research software must do                                | Normative behavior authority       |
+| `docs/adr/`                                   | Why a consequential decision was selected                         | Decision rationale and status      |
+| GitHub Issues and Milestones                  | What work is queued and its status                                | Work-management authority only     |
+| Source code and tests                         | How approved behavior is implemented and verified                 | Implementation evidence            |
+| `results/raw/`                                | What was observed                                                 | Immutable observation authority    |
+| `results/processed/` and analysis code        | What was derived from observations                                | Reproducible analysis authority    |
+| `thesis/`                                     | How validated work is explained academically in Polish            | Narrative, not numerical authority |
 
 ## Conflict handling
 

@@ -19,6 +19,14 @@ This repository supports a theoretical-experimental MSc thesis comparing prompt 
 - Write thesis prose, chapter titles, and thesis captions in Polish.
 - Keep canonical technology names and bibliographic titles unchanged.
 
+## Human-facing documentation
+
+- Treat `docs/` as documentation for the researcher and future thesis reader; treat OpenSpec as the normative implementation contract.
+- Keep human-facing pages concise, navigable, and explanatory. Prefer a short overview plus links over repeating specifications, workflow history, or generated process prose.
+- When an algorithm, metric, tool, or technology materially enters the research, explain **what it is, how it works, why it is used here, and a primary or official source**. Put reusable definitions in [`docs/glossary.md`](docs/glossary.md).
+- Preserve detailed protocols and logs when they are needed for auditability, but label them as reference/audit material rather than forcing them into the main reading path.
+- Human-only reviewer notes may summarize expected answers for review convenience, but they are not goldens, evaluator references, training material, retrieval context, or model input.
+
 ## Read before editing
 
 1. Read [`docs/project/status.md`](docs/project/status.md) and the linked GitHub Issue.

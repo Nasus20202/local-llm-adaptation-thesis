@@ -5,12 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'thesis/**'
-      - '.github/workflows/thesis-build.yml'
+      - "thesis/**"
+      - ".github/workflows/thesis-build.yml"
   pull_request:
     paths:
-      - 'thesis/**'
-      - '.github/workflows/thesis-build.yml'
+      - "thesis/**"
+      - ".github/workflows/thesis-build.yml"
 
 permissions:
   contents: read

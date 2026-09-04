@@ -1,0 +1,37 @@
+# Dependency, environment, and tool-cache directories
+node_modules/
+.venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+htmlcov/
+
+# Generated/vendor-like agent skills
+.agents/skills/
+
+# Generated/local thesis outputs
+thesis/.local/
+thesis/build/
+
+# Local research caches
+.research-cache/
+.firecrawl/
+
+# Raw/derived experiment payloads
+data/raw/
+data/processed/
+data/corpus/
+data/golden/
+results/raw/
+results/processed/
+results/tables/
+results/figures/
+results/statistics/
+
+# Frozen byte-identical research artifacts
+docs/research/development-pilot-preauthoring-freeze-v1.json
+
+# Append-only ledgers intentionally remain one JSON object per line
+**/*.jsonl

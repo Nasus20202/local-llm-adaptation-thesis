@@ -54,16 +54,61 @@
         }
       ],
       "condition_applicability": [
-        {"schema_version": 1, "condition": "B0", "applicable": true},
-        {"schema_version": 1, "condition": "P1", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "P2", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "R1", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "F1", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "H1", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "S1", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "C1", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "C2", "applicable": false, "reason": "not in this synthetic family stratum"},
-        {"schema_version": 1, "condition": "W1", "applicable": false, "reason": "not in this synthetic family stratum"}
+        { "schema_version": 1, "condition": "B0", "applicable": true },
+        {
+          "schema_version": 1,
+          "condition": "P1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "P2",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "R1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "F1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "H1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "S1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "C1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "C2",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        },
+        {
+          "schema_version": 1,
+          "condition": "W1",
+          "applicable": false,
+          "reason": "not in this synthetic family stratum"
+        }
       ],
       "evaluator_references": [
         {

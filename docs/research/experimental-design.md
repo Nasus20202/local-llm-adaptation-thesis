@@ -49,12 +49,12 @@ The scenario/item family is the principal independent unit. Repeated generations
 
 ## Preregistered applicability
 
-| Task class/stratum | Required core contrasts | Optional justified contrasts |
-|---|---|---|
-| Knowledge | B0, P1, R1, F1 | P2, C1, W1 sensitivity |
-| Static procedural | B0, P1, S1 with H1 constituent where applicable | P2, F1 when training target matches |
-| Interactive procedural | B0-I (B0 with the neutral interface), H1, S1 | F1 only when target matches; explicit combined condition |
-| Mixed | B0 and strongest simple conditions | C1; one C2 only with metadata-frozen eligibility and comparator; error-analysis-selected C2 is exploratory and requires fresh confirmatory families; W1 sensitivity |
+| Task class/stratum     | Required core contrasts                         | Optional justified contrasts                                                                                                                                        |
+| ---------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Knowledge              | B0, P1, R1, F1                                  | P2, C1, W1 sensitivity                                                                                                                                              |
+| Static procedural      | B0, P1, S1 with H1 constituent where applicable | P2, F1 when training target matches                                                                                                                                 |
+| Interactive procedural | B0-I (B0 with the neutral interface), H1, S1    | F1 only when target matches; explicit combined condition                                                                                                            |
+| Mixed                  | B0 and strongest simple conditions              | C1; one C2 only with metadata-frozen eligibility and comparator; error-analysis-selected C2 is exploratory and requires fresh confirmatory families; W1 sensitivity |
 
 The detailed hypothesis matrix defines target strata and comparators. C2 applicability and its comparator are frozen from model-independent metadata and a design-time rule before any pilot outcome; pilot error analysis cannot authorize a confirmatory C2 stratum. An error-analysis-selected C2 pilot is exploratory and requires fresh, family-disjoint development families for confirmation. Inapplicable methods are not scored as failures. Pairwise combinations are not generated automatically.
 
