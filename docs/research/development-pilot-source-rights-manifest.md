@@ -3,15 +3,17 @@
 ## Gate status
 
 - **Manifest ID:** `development-pilot-source-rights-v1`
-- **Decision state:** proposed for human review; not frozen
+- **Decision state:** approved and frozen
 - **Scope:** source and rights selection required by Issue [#35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35) before development-only family construction
 - **Review date:** 2026-09-04
+- **Human approval:** recorded on [PR #40](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/40) on 2026-09-04
+- **Freeze commit:** `d5667bba09ed12ed71441511c72f6219d76fd25d`
 
 This manifest records a concrete selection within the approved benchmark methodology. It does not construct a family, item, fixture, expected answer, evidence map, rubric, golden, training record, or final-test artifact. It authorizes no model, real-cluster, live-web, or formal experimental execution.
 
-The selection becomes frozen only after the human researcher approves this exact manifest and the reviewed change is merged. Any content change, path expansion, release substitution, or rights-condition change requires a successor manifest and human review before affected material is used.
+The human researcher approved this exact manifest, and the reviewed change was squash-merged in PR #40. The selection is therefore frozen at the commit above. Any content change, path expansion, release substitution, or rights-condition change requires a successor manifest and human review before affected material is used.
 
-## Proposed decision
+## Frozen decision
 
 Use one supported Kubernetes line and one exact patch release:
 
@@ -189,8 +191,8 @@ None of these residual risks blocks private development-only construction under 
 
 ## Human decision
 
-**Recommendation: APPROVE.** The source relationship is exact and reproducible, the licenses permit the intended private development and later conditional redistribution, the source set is deliberately bounded, and the remaining uncertainties are controlled without changing the approved methodology.
+**Decision: APPROVED.** The human researcher approved the exact source relationship, bounded source set, rights conditions, custody controls, and residual-risk treatment on 2026-09-04. The approval applies to PR #40 head `7f2cb437caefe9756c6868210d3e8f5fb833ce94` and is preserved in that PR's conversation.
 
-Approval may be recorded as:
+Recorded approval:
 
 > I approve `development-pilot-source-rights-v1` exactly as proposed. This freezes Kubernetes `v1.36.4`, `kubernetes/website@1de955ebabe7e17da1ebb4f582635491227f4157`, `kubernetes/kubernetes@bb826b1d48562f110659e64e8ec444327433db95`, the exact included paths and hashes, and the stated rights/custody controls. It does not authorize model execution, final-test material or access, training material, a real `kind` cluster, live W1, formal experiments, publication, or any change to approved methodology.
