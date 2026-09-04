@@ -61,6 +61,9 @@ jobs:
       - name: Install locked Node validation tools
         run: npm ci --ignore-scripts --no-audit --no-fund
 
+      - name: Check development input JSON formatting
+        run: npm run format:check
+
       - name: Validate Renovate configuration
         run: ./node_modules/.bin/renovate-config-validator renovate.json
 

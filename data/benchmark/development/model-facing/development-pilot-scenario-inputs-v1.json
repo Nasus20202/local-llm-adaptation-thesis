@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "manifest_id": "development-pilot-scenario-inputs-v1",
+  "decision_state": "candidate-authored-pending-human-review",
+  "root_id": "development-model-facing-v1",
+  "logical_root": "development/model-facing",
+  "policy_version": "pilot-policy-v1",
+  "split": "development",
+  "preauthoring_freeze": {
+    "manifest_id": "development-pilot-preauthoring-freeze-v1",
+    "freeze_commit": "575fc4df4597c6b13ad3535e34474ddc455b4527",
+    "semantic_sha256": "ce07a181086f8a1e7264f2b89f1da3fae06679709a5771fadee489f3e56c26a9",
+    "exact_json_file_sha256": "74a3cec3cfdde9e4f78f204ad4880da1c6b8d1188c2587b96e7940a7c4b2a54c"
+  },
+  "source_rights": {
+    "manifest_id": "development-pilot-source-rights-v1",
+    "freeze_commit": "d5667bba09ed12ed71441511c72f6219d76fd25d",
+    "kubernetes_release": "v1.36.4",
+    "website_inventory_id": "website-v1.36.4-development-pilot-v1",
+    "website_content_index_sha256": "ff6e098274f45cf35dd669d0de61e566129e891baad8e0e49d7fe6922c432127",
+    "openapi_inventory_id": "openapi-v1.36.4-development-pilot-v1",
+    "openapi_sha256": "dcede2063da1d7ad62ecb5af8adb6d7fabd0b52385a7fa0048afb491dac90450"
+  },
+  "source_registry": {
+    "configmap": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/configuration/configmap.md",
+      "git_blob_sha1": "aa3e6ac3c18b995a2057bd1f8ca19eb6861606e7"
+    },
+    "probes": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/workloads/pods/probes.md",
+      "git_blob_sha1": "d29f8a3d535195e4a06f6a5de4fdc3231b46bce1"
+    },
+    "probe_task": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md",
+      "git_blob_sha1": "41cae40fb94440d75d66c130cd853c382713f4c5"
+    },
+    "statefulset": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/workloads/controllers/statefulset.md",
+      "git_blob_sha1": "963f6aa206a18ae765de8e77c7994536ff4350a1"
+    },
+    "priority": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/scheduling-eviction/pod-priority-preemption.md",
+      "git_blob_sha1": "2dc0ab337a806e711e403e15914f697031131446"
+    },
+    "cronjob": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/workloads/controllers/cron-jobs.md",
+      "git_blob_sha1": "6d27f5d88d37b21f520a7b303c3014f777ca2a09"
+    },
+    "job": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/workloads/controllers/job.md",
+      "git_blob_sha1": "10e4b48e8e6a8b404ab26aa3aa25803a55da5ff5"
+    },
+    "service": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/services-networking/service.md",
+      "git_blob_sha1": "f38269db88267ec64b2027384345e3666a68fbad"
+    },
+    "debug_init": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/tasks/debug/debug-application/debug-init-containers.md",
+      "git_blob_sha1": "8323527be2efa28b2a4cb8e194595b67ca778108"
+    },
+    "deployment": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/workloads/controllers/deployment.md",
+      "git_blob_sha1": "2ec9ba7c01996e278991f54886d4f9fd97c2c20b"
+    },
+    "update_roll": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/tasks/run-application/update-deployment-rolling.md",
+      "git_blob_sha1": "183bd295235a6e7b4b039d921af832f5e3495b2e"
+    },
+    "scale_deploy": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/tasks/run-application/scale-deployment.md",
+      "git_blob_sha1": "331af0370170c9ddbcafd01c0b8fa156aaed4a2b"
+    },
+    "debug_service": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/tasks/debug/debug-application/debug-service.md",
+      "git_blob_sha1": "debcff5ee490b6e7b033a09f71563a5c481ff118"
+    },
+    "topology": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/scheduling-eviction/topology-spread-constraints.md",
+      "git_blob_sha1": "7c853260970f1fd57a6ae2bee25e70a946a099b6"
+    },
+    "taints": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md",
+      "git_blob_sha1": "2819bcf9f0645c9d9486575115e23834be04b2d2"
+    },
+    "resources": {
+      "inventory_id": "website-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/website",
+      "commit": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "path": "content/en/docs/concepts/configuration/manage-resources-containers.md",
+      "git_blob_sha1": "f0c8adbd7aaecbf3a5af49fdc6db37c35dffa6b2"
+    },
+    "openapi": {
+      "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+      "repository": "kubernetes/kubernetes",
+      "commit": "bb826b1d48562f110659e64e8ec444327433db95",
+      "path": "api/openapi-spec/swagger.json",
+      "git_blob_sha1": "fe0a7b9b1da4e54e43c4d77be20f257c10bc9c34",
+      "sha256": "dcede2063da1d7ad62ecb5af8adb6d7fabd0b52385a7fa0048afb491dac90450"
+    }
+  },
+  "construction_policy": {
+    "method": "fresh-source-transformed-development-inputs-v1",
+    "formal_rejections_or_replacements": 0,
+    "semantic_pair_selection": "none",
+    "model_output_consulted": false
+  },
+  "boundary_assertions": {
+    "protected_evaluator_payloads_present": false,
+    "expected_answer_payloads_present": false,
+    "golden_payloads_present": false,
+    "answer_revealing_rubrics_present": false,
+    "adjudication_payloads_present": false,
+    "training_payloads_present": false,
+    "final_test_identity_or_payload_present": false,
+    "model_execution_performed": false,
+    "formal_experiment_performed": false,
+    "real_kind_used": false,
+    "live_w1_used": false,
+    "harness_implemented": false
+  },
+  "scenario_count": 24,
+  "attribution": "Based on Kubernetes documentation by the Kubernetes Contributors, frozen at kubernetes/website@1de955ebabe7e17da1ebb4f582635491227f4157, licensed under CC BY 4.0. Changes and selection were made for this research benchmark. No endorsement is implied.",
+  "scenario_payloads": [
+    {
+      "task_class": "knowledge",
+      "path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json",
+      "sha256": "0b8cc4f421092e5006fd7b354744603f60a89f29738ed93bde71f63f4e84f1ce",
+      "scenario_count": 8
+    },
+    {
+      "task_class": "procedural",
+      "path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json",
+      "sha256": "8684613cb46618009ec166efa982c8972162540792cca324387b30c63759e08d",
+      "scenario_count": 8
+    },
+    {
+      "task_class": "mixed",
+      "path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json",
+      "sha256": "40bed3cd118aba4e06753924a77eb1d7e86eb84360b4ec3916306e1e05d7751d",
+      "scenario_count": 8
+    }
+  ],
+  "scenario_index": [
+    {
+      "family_id": "dev-k-pl-01",
+      "scenario_input_id": "dev-k-pl-01-input-v1",
+      "task_class": "knowledge",
+      "language": "pl",
+      "coverage_subtype": "direct-evidence",
+      "input_sha256": "c656ada790aaba970c8b9b0c1349a6da2b2dc085805e8d89adf2bde6b7a66e6c",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-pl-02",
+      "scenario_input_id": "dev-k-pl-02-input-v1",
+      "task_class": "knowledge",
+      "language": "pl",
+      "coverage_subtype": "synthesis",
+      "input_sha256": "d11afa3ea3e5d84aedf2550d1139e860076d95672a4d21da994336d58d0d686d",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-pl-03",
+      "scenario_input_id": "dev-k-pl-03-input-v1",
+      "task_class": "knowledge",
+      "language": "pl",
+      "coverage_subtype": "absent-answer-abstention",
+      "input_sha256": "886f8cb466f09b8e978fac2602803bf03bdcbaed1df6193e8d389710bafc5940",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-pl-04",
+      "scenario_input_id": "dev-k-pl-04-input-v1",
+      "task_class": "knowledge",
+      "language": "pl",
+      "coverage_subtype": "distractor-heavy-evidence",
+      "input_sha256": "61d32a7d4a79dd3a4a2f482315ff08f87ff83136c00bd5bb1e72dcf9730f61f8",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-en-01",
+      "scenario_input_id": "dev-k-en-01-input-v1",
+      "task_class": "knowledge",
+      "language": "en",
+      "coverage_subtype": "direct-evidence",
+      "input_sha256": "b2df1948e85a1579975ea9b57f72791ccd64a12bd9e5b61b43de2bac2a2189ef",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-en-02",
+      "scenario_input_id": "dev-k-en-02-input-v1",
+      "task_class": "knowledge",
+      "language": "en",
+      "coverage_subtype": "synthesis",
+      "input_sha256": "f46203f0eb9c7238a770005d8de7ceedd30e8d57e152928670f742e6f55a8ce4",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-en-03",
+      "scenario_input_id": "dev-k-en-03-input-v1",
+      "task_class": "knowledge",
+      "language": "en",
+      "coverage_subtype": "absent-answer-abstention",
+      "input_sha256": "a4109d2ce0c94de90886c27e5926950d415342769f2bd6b96fcd43683cb159d7",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-k-en-04",
+      "scenario_input_id": "dev-k-en-04-input-v1",
+      "task_class": "knowledge",
+      "language": "en",
+      "coverage_subtype": "distractor-heavy-evidence",
+      "input_sha256": "0d69ac1a6d3f1bda16cf71d388546954b0d5945f10e8cc43101520b2988b0ec3",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-pl-01",
+      "scenario_input_id": "dev-p-pl-01-input-v1",
+      "task_class": "procedural",
+      "language": "pl",
+      "coverage_subtype": "diagnosis",
+      "input_sha256": "a8634afc3e778b7296a64474dcce2a43d810f9e3129ca49bc4de2a515c60eaeb",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-pl-02",
+      "scenario_input_id": "dev-p-pl-02-input-v1",
+      "task_class": "procedural",
+      "language": "pl",
+      "coverage_subtype": "constrained-repair",
+      "input_sha256": "56c2b53cddca6def3d0e5db483b2d0008206843f3401da75832e0d0ccedf64a3",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-pl-03",
+      "scenario_input_id": "dev-p-pl-03-input-v1",
+      "task_class": "procedural",
+      "language": "pl",
+      "coverage_subtype": "ordered-action",
+      "input_sha256": "817ec96e8d4c5f7ae722b7f0cc181f53c0a27c0b1e17415a72c392091771a36b",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-pl-04",
+      "scenario_input_id": "dev-p-pl-04-input-v1",
+      "task_class": "procedural",
+      "language": "pl",
+      "coverage_subtype": "structured-artifact-schema-adherence",
+      "input_sha256": "aaba01e847f65e7eb43029f34f60179fbf53e9b1d85cc95f09641827dee7daed",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-en-01",
+      "scenario_input_id": "dev-p-en-01-input-v1",
+      "task_class": "procedural",
+      "language": "en",
+      "coverage_subtype": "diagnosis",
+      "input_sha256": "a61b8e664ae1a424ebe2976979d723b6e17544aae0f80969eadb429f9b414b69",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-en-02",
+      "scenario_input_id": "dev-p-en-02-input-v1",
+      "task_class": "procedural",
+      "language": "en",
+      "coverage_subtype": "constrained-repair",
+      "input_sha256": "2d96a329ce95d939671ea827b94b9168d0c3edb359ce9469a67cf92e5d238d29",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-en-03",
+      "scenario_input_id": "dev-p-en-03-input-v1",
+      "task_class": "procedural",
+      "language": "en",
+      "coverage_subtype": "ordered-action",
+      "input_sha256": "88393f4f74b945e47b5af9430a17311b67a1634d3c60c3a4d7a4a5b32a31f7af",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-p-en-04",
+      "scenario_input_id": "dev-p-en-04-input-v1",
+      "task_class": "procedural",
+      "language": "en",
+      "coverage_subtype": "structured-artifact-schema-adherence",
+      "input_sha256": "560ecd9bb5fa3a2cd4f9e2e5b255be1b1e0c5637e3d9a9037acba46c12167b50",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-pl-01",
+      "scenario_input_id": "dev-m-pl-01-input-v1",
+      "task_class": "mixed",
+      "language": "pl",
+      "coverage_subtype": "evidence-backed-configuration-decision",
+      "input_sha256": "bfaa6eb5e11e4c805baca3b4f38ea6d265d6f92f04cf2066d7f2876c27ea4894",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-pl-02",
+      "scenario_input_id": "dev-m-pl-02-input-v1",
+      "task_class": "mixed",
+      "language": "pl",
+      "coverage_subtype": "evidence-backed-bounded-procedure",
+      "input_sha256": "4e32f0d0de7e633ff3c450fa701b05187609a1d8b61f16d55acd86bf1db6da04",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-pl-03",
+      "scenario_input_id": "dev-m-pl-03-input-v1",
+      "task_class": "mixed",
+      "language": "pl",
+      "coverage_subtype": "evidence-backed-artifact-validation",
+      "input_sha256": "d56115ec70ff370cb5d1bb7fa9e94ba4f7a642623614eac15bf82fa22152a9c0",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-pl-04",
+      "scenario_input_id": "dev-m-pl-04-input-v1",
+      "task_class": "mixed",
+      "language": "pl",
+      "coverage_subtype": "evidence-backed-repair-plan",
+      "input_sha256": "bc39e796e0b62e1df2d93ff61009d4f1706d6773f187854446d2d668850258d7",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-en-01",
+      "scenario_input_id": "dev-m-en-01-input-v1",
+      "task_class": "mixed",
+      "language": "en",
+      "coverage_subtype": "evidence-backed-configuration-decision",
+      "input_sha256": "bd1108fc89c76990c58c759f45bb0257749a31b09b3661d221b1d69a45efa586",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-en-02",
+      "scenario_input_id": "dev-m-en-02-input-v1",
+      "task_class": "mixed",
+      "language": "en",
+      "coverage_subtype": "evidence-backed-bounded-procedure",
+      "input_sha256": "a3c7465921ff340d9b8072495c3ee14f401014f645fe3769f9927750e4e64ce5",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-en-03",
+      "scenario_input_id": "dev-m-en-03-input-v1",
+      "task_class": "mixed",
+      "language": "en",
+      "coverage_subtype": "evidence-backed-artifact-validation",
+      "input_sha256": "52825ccbe96adcf65cb2ff07b11e899b783beaf1af4248d7187db6e6ea414adf",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    },
+    {
+      "family_id": "dev-m-en-04",
+      "scenario_input_id": "dev-m-en-04-input-v1",
+      "task_class": "mixed",
+      "language": "en",
+      "coverage_subtype": "evidence-backed-repair-plan",
+      "input_sha256": "d0350b038cdce939e25dd8eeebf39b450e53f48f6eac853b9c5f369d7991a721",
+      "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
+    }
+  ]
+}

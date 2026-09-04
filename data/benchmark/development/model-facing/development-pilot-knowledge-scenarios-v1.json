@@ -1,0 +1,227 @@
+{
+  "manifest_id": "development-pilot-scenario-inputs-v1",
+  "payload_id": "development-pilot-knowledge-scenario-inputs-v1",
+  "root_id": "development-model-facing-v1",
+  "scenario_count": 8,
+  "scenarios": [
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "direct-evidence",
+      "family_id": "dev-k-pl-01",
+      "input_sha256": "c656ada790aaba970c8b9b0c1349a6da2b2dc085805e8d89adf2bde6b7a66e6c",
+      "input_text": "W Kubernetes v1.36.4 kontener pobiera `LOG_LEVEL` z ConfigMap `app-settings` przez `env[].valueFrom.configMapKeyRef`. ConfigMap zmieniono z `info` na `debug`, ale proces w już działającym Podzie nadal widzi `info`.\n\nOdpowiedz zwięźle na dwa pytania:\n1. Czy taka zmienna środowiskowa jest automatycznie aktualizowana w już uruchomionym kontenerze?\n2. Co musi się stać z Podem, aby proces zobaczył nową wartość?\n\nNa końcu wskaż ścieżkę źródłową w zatwierdzonym snapshotcie, która uzasadnia odpowiedź.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Two numbered factual claims followed by one source-path reference. Do not add unrelated remediation.",
+      "scenario_input_id": "dev-k-pl-01-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["configmap"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "synthesis",
+      "family_id": "dev-k-pl-02",
+      "input_sha256": "d11afa3ea3e5d84aedf2550d1139e860076d95672a4d21da994336d58d0d686d",
+      "input_text": "Aplikacja w Kubernetes v1.36.4 zwykle potrzebuje około 90 sekund na pełne uruchomienie. Podczas tego czasu endpoint aplikacji nie powinien powodować restartów kontenera, a Pod nie powinien jeszcze otrzymywać ruchu z Service. Po zakończeniu startu aplikacja może czasem chwilowo nie być gotowa do obsługi ruchu, ale nadal działa poprawnie.\n\nWyjaśnij, jak role `startupProbe`, `livenessProbe` i `readinessProbe` powinny się uzupełniać w tym scenariuszu. Odpowiedź ma opisać:\n- co ma chronić długi start aplikacji,\n- co decyduje o kierowaniu ruchu,\n- co powinno wykrywać stan wymagający restartu.\n\nWskaż ścieżki źródłowe z zatwierdzonego snapshotu.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Three concise role statements plus source-path references; no YAML.",
+      "scenario_input_id": "dev-k-pl-02-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["probes", "probe_task"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "absent-answer-abstention",
+      "family_id": "dev-k-pl-03",
+      "input_sha256": "886f8cb466f09b8e978fac2602803bf03bdcbaed1df6193e8d389710bafc5940",
+      "input_text": "Nowy Pod StatefulSet `orders-2` ma stan `Running`. Zespół chce wpisać do procedury operacyjnej dokładną, gwarantowaną przez Kubernetes v1.36.4 maksymalną liczbę sekund od utworzenia Poda, po której jego nazwa DNS musi już zawsze być rozwiązywalna.\n\nNa podstawie wyłącznie zatwierdzonego snapshotu odpowiedz, czy dokumentacja ustanawia taki uniwersalny maksymalny czas. Jeżeli nie ustanawia, powiedz to wprost zamiast zgadywać liczbę i wskaż, jakie zachowanie opisuje źródło. Podaj ścieżkę źródłową.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "One answerability decision, one short explanation, and one source-path reference. Do not invent a numeric bound.",
+      "scenario_input_id": "dev-k-pl-03-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["statefulset"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "distractor-heavy-evidence",
+      "family_id": "dev-k-pl-04",
+      "input_sha256": "61d32a7d4a79dd3a4a2f482315ff08f87ff83136c00bd5bb1e72dcf9730f61f8",
+      "input_text": "W klastrze Kubernetes v1.36.4 zdefiniowano dwie PriorityClass:\n\n- `batch-high`: `value: 900`, `preemptionPolicy: Never`\n- `api-low`: `value: 100`\n\nPod `report` używa `batch-high`, a Pod `api` używa `api-low`. Oba Pody mają ten sam `LOG_LEVEL`, podobne requests CPU, etykietę `team=payments` i są osiągalne przez różne Service. W klastrze chwilowo brakuje zasobów, aby zaplanować `report`.\n\nCzy `report` może przez samą swoją PriorityClass wywłaszczyć działający Pod `api`, aby zwolnić miejsce? Wyjaśnij, które podane informacje są istotne dla odpowiedzi, a które są dystraktorami. Wskaż ścieżkę źródłową.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A direct yes/no conclusion, a brief reason, a list of ignored distractors, and one source-path reference.",
+      "scenario_input_id": "dev-k-pl-04-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["priority"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "direct-evidence",
+      "family_id": "dev-k-en-01",
+      "input_sha256": "b2df1948e85a1579975ea9b57f72791ccd64a12bd9e5b61b43de2bac2a2189ef",
+      "input_text": "A Kubernetes v1.36.4 CronJob `nightly-report` uses `concurrencyPolicy: Forbid`. Its previous Job is still running when the next scheduled time arrives. Another unrelated CronJob also has a running Job.\n\nState what happens to the new `nightly-report` occurrence and whether `Forbid` prevents Jobs from the other CronJob from running concurrently. Cite the approved source path.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Two concise factual claims followed by one source-path reference.",
+      "scenario_input_id": "dev-k-en-01-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["cronjob"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "synthesis",
+      "family_id": "dev-k-en-02",
+      "input_sha256": "f46203f0eb9c7238a770005d8de7ceedd30e8d57e152928670f742e6f55a8ce4",
+      "input_text": "A team is defining a Kubernetes v1.36.4 CronJob whose generated Jobs should retry work after a container failure. A draft Pod template uses `restartPolicy: Always`.\n\nUsing the approved snapshot, synthesize the relationship between CronJob and Job for this case:\n- which object the CronJob creates for each occurrence;\n- which `restartPolicy` values are permitted in the Job's Pod template.\n\nCite the relevant approved source paths.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Two atomic claims plus source-path references; no replacement manifest.",
+      "scenario_input_id": "dev-k-en-02-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["cronjob", "job"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "absent-answer-abstention",
+      "family_id": "dev-k-en-03",
+      "input_sha256": "a4109d2ce0c94de90886c27e5926950d415342769f2bd6b96fcd43683cb159d7",
+      "input_text": "A Service selector in Kubernetes v1.36.4 has just been changed so that a different set of Pods matches it. An operations runbook needs a single exact maximum number of seconds, guaranteed by the approved documentation, within which the corresponding EndpointSlices must reflect the new matching Pod set.\n\nDetermine whether the approved snapshot states such a universal numeric guarantee. If it does not, explicitly abstain from inventing one and summarize only what the source actually promises. Cite the source path.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "One answerability decision, one short explanation, and one source-path reference. Do not invent a numeric SLA.",
+      "scenario_input_id": "dev-k-en-03-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["service"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    },
+    {
+      "answer_contract_class": "knowledge",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "knowledge-standard-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "distractor-heavy-evidence",
+      "family_id": "dev-k-en-04",
+      "input_sha256": "0d69ac1a6d3f1bda16cf71d388546954b0d5945f10e8cc43101520b2988b0ec3",
+      "input_text": "A Pod in Kubernetes v1.36.4 mounts key `settings.yaml` from ConfigMap `app-settings` using a volume mount with `subPath`. The ConfigMap is later updated. The Pod also has a Service on port 8080, label `tier=backend`, CPU request `250m`, and a readiness probe that is currently passing.\n\nWill the file mounted through `subPath` receive the ConfigMap update automatically? Identify which details determine the answer and which supplied details are distractors. Cite the approved source path.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A direct conclusion, a short relevance explanation, and one source-path reference.",
+      "scenario_input_id": "dev-k-en-04-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["configmap"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "website-future-r1-corpus-source"
+      ],
+      "split": "development",
+      "task_class": "knowledge"
+    }
+  ],
+  "schema_version": 1,
+  "split": "development",
+  "task_class": "knowledge"
+}

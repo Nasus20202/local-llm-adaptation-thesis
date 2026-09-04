@@ -1,0 +1,1 @@
+# Prettier ignore rules are intentionally empty; npm scripts override .gitignore for tracked benchmark JSON.

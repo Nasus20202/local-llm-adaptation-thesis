@@ -1,0 +1,235 @@
+{
+  "manifest_id": "development-pilot-scenario-inputs-v1",
+  "payload_id": "development-pilot-procedural-scenario-inputs-v1",
+  "root_id": "development-model-facing-v1",
+  "scenario_count": 8,
+  "scenarios": [
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-structured-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "diagnosis",
+      "family_id": "dev-p-pl-01",
+      "input_sha256": "a8634afc3e778b7296a64474dcce2a43d810f9e3129ca49bc4de2a515c60eaeb",
+      "input_text": "Masz wyłącznie poniższe zapisane obserwacje z Poda `checkout-7f6d` w Kubernetes v1.36.4; nie wykonuj żadnych poleceń:\n\n`kubectl get pod checkout-7f6d` pokazuje `STATUS=Init:CrashLoopBackOff`.\n\nFragment `kubectl describe pod checkout-7f6d`:\n- init container `prepare`: `State: Waiting`, `Reason: CrashLoopBackOff`\n- `Last State: Terminated`, `Reason: Error`, `Exit Code: 1`\n- główny kontener aplikacji nie został jeszcze uruchomiony.\n\nZwróć wyłącznie JSON z kluczami:\n`stan`, `najlepsze_nastepne_sprawdzenie`, `polecenie_tylko_do_odczytu`, `uzasadnienie`.\n\n`polecenie_tylko_do_odczytu` ma zawierać dokładnie jedno polecenie `kubectl`, które według zatwierdzonego źródła najlepiej dostarczy danych o błędzie init containera. Nie proponuj naprawy ani mutacji klastra.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Strict JSON with exactly the four requested keys.",
+      "scenario_input_id": "dev-p-pl-01-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["debug_init"],
+      "source_roles": ["website-human-construction-evidence"],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-general-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "constrained-repair",
+      "family_id": "dev-p-pl-02",
+      "input_sha256": "56c2b53cddca6def3d0e5db483b2d0008206843f3401da75832e0d0ccedf64a3",
+      "input_text": "Napraw minimalnie poniższy manifest nowego Deployment dla Kubernetes v1.36.4:\n\n```yaml\napiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: catalog\nspec:\n  replicas: 3\n  selector:\n    matchLabels:\n      app: catalog\n  template:\n    metadata:\n      labels:\n        app: catalog-v2\n        tier: backend\n    spec:\n      containers:\n      - name: catalog\n        image: registry.example/catalog:2.0\n```\n\nOgraniczenia:\n- nie zmieniaj `apiVersion`, `kind`, `metadata.name`, `replicas`, obrazu kontenera ani `spec.selector`;\n- możesz zmienić wyłącznie `spec.template.metadata.labels`;\n- zachowaj etykietę `tier: backend`;\n- zwróć cały poprawiony YAML i nic więcej.",
+      "language": "pl",
+      "openapi_schema_identities": ["io.k8s.api.apps.v1.DeploymentSpec"],
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A single complete YAML document only.",
+      "scenario_input_id": "dev-p-pl-02-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["deployment", "openapi"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-general-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "ordered-action",
+      "family_id": "dev-p-pl-03",
+      "input_sha256": "817ec96e8d4c5f7ae722b7f0cc181f53c0a27c0b1e17415a72c392091771a36b",
+      "input_text": "Deployment `web` w Kubernetes v1.36.4 ma kontener `web` z obrazem `registry.example/web:1.4`. Trzeba przejść na `registry.example/web:1.5` i sprawdzić powodzenie wdrożenia.\n\nPodaj maksymalnie 5 uporządkowanych kroków z dokładnymi poleceniami `kubectl`, które:\n1. zmienią wyłącznie obraz kontenera `web`,\n2. będą obserwować status rolloutu,\n3. zweryfikują obraz zapisany w Pod template,\n4. w razie nieudanego rolloutu wskażą polecenie cofnięcia do poprzedniej rewizji.\n\nNie wykonuj poleceń i nie dodawaj zmian niezwiązanych z obrazem.",
+      "language": "pl",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "An ordered list of at most five steps, each with one exact kubectl command and a one-line purpose.",
+      "scenario_input_id": "dev-p-pl-03-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["update_roll", "deployment"],
+      "source_roles": ["website-human-construction-evidence"],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-structured-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "structured-artifact-schema-adherence",
+      "family_id": "dev-p-pl-04",
+      "input_sha256": "aaba01e847f65e7eb43029f34f60179fbf53e9b1d85cc95f09641827dee7daed",
+      "input_text": "Utwórz kompletny manifest CronJob zgodny z Kubernetes v1.36.4 dla zadania `inventory-sync`.\n\nWymagania:\n- `apiVersion: batch/v1`;\n- uruchamianie co 15 minut;\n- harmonogram interpretowany w `Etc/UTC` przez właściwe pole CronJob;\n- `concurrencyPolicy: Forbid`;\n- `startingDeadlineSeconds: 120`;\n- obraz `registry.example/inventory-sync:3.1`;\n- kontener ma nazywać się `sync`;\n- polecenie kontenera: `[\"/app/sync\"]`;\n- `restartPolicy: Never`;\n- nie dodawaj pól niewymaganych przez zadanie.\n\nZwróć wyłącznie jeden dokument YAML.",
+      "language": "pl",
+      "openapi_schema_identities": ["io.k8s.api.batch.v1.CronJobSpec"],
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A single complete YAML document only.",
+      "scenario_input_id": "dev-p-pl-04-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["cronjob", "job", "openapi"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-structured-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "diagnosis",
+      "family_id": "dev-p-en-01",
+      "input_sha256": "a61b8e664ae1a424ebe2976979d723b6e17544aae0f80969eadb429f9b414b69",
+      "input_text": "Use only these captured observations for Kubernetes v1.36.4; do not execute anything:\n\n- Pod `api-6b7d` is `Running`.\n- Its liveness probe is succeeding.\n- Its readiness probe is failing.\n- The matching Service exists.\n- The Pod IP is absent from the Service's EndpointSlices.\n\nReturn JSON with exactly these keys:\n`diagnosis`, `traffic_effect`, `next_check`, `read_only_command`.\n\n`read_only_command` must contain exactly one non-mutating `kubectl` command suitable for checking the readiness-related evidence. Do not propose a repair.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Strict JSON with exactly the four requested keys.",
+      "scenario_input_id": "dev-p-en-01-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["probes", "service", "debug_service"],
+      "source_roles": ["website-human-construction-evidence"],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-general-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "constrained-repair",
+      "family_id": "dev-p-en-02",
+      "input_sha256": "2d96a329ce95d939671ea827b94b9168d0c3edb359ce9469a67cf92e5d238d29",
+      "input_text": "A Pod in Kubernetes v1.36.4 is intended to read key `MODE` from ConfigMap `app-settings`, which exists in the same namespace. The manifest contains:\n\n```yaml\nenv:\n- name: MODE\n  valueFrom:\n    configMapKeyRef:\n      name: app-setings\n      key: MODE\n```\n\nProduce the smallest corrected YAML fragment under `env:`.\n\nConstraints:\n- only the `configMapKeyRef.name` value may change;\n- keep environment variable name `MODE`;\n- keep key `MODE`;\n- do not add optional fields;\n- output YAML only.",
+      "language": "en",
+      "openapi_schema_identities": ["io.k8s.api.core.v1.ConfigMapKeySelector"],
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A YAML fragment rooted at env only.",
+      "scenario_input_id": "dev-p-en-02-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["configmap", "openapi"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-general-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "ordered-action",
+      "family_id": "dev-p-en-03",
+      "input_sha256": "88393f4f74b945e47b5af9430a17311b67a1634d3c60c3a4d7a4a5b32a31f7af",
+      "input_text": "Deployment `worker` in Kubernetes v1.36.4 currently has 2 replicas and must be manually scaled to 5.\n\nProvide exactly three ordered, non-interactive `kubectl` commands:\n1. set the replica count to 5;\n2. read back the Deployment state;\n3. list the Pods belonging to the workload using label `app=worker`.\n\nDo not change the Pod template, image, or any autoscaling resource. Do not execute the commands.",
+      "language": "en",
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "Exactly three numbered kubectl commands, with no additional commands.",
+      "scenario_input_id": "dev-p-en-03-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["scale_deploy"],
+      "source_roles": ["website-human-construction-evidence"],
+      "split": "development",
+      "task_class": "procedural"
+    },
+    {
+      "answer_contract_class": "procedural",
+      "authoring_status": "candidate-authored-pending-human-review",
+      "condition_profile_id": "procedural-structured-v1",
+      "counts_as_independent": true,
+      "coverage_subtype": "structured-artifact-schema-adherence",
+      "family_id": "dev-p-en-04",
+      "input_sha256": "560ecd9bb5fa3a2cd4f9e2e5b255be1b1e0c5637e3d9a9037acba46c12167b50",
+      "input_text": "Write one complete Kubernetes v1.36.4 Job manifest named `shard-indexer`.\n\nRequirements:\n- `apiVersion: batch/v1`;\n- image `registry.example/indexer:4.0`;\n- container name `indexer`;\n- command `[\"/app/index\"]`;\n- `completions: 4`;\n- `parallelism: 2`;\n- `completionMode: Indexed`;\n- Pod template `restartPolicy: Never`;\n- do not set a manual selector;\n- do not add unrelated fields.\n\nReturn YAML only.",
+      "language": "en",
+      "openapi_schema_identities": ["io.k8s.api.batch.v1.JobSpec"],
+      "provenance_references": [
+        {
+          "inventory_id": "website-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        },
+        {
+          "inventory_id": "openapi-v1.36.4-development-pilot-v1",
+          "manifest_id": "development-pilot-source-rights-v1"
+        }
+      ],
+      "response_form_instruction": "A single complete YAML document only.",
+      "scenario_input_id": "dev-p-en-04-input-v1",
+      "semantic_pair_id": null,
+      "source_evidence_ids": ["job", "openapi"],
+      "source_roles": [
+        "website-human-construction-evidence",
+        "openapi-schema-reference"
+      ],
+      "split": "development",
+      "task_class": "procedural"
+    }
+  ],
+  "schema_version": 1,
+  "split": "development",
+  "task_class": "procedural"
+}
