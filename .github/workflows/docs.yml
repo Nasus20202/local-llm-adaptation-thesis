@@ -83,6 +83,8 @@ jobs:
         with:
           source-dir: site/
           preview-branch: gh-pages
+          umbrella-dir: docs/pr-preview
+          pages-base-path: docs
           wait-for-pages-deployment: false
 
       - name: Request GitHub Pages build
@@ -127,6 +129,7 @@ jobs:
         with:
           branch: gh-pages
           folder: site
+          target-folder: docs
           clean: true
           clean-exclude: pr-preview/
 
