@@ -653,6 +653,8 @@
       
         
       
+        
+      
     
     
     
@@ -794,6 +796,34 @@
     
   
     Human review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research/development-pilot-protected-evaluator-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protected evaluator design
   
 
     
@@ -1765,6 +1795,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#construct-critical-literal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construct-critical literal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rubric" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2180,6 +2221,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#construct-critical-literal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Construct-critical literal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#rubric" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2427,19 +2479,21 @@
 <p>The model emits a structured request for an external operation, the harness executes an allowed tool, and the result is returned to the model as new context. Tool access changes what the system can observe or do, so permissions and action budgets must be matched across compared conditions.</p>
 <h2 id="evaluation">Evaluation<a class="headerlink" href="#evaluation" title="Permanent link">&para;</a></h2>
 <h3 id="atomic-claim">Atomic claim<a class="headerlink" href="#atomic-claim" title="Permanent link">&para;</a></h3>
-<p>A single independently judgeable proposition in an answer, such as “<code>Forbid</code> applies only to Jobs from the same CronJob.” Breaking open answers into claims lets the evaluator score meaning without requiring one canonical sentence.</p>
+<p>A single independently judgeable proposition in an answer, such as “<code>Forbid</code> applies only to Jobs from the same CronJob.” Breaking open answers into claims lets the evaluator score meaning without requiring one canonical sentence. <a href="https://arxiv.org/abs/2305.14251">FActScore</a> is a primary example of decomposing generated text into atomic facts for fine-grained factual evaluation; this thesis uses its own protected task-specific claim contracts rather than FActScore's automated scorer.</p>
 <h3 id="precision-recall-and-f1">Precision, recall, and F1<a class="headerlink" href="#precision-recall-and-f1" title="Permanent link">&para;</a></h3>
 <p>For semantic claim scoring, a true positive is a required claim expressed correctly, a false negative is a required claim that is missing, and a false positive is an unsupported or contradictory claim counted by the contract. Precision is <code>TP / (TP + FP)</code>, recall is <code>TP / (TP + FN)</code>, and F1 is their harmonic mean <code>2PR / (P + R)</code>. The semantic labels are decided before these counts; text overlap does not define a true positive. <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html">scikit-learn F1 reference</a>.</p>
 <h3 id="deterministic-evaluator">Deterministic evaluator<a class="headerlink" href="#deterministic-evaluator" title="Permanent link">&para;</a></h3>
 <p>A rule-based check whose result is mechanically reproducible, for example JSON parseability, a Kubernetes schema constraint, an exact required field, or a validated final cluster state. It is preferred whenever the construct can be checked without subjective language judgment.</p>
 <h3 id="semantic-scoring">Semantic scoring<a class="headerlink" href="#semantic-scoring" title="Permanent link">&para;</a></h3>
-<p>Judging whether the response expresses the required technical meaning rather than matching reference wording. Correct paraphrases and source-like wording receive the same credit; lexical similarity is not a score component in this project.</p>
+<p>Judging whether the response expresses the required technical meaning rather than matching reference wording. Correct paraphrases and source-like wording receive the same credit; lexical similarity is not a score component in this project. Open semantic criteria are resolved through protected task-specific criteria and calibrated human assessment when exact/value/structure rules cannot decide them. Fine-grained atomic evaluation is exemplified by <a href="https://arxiv.org/abs/2305.14251">FActScore</a>; the project's no-lexical-bonus rule is an explicit methodological control.</p>
+<h3 id="construct-critical-literal">Construct-critical literal<a class="headerlink" href="#construct-critical-literal" title="Permanent link">&para;</a></h3>
+<p>A string, value, identifier, count, enum, key, or structure whose exact identity is itself part of the task construct—for example a required Kubernetes API field or explicitly requested numeric value. Exact comparison is allowed only for such criteria; it is not a shortcut for grading open prose. Kubernetes schema identity is audited against the frozen <a href="https://spec.openapis.org/oas/latest.html">OpenAPI specification</a> and Kubernetes v1.36.4 source snapshot.</p>
 <h3 id="rubric">Rubric<a class="headerlink" href="#rubric" title="Permanent link">&para;</a></h3>
 <p>A small set of named criteria with explicit observable anchors. Human raters use it only for aspects that deterministic checks cannot decide reliably, such as whether an explanation is technically complete without requiring canonical prose.</p>
 <h3 id="llm-judge">LLM judge<a class="headerlink" href="#llm-judge" title="Permanent link">&para;</a></h3>
 <p>Another language model used to rate an answer. It is convenient for open text but can introduce model-specific bias and instability, so this thesis treats it as calibrated supporting evidence rather than the sole basis for a primary conclusion. See Zheng et al., <a href="https://arxiv.org/abs/2306.05685">Judging LLM-as-a-Judge</a>.</p>
 <h3 id="metamorphic-fairness-fixture">Metamorphic fairness fixture<a class="headerlink" href="#metamorphic-fairness-fixture" title="Permanent link">&para;</a></h3>
-<p>A test pair or set where the technical meaning is deliberately held constant while wording changes, or wording is held similar while correctness changes. A valid semantic evaluator must score correct paraphrases equivalently and must not reward a technically wrong answer merely because it resembles documentation.</p>
+<p>A test pair or set where the technical meaning is deliberately held constant while wording changes, or wording is held similar while correctness changes. A valid semantic evaluator must score correct paraphrases equivalently and must not reward a technically wrong answer merely because it resembles documentation. This adapts the metamorphic-testing idea of checking known relations between related test cases; see Chen, Cheung, and Yiu, <a href="https://www.cse.ust.hk/~scc/publ/CS98-01-metamorphictesting.pdf">Metamorphic Testing: A New Approach for Generating Next Test Cases</a>.</p>
 <h3 id="krippendorffs-alpha">Krippendorff's alpha<a class="headerlink" href="#krippendorffs-alpha" title="Permanent link">&para;</a></h3>
 <p>A chance-corrected measure of agreement between raters that can handle different measurement levels and missing ratings. The project uses it to decide whether a human rubric is reliable enough for confirmatory scoring. <a href="https://doi.org/10.1080/19312458.2011.568376">Krippendorff, 2011</a>.</p>
 <h3 id="bootstrap-confidence-interval">Bootstrap confidence interval<a class="headerlink" href="#bootstrap-confidence-interval" title="Permanent link">&para;</a></h3>
