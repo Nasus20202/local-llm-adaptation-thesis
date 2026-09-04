@@ -31,17 +31,18 @@ The provenance-only foundation for Issue [#1](https://github.com/Nasus20202/loca
 1. The Issue [#2](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2) benchmark-domain package was approved, merged in PR [#22](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/22), and closed.
 2. The Issue [#4](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4) pilot/evaluator protocol was approved and merged in [PR #25](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/25).
 3. Its bounded synthetic pilot/evaluator, controlled-cluster, and W1 software foundations were implemented, independently reviewed, and merged in [PR #33](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/33). The canonical specifications are synchronized and the completed changes archived.
-4. [Issue #35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35) is approved and its focused authorization package was independently reviewed and squash-merged in [PR #38](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/38). The exact Kubernetes `v1.36.4` [source/release rights manifest](../research/development-pilot-source-rights-manifest.md) received explicit human approval and was squash-merged in [PR #40](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/40). The next pre-authoring step is to freeze custody roots, family-slot metadata, and condition declarations; model execution, final-test work, real `kind`, and live W1 remain separately closed.
+4. [Issue #35](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/35) is approved and its focused authorization package was independently reviewed and squash-merged in [PR #38](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/38). The exact Kubernetes `v1.36.4` [source/release rights manifest](../research/development-pilot-source-rights-manifest.md) received explicit human approval and was squash-merged in [PR #40](https://github.com/Nasus20202/local-llm-adaptation-thesis/pull/40). The [pre-authoring custody and metadata freeze](../research/development-pilot-preauthoring-freeze.md) now awaits human approval; it keeps all 24 families metadata-only and leaves model execution, protected evaluator payload construction, final-test work, training, real `kind`, live W1, and harness implementation closed.
 5. Run [target-hardware candidate smoke tests](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/5).
 6. Decide the public licensing plan through [Issue #36](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/36) before making the private repository public.
 
 ## Next milestone: M1
 
-M1 next constructs and model-free qualifies task families, evaluator mechanics, contamination controls, and optional-stratum readiness on development-only material after source/rights freeze. Model execution, real `kind`, live W1, and final-test construction/freeze remain separate approvals.
+M1 next proceeds only after human approval of the pre-authoring custody/metadata freeze. The following sequenced step is fresh development-only scenario authoring inside the frozen slots, followed later by protected evaluator construction and model-free qualification under the already-approved gates. Model execution, real `kind`, live W1, training, and final-test construction/freeze remain separate approvals.
 
 - [Benchmark domain and construction decision](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/2)
 - [Benchmark pilot and evaluator calibration protocol](https://github.com/Nasus20202/local-llm-adaptation-thesis/issues/4)
 - [Development-only pilot construction authorization](../research/development-pilot-authorization.md)
+- [Development-pilot pre-authoring custody and metadata freeze](../research/development-pilot-preauthoring-freeze.md)
 
 ## Later tracking issues
 
