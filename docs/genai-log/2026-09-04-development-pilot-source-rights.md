@@ -12,4 +12,4 @@ The source selection was made without model outcomes. No benchmark family, item,
 
 ## Human control and verification
 
-The human researcher must approve, amend, or reject the exact manifest before it becomes frozen and before the first development family is authored. Item-level technical correctness, source transformation, licensing classification, attribution, protected custody, and any later publication remain human-reviewed responsibilities. Repository-wide licensing and publication remain governed by Issue #36.
+The human researcher approved the exact manifest on 2026-09-04; the approval was recorded on PR #40 and the manifest was squash-merged as `d5667bba09ed12ed71441511c72f6219d76fd25d`. This freezes only the declared source identities, paths, hashes, rights conditions, and custody controls. No pilot family or item was constructed as part of the selection or merge. Item-level technical correctness, source transformation, licensing classification, attribution, protected custody, and any later publication remain human-reviewed responsibilities. Repository-wide licensing and publication remain governed by Issue #36.
