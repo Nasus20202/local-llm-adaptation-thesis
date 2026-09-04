@@ -1,0 +1,2888 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human-readable research and engineering documentation for the MSc thesis project.">
+      
+      
+      
+        <link rel="canonical" href="https://nasus20202.github.io/local-llm-adaptation-thesis/research/development-pilot-scenario-review/">
+      
+      
+        <link rel="prev" href="../development-pilot-scenario-inputs/">
+      
+      
+        <link rel="next" href="../../architecture/system-overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Human review - Local LLM Adaptation Thesis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#development-pilot-scenario-review" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-header__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Local LLM Adaptation Thesis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Human review
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-nav__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Local LLM Adaptation Thesis
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/charter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/aidlc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDLC workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/source-of-truth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Source of truth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development pilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development pilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-pilot-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-authorization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenario inputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human review
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Knowledge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-01-polish-direct-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-01 — Polish — direct-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-02-polish-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-02 — Polish — synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-03-polish-absent-answer-abstention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-03 — Polish — absent-answer-abstention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-04-polish-distractor-heavy-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-04 — Polish — distractor-heavy-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-01-english-direct-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-01 — English — direct-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-02-english-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-02 — English — synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-03-english-absent-answer-abstention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-03 — English — absent-answer-abstention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-04-english-distractor-heavy-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-04 — English — distractor-heavy-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedural" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedural
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedural">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-01-polish-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-01 — Polish — diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-02-polish-constrained-repair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-02 — Polish — constrained-repair
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-03-polish-ordered-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-03 — Polish — ordered-action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-04-polish-structured-artifact-schema-adherence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-04 — Polish — structured-artifact-schema-adherence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-01-english-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-01 — English — diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-02-english-constrained-repair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-02 — English — constrained-repair
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-03-english-ordered-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-03 — English — ordered-action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-04-english-structured-artifact-schema-adherence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-04 — English — structured-artifact-schema-adherence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mixed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-01-polish-evidence-backed-configuration-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-01 — Polish — evidence-backed-configuration-decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-02-polish-evidence-backed-bounded-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-02 — Polish — evidence-backed-bounded-procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-03-polish-evidence-backed-artifact-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-03 — Polish — evidence-backed-artifact-validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-04-polish-evidence-backed-repair-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-04 — Polish — evidence-backed-repair-plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-01-english-evidence-backed-configuration-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-01 — English — evidence-backed-configuration-decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-02-english-evidence-backed-bounded-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-02 — English — evidence-backed-bounded-procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-03-english-evidence-backed-artifact-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-03 — English — evidence-backed-artifact-validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-04-english-evidence-backed-repair-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-04 — English — evidence-backed-repair-plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After approval
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/system-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/experiment-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/reproducibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-repository-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0001 — Repository architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-primary-secondary-model-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0002 — Model strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-local-inference-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0003 — Local inference backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-fine-tuning-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0004 — Fine-tuning environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-openspec-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0005 — OpenSpec workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-experiment-provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0006 — Experiment provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-evaluation-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0007 — Evaluation architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0008-benchmark-domain-and-language-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0008 — Benchmark domain and language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0009-development-pilot-and-calibration-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0009 — Development pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/codex-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/pilot-foundation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot foundation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review checklist
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Knowledge">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-01-polish-direct-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-01 — Polish — direct-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-02-polish-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-02 — Polish — synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-03-polish-absent-answer-abstention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-03 — Polish — absent-answer-abstention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-pl-04-polish-distractor-heavy-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-pl-04 — Polish — distractor-heavy-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-01-english-direct-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-01 — English — direct-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-02-english-synthesis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-02 — English — synthesis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-03-english-absent-answer-abstention" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-03 — English — absent-answer-abstention
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-k-en-04-english-distractor-heavy-evidence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-k-en-04 — English — distractor-heavy-evidence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procedural" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procedural
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedural">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-01-polish-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-01 — Polish — diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-02-polish-constrained-repair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-02 — Polish — constrained-repair
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-03-polish-ordered-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-03 — Polish — ordered-action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-pl-04-polish-structured-artifact-schema-adherence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-pl-04 — Polish — structured-artifact-schema-adherence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-01-english-diagnosis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-01 — English — diagnosis
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-02-english-constrained-repair" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-02 — English — constrained-repair
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-03-english-ordered-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-03 — English — ordered-action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-p-en-04-english-structured-artifact-schema-adherence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-p-en-04 — English — structured-artifact-schema-adherence
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mixed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixed
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mixed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-01-polish-evidence-backed-configuration-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-01 — Polish — evidence-backed-configuration-decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-02-polish-evidence-backed-bounded-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-02 — Polish — evidence-backed-bounded-procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-03-polish-evidence-backed-artifact-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-03 — Polish — evidence-backed-artifact-validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-pl-04-polish-evidence-backed-repair-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-pl-04 — Polish — evidence-backed-repair-plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-01-english-evidence-backed-configuration-decision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-01 — English — evidence-backed-configuration-decision
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-02-english-evidence-backed-bounded-procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-02 — English — evidence-backed-bounded-procedure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-03-english-evidence-backed-artifact-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-03 — English — evidence-backed-artifact-validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dev-m-en-04-english-evidence-backed-repair-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        dev-m-en-04 — English — evidence-backed-repair-plan
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#after-approval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        After approval
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis/edit/main/docs/research/development-pilot-scenario-review.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="development-pilot-scenario-review">Development-pilot Scenario Review<a class="headerlink" href="#development-pilot-scenario-review" title="Permanent link">&para;</a></h1>
+<p>This is the human review page for PR #44. The 24 scenarios are a development-pilot feasibility sample, not the final benchmark and not the final-test set.</p>
+<p><strong>Reviewer-note boundary:</strong> the one-sentence expected answers below are convenience notes for the human reviewer. They are <strong>not goldens</strong>, are not exhaustive scoring templates, and may omit other valid equivalent answers. They are not part of the evaluator's protected semantic contract and must not be supplied to models, RAG/search contexts, fine-tuning data, evaluator calibration inputs, or future final-test construction.</p>
+<p>For how scoring works, see <a href="../evaluation/">Evaluation Strategy</a>. For terminology, see the <a href="../../glossary/">Glossary</a>. Source links point to the exact frozen Kubernetes snapshots used for this pilot.</p>
+<h2 id="review-checklist">Review checklist<a class="headerlink" href="#review-checklist" title="Permanent link">&para;</a></h2>
+<p>For each scenario check technical correctness for Kubernetes v1.36.4, natural language, answerability (or intentional abstention), realism, neutral treatment of compared methods, and whether the short reviewer note captures the intended technical answer without becoming a scoring template.</p>
+<p>The model receives only the scenario's <code>input_text</code> plus context/tools explicitly authorized by an experimental condition. It is not asked to reproduce citations, repository paths, evidence IDs, or URLs.</p>
+<h2 id="knowledge">Knowledge<a class="headerlink" href="#knowledge" title="Permanent link">&para;</a></h2>
+<h3 id="dev-k-pl-01-polish-direct-evidence"><code>dev-k-pl-01</code> — Polish — <code>direct-evidence</code><a class="headerlink" href="#dev-k-pl-01-polish-direct-evidence" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Direct technical fact.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+W Kubernetes v1.36.4 kontener pobiera `LOG_LEVEL` z ConfigMap `app-settings` przez `env[].valueFrom.configMapKeyRef`. ConfigMap zmieniono z `info` na `debug`, ale proces w już działającym Podzie nadal widzi `info`.
+
+Odpowiedz zwięźle na dwa pytania:
+1. Czy taka zmienna środowiskowa jest automatycznie aktualizowana w już uruchomionym kontenerze?
+2. Co musi się stać z Podem, aby proces zobaczył nową wartość?
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Environment variables sourced from a ConfigMap are not refreshed inside an already running container; the Pod must be recreated or restarted so the container starts with the new value.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/configuration/configmap.md">ConfigMap</a></p>
+<p><strong>Input SHA-256:</strong> <code>d8824e1bd0dde581e0cc43d15c84d2251dc4c91298001ddb6ea1132c2abe5a42</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-pl-02-polish-synthesis"><code>dev-k-pl-02</code> — Polish — <code>synthesis</code><a class="headerlink" href="#dev-k-pl-02-polish-synthesis" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Combine several technical facts.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Aplikacja w Kubernetes v1.36.4 zwykle potrzebuje około 90 sekund na pełne uruchomienie. Podczas tego czasu endpoint aplikacji nie powinien powodować restartów kontenera, a Pod nie powinien jeszcze otrzymywać ruchu z Service. Po zakończeniu startu aplikacja może czasem chwilowo nie być gotowa do obsługi ruchu, ale nadal działa poprawnie.
+
+Wyjaśnij, jak role `startupProbe`, `livenessProbe` i `readinessProbe` powinny się uzupełniać w tym scenariuszu. Odpowiedź ma opisać:
+- co ma chronić długi start aplikacji,
+- co decyduje o kierowaniu ruchu,
+- co powinno wykrywać stan wymagający restartu.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Use a startup probe to protect the long startup period, readiness to control whether the Pod receives Service traffic, and liveness to detect a persistently unhealthy container that should be restarted.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/pods/probes.md">Pod probes</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md">Configure probes task</a></p>
+<p><strong>Input SHA-256:</strong> <code>72c2b8cf9a2fe836643d6f510547d37cc01c220f3d7e88ae7c37c09e7579c167</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-pl-03-polish-absent-answer-abstention"><code>dev-k-pl-03</code> — Polish — <code>absent-answer-abstention</code><a class="headerlink" href="#dev-k-pl-03-polish-absent-answer-abstention" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Recognize when the source does not justify a precise answer.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Nowy Pod StatefulSet `orders-2` ma stan `Running`. Zespół chce wpisać do procedury operacyjnej dokładną, gwarantowaną przez Kubernetes v1.36.4 maksymalną liczbę sekund od utworzenia Poda, po której jego nazwa DNS musi już zawsze być rozwiązywalna.
+
+Odpowiedz, czy Kubernetes v1.36.4 ustanawia taki uniwersalny maksymalny czas. Jeżeli nie, powiedz to wprost zamiast zgadywać liczbę i opisz, jakie zachowanie można stwierdzić bez wymyślania gwarancji czasowej.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Kubernetes does not define one universal maximum DNS-propagation time for this case, so the correct answer is to refuse a numeric guarantee and describe the documented StatefulSet/DNS behavior instead.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/statefulset.md">StatefulSet</a></p>
+<p><strong>Input SHA-256:</strong> <code>ffac9af9e2e8f5eb3c7ad29c2fb9ee6ea286f1f1393498f68ee7d029f59628ed</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-pl-04-polish-distractor-heavy-evidence"><code>dev-k-pl-04</code> — Polish — <code>distractor-heavy-evidence</code><a class="headerlink" href="#dev-k-pl-04-polish-distractor-heavy-evidence" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Separate relevant facts from distractors.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+W klastrze Kubernetes v1.36.4 zdefiniowano dwie PriorityClass:
+
+- `batch-high`: `value: 900`, `preemptionPolicy: Never`
+- `api-low`: `value: 100`
+
+Pod `report` używa `batch-high`, a Pod `api` używa `api-low`. Oba Pody mają ten sam `LOG_LEVEL`, podobne requests CPU, etykietę `team=payments` i są osiągalne przez różne Service. W klastrze chwilowo brakuje zasobów, aby zaplanować `report`.
+
+Czy `report` może przez samą swoją PriorityClass wywłaszczyć działający Pod `api`, aby zwolnić miejsce? Wyjaśnij, które podane informacje są istotne dla odpowiedzi, a które są dystraktorami.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> No: <code>preemptionPolicy: Never</code> prevents <code>report</code> from preempting lower-priority Pods; the priority/preemption settings and resource shortage matter, while the ConfigMap, Service and unrelated labels do not.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/scheduling-eviction/pod-priority-preemption.md">Pod priority and preemption</a></p>
+<p><strong>Input SHA-256:</strong> <code>8a16e7d5e082da798b0c14570ae9dbe3dc462a320b465d70265c7813126272d8</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-en-01-english-direct-evidence"><code>dev-k-en-01</code> — English — <code>direct-evidence</code><a class="headerlink" href="#dev-k-en-01-english-direct-evidence" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Direct technical fact.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Kubernetes v1.36.4 CronJob `nightly-report` uses `concurrencyPolicy: Forbid`. Its previous Job is still running when the next scheduled time arrives. Another unrelated CronJob also has a running Job.
+
+State what happens to the new `nightly-report` occurrence and whether `Forbid` prevents Jobs from the other CronJob from running concurrently.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> <code>Forbid</code> skips the new occurrence when a previous Job from the same CronJob is still running, but it does not block Jobs created by other CronJobs.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/cron-jobs.md">CronJob</a></p>
+<p><strong>Input SHA-256:</strong> <code>7afd1deae655b31eda368ba6aa6bc8b9f6f2f3bfcbeffcf31ef51453654e4aee</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-en-02-english-synthesis"><code>dev-k-en-02</code> — English — <code>synthesis</code><a class="headerlink" href="#dev-k-en-02-english-synthesis" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Combine several technical facts.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A team is defining a Kubernetes v1.36.4 CronJob whose generated Jobs should retry work after a container failure. A draft Pod template uses `restartPolicy: Always`.
+
+Synthesize the relationship between CronJob and Job for this case:
+- which object the CronJob creates for each occurrence;
+- which `restartPolicy` values are permitted in the Job&#x27;s Pod template.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> A CronJob creates a Job for each occurrence, and a Job Pod template may use <code>restartPolicy: Never</code> or <code>OnFailure</code>, not <code>Always</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/cron-jobs.md">CronJob</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/job.md">Job</a></p>
+<p><strong>Input SHA-256:</strong> <code>5a2e1f4673f3a844ecf7528798141c30d8a77a160e7c8c54c7c95b592bc37712</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-en-03-english-absent-answer-abstention"><code>dev-k-en-03</code> — English — <code>absent-answer-abstention</code><a class="headerlink" href="#dev-k-en-03-english-absent-answer-abstention" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Recognize when the source does not justify a precise answer.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Service selector in Kubernetes v1.36.4 has just been changed so that a different set of Pods matches it. An operations runbook needs a single exact maximum number of seconds, guaranteed by Kubernetes v1.36.4, within which the corresponding EndpointSlices must reflect the new matching Pod set.
+
+Determine whether Kubernetes v1.36.4 defines such a universal numeric guarantee. If it does not, explicitly abstain from inventing one and summarize the behavior that can be stated without inventing an SLA.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Kubernetes does not publish one universal guaranteed maximum for EndpointSlice reconciliation after a selector change, so a numeric SLA must not be invented.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/services-networking/service.md">Service and EndpointSlices</a></p>
+<p><strong>Input SHA-256:</strong> <code>b12c72e565b22f6cd7aa2a1a5afde747dd815cbd618d80a18b1c26d0d9972232</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-k-en-04-english-distractor-heavy-evidence"><code>dev-k-en-04</code> — English — <code>distractor-heavy-evidence</code><a class="headerlink" href="#dev-k-en-04-english-distractor-heavy-evidence" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Separate relevant facts from distractors.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Pod in Kubernetes v1.36.4 mounts key `settings.yaml` from ConfigMap `app-settings` using a volume mount with `subPath`. The ConfigMap is later updated. The Pod also has a Service on port 8080, label `tier=backend`, CPU request `250m`, and a readiness probe that is currently passing.
+
+Will the file mounted through `subPath` receive the ConfigMap update automatically? Identify which details determine the answer and which supplied details are distractors.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> No: a ConfigMap file mounted with <code>subPath</code> does not receive later ConfigMap updates automatically; the Service, label, CPU request and readiness state are distractors.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/configuration/configmap.md">ConfigMap</a></p>
+<p><strong>Input SHA-256:</strong> <code>e85a2acbabff4ecaf766ca134c838fdd94453962e6c757c1f88161ea6dbacf72</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h2 id="procedural">Procedural<a class="headerlink" href="#procedural" title="Permanent link">&para;</a></h2>
+<h3 id="dev-p-pl-01-polish-diagnosis"><code>dev-p-pl-01</code> — Polish — <code>diagnosis</code><a class="headerlink" href="#dev-p-pl-01-polish-diagnosis" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Diagnose from bounded observations.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Masz wyłącznie poniższe zapisane obserwacje z Poda `checkout-7f6d` w Kubernetes v1.36.4; nie wykonuj żadnych poleceń:
+
+`kubectl get pod checkout-7f6d` pokazuje `STATUS=Init:CrashLoopBackOff`.
+
+Fragment `kubectl describe pod checkout-7f6d`:
+- init container `prepare`: `State: Waiting`, `Reason: CrashLoopBackOff`
+- `Last State: Terminated`, `Reason: Error`, `Exit Code: 1`
+- główny kontener aplikacji nie został jeszcze uruchomiony.
+
+Zwróć wyłącznie JSON z kluczami:
+`stan`, `najlepsze_nastepne_sprawdzenie`, `polecenie_tylko_do_odczytu`, `uzasadnienie`.
+
+`polecenie_tylko_do_odczytu` ma zawierać dokładnie jedno polecenie `kubectl`, które najlepiej dostarczy danych o błędzie init containera. Nie proponuj naprawy ani mutacji klastra.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The init container <code>prepare</code> is repeatedly failing before the application container can start; the best next read-only check is its previous logs, for example <code>kubectl logs checkout-7f6d -c prepare --previous</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/debug/debug-application/debug-init-containers.md">Debug init containers</a></p>
+<p><strong>Input SHA-256:</strong> <code>c9e57e5c525c31c9035b646e55e9f4a7c6d39db0c5dc1118add55d1e0dbf941a</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-pl-02-polish-constrained-repair"><code>dev-p-pl-02</code> — Polish — <code>constrained-repair</code><a class="headerlink" href="#dev-p-pl-02-polish-constrained-repair" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Make the smallest permitted repair.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Napraw minimalnie poniższy manifest nowego Deployment dla Kubernetes v1.36.4:
+
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog-v2</span>
+<span class="w">        </span><span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">backend</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">catalog</span>
+<span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.example/catalog:2.0</span>
+</code></pre></div>
+
+Ograniczenia:
+- nie zmieniaj `apiVersion`, `kind`, `metadata.name`, `replicas`, obrazu kontenera ani `spec.selector`;
+- możesz zmienić wyłącznie `spec.template.metadata.labels`;
+- zachowaj etykietę `tier: backend`;
+- zwróć cały poprawiony YAML i nic więcej.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Change only the Pod-template label from <code>app: catalog-v2</code> to <code>app: catalog</code> and keep <code>tier: backend</code>, so the immutable Deployment selector matches the template labels.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/deployment.md">Deployment</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>56c2b53cddca6def3d0e5db483b2d0008206843f3401da75832e0d0ccedf64a3</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-pl-03-polish-ordered-action"><code>dev-p-pl-03</code> — Polish — <code>ordered-action</code><a class="headerlink" href="#dev-p-pl-03-polish-ordered-action" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Produce a safe bounded action sequence.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Deployment `web` w Kubernetes v1.36.4 ma kontener `web` z obrazem `registry.example/web:1.4`. Trzeba przejść na `registry.example/web:1.5` i sprawdzić powodzenie wdrożenia.
+
+Podaj maksymalnie 5 uporządkowanych kroków z dokładnymi poleceniami `kubectl`, które:
+1. zmienią wyłącznie obraz kontenera `web`,
+2. będą obserwować status rolloutu,
+3. zweryfikują obraz zapisany w Pod template,
+4. w razie nieudanego rolloutu wskażą polecenie cofnięcia do poprzedniej rewizji.
+
+Nie wykonuj poleceń i nie dodawaj zmian niezwiązanych z obrazem.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Update only the image with <code>kubectl set image</code>, monitor with <code>kubectl rollout status</code>, read back the Pod-template image, and use <code>kubectl rollout undo deployment/web</code> only if the rollout fails.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/run-application/update-deployment-rolling.md">Rolling update</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/deployment.md">Deployment</a></p>
+<p><strong>Input SHA-256:</strong> <code>817ec96e8d4c5f7ae722b7f0cc181f53c0a27c0b1e17415a72c392091771a36b</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-pl-04-polish-structured-artifact-schema-adherence"><code>dev-p-pl-04</code> — Polish — <code>structured-artifact-schema-adherence</code><a class="headerlink" href="#dev-p-pl-04-polish-structured-artifact-schema-adherence" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Produce a valid constrained Kubernetes artifact.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Utwórz kompletny manifest CronJob zgodny z Kubernetes v1.36.4 dla zadania `inventory-sync`.
+
+Wymagania:
+- `apiVersion: batch/v1`;
+- uruchamianie co 15 minut;
+- harmonogram interpretowany w `Etc/UTC` przez właściwe pole CronJob;
+- `concurrencyPolicy: Forbid`;
+- `startingDeadlineSeconds: 120`;
+- obraz `registry.example/inventory-sync:3.1`;
+- kontener ma nazywać się `sync`;
+- polecenie kontenera: `[&quot;/app/sync&quot;]`;
+- `restartPolicy: Never`;
+- nie dodawaj pól niewymaganych przez zadanie.
+
+Zwróć wyłącznie jeden dokument YAML.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The manifest should use <code>schedule: "*/15 * * * *"</code>, <code>timeZone: Etc/UTC</code>, <code>concurrencyPolicy: Forbid</code>, <code>startingDeadlineSeconds: 120</code>, the requested container/image/command, and <code>restartPolicy: Never</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/cron-jobs.md">CronJob</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/job.md">Job</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>aaba01e847f65e7eb43029f34f60179fbf53e9b1d85cc95f09641827dee7daed</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-en-01-english-diagnosis"><code>dev-p-en-01</code> — English — <code>diagnosis</code><a class="headerlink" href="#dev-p-en-01-english-diagnosis" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Diagnose from bounded observations.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Use only these captured observations for Kubernetes v1.36.4; do not execute anything:
+
+- Pod `api-6b7d` is `Running`.
+- Its liveness probe is succeeding.
+- Its readiness probe is failing.
+- The matching Service exists.
+- The Pod IP is absent from the Service&#x27;s EndpointSlices.
+
+Return JSON with exactly these keys:
+`diagnosis`, `traffic_effect`, `next_check`, `read_only_command`.
+
+`read_only_command` must contain exactly one non-mutating `kubectl` command suitable for checking the readiness-related evidence. Do not propose a repair.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The Pod is alive but unready, so it should keep running while being excluded from Service traffic; inspect readiness-related Pod state/events with one read-only command such as <code>kubectl describe pod api-6b7d</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/pods/probes.md">Pod probes</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/services-networking/service.md">Service and EndpointSlices</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/debug/debug-application/debug-service.md">Debug Services</a></p>
+<p><strong>Input SHA-256:</strong> <code>a61b8e664ae1a424ebe2976979d723b6e17544aae0f80969eadb429f9b414b69</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-en-02-english-constrained-repair"><code>dev-p-en-02</code> — English — <code>constrained-repair</code><a class="headerlink" href="#dev-p-en-02-english-constrained-repair" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Make the smallest permitted repair.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Pod in Kubernetes v1.36.4 is intended to read key `MODE` from ConfigMap `app-settings`, which exists in the same namespace. The manifest contains:
+
+<div class="highlight"><pre><span></span><code><span class="nt">env</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MODE</span>
+<span class="w">  </span><span class="nt">valueFrom</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">configMapKeyRef</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-setings</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MODE</span>
+</code></pre></div>
+
+Produce the smallest corrected YAML fragment under `env:`.
+
+Constraints:
+- only the `configMapKeyRef.name` value may change;
+- keep environment variable name `MODE`;
+- keep key `MODE`;
+- do not add optional fields;
+- output YAML only.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The minimal repair is changing only <code>configMapKeyRef.name</code> from <code>app-setings</code> to <code>app-settings</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/configuration/configmap.md">ConfigMap</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>2d96a329ce95d939671ea827b94b9168d0c3edb359ce9469a67cf92e5d238d29</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-en-03-english-ordered-action"><code>dev-p-en-03</code> — English — <code>ordered-action</code><a class="headerlink" href="#dev-p-en-03-english-ordered-action" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Produce a safe bounded action sequence.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Deployment `worker` in Kubernetes v1.36.4 currently has 2 replicas and must be manually scaled to 5.
+
+Provide exactly three ordered, non-interactive `kubectl` commands:
+1. set the replica count to 5;
+2. read back the Deployment state;
+3. list the Pods belonging to the workload using label `app=worker`.
+
+Do not change the Pod template, image, or any autoscaling resource. Do not execute the commands.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Use exactly three commands: scale the Deployment to 5 replicas, read back the Deployment, then list Pods with <code>-l app=worker</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/run-application/scale-deployment.md">Scale a Deployment</a></p>
+<p><strong>Input SHA-256:</strong> <code>88393f4f74b945e47b5af9430a17311b67a1634d3c60c3a4d7a4a5b32a31f7af</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-p-en-04-english-structured-artifact-schema-adherence"><code>dev-p-en-04</code> — English — <code>structured-artifact-schema-adherence</code><a class="headerlink" href="#dev-p-en-04-english-structured-artifact-schema-adherence" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Produce a valid constrained Kubernetes artifact.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Write one complete Kubernetes v1.36.4 Job manifest named `shard-indexer`.
+
+Requirements:
+- `apiVersion: batch/v1`;
+- image `registry.example/indexer:4.0`;
+- container name `indexer`;
+- command `[&quot;/app/index&quot;]`;
+- `completions: 4`;
+- `parallelism: 2`;
+- `completionMode: Indexed`;
+- Pod template `restartPolicy: Never`;
+- do not set a manual selector;
+- do not add unrelated fields.
+
+Return YAML only.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Return one Job using <code>batch/v1</code> with the requested container, <code>completions: 4</code>, <code>parallelism: 2</code>, <code>completionMode: Indexed</code>, <code>restartPolicy: Never</code>, and no manual selector.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/job.md">Job</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>560ecd9bb5fa3a2cd4f9e2e5b255be1b1e0c5637e3d9a9037acba46c12167b50</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h2 id="mixed">Mixed<a class="headerlink" href="#mixed" title="Permanent link">&para;</a></h2>
+<h3 id="dev-m-pl-01-polish-evidence-backed-configuration-decision"><code>dev-m-pl-01</code> — Polish — <code>evidence-backed-configuration-decision</code><a class="headerlink" href="#dev-m-pl-01-polish-evidence-backed-configuration-decision" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Make and justify a configuration decision.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Aplikacja w Kubernetes v1.36.4:
+- potrzebuje zwykle 75–100 sekund na start;
+- podczas startu endpoint `/healthz` może zwracać błąd, choć jest to stan oczekiwany;
+- po starcie chwilowe przeciążenie powinno wyłączyć Pod z ruchu, ale nie restartować kontenera;
+- trwałe zakleszczenie procesu powinno prowadzić do restartu.
+
+Podejmij decyzję, jak rozdzielić role między `startupProbe`, `readinessProbe` i `livenessProbe`, a następnie podaj przykładowy fragment `containers[].startupProbe/readinessProbe/livenessProbe` używający HTTP GET do `/healthz` na porcie `8080`. Parametry czasowe dobierz jawnie i krótko uzasadnij; nie zakładaj obserwacji z żywego klastra.
+
+Odpowiedź ma zawierać:
+1. decyzję i krótkie techniczne uzasadnienie,
+2. fragment YAML.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The startup probe should cover the expected 75–100 s startup window, readiness should remove an overloaded Pod from traffic without restart, and liveness should detect a lasting deadlock; the YAML should express those three separate roles.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/pods/probes.md">Pod probes</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md">Configure probes task</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>a83256b1389f27edb35a01dd420e8b3387b98695163a3ff047b703dca5a53529</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-pl-02-polish-evidence-backed-bounded-procedure"><code>dev-m-pl-02</code> — Polish — <code>evidence-backed-bounded-procedure</code><a class="headerlink" href="#dev-m-pl-02-polish-evidence-backed-bounded-procedure" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Build a bounded diagnostic procedure.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+W Kubernetes v1.36.4 aplikacja działa bezpośrednio pod adresami IP Podów, ale Service `payments` nie zwraca odpowiedzi.
+
+Zapisane obserwacje:
+- Service istnieje i ma selector `app=payments`;
+- trzy zdrowe Pody mają etykietę `app=pay`;
+- bezpośredni test do portu aplikacji na IP Poda działa;
+- nie wolno teraz zmieniać żadnego obiektu.
+
+Wskaż najbardziej uzasadnioną hipotezę konfiguracji i podaj maksymalnie 4 uporządkowane, tylko-do-odczytu kroki `kubectl`, które potwierdzą albo obalą tę hipotezę. Nie proponuj mutacji.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The strongest hypothesis is a selector mismatch (<code>app=payments</code> versus Pod label <code>app=pay</code>); read-only checks should confirm the Service selector, Pod labels and resulting EndpointSlices before any mutation.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/services-networking/service.md">Service and EndpointSlices</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/debug/debug-application/debug-service.md">Debug Services</a></p>
+<p><strong>Input SHA-256:</strong> <code>1fb96420ce4013e5efba52435814a6741d5e13baf92bfe3fe9e7c84311d69238</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-pl-03-polish-evidence-backed-artifact-validation"><code>dev-m-pl-03</code> — Polish — <code>evidence-backed-artifact-validation</code><a class="headerlink" href="#dev-m-pl-03-polish-evidence-backed-artifact-validation" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Validate and minimally repair an artifact.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Oceń poniższy fragment CronJob dla Kubernetes v1.36.4:
+
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">batch/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CronJob</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">billing</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;quot</span><span class="l l-Scalar l-Scalar-Plain">;TZ=Europe/Warsaw 0 2 * * *&amp;quot;</span>
+<span class="w">  </span><span class="nt">jobTemplate</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Always</span>
+<span class="w">          </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">billing</span>
+<span class="w">            </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry.example/billing:5.0</span>
+<span class="w">            </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nl">&amp;quot</span><span class="nv">;/app/bill&amp;quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+Wymaganie biznesowe: uruchomienie codziennie o 02:00 w strefie `Europe/Warsaw`.
+
+Podaj:
+1. werdykt, czy artefakt spełnia wymaganie i reguły v1.36.4;
+2. listę wykrytych problemów z krótkim technicznym uzasadnieniem;
+3. minimalnie poprawiony manifest YAML.
+
+Nie dodawaj innych funkcji CronJob.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> The manifest is invalid because the time zone belongs in <code>.spec.timeZone</code> rather than inside <code>schedule</code>, and a Job Pod cannot use <code>restartPolicy: Always</code>; use <code>schedule: "0 2 * * *"</code>, <code>timeZone: Europe/Warsaw</code>, and a valid Job restart policy (<code>Never</code> or <code>OnFailure</code>).</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/cron-jobs.md">CronJob</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/job.md">Job</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>79236d780658dac4055c42fbc71f09e01bd41f703327d6464820940fc4178663</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-pl-04-polish-evidence-backed-repair-plan"><code>dev-m-pl-04</code> — Polish — <code>evidence-backed-repair-plan</code><a class="headerlink" href="#dev-m-pl-04-polish-evidence-backed-repair-plan" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Explain and plan a bounded repair.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Deployment `gateway` w Kubernetes v1.36.4 pobiera `FEATURE_MODE` z ConfigMap przez zmienną środowiskową. ConfigMap zmieniono, ale działające Pody nadal mają starą wartość. Obraz, liczba replik i pozostała konfiguracja mają pozostać bez zmian.
+
+Przygotuj plan naprawy, który:
+- wyjaśnia, dlaczego sama zmiana ConfigMap nie wystarczy dla zmiennej środowiskowej;
+- powoduje kontrolowane odtworzenie Podów przez zmianę wyłącznie metadanych Pod template Deployment;
+- podaje minimalny fragment YAML pokazujący taką zmianę;
+- zawiera krok weryfikacji rolloutu;
+- nie wykonuje żadnej operacji.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Changing a ConfigMap does not refresh an environment variable in existing Pods; change only Deployment Pod-template metadata (for example an annotation) to trigger a controlled rollout, then verify rollout completion.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/configuration/configmap.md">ConfigMap</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/deployment.md">Deployment</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/run-application/update-deployment-rolling.md">Rolling update</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>1b3a8ee20eddb5e604018e9a8a77ca8ed5734b6ab3bec90aabe8620466721165</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-en-01-english-evidence-backed-configuration-decision"><code>dev-m-en-01</code> — English — <code>evidence-backed-configuration-decision</code><a class="headerlink" href="#dev-m-en-01-english-evidence-backed-configuration-decision" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Make and justify a configuration decision.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Kubernetes v1.36.4 Deployment has 4 replicas labeled `app=checkout`. Eligible nodes are spread across three zones using node label `topology.kubernetes.io/zone`. The requirement is to keep matching Pods as evenly spread across zones as possible and refuse a new placement when it would make the skew greater than 1.
+
+Decide whether a Pod topology spread constraint is appropriate, then provide the minimal `spec.template.spec.topologySpreadConstraints` YAML fragment that expresses the requirement.
+
+Your response must:
+1. briefly justify the decision technically;
+2. preserve label matching on `app=checkout`;
+3. use `maxSkew: 1`;
+4. make the constraint hard rather than a soft preference;
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> A hard topology-spread constraint is appropriate: use <code>topology.kubernetes.io/zone</code>, <code>maxSkew: 1</code>, <code>whenUnsatisfiable: DoNotSchedule</code>, and a selector matching <code>app=checkout</code>.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/scheduling-eviction/topology-spread-constraints.md">Topology spread constraints</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/deployment.md">Deployment</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>fc5aa48b3cc9c7f7391f86527bf40655c984ba0ebc21ee8a3cb491092c1167da</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-en-02-english-evidence-backed-bounded-procedure"><code>dev-m-en-02</code> — English — <code>evidence-backed-bounded-procedure</code><a class="headerlink" href="#dev-m-en-02-english-evidence-backed-bounded-procedure" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Build a bounded diagnostic procedure.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Kubernetes v1.36.4 Deployment rollout has stopped making progress after a Pod-template change. No mutation is authorized yet.
+
+Prepare a bounded read-only investigation procedure of at most four `kubectl` commands that checks:
+- rollout status;
+- Deployment state and conditions;
+- the ReplicaSets created for the rollout;
+- the Pods and their current status.
+
+Explain briefly what each observation contributes before any repair decision is made. Do not execute commands and do not propose a mutation.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Use at most four read-only checks covering rollout status, Deployment conditions, ReplicaSets and Pods, and make no repair until those observations identify the failure mode.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/workloads/controllers/deployment.md">Deployment</a> · <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/tasks/run-application/update-deployment-rolling.md">Rolling update</a></p>
+<p><strong>Input SHA-256:</strong> <code>223220d0b05a101e9cd89abb4995bd2ce54604fc662689e9568f65f99ee945e9</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-en-03-english-evidence-backed-artifact-validation"><code>dev-m-en-03</code> — English — <code>evidence-backed-artifact-validation</code><a class="headerlink" href="#dev-m-en-03-english-evidence-backed-artifact-validation" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Validate and minimally repair an artifact.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+Validate this Kubernetes v1.36.4 container resource fragment:
+
+<div class="highlight"><pre><span></span><code><span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">requests</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;quot</span><span class="l l-Scalar l-Scalar-Plain">;0.0005&amp;quot;</span>
+<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;quot</span><span class="l l-Scalar l-Scalar-Plain">;128Mi&amp;quot;</span>
+<span class="w">  </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;quot</span><span class="l l-Scalar l-Scalar-Plain">;500m&amp;quot;</span>
+<span class="w">    </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="nl">&amp;quot</span><span class="l l-Scalar l-Scalar-Plain">;256Mi&amp;quot;</span>
+</code></pre></div>
+
+The workload owner needs the smallest change that makes the CPU request use a valid precision while preserving the intended very small request as closely as Kubernetes permits.
+
+Return:
+1. a validity verdict and technical reason;
+2. the minimal corrected `resources` YAML fragment;
+
+Do not change memory values or CPU limit.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> <code>0.0005</code> CPU has precision finer than 1m and is invalid; the nearest valid small request is <code>1m</code> (equivalently <code>0.001</code>) while all other resource values stay unchanged.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/configuration/manage-resources-containers.md">Container resources</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>7a4dfc3d96b19dbc28a3c9bb8c6eda721b58610d4b36d932dbdce48d6ceb4100</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h3 id="dev-m-en-04-english-evidence-backed-repair-plan"><code>dev-m-en-04</code> — English — <code>evidence-backed-repair-plan</code><a class="headerlink" href="#dev-m-en-04-english-evidence-backed-repair-plan" title="Permanent link">&para;</a></h3>
+<p><strong>Purpose:</strong> Explain and plan a bounded repair.</p>
+<p><strong>Question — exact model input:</strong></p>
+<pre>
+A Pod template in Kubernetes v1.36.4 is pending because the only currently suitable node has this taint:
+
+`dedicated=payments:NoSchedule`
+
+The workload is allowed to run on that node, but the repair must not force the Pod onto that node; it should only make the taint no longer exclude it. Other scheduler constraints must remain free to choose another node.
+
+Prepare a repair plan and the minimal Pod-template YAML fragment required for that goal. Explain why the change permits scheduling onto the tainted node without guaranteeing placement there.
+</pre>
+
+<p><strong>Expected answer — reviewer note:</strong> Add a toleration matching <code>dedicated=payments:NoSchedule</code>; it removes that taint as an exclusion but does not select or force the Pod onto the node.</p>
+<p><strong>Frozen sources:</strong> <a href="https://github.com/kubernetes/website/blob/1de955ebabe7e17da1ebb4f582635491227f4157/content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md">Taints and tolerations</a> · <a href="https://github.com/kubernetes/kubernetes/blob/bb826b1d48562f110659e64e8ec444327433db95/api/openapi-spec/swagger.json">Kubernetes OpenAPI snapshot</a></p>
+<p><strong>Input SHA-256:</strong> <code>94ebb59c031cbdb5469e35af036f8be3f7a5c4860014f889a9602ef2bba00fa4</code></p>
+<p><strong>Human review:</strong> ☐ approve as written · ☐ revise · ☐ reject</p>
+<h2 id="after-approval">After approval<a class="headerlink" href="#after-approval" title="Permanent link">&para;</a></h2>
+<p>Approval of these inputs authorizes only the later construction of protected development-evaluator material. It does not authorize formal model experiments, final-test construction, training-data construction, live <code>kind</code>/web execution, or outcome-selected combined conditions.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.indexes", "navigation.sections", "navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
