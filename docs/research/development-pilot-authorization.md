@@ -29,7 +29,7 @@ Approval of this package authorizes only the core work listed under [Authorized 
 
 ### Choices not resolved by this gate
 
-- The exact compatible Kubernetes release, `kubernetes/website` commit, `kubernetes/kubernetes` commit, included paths, and redistribution decisions must be selected and human-reviewed before the first family is authored. Selection cannot use model outcomes.
+- The exact compatible Kubernetes release, `kubernetes/website` commit, `kubernetes/kubernetes` commit, included paths, and redistribution decisions are proposed in the [development-pilot source and rights manifest](development-pilot-source-rights-manifest.md). They remain unresolved until that exact manifest is human-approved and merged; no family may be authored before then. Selection cannot use model outcomes.
 - The four optional procedural families for static/interactive pairing are not selected here. If proposed later, selection uses frozen coverage metadata and must cover diagnosis and remediation before any interactive outcome.
 - The W1-eligible subset and allowlist revision are not selected here. They require a pre-outcome eligibility manifest and a separate live-access authorization.
 - Detector implementations and numerical thresholds for token-overlap and semantic detectors are not invented here. They are calibrated on seeded synthetic positives and hard negatives, frozen with detector identity, and approved before scanning pilot artifacts.
