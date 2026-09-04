@@ -5,13 +5,15 @@
 - **Freeze ID:** `development-pilot-preauthoring-freeze-v1`
 - **Policy:** `pilot-policy-v1`
 - **Issue:** #35
-- **Decision state:** proposed — awaiting explicit human approval
+- **Decision state:** approved and frozen
+- **Human approval:** recorded on PR #42 on 2026-09-04 for head `22ba5b6ab1a8b16b78e7eba00f889e27c89233cb`
+- **Freeze commit:** `575fc4df4597c6b13ad3535e34474ddc455b4527`
 - **Predecessors:** development-pilot authorization (PR #38), source/rights freeze `development-pilot-source-rights-v1` (PR #40), approved-state synchronization (PR #41)
 - **Machine-readable ledger:** `development-pilot-preauthoring-freeze-v1.json`
 - **Canonical semantic SHA-256:** `ce07a181086f8a1e7264f2b89f1da3fae06679709a5771fadee489f3e56c26a9`
 - **Exact JSON-file SHA-256:** `74a3cec3cfdde9e4f78f204ad4880da1c6b8d1188c2587b96e7940a7c4b2a54c`
 
-This package freezes only pre-authoring custody identities, safe evidence rules, empty development-family metadata, and already-approved condition/comparator declarations. It contains no scenario prose, question, prompt, expected answer, golden, answer-bearing hint, protected evaluator payload, final-test identity or payload, training example, or usable benchmark item. It authorizes nothing until the human researcher approves this gate.
+This package freezes only pre-authoring custody identities, safe evidence rules, empty development-family metadata, and already-approved condition/comparator declarations. It contains no scenario prose, question, prompt, expected answer, golden, answer-bearing hint, protected evaluator payload, final-test identity or payload, training example, or usable benchmark item. The human researcher approved this exact freeze; only the next sequenced development-only scenario-input authoring within the 24 frozen slots is now authorized.
 
 ## Basis and change classification
 
@@ -33,7 +35,7 @@ The exact source boundary is already frozen by `development-pilot-source-rights-
 
 ### Concrete project decisions frozen here
 
-This gate proposes only the concrete identities needed before authoring: three logical custody roots, six access roles, four append-only evidence streams, 24 stable empty family IDs with coverage/source-role metadata, reusable condition profiles, and the explicit decision to select no optional `kind`, W1, or C2 families yet.
+This gate freezes only the concrete identities needed before authoring: three logical custody roots, six access roles, four append-only evidence streams, 24 stable empty family IDs with coverage/source-role metadata, reusable condition profiles, and the explicit decision to select no optional `kind`, W1, or C2 families yet.
 
 No new methodology, threshold, metric, comparator rule, source, release, condition meaning, or execution capability is introduced.
 
@@ -43,7 +45,7 @@ Logical identities are stable project identifiers. Runtime filesystem, object-st
 
 | Root ID | Logical identity | Current state | Model-facing resolution |
 |---|---|---|---|
-| `development-model-facing-v1` | `development/model-facing` | metadata only; scenario-input payloads absent pending approval | allowed only when the relevant later process is authorized |
+| `development-model-facing-v1` | `development/model-facing` | metadata only at approval; scenario-input payloads absent before authoring | allowed only when the relevant later process is authorized |
 | `development-protected-evaluator-v1` | `development/protected-evaluator` | identity only; no protected payload committed | **deny / fail closed** |
 | `future-training-v1` | `future-training` | sealed empty; no training material selected or created | **deny / fail closed** |
 
@@ -94,7 +96,7 @@ Every event records at minimum `event_id`, `event_type`, UTC timestamp, `root_id
 
 SHA-256 is the content identity. Semantic metadata hashes use the project's canonical JSON rule: UTF-8, sorted keys, no insignificant whitespace. Payload hashes use exact governed bytes before transformation. A transformation later records its input hash, configuration/identity hash, and output hash.
 
-For this proposal, the semantic hash above covers the complete machine-readable pre-authoring ledger. The exact-file hash permits byte-for-byte verification of the committed JSON representation.
+For this approved freeze, the semantic hash above covers the complete machine-readable pre-authoring ledger. The exact-file hash permits byte-for-byte verification of the committed JSON representation. The ledger remains byte-identical to the artifact approved on PR #42; its embedded `decision_state` therefore records the historical pre-approval proposal state of that immutable artifact rather than serving as the mutable post-approval project status.
 
 ## Empty 24-slot allocation
 
@@ -209,9 +211,9 @@ Later selection may use only the frozen model-independent metadata and the accep
 
 ## Authorization boundary
 
-**Before human approval:** this PR is documentation and safe metadata only. Scenario authoring remains closed.
+**Human approval is recorded:** PR #42 records explicit approval of this exact freeze at head `22ba5b6ab1a8b16b78e7eba00f889e27c89233cb`, and the approved change was squash-merged into `main` as `575fc4df4597c6b13ad3535e34474ddc455b4527`.
 
-**If the human researcher approves this exact freeze:** the next sequenced activity may author fresh **development-only scenario inputs** inside these 24 slots, using only the frozen source/rights boundary and `development-model-facing-v1` custody. Rejected inputs must leave append-only reason evidence and replacements remain inside the same predeclared slot.
+The next sequenced activity may author fresh **development-only scenario inputs** inside these 24 slots, using only the frozen source/rights boundary and `development-model-facing-v1` custody. Rejected inputs must leave append-only reason evidence and replacements remain inside the same predeclared slot.
 
 Approval of this gate still does **not** authorize protected evaluator payload authoring out of sequence, model execution, formal experiments, training-data construction or training, any final-test action, a real `kind` cluster, live W1, outcome-selected C2, or experimental-harness implementation.
 
@@ -221,8 +223,8 @@ Approval of this gate still does **not** authorize protected evaluator payload a
 
 ## Human gate
 
-Recommendation: **APPROVE** if the committed JSON hash matches this document and review confirms there is no scenario/protected payload in the diff.
+**Decision: APPROVED.** The human researcher approved `development-pilot-preauthoring-freeze-v1` on 2026-09-04 exactly as committed at PR #42 head `22ba5b6ab1a8b16b78e7eba00f889e27c89233cb`; CI for that head was green, and PR #42 was squash-merged as `575fc4df4597c6b13ad3535e34474ddc455b4527`.
 
-Proposed approval sentence:
+Recorded approval:
 
 > I approve `development-pilot-preauthoring-freeze-v1` exactly as committed. This freezes the three logical custody roots, access/redaction/evidence rules, 24 metadata-only development slots, and existing condition/comparator/dependency declarations, and authorizes only the next sequenced authoring of development-only scenario inputs within those frozen slots; it does not authorize protected evaluator payloads out of sequence, model execution, training data or training, final-test material or access, a real `kind` cluster, live W1, outcome-selected C2, formal experiments, or harness implementation.
