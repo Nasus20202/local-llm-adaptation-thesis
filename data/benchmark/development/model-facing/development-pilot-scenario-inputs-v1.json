@@ -169,19 +169,19 @@
     {
       "task_class": "knowledge",
       "path": "data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json",
-      "sha256": "0b8cc4f421092e5006fd7b354744603f60a89f29738ed93bde71f63f4e84f1ce",
+      "sha256": "12e9ff7c987f4fea96985b0309b9b2d0225fb58f75cdfd02b64b67fd75b228d2",
       "scenario_count": 8
     },
     {
       "task_class": "procedural",
       "path": "data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json",
-      "sha256": "8684613cb46618009ec166efa982c8972162540792cca324387b30c63759e08d",
+      "sha256": "2ae283bb85b238285d42584e146cc35ba92101ccfc21493862e8165ae01a3ca8",
       "scenario_count": 8
     },
     {
       "task_class": "mixed",
       "path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json",
-      "sha256": "40bed3cd118aba4e06753924a77eb1d7e86eb84360b4ec3916306e1e05d7751d",
+      "sha256": "e666190bf164bdb962bc787b8a020d93ee52900962dcd8fed8f7f7fa560b4b28",
       "scenario_count": 8
     }
   ],
@@ -402,5 +402,22 @@
       "input_sha256": "d0350b038cdce939e25dd8eeebf39b450e53f48f6eac853b9c5f369d7991a721",
       "payload_path": "data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json"
     }
-  ]
+  ],
+  "model_input_contract": {
+    "scenario_input_field": "input_text",
+    "base_scenario_export": "input_text-only",
+    "metadata_exported_to_base_model": false,
+    "excluded_from_base_model_input": [
+      "family and authoring metadata",
+      "source and provenance metadata",
+      "source-evidence identifiers",
+      "OpenAPI schema identities",
+      "hashes and custody metadata",
+      "condition-profile metadata",
+      "review and evaluator metadata"
+    ],
+    "additional_context_rule": "Only context or tools explicitly authorized by a later experimental condition contract may accompany input_text.",
+    "custody_note": "Presence in development/model-facing custody does not itself make metadata prompt-visible."
+  },
+  "human_review_artifact": "docs/research/development-pilot-scenario-review.md"
 }

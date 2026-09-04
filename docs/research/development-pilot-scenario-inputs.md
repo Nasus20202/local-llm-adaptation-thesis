@@ -9,21 +9,37 @@
 - **Pre-authoring freeze:** `development-pilot-preauthoring-freeze-v1`
 - **Source/rights freeze:** `development-pilot-source-rights-v1`
 - **Kubernetes release:** `v1.36.4`
-- **Top-level manifest SHA-256:** `9ab878632ccf90bc2f1adca7dc334b0d9f2e2342815d520432ac1a83736f6ac3`
-- **Construction-event log SHA-256:** `e7f1ddaa3656410d5fd324f7cfd0309d5bdca9dc3a84355440c4670386937473`
+- **Top-level manifest SHA-256:** `29189ea62c7b82f5fbe93e7d66a0d6bf9c3344a1737ec6ce52dbe2eccfb2de42`
+- **Construction-event log SHA-256:** `4427e1829008a5083f20054329d0fd78c2c17bbdc4c799d5c37a341b209d54b4`
 
 This package performs only the authorized development-input authoring step. It does not perform protected evaluator construction, contamination-detector calibration/audit, evaluator qualification, model execution, real `kind`, live W1, C2 selection, training, harness implementation, or final-test work.
 
 GenAI assisted candidate drafting, so these are **not yet human-approved benchmark items**. The human researcher must independently review all 24 inputs without consulting model responses.
+
+## Where to review the questions
+
+The primary human-review artifact is **[Development-pilot Scenario Human Review Catalog](development-pilot-scenario-review.md)**. It contains all 24 complete candidate questions in readable Markdown, grouped by class, with their exact `input_text` and a short explanation of what each item is intended to test. Human review should use that document rather than reading the JSON payloads directly.
+
+## Pilot scope: not the final benchmark
+
+These 24 independent families are the **development-only pilot / feasibility sample**, not the final benchmark sample size and not the final-test set. The pilot exists to validate solvability, evaluator quality, headroom, method applicability, runtime/storage budgets, and the study design. Later work may construct additional family-disjoint development material where scientifically required, separate F1 training families, and eventually a protected final-test set under its own freeze and custody gate. No final-test family is authored or reserved here.
+
+## Model-input exposure contract
+
+`development/model-facing` is a custody boundary, not a declaration that every field stored there is prompt-visible. For the base scenario export, the canonical scenario content supplied to the model is **only the `input_text` field**.
+
+The base model does not receive family/authoring metadata, source or provenance metadata, source-evidence identifiers, OpenAPI schema identities, hashes, condition-profile metadata, review metadata, evaluator metadata, or the top-level source registry. Those fields remain repository governance/provenance data for reproducibility. A later experimental condition may add only context or tools explicitly authorized by that condition's frozen contract.
+
+The per-scenario `source_evidence_ids` and `openapi_schema_identities` fields were removed from the three scenario payloads after human review identified their unnecessary leakage risk. Their provenance relationship remains preserved in the append-only construction ledger and source registry. The 24 `input_text` values and individual `input_sha256` identities are unchanged.
 
 ## Model-facing artifacts
 
 All candidate inputs are under `development-model-facing-v1`:
 
 - `data/benchmark/development/model-facing/development-pilot-scenario-inputs-v1.json` — package index, exact source registry, frozen identities, boundary assertions, and payload hashes;
-- `data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json` — 8 knowledge inputs, SHA-256 `0b8cc4f421092e5006fd7b354744603f60a89f29738ed93bde71f63f4e84f1ce`;
-- `data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json` — 8 procedural inputs, SHA-256 `8684613cb46618009ec166efa982c8972162540792cca324387b30c63759e08d`;
-- `data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json` — 8 mixed inputs, SHA-256 `40bed3cd118aba4e06753924a77eb1d7e86eb84360b4ec3916306e1e05d7751d`;
+- `data/benchmark/development/model-facing/development-pilot-knowledge-scenarios-v1.json` — 8 knowledge inputs, SHA-256 `12e9ff7c987f4fea96985b0309b9b2d0225fb58f75cdfd02b64b67fd75b228d2`;
+- `data/benchmark/development/model-facing/development-pilot-procedural-scenarios-v1.json` — 8 procedural inputs, SHA-256 `2ae283bb85b238285d42584e146cc35ba92101ccfc21493862e8165ae01a3ca8`;
+- `data/benchmark/development/model-facing/development-pilot-mixed-scenarios-v1.json` — 8 mixed inputs, SHA-256 `e666190bf164bdb962bc787b8a020d93ee52900962dcd8fed8f7f7fa560b4b28`;
 - `data/benchmark/development/model-facing/development-pilot-construction-events-v1.jsonl` — append-only construction/provenance/hash evidence.
 
 The split payloads are an implementation detail for reviewability. The package remains one logical manifest, `development-pilot-scenario-inputs-v1`.
