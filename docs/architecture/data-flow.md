@@ -2,14 +2,14 @@
 
 ## Input classes
 
-| Input | Durable identity | Storage rule |
-|---|---|---|
-| Model metadata | Repository, revision, artifact hash, quantization | Metadata in Git; weights outside Git |
-| Hardware metadata | Versioned config plus captured runtime facts | Config in Git; facts in run manifest |
-| Dataset | Dataset ID, revision, deterministic manifest/hash | Licensed metadata in Git; restricted data outside Git |
-| Prompt | Prompt ID, revision, content hash | Text and metadata in Git |
-| Method configuration | Versioned RAG/training/harness/skill settings | Git-tracked configuration |
-| Evaluation | Evaluator ID, version, rules/rubric hash | Code/config in Git; outputs derived |
+| Input                | Durable identity                                  | Storage rule                                          |
+| -------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| Model metadata       | Repository, revision, artifact hash, quantization | Metadata in Git; weights outside Git                  |
+| Hardware metadata    | Versioned config plus captured runtime facts      | Config in Git; facts in run manifest                  |
+| Dataset              | Dataset ID, revision, deterministic manifest/hash | Licensed metadata in Git; restricted data outside Git |
+| Prompt               | Prompt ID, revision, content hash                 | Text and metadata in Git                              |
+| Method configuration | Versioned RAG/training/harness/skill settings     | Git-tracked configuration                             |
+| Evaluation           | Evaluator ID, version, rules/rubric hash          | Code/config in Git; outputs derived                   |
 
 ## Transformation rules
 

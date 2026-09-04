@@ -6,13 +6,13 @@ This lifecycle supports an MSc scientific study. Research questions, validity, r
 
 ## Stable model roles
 
-| Role | Primary environment | Responsibility |
-|---|---|---|
-| Human researcher | — | Final decisions, specification approval, merge, experiment freeze, and academic responsibility |
-| Frontier Planning Model | ChatGPT Work | Literature, methodology, research design, consequential architecture, ADRs, OpenSpec, analysis, and Polish thesis integration |
-| Budget Implementation Model | Codex | Approved code, tests, CI, implementation debugging, experiment execution, raw-output capture, and technical verification |
-| Frontier Reviewer | ChatGPT Chat | Independent review of correctness, scientific fidelity, reproducibility, scope, tests, fairness, and unnecessary complexity |
-| Escalation Implementation Model | Codex | Exceptional implementation-only escalation after the specification is clear and the budget model has failed |
+| Role                            | Primary environment | Responsibility                                                                                                                |
+| ------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Human researcher                | —                   | Final decisions, specification approval, merge, experiment freeze, and academic responsibility                                |
+| Frontier Planning Model         | ChatGPT Work        | Literature, methodology, research design, consequential architecture, ADRs, OpenSpec, analysis, and Polish thesis integration |
+| Budget Implementation Model     | Codex               | Approved code, tests, CI, implementation debugging, experiment execution, raw-output capture, and technical verification      |
+| Frontier Reviewer               | ChatGPT Chat        | Independent review of correctness, scientific fidelity, reproducibility, scope, tests, fairness, and unnecessary complexity   |
+| Escalation Implementation Model | Codex               | Exceptional implementation-only escalation after the specification is clear and the budget model has failed                   |
 
 Concrete model names are runtime recommendations, never stable policy.
 

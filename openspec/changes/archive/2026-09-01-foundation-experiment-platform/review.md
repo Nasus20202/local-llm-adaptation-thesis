@@ -9,13 +9,13 @@ The change protects later evidence from ambiguous configuration, mutable externa
 
 ## Consistency matrix
 
-| Proposal capability | Normative behavior | Design | Tasks |
-|---|---|---|---|
+| Proposal capability        | Normative behavior                                                               | Design                            | Tasks               |
+| -------------------------- | -------------------------------------------------------------------------------- | --------------------------------- | ------------------- |
 | `experiment-configuration` | Strict documents, contained references, dual hashes, side-effect-free validation | Strict configuration and identity | 2.1–2.5; CLI in 5.2 |
-| `run-provenance` | Manifest, clean Git commit, minimal runtime facts, safe portable paths | Clean Git provenance and manifest | 3.1–3.4 |
-| `run-lifecycle` | Unique IDs, atomic creation, immutable manifest, read-only inspection | Immutable prepared run | 4.1–4.4 |
-| `command-line-interface` | Three commands, JSON streams, stable error classes | Minimal CLI | 5.1–5.4 |
-| Tooling and CI | Deterministic network/model-free verification | Minimal tooling and CI | 1.1–1.4; 6.1–6.5 |
+| `run-provenance`           | Manifest, clean Git commit, minimal runtime facts, safe portable paths           | Clean Git provenance and manifest | 3.1–3.4             |
+| `run-lifecycle`            | Unique IDs, atomic creation, immutable manifest, read-only inspection            | Immutable prepared run            | 4.1–4.4             |
+| `command-line-interface`   | Three commands, JSON streams, stable error classes                               | Minimal CLI                       | 5.1–5.4             |
+| Tooling and CI             | Deterministic network/model-free verification                                    | Minimal tooling and CI            | 1.1–1.4; 6.1–6.5    |
 
 ## Scope reduction completed
 

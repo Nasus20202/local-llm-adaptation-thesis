@@ -30,32 +30,32 @@ The split payloads are an implementation detail for reviewability. The package r
 
 ## Frozen-slot satisfaction
 
-| Family ID | Class | Lang | Frozen coverage/subtype | Candidate scenario focus |
-|---|---|---|---|---|
-| `dev-k-pl-01` | knowledge | pl | `direct-evidence` | ConfigMap-backed environment variable propagation |
-| `dev-k-pl-02` | knowledge | pl | `synthesis` | startup/readiness/liveness probe role synthesis |
-| `dev-k-pl-03` | knowledge | pl | `absent-answer-abstention` | StatefulSet DNS delay absent-guarantee case |
-| `dev-k-pl-04` | knowledge | pl | `distractor-heavy-evidence` | non-preempting PriorityClass with distractors |
-| `dev-k-en-01` | knowledge | en | `direct-evidence` | CronJob Forbid concurrency semantics |
-| `dev-k-en-02` | knowledge | en | `synthesis` | CronJob-to-Job and Job restart policy synthesis |
-| `dev-k-en-03` | knowledge | en | `absent-answer-abstention` | Service EndpointSlice update absent-SLA case |
-| `dev-k-en-04` | knowledge | en | `distractor-heavy-evidence` | ConfigMap subPath update with distractors |
-| `dev-p-pl-01` | procedural | pl | `diagnosis` | structured Init Container diagnosis |
-| `dev-p-pl-02` | procedural | pl | `constrained-repair` | constrained Deployment selector/template repair |
-| `dev-p-pl-03` | procedural | pl | `ordered-action` | ordered Deployment image rollout and rollback procedure |
-| `dev-p-pl-04` | procedural | pl | `structured-artifact-schema-adherence` | schema-constrained CronJob authoring |
-| `dev-p-en-01` | procedural | en | `diagnosis` | structured readiness/Service diagnosis |
-| `dev-p-en-02` | procedural | en | `constrained-repair` | constrained ConfigMap reference repair |
-| `dev-p-en-03` | procedural | en | `ordered-action` | ordered manual Deployment scaling |
-| `dev-p-en-04` | procedural | en | `structured-artifact-schema-adherence` | schema-constrained indexed Job authoring |
-| `dev-m-pl-01` | mixed | pl | `evidence-backed-configuration-decision` | evidence-backed probe configuration decision |
-| `dev-m-pl-02` | mixed | pl | `evidence-backed-bounded-procedure` | evidence-backed Service diagnosis procedure |
-| `dev-m-pl-03` | mixed | pl | `evidence-backed-artifact-validation` | CronJob artifact validation and correction |
-| `dev-m-pl-04` | mixed | pl | `evidence-backed-repair-plan` | ConfigMap environment refresh repair plan |
-| `dev-m-en-01` | mixed | en | `evidence-backed-configuration-decision` | topology-spread configuration decision |
-| `dev-m-en-02` | mixed | en | `evidence-backed-bounded-procedure` | bounded Deployment rollout investigation |
-| `dev-m-en-03` | mixed | en | `evidence-backed-artifact-validation` | resource-quantity artifact validation |
-| `dev-m-en-04` | mixed | en | `evidence-backed-repair-plan` | taint/toleration repair plan |
+| Family ID     | Class      | Lang | Frozen coverage/subtype                  | Candidate scenario focus                                |
+| ------------- | ---------- | ---- | ---------------------------------------- | ------------------------------------------------------- |
+| `dev-k-pl-01` | knowledge  | pl   | `direct-evidence`                        | ConfigMap-backed environment variable propagation       |
+| `dev-k-pl-02` | knowledge  | pl   | `synthesis`                              | startup/readiness/liveness probe role synthesis         |
+| `dev-k-pl-03` | knowledge  | pl   | `absent-answer-abstention`               | StatefulSet DNS delay absent-guarantee case             |
+| `dev-k-pl-04` | knowledge  | pl   | `distractor-heavy-evidence`              | non-preempting PriorityClass with distractors           |
+| `dev-k-en-01` | knowledge  | en   | `direct-evidence`                        | CronJob Forbid concurrency semantics                    |
+| `dev-k-en-02` | knowledge  | en   | `synthesis`                              | CronJob-to-Job and Job restart policy synthesis         |
+| `dev-k-en-03` | knowledge  | en   | `absent-answer-abstention`               | Service EndpointSlice update absent-SLA case            |
+| `dev-k-en-04` | knowledge  | en   | `distractor-heavy-evidence`              | ConfigMap subPath update with distractors               |
+| `dev-p-pl-01` | procedural | pl   | `diagnosis`                              | structured Init Container diagnosis                     |
+| `dev-p-pl-02` | procedural | pl   | `constrained-repair`                     | constrained Deployment selector/template repair         |
+| `dev-p-pl-03` | procedural | pl   | `ordered-action`                         | ordered Deployment image rollout and rollback procedure |
+| `dev-p-pl-04` | procedural | pl   | `structured-artifact-schema-adherence`   | schema-constrained CronJob authoring                    |
+| `dev-p-en-01` | procedural | en   | `diagnosis`                              | structured readiness/Service diagnosis                  |
+| `dev-p-en-02` | procedural | en   | `constrained-repair`                     | constrained ConfigMap reference repair                  |
+| `dev-p-en-03` | procedural | en   | `ordered-action`                         | ordered manual Deployment scaling                       |
+| `dev-p-en-04` | procedural | en   | `structured-artifact-schema-adherence`   | schema-constrained indexed Job authoring                |
+| `dev-m-pl-01` | mixed      | pl   | `evidence-backed-configuration-decision` | evidence-backed probe configuration decision            |
+| `dev-m-pl-02` | mixed      | pl   | `evidence-backed-bounded-procedure`      | evidence-backed Service diagnosis procedure             |
+| `dev-m-pl-03` | mixed      | pl   | `evidence-backed-artifact-validation`    | CronJob artifact validation and correction              |
+| `dev-m-pl-04` | mixed      | pl   | `evidence-backed-repair-plan`            | ConfigMap environment refresh repair plan               |
+| `dev-m-en-01` | mixed      | en   | `evidence-backed-configuration-decision` | topology-spread configuration decision                  |
+| `dev-m-en-02` | mixed      | en   | `evidence-backed-bounded-procedure`      | bounded Deployment rollout investigation                |
+| `dev-m-en-03` | mixed      | en   | `evidence-backed-artifact-validation`    | resource-quantity artifact validation                   |
+| `dev-m-en-04` | mixed      | en   | `evidence-backed-repair-plan`            | taint/toleration repair plan                            |
 
 Composition remains exactly 8 knowledge, 8 procedural, and 8 mixed inputs; each class contains 4 Polish and 4 English inputs. Every payload repeats the frozen `family_id`, `split=development`, independent-family flag, task class, language, coverage/subtype, answer-contract class, source roles, provenance references, and condition profile without alteration.
 

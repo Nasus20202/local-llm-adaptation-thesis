@@ -16,11 +16,11 @@ Each item freezes one answer contract that is identical for all compared conditi
 
 ## Task-class answer forms and pilot outcomes
 
-| Class | Permitted primary answer forms | Candidate pilot primary outcome | Supporting outcomes |
-|---|---|---|---|
-| Knowledge | concise prose or atomic claims with requested evidence references | atomic-claim F1 for required and unsupported claims | completeness, evidence correctness, abstention quality |
-| Procedural | Kubernetes YAML or JSON, patch, bounded action sequence, or structured diagnosis | binary end-to-end task success | constraint adherence, step errors, schema validity |
-| Mixed | evidence-grounded decision plus verifiable artifact or procedure | normalized task-specific score with procedural hard gates | knowledge correctness, procedural success, cost |
+| Class      | Permitted primary answer forms                                                   | Candidate pilot primary outcome                           | Supporting outcomes                                    |
+| ---------- | -------------------------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------------------------------ |
+| Knowledge  | concise prose or atomic claims with requested evidence references                | atomic-claim F1 for required and unsupported claims       | completeness, evidence correctness, abstention quality |
+| Procedural | Kubernetes YAML or JSON, patch, bounded action sequence, or structured diagnosis | binary end-to-end task success                            | constraint adherence, step errors, schema validity     |
+| Mixed      | evidence-grounded decision plus verifiable artifact or procedure                 | normalized task-specific score with procedural hard gates | knowledge correctness, procedural success, cost        |
 
 Final primary outcomes freeze only after development-only pilot evidence is reviewed under the predeclared rules. Lexical similarity is never a primary outcome.
 

@@ -32,11 +32,11 @@ The exact supported Kubernetes release, website commit, API-schema revision, inc
 
 ## Alternatives considered
 
-| Alternative | Benefit | Methodological cost | Decision |
-|---|---|---|---|
-| One Kubernetes workload domain | Supports knowledge, procedural, and mixed tasks with shared terminology and versionable sources | Limits generalization to one technical domain | Selected for internal validity and feasible curation |
-| Kubernetes plus a second technical domain | Broader external validity | Confounds domain with task class, doubles source and annotation work, and weakens paired comparisons | Rejected for the main benchmark |
-| Fully synthetic technical world | Strong leakage control and deterministic grading | Weak ecological validity and uncertain transfer to real technical work | Rejected as the main domain; controlled synthetic configurations remain allowed inside the selected domain |
+| Alternative                               | Benefit                                                                                         | Methodological cost                                                                                  | Decision                                                                                                   |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| One Kubernetes workload domain            | Supports knowledge, procedural, and mixed tasks with shared terminology and versionable sources | Limits generalization to one technical domain                                                        | Selected for internal validity and feasible curation                                                       |
+| Kubernetes plus a second technical domain | Broader external validity                                                                       | Confounds domain with task class, doubles source and annotation work, and weakens paired comparisons | Rejected for the main benchmark                                                                            |
+| Fully synthetic technical world           | Strong leakage control and deterministic grading                                                | Weak ecological validity and uncertain transfer to real technical work                               | Rejected as the main domain; controlled synthetic configurations remain allowed inside the selected domain |
 
 ## Source and corpus policy
 
