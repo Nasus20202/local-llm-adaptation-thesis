@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "manifest_id": "development-pilot-evaluation-clarification-v1",
+  "decision_state": "human-approved-pending-merge",
+  "approval_date": "2026-09-04",
+  "scope": "development-pilot-model-answer-source-reference-and-semantic-scoring-clarification",
+  "historical_freeze_preserved": {
+    "manifest_id": "development-pilot-preauthoring-freeze-v1",
+    "exact_json_file_sha256": "74a3cec3cfdde9e4f78f204ad4880da1c6b8d1188c2587b96e7940a7c4b2a54c",
+    "rule": "The approved v1 freeze remains byte-identical. This record supersedes only the model-answer citation/source-reference interpretation and makes semantic scoring explicit."
+  },
+  "superseded_interpretations": [
+    "knowledge answer form requiring evidence identifiers or references in model output",
+    "mixed deterministic gate requiring model-produced evidence or citation text",
+    "citation correctness as a model-answer metric for R1/W1"
+  ],
+  "unchanged_decisions": [
+    "24 development-family slot identities and class/language allocation",
+    "candidate primary metric families",
+    "condition profiles, comparators, and mechanism-aligned target strata",
+    "source/release/rights selection",
+    "custody roots and protected-evaluator separation",
+    "optional semantic-pair, kind, W1, and C2 selection state",
+    "no model execution, formal experiment, training, or final-test access"
+  ],
+  "model_answer_source_reference_policy": {
+    "citations_required": false,
+    "source_paths_required": false,
+    "evidence_identifiers_required": false,
+    "urls_required": false,
+    "citation_correctness_scored": false,
+    "provenance_captured_system_side": true,
+    "groundedness_evaluated_evaluator_side": true
+  },
+  "semantic_scoring_policy": {
+    "reference_role": "semantic-contract-not-canonical-prose",
+    "required_representation": [
+      "required concepts or claims",
+      "acceptable semantic alternatives where needed",
+      "unsupported or contradictory claims",
+      "task constraints",
+      "construct-critical exact literals only when their identity/value is part of the task"
+    ],
+    "semantic_paraphrases_score_equivalently": true,
+    "lexical_overlap_contributes_score": false,
+    "verbatim_documentation_bonus": false,
+    "exact_match_limited_to_construct_critical_literals": true,
+    "ambiguous_semantic_equivalence": "route-to-calibrated-human-rubric",
+    "extra_copied_text_rule": "no bonus; may reduce relevance or unsupported-claim precision if it introduces irrelevant, incorrect, contradictory, or unsupported content"
+  },
+  "rag_w1_policy": {
+    "retrieval_or_search_provenance": "captured by harness/evaluator",
+    "groundedness": "judge support of answer claims against actually supplied or fetched permitted context",
+    "citation_generation": "not part of the core answer contract"
+  }
+}

@@ -1,0 +1,2324 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Human-readable research and engineering documentation for the MSc thesis project.">
+      
+      
+      
+        <link rel="canonical" href="https://nasus20202.github.io/local-llm-adaptation-thesis/research/evaluation/">
+      
+      
+        <link rel="prev" href="../experimental-design/">
+      
+      
+        <link rel="next" href="../benchmark-design/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Evaluation - Local LLM Adaptation Thesis</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#evaluation-strategy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-header__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Local LLM Adaptation Thesis
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Evaluation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Local LLM Adaptation Thesis" class="md-nav__button md-logo" aria-label="Local LLM Adaptation Thesis" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Local LLM Adaptation Thesis
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Nasus20202/local-llm-adaptation-thesis
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Project
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Project
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Status
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/charter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/aidlc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIDLC workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project/source-of-truth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Source of truth
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Research
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../research-questions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Research questions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../experimental-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experimental design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-scoring-works-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How scoring works in practice
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How scoring works in practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-structural-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Structural checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deterministic-task-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deterministic task success
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-atomic-claim-semantic-f1-for-open-knowledge-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Atomic-claim semantic F1 for open knowledge answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-human-rubric-for-genuinely-ambiguous-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Human rubric for genuinely ambiguous language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mixed-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Mixed tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-rag-and-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. RAG and search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-stability-and-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stability and efficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-class-answer-forms-and-pilot-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task-class answer forms and pilot outcomes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-scoring-fairness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic-scoring fairness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluator-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-rubric-and-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human rubric and calibration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-language-scoring-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-language scoring equivalence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-task-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive task evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag-and-web-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAG and web decomposition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fine-tuning-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fine-tuning accounting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluator-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator governance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Benchmark design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development pilot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development pilot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../benchmark-pilot-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-authorization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authorization
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-inputs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenario inputs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-scenario-review/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human review
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development-pilot-protected-evaluator-design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protected evaluator design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/system-overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    System overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/data-flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/experiment-lifecycle/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Experiment lifecycle
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/reproducibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Decisions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Decisions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0001-repository-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0001 — Repository architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0002-primary-secondary-model-strategy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0002 — Model strategy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0003-local-inference-backend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0003 — Local inference backend
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0004-fine-tuning-environment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0004 — Fine-tuning environment
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0005-openspec-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0005 — OpenSpec workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0006-experiment-provenance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0006 — Experiment provenance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0007-evaluation-architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0007 — Evaluation architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0008-benchmark-domain-and-language-policy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0008 — Benchmark domain and language
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../adr/0009-development-pilot-and-calibration-protocol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADR 0009 — Development pilot protocol
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/conventions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conventions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/codex-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Codex workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development/pilot-foundation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pilot foundation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Glossary
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#principles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Principles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-scoring-works-in-practice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How scoring works in practice
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How scoring works in practice">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-structural-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Structural checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deterministic-task-success" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Deterministic task success
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-atomic-claim-semantic-f1-for-open-knowledge-answers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Atomic-claim semantic F1 for open knowledge answers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-human-rubric-for-genuinely-ambiguous-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Human rubric for genuinely ambiguous language
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-mixed-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Mixed tasks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-rag-and-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. RAG and search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-stability-and-efficiency" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Stability and efficiency
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quality-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality layers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-class-answer-forms-and-pilot-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Task-class answer forms and pilot outcomes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#semantic-scoring-fairness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semantic-scoring fairness
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluator-fixtures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator fixtures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#human-rubric-and-calibration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Human rubric and calibration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cross-language-scoring-equivalence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cross-language scoring equivalence
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-task-evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interactive task evaluation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stability
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rag-and-web-decomposition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RAG and web decomposition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fine-tuning-accounting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fine-tuning accounting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluator-governance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluator governance
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/Nasus20202/local-llm-adaptation-thesis/edit/main/docs/research/evaluation.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="evaluation-strategy">Evaluation Strategy<a class="headerlink" href="#evaluation-strategy" title="Permanent link">&para;</a></h1>
+<h2 id="principles">Principles<a class="headerlink" href="#principles" title="Permanent link">&para;</a></h2>
+<p>Use the cheapest valid evaluator first: deterministic validation, then reference-based metrics, then calibrated rubrics and human review, and only then an LLM judge as supporting evidence. No important conclusion rests on one proprietary judge.</p>
+<p>Each item freezes one answer contract that is identical for all compared conditions. A malformed or constraint-violating answer may fail a deterministic gate; a well-formed but incorrect answer remains valid evidence. The proposed qualification procedure and thresholds are defined in the <a href="../benchmark-pilot-protocol/">development-only pilot protocol</a>.</p>
+<h2 id="how-scoring-works-in-practice">How scoring works in practice<a class="headerlink" href="#how-scoring-works-in-practice" title="Permanent link">&para;</a></h2>
+<p>The benchmark deliberately uses different evaluators for different kinds of answers. One universal text-similarity score would be simple but scientifically wrong: YAML validity, factual knowledge, a diagnostic plan, and RAG retrieval fail in different ways.</p>
+<h3 id="1-structural-checks">1. Structural checks<a class="headerlink" href="#1-structural-checks" title="Permanent link">&para;</a></h3>
+<p>First check whether the answer has the requested shape: valid JSON/YAML, required keys, command count, or other explicit formatting constraints. This layer answers <strong>“did the model follow the output contract?”</strong>, not <strong>“is the technical answer correct?”</strong>.</p>
+<h3 id="2-deterministic-task-success">2. Deterministic task success<a class="headerlink" href="#2-deterministic-task-success" title="Permanent link">&para;</a></h3>
+<p>Use mechanical checks when correctness can be decided exactly. Examples include a required Kubernetes field/value, schema validity, a prohibited mutation, or the final state of a controlled cluster. This avoids subjective grading for facts that a program can verify directly.</p>
+<h3 id="3-atomic-claim-semantic-f1-for-open-knowledge-answers">3. Atomic-claim semantic F1 for open knowledge answers<a class="headerlink" href="#3-atomic-claim-semantic-f1-for-open-knowledge-answers" title="Permanent link">&para;</a></h3>
+<p>Open prose is decomposed into independently judgeable claims. A <strong>true positive (TP)</strong> is a required claim expressed correctly; a <strong>false negative (FN)</strong> is a required claim the answer omitted; a <strong>false positive (FP)</strong> is an unsupported or contradictory claim counted by the scoring contract. Then <code>precision = TP/(TP+FP)</code>, <code>recall = TP/(TP+FN)</code>, and <code>F1 = 2PR/(P+R)</code>.</p>
+<p>The important part happens <strong>before</strong> the arithmetic: claim matching is semantic. “The Pod stops receiving Service traffic while unready” and a correctly worded documentation sentence can satisfy the same claim. Copying documentation gives no bonus, and lexical similarity is never used to decide TP/FP/FN.</p>
+<h3 id="4-human-rubric-for-genuinely-ambiguous-language">4. Human rubric for genuinely ambiguous language<a class="headerlink" href="#4-human-rubric-for-genuinely-ambiguous-language" title="Permanent link">&para;</a></h3>
+<p>If a deterministic rule cannot decide semantic equivalence, a calibrated human rubric uses a small number of task-specific criteria with observable anchors. Raters are qualified on separate examples and agreement is measured before the rubric can support primary results. This keeps judgment visible instead of hiding it inside an opaque similarity score.</p>
+<h3 id="5-mixed-tasks">5. Mixed tasks<a class="headerlink" href="#5-mixed-tasks" title="Permanent link">&para;</a></h3>
+<p>Mixed questions combine reasoning with a verifiable artifact or procedure. Hard procedural requirements are checked deterministically; the explanatory part is scored semantically. A fluent explanation cannot compensate for an invalid manifest or forbidden action.</p>
+<h3 id="6-rag-and-search">6. RAG and search<a class="headerlink" href="#6-rag-and-search" title="Permanent link">&para;</a></h3>
+<p>RAG has two separate failure points. Retrieval metrics such as <strong>Recall@K</strong> ask whether the needed evidence was returned; answer scoring asks whether the model used the available evidence correctly. Groundedness is checked against the context actually supplied by the harness. Citations and source-path reproduction are not model-scoring requirements.</p>
+<h3 id="7-stability-and-efficiency">7. Stability and efficiency<a class="headerlink" href="#7-stability-and-efficiency" title="Permanent link">&para;</a></h3>
+<p>Quality alone does not describe a useful local system. Repeated samples measure stability, while TTFT, latency, throughput, RAM/VRAM, token counts, tool calls, and adaptation cost capture resource trade-offs. These are reported alongside quality rather than folded into one arbitrary overall number.</p>
+<p>See the <a href="../../glossary/">glossary</a> for concise definitions of F1, rubric calibration, Krippendorff's alpha, bootstrap intervals, RAG, LoRA/QLoRA, harnesses, and other terms.</p>
+<h2 id="quality-layers">Quality layers<a class="headerlink" href="#quality-layers" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Structural validity:</strong> parseability, schema validity, required fields, length, and format constraints.</li>
+<li><strong>Deterministic task success:</strong> construct-critical exact literals, API-schema checks, policy assertions, allowed action sequence, or executable outcome.</li>
+<li><strong>Reference comparison:</strong> concept-level atomic-claim or semantic equivalence; lexical overlap with reference prose is not scored.</li>
+<li><strong>Evidence-based rubric:</strong> technical correctness, completeness, relevance, unsupported-claim control, and constraint adherence.</li>
+<li><strong>Calibrated judge:</strong> optional, blinded condition labels, fixed prompt/version, calibration against adjudicated human ratings, and disagreement reporting.</li>
+</ol>
+<h2 id="task-class-answer-forms-and-pilot-outcomes">Task-class answer forms and pilot outcomes<a class="headerlink" href="#task-class-answer-forms-and-pilot-outcomes" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Permitted primary answer forms</th>
+<th>Candidate pilot primary outcome</th>
+<th>Supporting outcomes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Knowledge</td>
+<td>concise prose or atomic claims</td>
+<td>atomic-claim F1 for required and unsupported claims</td>
+<td>semantic correctness, completeness, abstention quality</td>
+</tr>
+<tr>
+<td>Procedural</td>
+<td>Kubernetes YAML or JSON, patch, bounded action sequence, or structured diagnosis</td>
+<td>binary end-to-end task success</td>
+<td>constraint adherence, step errors, schema validity</td>
+</tr>
+<tr>
+<td>Mixed</td>
+<td>technically justified decision plus verifiable artifact or procedure</td>
+<td>normalized task-specific score with procedural hard gates</td>
+<td>knowledge correctness, procedural success, cost</td>
+</tr>
+</tbody>
+</table>
+<p>Final primary outcomes freeze only after development-only pilot evidence is reviewed under the predeclared rules. Lexical similarity is never a primary outcome.</p>
+<h2 id="semantic-scoring-fairness">Semantic-scoring fairness<a class="headerlink" href="#semantic-scoring-fairness" title="Permanent link">&para;</a></h2>
+<p>The protected reference for an open answer is a <strong>semantic scoring contract</strong>, not canonical prose that the model is expected to reproduce. It records required concepts, acceptable alternatives, unsupported or contradictory claims, task constraints, and only those exact technical literals whose identity is part of the construct.</p>
+<ul>
+<li>Semantically equivalent paraphrases, synonyms, different sentence order, and concise versus expanded correct explanations receive the same credit.</li>
+<li>Token overlap, n-gram overlap, edit distance, ROUGE/BLEU-like similarity, or verbatim overlap with Kubernetes documentation <strong>must not add score</strong>. Copying documentation word-for-word receives no bonus.</li>
+<li>Exact matching is allowed only for construct-critical literals such as required API/schema keys, enum values, numeric constraints, explicitly requested identifiers, exact output keys, or other literals whose spelling/value is itself being tested.</li>
+<li>Extra copied text can reduce relevance or unsupported-claim precision when it introduces irrelevant, incorrect, contradictory, or unsupported claims.</li>
+<li>If deterministic logic cannot decide whether an open statement is semantically equivalent, the case routes to the calibrated atomic human rubric rather than receiving an arbitrary string-similarity score.</li>
+<li>The same semantic criteria apply across B0, prompting, fine-tuning, RAG, and combined conditions. No condition receives credit merely because it had access to text that resembles the protected reference.</li>
+</ul>
+<p>The development pilot does not require the model to emit citations, file paths, evidence IDs, or URLs. Source provenance and evidence support are evaluator/harness-side records.</p>
+<h2 id="evaluator-fixtures">Evaluator fixtures<a class="headerlink" href="#evaluator-fixtures" title="Permanent link">&para;</a></h2>
+<p>Every deterministic component has versioned positive, negative, boundary, malformed, and ambiguous fixtures. Deterministic checks must match 100% of expected outcomes, be idempotent, and return reason codes. Ambiguous cases are rejected or routed to a named human criterion.</p>
+<p>Open-answer scoring additionally uses <strong>metamorphic fairness fixtures</strong> in every applicable Knowledge/Mixed × Polish/English cell. For the same underlying semantic contract:</p>
+<ul>
+<li>a concise correct paraphrase and a correct answer using wording close to the source must receive the same atomic correctness/completeness result;</li>
+<li>reordering correct claims or using accepted synonyms must not change the score;</li>
+<li>a lexically similar or partially copied answer containing a technical contradiction or missing required concept must score worse on the affected atomic criteria;</li>
+<li>adding irrelevant or unsupported copied material must never raise the score and may reduce relevance or unsupported-claim precision.</li>
+</ul>
+<p>A semantic evaluator that violates any required invariance or ordering above does not qualify. These fixtures test the scoring implementation directly, rather than assuming that a declared semantic metric is sufficient.</p>
+<p>Fixture payloads and expected results are development evaluator material, not benchmark families or final-test goldens. They are constructed only after Human Gate A and protected from model-facing contexts.</p>
+<h2 id="human-rubric-and-calibration">Human rubric and calibration<a class="headerlink" href="#human-rubric-and-calibration" title="Permanent link">&para;</a></h2>
+<p>Rubrics use atomic task-specific criteria with observable three-level anchors where ordinal judgment is necessary. Two technically competent raters complete a 12-response training round and then a disjoint, blinded 24-response qualification set balanced by task class and language.</p>
+<p>Report confusion tables, exact agreement, adjacent-category agreement, and nominal/ordinal Krippendorff alpha with a family-clustered 95% bootstrap interval. Green qualification requires at least 90% exact agreement for every critical binary label, pooled alpha at least 0.80, and lower interval bound at least 0.67. Amber permits one rubric revision and disjoint requalification; red or a second non-green attempt narrows or demotes the affected metric before final freeze.</p>
+<p>All pilot responses receiving a human primary score are double-rated. After green qualification, a stratified 25% of the larger final study is double-rated. Critical-label or greater-than-one-level disagreements require written adjudication; unresolved cases retain both labels and a conservative sensitivity analysis.</p>
+<h2 id="cross-language-scoring-equivalence">Cross-language scoring equivalence<a class="headerlink" href="#cross-language-scoring-equivalence" title="Permanent link">&para;</a></h2>
+<p>Polish and English items use the same construct definitions, task-class outcome hierarchy, and severity of deterministic gates. Technical identifiers and configuration semantics are unchanged. Language-specific surface quality is not allowed to substitute for technical correctness.</p>
+<p>Human-adapted variants receive a semantic-equivalence record covering task intent, constraints, evidence, expected answer form, and difficulty. Reviewers inspect disagreements for translation or adaptation error before attributing them to model language ability. Parallel variants share a family ID and are analyzed as nested observations.</p>
+<h2 id="interactive-task-evaluation">Interactive task evaluation<a class="headerlink" href="#interactive-task-evaluation" title="Permanent link">&para;</a></h2>
+<p>Static and <code>kind</code> variants share the same underlying fault and success criterion. Interactive success is determined by the automatic final-state validator, prohibited-action gates, and action-budget record. Diagnosis prose is secondary when the final state is mechanically decidable. All applicable conditions receive the same neutral execution interface and permissions.</p>
+<h2 id="stability">Stability<a class="headerlink" href="#stability" title="Permanent link">&para;</a></h2>
+<ul>
+<li>probability of retry-free success per family;</li>
+<li>within-family agreement across samples;</li>
+<li>variance or entropy of discrete outcomes;</li>
+<li>paraphrase sensitivity as paired performance spread;</li>
+<li>selected cross-language and static/interactive paired spread;</li>
+<li>worst-formulation and lower-quantile performance, not only mean score.</li>
+</ul>
+<h2 id="performance">Performance<a class="headerlink" href="#performance" title="Permanent link">&para;</a></h2>
+<p>Capture model load time, TTFT, end-to-end latency, prompt or effective input tokens, generated tokens, decode throughput, peak resident RAM, peak VRAM where reliably measurable, and failures. For tool-enabled conditions, also capture tool wall time, calls, actions, returned context, and budget exhaustion. Define measurement boundaries and sampling frequency before baseline freeze.</p>
+<h2 id="rag-and-web-decomposition">RAG and web decomposition<a class="headerlink" href="#rag-and-web-decomposition" title="Permanent link">&para;</a></h2>
+<p>For R1, separately measure retrieval recall at K, ranking/relevance where supported, retrieval latency/context cost, answer correctness, evaluator-side groundedness, and no-answer behavior. Retrieval and answer failure remain distinct. Retrieval provenance identifies what context was supplied; the model is not required or rewarded for reproducing source paths or citations.</p>
+<p>W1 uses the same answer contract but is reported as an official-source live-web sensitivity condition. Query, rank, URL, redirect, timestamp, body/hash, tool version where available, token budget, rejection, and error provenance are required. W1 is not silently substituted for R1 or H1.</p>
+<h2 id="fine-tuning-accounting">Fine-tuning accounting<a class="headerlink" href="#fine-tuning-accounting" title="Permanent link">&para;</a></h2>
+<p>Record training wall time, GPU type and count, peak memory, examples or tokens, steps or epochs, seed, optimizer and schedule, adapter rank and targets, adapter size, exported model size, and every cloud or session failure. Training cost is separate from local inference cost.</p>
+<h2 id="evaluator-governance">Evaluator governance<a class="headerlink" href="#evaluator-governance" title="Permanent link">&para;</a></h2>
+<p>Evaluator code, schemas, checks, rubrics, and calibration sets have versions and hashes. Changes generate a new processed evaluation version; raw model outputs remain unchanged. Raters are blinded to condition where possible. Inter-rater agreement, adjudication, recalibration, and limitations are reported.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.action.edit", "content.code.copy", "navigation.indexes", "navigation.sections", "navigation.top", "search.highlight"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
