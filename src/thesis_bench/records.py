@@ -58,6 +58,7 @@ class ReasonCode(StrEnum):
     CAPTURE_HASH_MISMATCH = "capture_hash_mismatch"
     MISSING_PROVENANCE = "missing_provenance"
     EVALUATOR_INFRASTRUCTURE_FAILURE = "evaluator_infrastructure_failure"
+    UNRESOLVED_CRITERION = "unresolved_criterion"
     HARDWARE_MEASUREMENT_FAILURE = "hardware_measurement_failure"
 
 

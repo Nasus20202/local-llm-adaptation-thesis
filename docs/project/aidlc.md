@@ -38,6 +38,19 @@ The package is ready only if a competent Budget Implementation Model can impleme
 
 Generated OpenSpec skills live under `.agents/skills/`. Do not edit them manually or hard-code an OpenSpec release in stable policy. During an upgrade, inspect the current installation and documentation, regenerate skills, review the diff, and validate active changes.
 
+### Implementation readability
+
+The archived `2026-09-03-modularize-codebase-readability` change establishes the
+repository's implementation-organization rule: hand-written Python under `src/` and
+`tests/` should normally be no more than 250 physical lines per file. Use cohesive
+capability boundaries and a one-way dependency flow rather than mechanical class-per-
+file splitting or line-count workarounds. When reorganizing an existing public module,
+retain its import surface through an explicit, side-effect-free facade and verify
+public names, validation, serialization, hashes, errors, and external-effect
+boundaries. Review organized tests by behavior, keep scientific assertions visible,
+and do not retain structure-only tests. A narrow cohesion-based exception requires
+documentation in the implementation handoff and explicit human-researcher approval.
+
 ## Handoffs
 
 ### Work to Codex
