@@ -174,28 +174,8 @@ class ProtectedArtifact(_ProtectedRecord):
         return self
 
 
-class ApprovedScenarioBinding(_ProtectedRecord):
-    family_id: Identifier
-    input_id: Identifier
-    input_sha256: Sha256
-    task_class: TaskClass
-    language: Language
-    split: Literal["development"] = "development"
-
-    @field_validator("task_class", mode="before")
-    @classmethod
-    def parse_task_class(cls, value: object) -> object:
-        return TaskClass(value) if isinstance(value, str) else value
-
-    @field_validator("language", mode="before")
-    @classmethod
-    def parse_language(cls, value: object) -> object:
-        return Language(value) if isinstance(value, str) else value
-
-
 __all__ = [
     "AcceptedSemanticAlternative",
-    "ApprovedScenarioBinding",
     "CriterionRole",
     "CustodyPurpose",
     "CustodyRole",

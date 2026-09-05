@@ -3,7 +3,6 @@
 from .config import ProtectedSemanticContract
 from .records import (
     AcceptedSemanticAlternative,
-    ApprovedScenarioBinding,
     CriterionRole,
     CustodyPurpose,
     CustodyRole,
@@ -24,7 +23,6 @@ from .validation import validate_protected_contract, validate_successor
 
 __all__ = [
     "AcceptedSemanticAlternative",
-    "ApprovedScenarioBinding",
     "CriterionRole",
     "CustodyPurpose",
     "CustodyRole",

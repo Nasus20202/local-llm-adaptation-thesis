@@ -3,7 +3,6 @@
 from ...pilot.models import ProtectedArtifactReference
 from .contracts import (
     AcceptedSemanticAlternative,
-    ApprovedScenarioBinding,
     CriterionRole,
     CustodyPurpose,
     CustodyRole,
@@ -91,7 +90,6 @@ __all__ = [
     "APPROVED_SOURCE_RIGHTS_MANIFEST",
     "AccessDecision",
     "AcceptedSemanticAlternative",
-    "ApprovedScenarioBinding",
     "AssessmentRoute",
     "AssessmentSource",
     "AuditPolicy",

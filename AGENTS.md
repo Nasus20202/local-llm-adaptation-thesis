@@ -98,6 +98,12 @@ Resolve conflicts using `docs/project/source-of-truth.md`; do not silently choos
   dense formatting, or forwarding layers whose only purpose is reducing it. Any
   cohesion-based exception must be narrow, documented in the implementation handoff,
   and explicitly approved by the human researcher.
+- Organize growing capabilities as readable directory-based subpackages with names
+  that describe their responsibility, such as `evaluation/protected/contracts/`,
+  `evaluation/protected/scoring/`, `evaluation/protected/custody/`, and
+  `evaluation/protected/judge/`. Prefer cohesive modules inside those packages over
+  broad underscore-named modules such as `protected_contracts.py` or
+  `protected_scoring.py`; do not create one file per small declarative type.
 - Preserve existing public imports with explicit compatibility facades when a module
   becomes a package. Keep facades side-effect free, use explicit `__all__` exports,
   and treat public names, validation, serialization, hashes, errors, and execution
@@ -107,6 +113,11 @@ Resolve conflicts using `docs/project/source-of-truth.md`; do not silently choos
   Avoid runtime import cycles, generic utility/framework layers, and structure-only
   tests. Organize tests by behavior, keep scientific assertions visible, and share
   only narrow setup fixtures.
+- Keep domain policy and tunable/frozen values in a nearby typed configuration file
+  or package resource, load and validate it through one narrow boundary, and derive
+  code-level constants from that configuration. Do not duplicate configuration in
+  literals across modules or hard-code scientific thresholds, source inventories,
+  roots, paths, or other changeable policy values in implementation logic.
 - Use the CPython version pinned in `.python-version` and the exact `uv` version declared in `pyproject.toml`; do not duplicate toolchain versions in CI.
 - Keep `renovate.json` valid. Renovate covers Python, supported package/lockfile managers, GitHub Actions, and the exact `uv` version; patch and minor updates may automerge only after required checks pass. Major updates remain manual. Upgrade OpenSpec deliberately and regenerate its skills; do not add post-upgrade commands to Renovate.
 - Keep pure configuration/domain logic separate from external processes and real-model inference.
