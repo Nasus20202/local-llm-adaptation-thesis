@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposed for Human Gate A. This amendment supersedes only the physical-storage and disclosure rule for **development-only evaluator material**. It does not rewrite the approved pre-authoring freeze JSON or change final-test custody.
+Approved at Human Gate A and squash-merged in PR #52 as `79d53a71f13b87dcd392f61699bdfca245bf868e`. This amendment supersedes only the physical-storage and disclosure rule for **development-only evaluator material**. It does not rewrite the approved pre-authoring freeze JSON or change final-test custody.
 
 ## Decision requested
 

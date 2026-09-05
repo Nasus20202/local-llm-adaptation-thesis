@@ -80,7 +80,23 @@ def model_facing_manifest(
         raise ValueError("protected content cannot enter model-facing manifest")
     result: dict[str, object] = dict(raw)
     if protected_references:
+        from ..evaluation.protected.source import is_repository_protected_path
+
+        try:
+            normalized_references = tuple(
+                ProtectedArtifactReference.model_validate(
+                    _tuplify(reference.model_dump(mode="python"))
+                )
+                for reference in protected_references
+            )
+        except (TypeError, ValueError) as exc:
+            raise ValueError("protected reference validation failed") from exc
+        if any(
+            is_repository_protected_path(reference.root_reference.relative_path)
+            for reference in normalized_references
+        ):
+            raise ValueError("protected evaluator payload cannot enter model-facing manifest")
         result["protected_artifact_references"] = [
-            reference.model_dump(mode="json") for reference in protected_references
+            reference.model_dump(mode="json") for reference in normalized_references
         ]
     return canonical_json_bytes(result).decode("utf-8")

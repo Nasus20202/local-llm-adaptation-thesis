@@ -11,7 +11,7 @@ from ..contracts.records import (
     CustodyRole,
     ProtectedArtifact,
 )
-from ..source import APPROVED_PROTECTED_ROOT, protected_policy
+from ..source import APPROVED_PROTECTED_ROOT, is_repository_protected_path, protected_policy
 from .events import append_access_event
 from .judge_access import JudgeAccessGrant, validate_judge_access_grant
 from .records import AccessDecision, ProtectedCustodyEvent, SafeProtectedHandle
@@ -209,6 +209,8 @@ def safe_protected_handle(
 
 def model_facing_safe_handle(handle: SafeProtectedHandle) -> dict[str, object]:
     validated = SafeProtectedHandle.model_validate(handle.model_dump(mode="python"))
+    if is_repository_protected_path(validated.relative_path):
+        raise ValueError("protected evaluator payload is not model-facing")
     return validated.model_dump(mode="json")
 
 

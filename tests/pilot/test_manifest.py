@@ -12,6 +12,7 @@ from thesis_bench.pilot import (
     validate_composition,
     validate_pilot_manifest,
 )
+from thesis_bench.records import ProtectedRootReference
 
 
 def test_balanced_development_manifest_passes_and_nested_variant_is_not_counted() -> None:
@@ -147,6 +148,23 @@ def test_model_facing_manifest_rejects_protected_markers_but_allows_references()
     )
     safe = model_facing_manifest(manifest, protected_references=(reference,))
     assert "rubric-1" in safe
+
+    public_evaluator_reference = reference.model_copy(
+        update={
+            "artifact_id": "evaluator-1",
+            "artifact_kind": "evaluator",
+            "root_reference": ProtectedRootReference(
+                schema_version=1,
+                root_id="protected-evaluator",
+                relative_path=(
+                    "data/benchmark/development/protected-evaluator/dev-k-pl-01/contract.json"
+                ),
+                content_sha256="d" * 64,
+            ),
+        }
+    )
+    with pytest.raises(ValueError, match="cannot enter model-facing"):
+        model_facing_manifest(manifest, protected_references=(public_evaluator_reference,))
 
     with pytest.raises(ValueError) as raised:
         model_facing_manifest(manifest.model_dump() | {"golden": "synthetic-secret"})

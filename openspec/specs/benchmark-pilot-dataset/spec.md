@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define auditable development-only benchmark metadata and progression records without placing protected answers or final-test payloads in the normal repository or model-facing boundary.
+Define auditable development-only benchmark metadata and progression records while keeping protected evaluator material outside the model-facing boundary and final-test payloads outside the normal repository.
 
 ## Requirements
 
@@ -75,6 +75,27 @@ The model-facing pilot manifest SHALL contain only inputs and permitted context.
 
 - **WHEN** an evaluator record references protected material by approved identity and hash
 - **THEN** validation succeeds without copying the protected payload into model-facing output
+
+### Requirement: Public development evaluator repository binding
+
+Answer-bearing development evaluator contracts, evidence maps, review artifacts, and evaluator fixtures MAY be committed under the dedicated repository-relative subtree configured for `development-protected-evaluator-v1`. The public binding SHALL retain exact artifact identity, SHA-256, lineage, source-registry identity, and review/freeze state. Final-test payloads and locators remain outside this permission.
+
+The repository-relative binding SHALL accept only canonical paths below the configured subtree. Absolute paths, parent traversal, and paths outside the subtree SHALL fail closed before payload bytes are read.
+
+#### Scenario: Tracked development evaluator artifact
+
+- **WHEN** an authorized evaluator loads a development evaluator artifact from the approved repository subtree with matching identity and SHA-256
+- **THEN** validation accepts the artifact and records the governed custody event
+
+#### Scenario: Absolute or escaping evaluator locator
+
+- **WHEN** an evaluator reference uses an absolute, parent-traversing, or out-of-subtree path
+- **THEN** validation rejects it before reading or exposing payload content
+
+#### Scenario: Public evaluator path reaches a model-facing handle
+
+- **WHEN** a model-facing serializer attempts to emit a handle whose path is under the evaluator subtree
+- **THEN** serialization fails closed without reading or copying the evaluator payload
 
 ### Requirement: Contamination audit record
 

@@ -1,0 +1,6 @@
+- [ ] 1. Add the minimal answer-bearing protected content records to the existing evaluator contract schema.
+- [ ] 2. Validate criterion definitions, accepted semantic alternatives, observable anchors, unsupported/contradictory boundaries, and deterministic governed results.
+- [ ] 3. Preserve hashed artifact/lineage binding and fail-closed model-facing serialization for the new fields.
+- [ ] 4. Add decisive synthetic tests for missing definitions, reviewer-note rejection, source-evidence binding, deterministic expectations, and model-facing exclusion.
+- [ ] 5. Validate the amended contract through the normal protected-evaluator checks without authoring Kubernetes bundles.
+- [ ] 6. After Human Gate A and merge, construct exactly one complete bundle for each of the 24 approved scenario inputs.

@@ -1,6 +1,6 @@
-- [ ] 1. Update canonical custody requirements to permit tracked development evaluator payloads under the dedicated repository subtree.
-- [ ] 2. Define and validate the repository-relative protected-root binding without accepting absolute locators.
-- [ ] 3. Add model-facing export/workspace exclusion checks for evaluator payloads and safe diagnostics/logs.
-- [ ] 4. Update custody/provenance documentation and the development-pilot governance amendment without rewriting historical freeze JSON.
-- [ ] 5. Add decisive tests proving evaluator payloads are excluded from model-facing serialization and execution inputs.
+- [x] 1. Update canonical custody requirements to permit tracked development evaluator payloads under the dedicated repository subtree.
+- [x] 2. Define and validate the repository-relative protected-root binding without accepting absolute locators.
+- [x] 3. Add model-facing export/workspace exclusion checks for evaluator payloads and safe diagnostics/logs.
+- [x] 4. Update custody/provenance documentation and the development-pilot governance amendment without rewriting historical freeze JSON.
+- [x] 5. Add decisive tests proving evaluator payloads are excluded from model-facing serialization and execution inputs.
 - [ ] 6. After this amendment is approved and merged, construct exactly one reviewed bundle for each of the 24 approved scenario inputs.
