@@ -16,7 +16,7 @@ from thesis_bench.evaluation.protected import (
 )
 from thesis_bench.records import content_sha256
 
-from .fixtures import assessment, complete_knowledge_assessments, knowledge_contract
+from .fixtures import assessment, complete_knowledge_assessments, semantic_knowledge_contract
 
 
 def judge_configuration() -> JudgeConfiguration:
@@ -102,7 +102,16 @@ def judge_fairness_case(config: JudgeConfiguration) -> JudgeFairnessCase:
         schema_version=1,
         case_id="judge-fairness-case-1",
         scope_key="knowledge-en",
-        contract=knowledge_contract(),
+        contract=semantic_knowledge_contract(),
+        covered_rule_ids=("claim-a", "claim-b"),
+        primary_scores={
+            MetamorphicVariantKind.CONCISE_CORRECT_PARAPHRASE: 1.0,
+            MetamorphicVariantKind.CORRECT_SOURCE_LIKE: 1.0,
+            MetamorphicVariantKind.ACCEPTED_SYNONYM_REORDERING: 1.0,
+            MetamorphicVariantKind.LEXICALLY_SIMILAR_WRONG: 0.5,
+            MetamorphicVariantKind.PARTIAL_MISSING_CLAIM: 0.5,
+            MetamorphicVariantKind.IRRELEVANT_SOURCE_APPENDED: 1.0,
+        },
         variants={
             MetamorphicVariantKind.CONCISE_CORRECT_PARAPHRASE: judge_variant(
                 complete_knowledge_assessments()

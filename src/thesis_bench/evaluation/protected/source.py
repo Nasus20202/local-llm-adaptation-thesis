@@ -112,13 +112,14 @@ class FrozenSourceIdentity(_ProtectedSourceRecord):
             if self.content_index_sha256 != inventory.get("content_index_sha256"):
                 raise ValueError("website content index does not match the frozen inventory")
             known = inventory.get("exact_hashes", {})
-            if isinstance(known, Mapping) and self.path_or_selector in known:
-                expected = known[self.path_or_selector]
-                if not isinstance(expected, dict) or (
-                    self.git_blob_sha1 != expected.get("git_blob_sha1")
-                    or self.content_sha256 != expected.get("content_sha256")
-                ):
-                    raise ValueError("source identity hash does not match the frozen source")
+            if not isinstance(known, Mapping) or self.path_or_selector not in known:
+                raise ValueError("website source file hash is not frozen")
+            expected = known[self.path_or_selector]
+            if not isinstance(expected, Mapping) or (
+                self.git_blob_sha1 != expected.get("git_blob_sha1")
+                or self.content_sha256 != expected.get("content_sha256")
+            ):
+                raise ValueError("source identity hash does not match the frozen source")
         else:
             if (
                 self.path_or_selector != inventory.get("path_or_selector")

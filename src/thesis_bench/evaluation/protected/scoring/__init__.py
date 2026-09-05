@@ -10,20 +10,15 @@ from .assessment import (
     QualifiedCriterionAssessment,
     validate_human_adjudication,
 )
-from .kernel import (
-    PrimaryScore,
-    ScoreBlockedError,
-    derive_primary_score,
-    score_knowledge,
-    score_mixed,
-    score_procedural,
-)
+from .kernel import derive_primary_score
+from .kernel_helpers import PrimaryScore, ScoreBlockedError
 from .routing import (
     AssessmentRoute,
     SemanticReviewRequest,
     route_criterion_assessment,
     validate_audit_selection,
 )
+from .tasks import score_knowledge, score_mixed, score_procedural
 
 __all__ = [
     "AssessmentRoute",

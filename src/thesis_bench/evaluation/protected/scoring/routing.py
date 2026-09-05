@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from typing import Literal
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Literal
 
 from pydantic import model_validator
 
@@ -8,6 +9,7 @@ from ....records import ReasonCode, VersionedRecord
 from ....schemas import Identifier
 from ..contracts.config import ProtectedSemanticContract
 from ..contracts.records import CriterionRole
+from ..source import protected_policy
 from .assessment import (
     AssessmentSource,
     AuditSelection,
@@ -16,6 +18,9 @@ from .assessment import (
     HumanReviewRoute,
     QualifiedCriterionAssessment,
 )
+
+if TYPE_CHECKING:
+    from ..judge.records import JudgeConfiguration, JudgeQualification
 
 
 class SemanticReviewRequest(VersionedRecord):
@@ -68,17 +73,36 @@ class AssessmentRoute(VersionedRecord):
         return self
 
 
+def _human_escalation_reasons() -> set[ReasonCode]:
+    access_policy = protected_policy().get("access_policy")
+    if not isinstance(access_policy, Mapping):
+        raise ValueError("protected access policy is unavailable")
+    configured = access_policy.get("human_escalation_reasons")
+    if not isinstance(configured, (tuple, list)):
+        raise ValueError("protected access policy is unavailable")
+    try:
+        return {ReasonCode(value) for value in configured}
+    except ValueError:
+        raise ValueError("protected access policy is invalid") from None
+
+
 def validate_audit_selection(selection: AuditSelection, policy: object | None) -> AuditSelection:
     if selection.route != HumanReviewRoute.BLINDED_AUDIT:
         raise ValueError("audit selection must use the blinded-audit route")
     if selection.selected_before_outcomes is not True or selection.outcome_inspected is not False:
         raise ValueError("audit membership must be predeclared and blinded")
     if policy is not None:
-        if getattr(policy, "audit_policy_id", None) != selection.audit_policy_id:
+        from ..judge.records import AuditPolicy
+
+        if not isinstance(policy, AuditPolicy):
+            raise ValueError("audit policy is invalid") from None
+        try:
+            policy = AuditPolicy.model_validate(policy.model_dump(mode="python"))
+        except ValueError:
+            raise ValueError("audit policy is invalid") from None
+        if policy.audit_policy_id != selection.audit_policy_id:
             raise ValueError("audit selection does not match the frozen policy")
-        if not getattr(policy, "frozen_before_outcomes", False) or not getattr(
-            policy, "blinded", False
-        ):
+        if not policy.frozen_before_outcomes or not policy.blinded:
             raise ValueError("audit policy is not frozen and blinded")
     return selection
 
@@ -93,6 +117,11 @@ def route_criterion_assessment(
     review_route: HumanReviewRoute = HumanReviewRoute.ADJUDICATION,
     audit_selection_id: str | None = None,
     audit_selection: AuditSelection | None = None,
+    audit_policy: object | None = None,
+    response_id: Identifier | None = None,
+    judge_configuration: JudgeConfiguration | None = None,
+    judge_qualification: JudgeQualification | None = None,
+    escalation_reason: ReasonCode | None = None,
 ) -> AssessmentRoute:
     try:
         review_route = HumanReviewRoute(review_route)
@@ -103,6 +132,17 @@ def route_criterion_assessment(
     )
     if criterion is None:
         raise ValueError("assessment references an unknown criterion")
+    if audit_selection is not None:
+        if review_route != HumanReviewRoute.BLINDED_AUDIT:
+            raise ValueError("audit selection requires the blinded-audit route")
+        if audit_policy is None:
+            raise ValueError("audit selection requires a frozen audit policy")
+        audit_selection = validate_audit_selection(audit_selection, audit_policy)
+        if response_id is None or audit_selection.response_id != response_id:
+            raise ValueError("audit selection does not match the response identity")
+        audit_selection_id = audit_selection.selection_id
+    elif review_route == HumanReviewRoute.BLINDED_AUDIT:
+        raise ValueError("blinded audit requires a predeclared audit selection")
     semantic = next(
         (item for item in contract.semantic_criteria if item.criterion_id == criterion_id), None
     )
@@ -121,7 +161,41 @@ def route_criterion_assessment(
         raise ValueError("deterministic criteria require deterministic resolution")
     if CriterionRole.SEMANTIC not in criterion.roles or semantic is None:
         raise ValueError("semantic routes require a declared semantic criterion")
+    judge_is_valid = False
+    validated_judge: QualifiedCriterionAssessment | None = None
+    if (
+        judge_assessment is not None
+        and judge_assessment.disposition != CriterionDisposition.UNRESOLVED
+        and judge_configuration is not None
+        and judge_qualification is not None
+    ):
+        from ..judge.eligibility import validate_primary_judge_assessment
+
+        try:
+            validated_judge = validate_primary_judge_assessment(
+                judge_configuration,
+                judge_qualification,
+                judge_assessment,
+                task_class=contract.task_class,
+                language=contract.language,
+            )
+        except ValueError:
+            validated_judge = None
+        else:
+            judge_is_valid = True
+    if judge_is_valid and validated_judge is not None and audit_selection is None:
+        if "qualified_semantic_judge" not in semantic.allowed_assessor_modes:
+            raise ValueError("qualified semantic judge is not allowed for this criterion")
+        return AssessmentRoute(
+            schema_version=1,
+            criterion_id=criterion_id,
+            assessment=validated_judge,
+            route=HumanReviewRoute.NONE,
+            audit_selection_id=None,
+        )
     if human_assessment is not None:
+        if escalation_reason not in _human_escalation_reasons():
+            raise ValueError("human assessment requires an approved judge escalation reason")
         if human_assessment.source != AssessmentSource.HUMAN_ADJUDICATION:
             raise ValueError("human route requires a human assessment")
         if "human_adjudication" not in semantic.allowed_assessor_modes:
@@ -130,12 +204,6 @@ def route_criterion_assessment(
             raise ValueError("human assessment requires a review route")
         if human_assessment.disposition == CriterionDisposition.UNRESOLVED:
             raise ValueError("human assessment cannot remain unresolved")
-        if review_route == HumanReviewRoute.BLINDED_AUDIT:
-            if audit_selection is None:
-                raise ValueError("audit selection is required")
-            audit_selection_id = validate_audit_selection(audit_selection, None).selection_id
-        elif audit_selection is not None:
-            raise ValueError("ordinary adjudication cannot carry an audit selection")
         return AssessmentRoute(
             schema_version=1,
             criterion_id=criterion_id,
@@ -143,25 +211,6 @@ def route_criterion_assessment(
             route=review_route,
             audit_selection_id=audit_selection_id,
         )
-    if (
-        isinstance(judge_assessment, QualifiedCriterionAssessment)
-        and judge_assessment.disposition != CriterionDisposition.UNRESOLVED
-    ):
-        if "qualified_semantic_judge" not in semantic.allowed_assessor_modes:
-            raise ValueError("qualified semantic judge is not allowed for this criterion")
-        return AssessmentRoute(
-            schema_version=1,
-            criterion_id=criterion_id,
-            assessment=judge_assessment,
-            route=HumanReviewRoute.NONE,
-            audit_selection_id=None,
-        )
-    if review_route == HumanReviewRoute.BLINDED_AUDIT:
-        if audit_selection is None:
-            raise ValueError("audit selection is required")
-        audit_selection_id = validate_audit_selection(audit_selection, None).selection_id
-    elif audit_selection is not None:
-        raise ValueError("ordinary adjudication cannot carry an audit selection")
     return AssessmentRoute(
         schema_version=1,
         criterion_id=criterion_id,

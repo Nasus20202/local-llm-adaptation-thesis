@@ -8,6 +8,7 @@ from thesis_bench.evaluation.protected import (
     CriterionAssessment,
     CriterionDisposition,
     CriterionRole,
+    DeterministicPredicate,
     FrozenSourceIdentity,
     KnowledgeScoreConfiguration,
     Language,
@@ -18,6 +19,7 @@ from thesis_bench.evaluation.protected import (
     SemanticCriterion,
     SourceEvidenceReference,
     TaskClass,
+    approved_input_registry,
 )
 from thesis_bench.records import ProtectedRootReference
 
@@ -27,15 +29,22 @@ def source_identity() -> FrozenSourceIdentity:
         schema_version=1,
         source_entry_id="source-entry-1",
         source_registry_id=APPROVED_SOURCE_RIGHTS_MANIFEST,
-        inventory_id="website-v1.36.4-development-pilot-v1",
-        source_kind="website_markdown",
-        repository="https://github.com/kubernetes/website",
+        inventory_id="openapi-v1.36.4-development-pilot-v1",
+        source_kind="openapi_schema",
+        repository="https://github.com/kubernetes/kubernetes",
         release="v1.36.4",
-        revision="1de955ebabe7e17da1ebb4f582635491227f4157",
-        path_or_selector="content/en/docs/concepts/configuration/configmap.md",
-        git_blob_sha1="aa3e6ac3c18b995a2057bd1f8ca19eb6861606e7",
-        content_sha256="2" * 64,
-        content_index_sha256="ff6e098274f45cf35dd669d0de61e566129e891baad8e0e49d7fe6922c432127",
+        revision="bb826b1d48562f110659e64e8ec444327433db95",
+        path_or_selector="api/openapi-spec/swagger.json",
+        git_blob_sha1="fe0a7b9b1da4e54e43c4d77be20f257c10bc9c34",
+        content_sha256="dcede2063da1d7ad62ecb5af8adb6d7fabd0b52385a7fa0048afb491dac90450",
+    )
+
+
+def input_binding(task_class: TaskClass):
+    return next(
+        entry
+        for entry in approved_input_registry().entries
+        if entry.task_class == task_class and entry.language == Language.EN
     )
 
 
@@ -67,11 +76,17 @@ def artifact(label: str = "evaluator-contract", state: str = "frozen") -> Protec
 
 
 def knowledge_contract() -> ProtectedSemanticContract:
+    binding = input_binding(TaskClass.KNOWLEDGE)
     criteria = (
         ProtectedCriterion(
             schema_version=1,
             criterion_id="claim-a",
-            roles=(CriterionRole.REQUIRED_CLAIM, CriterionRole.SEMANTIC),
+            roles=(
+                CriterionRole.REQUIRED_CLAIM,
+                CriterionRole.SEMANTIC,
+                CriterionRole.DETERMINISTIC,
+            ),
+            deterministic_predicate_id="predicate-claim-a",
             accepted_alternatives=(
                 AcceptedSemanticAlternative(
                     schema_version=1,
@@ -85,22 +100,32 @@ def knowledge_contract() -> ProtectedSemanticContract:
         ProtectedCriterion(
             schema_version=1,
             criterion_id="claim-b",
-            roles=(CriterionRole.REQUIRED_CLAIM, CriterionRole.SEMANTIC),
+            roles=(
+                CriterionRole.REQUIRED_CLAIM,
+                CriterionRole.SEMANTIC,
+                CriterionRole.DETERMINISTIC,
+            ),
+            deterministic_predicate_id="predicate-claim-b",
             evidence_ids=("evidence-b",),
         ),
         ProtectedCriterion(
             schema_version=1,
             criterion_id="unsupported-a",
-            roles=(CriterionRole.UNSUPPORTED_OR_CONTRADICTORY, CriterionRole.SEMANTIC),
+            roles=(
+                CriterionRole.UNSUPPORTED_OR_CONTRADICTORY,
+                CriterionRole.SEMANTIC,
+                CriterionRole.DETERMINISTIC,
+            ),
+            deterministic_predicate_id="predicate-unsupported-a",
             evidence_ids=("evidence-u",),
         ),
     )
     return ProtectedSemanticContract(
         schema_version=1,
         artifact=artifact(),
-        family_id="synthetic-family-1",
-        scenario_input_id="synthetic-input-1",
-        scenario_input_sha256="d" * 64,
+        family_id=binding.family_id,
+        scenario_input_id=binding.scenario_input_id,
+        scenario_input_sha256=binding.input_sha256,
         task_class=TaskClass.KNOWLEDGE,
         language=Language.EN,
         source_rights_manifest_id=APPROVED_SOURCE_RIGHTS_MANIFEST,
@@ -113,6 +138,29 @@ def knowledge_contract() -> ProtectedSemanticContract:
             "content_sha256": "c" * 64,
         },
         criteria=criteria,
+        predicates=(
+            DeterministicPredicate(
+                schema_version=1,
+                predicate_id="predicate-claim-a",
+                criterion_id="claim-a",
+                predicate_kind="custom",
+                predicate_version="predicate-v1",
+            ),
+            DeterministicPredicate(
+                schema_version=1,
+                predicate_id="predicate-claim-b",
+                criterion_id="claim-b",
+                predicate_kind="custom",
+                predicate_version="predicate-v1",
+            ),
+            DeterministicPredicate(
+                schema_version=1,
+                predicate_id="predicate-unsupported-a",
+                criterion_id="unsupported-a",
+                predicate_kind="custom",
+                predicate_version="predicate-v1",
+            ),
+        ),
         semantic_criteria=(
             SemanticCriterion(schema_version=1, criterion_id="claim-a", anchor_id="anchor-a"),
             SemanticCriterion(schema_version=1, criterion_id="claim-b", anchor_id="anchor-b"),
@@ -132,6 +180,26 @@ def knowledge_contract() -> ProtectedSemanticContract:
     )
 
 
+def semantic_knowledge_contract() -> ProtectedSemanticContract:
+    contract = knowledge_contract()
+    criteria = tuple(
+        criterion.model_copy(
+            update={
+                "roles": tuple(
+                    role for role in criterion.roles if role != CriterionRole.DETERMINISTIC
+                ),
+                "deterministic_predicate_id": None,
+            }
+        )
+        for criterion in contract.criteria
+    )
+    return ProtectedSemanticContract.model_validate(
+        contract.model_copy(update={"criteria": criteria, "predicates": ()}).model_dump(
+            mode="python"
+        )
+    )
+
+
 def assessment(
     criterion_id: str,
     disposition: CriterionDisposition,
@@ -140,6 +208,14 @@ def assessment(
     judge_config_id: str | None = None,
     review_id: str | None = None,
 ) -> CriterionAssessment:
+    predicate_ids = {
+        "claim-a": "predicate-claim-a",
+        "claim-b": "predicate-claim-b",
+        "unsupported-a": "predicate-unsupported-a",
+        "required-state": "predicate-state",
+        "prohibited-action": "predicate-action",
+        "semantic-point": "predicate-semantic-point",
+    }
     return CriterionAssessment(
         schema_version=1,
         assessment_id=f"assessment-{criterion_id}-{disposition.value}",
@@ -149,6 +225,14 @@ def assessment(
         assessor_id="assessor-1",
         judge_config_id=judge_config_id,
         review_id=review_id,
+        predicate_id=(
+            predicate_ids.get(criterion_id) if source == AssessmentSource.DETERMINISTIC else None
+        ),
+        predicate_version=(
+            "predicate-v1"
+            if source == AssessmentSource.DETERMINISTIC and criterion_id in predicate_ids
+            else None
+        ),
     )
 
 

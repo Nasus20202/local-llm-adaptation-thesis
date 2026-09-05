@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from thesis_bench.evaluation.protected import (
+    APPROVED_PROTECTED_ROOT,
     AssessmentSource,
     CriterionDisposition,
     JudgeQualification,
@@ -14,10 +15,21 @@ from thesis_bench.evaluation.protected import (
     validate_judge_configuration,
     validate_primary_judge_assessment,
 )
-from thesis_bench.records import DecisionStatus
+from thesis_bench.records import DecisionStatus, ProtectedRootReference
 
 from .fixtures import assessment
 from .judge_fixtures import judge_configuration, judge_fairness_case, rehash_judge_configuration
+
+
+def qualification_root_reference(
+    label: str = "qualification", digest: str = "0" * 64
+) -> ProtectedRootReference:
+    return ProtectedRootReference(
+        schema_version=1,
+        root_id=APPROVED_PROTECTED_ROOT,
+        relative_path=f"qualification/{label}.json",
+        content_sha256=digest,
+    )
 
 
 def test_judge_configuration_fails_closed_when_thresholds_are_deferred() -> None:
@@ -39,6 +51,12 @@ def test_judge_configuration_fails_closed_when_thresholds_are_deferred() -> None
         agreement_statistic=None,
         unresolved_count=0,
         schema_failure_count=0,
+        qualification_revision="v1",
+        qualification_root_reference=qualification_root_reference("deferred", "a" * 64),
+        qualification_adjudication_ids=("adjudication-deferred",),
+        malformed_output_count=0,
+        state="frozen",
+        content_sha256="a" * 64,
         fairness_status=DecisionStatus.STOP_DEFER,
         thresholds_satisfied=False,
         status=DecisionStatus.STOP_DEFER,
@@ -93,6 +111,9 @@ def test_judge_qualification_requires_frozen_thresholds_and_binds_exact_config()
         unresolved_count=0,
         schema_failure_count=0,
         fairness_cases=(judge_fairness_case(config),),
+        qualification_revision="v1",
+        qualification_root_reference=qualification_root_reference("green"),
+        qualification_adjudication_ids=("adjudication-green",),
     )
     assert qualification.status == DecisionStatus.GO
     assert qualification.thresholds_satisfied is True
@@ -150,6 +171,12 @@ def test_forged_green_qualification_cannot_authorize_a_judge() -> None:
         confusion_matrix={"unrelated-criterion": {"satisfied": {"satisfied": 1}}},
         unresolved_count=0,
         schema_failure_count=0,
+        qualification_revision="v1",
+        qualification_root_reference=qualification_root_reference("forged", "a" * 64),
+        qualification_adjudication_ids=("adjudication-forged",),
+        malformed_output_count=0,
+        state="frozen",
+        content_sha256="a" * 64,
         fairness_status=DecisionStatus.GO,
         fairness_scope_status={"knowledge-en": DecisionStatus.GO},
         thresholds_satisfied=True,
@@ -188,6 +215,9 @@ def test_judge_qualification_requires_nonempty_bound_confusion_evidence() -> Non
         unresolved_count=0,
         schema_failure_count=0,
         fairness_cases=(judge_fairness_case(config),),
+        qualification_revision="v1",
+        qualification_root_reference=qualification_root_reference("empty"),
+        qualification_adjudication_ids=("adjudication-empty",),
     )
     assert qualification.status == DecisionStatus.AMEND
     assert qualification.thresholds_satisfied is False

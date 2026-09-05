@@ -114,6 +114,13 @@ class JudgeQualification(VersionedRecord):
     qualification_set_sha256: Sha256
     protected_input_contract_id: Identifier
     protected_input_contract_sha256: Sha256
+    qualification_revision: Identifier
+    qualification_root_reference: ProtectedRootReference
+    qualification_adjudication_ids: tuple[Identifier, ...] = Field(min_length=1)
+    malformed_output_count: StrictInt = Field(ge=0)
+    state: Literal["frozen", "superseded"]
+    content_sha256: Sha256
+    supersedes_qualification_id: Identifier | None = None
     criterion_agreement: dict[Identifier, StrictFloat]
     confusion_matrix: dict[Identifier, dict[str, dict[str, StrictInt]]]
     agreement_statistic: StrictFloat | None = None
@@ -123,6 +130,23 @@ class JudgeQualification(VersionedRecord):
     fairness_scope_status: dict[Identifier, DecisionStatus] = {}
     thresholds_satisfied: StrictBool
     status: DecisionStatus
+
+    @model_validator(mode="after")
+    def validate_qualification_artifact(self) -> JudgeQualification:
+        if self.qualification_root_reference.root_id != APPROVED_PROTECTED_ROOT:
+            raise ValueError("judge qualification must use the approved protected root")
+        validate_protected_relative_path(self.qualification_root_reference.relative_path)
+        if self.qualification_root_reference.content_sha256 != self.content_sha256:
+            raise ValueError("judge qualification root hash must match its content hash")
+        if len(set(self.qualification_adjudication_ids)) != len(
+            self.qualification_adjudication_ids
+        ):
+            raise ValueError("judge qualification adjudication evidence must be unique")
+        if self.state == "superseded" and self.supersedes_qualification_id is None:
+            raise ValueError("superseded qualification must identify its predecessor")
+        if self.supersedes_qualification_id == self.qualification_id:
+            raise ValueError("qualification cannot supersede itself")
+        return self
 
 
 class MetamorphicVariantKind(StrEnum):
@@ -150,6 +174,7 @@ class MetamorphicFixtureGroup(VersionedRecord):
     language: Language
     variant_ids: tuple[Identifier, ...] = Field(min_length=6)
     variants: tuple[MetamorphicVariant, ...] = Field(min_length=6)
+    covered_rule_ids: tuple[Identifier, ...] = Field(min_length=1)
     protected_fixture_reference: ProtectedRootReference
 
     @field_validator("task_class", mode="before")
@@ -188,7 +213,19 @@ class JudgeFairnessCase(VersionedRecord):
     scope_key: Identifier
     contract: ProtectedSemanticContract
     variants: dict[MetamorphicVariantKind, tuple[CriterionAssessment, ...]]
+    covered_rule_ids: tuple[Identifier, ...] = Field(min_length=1)
+    primary_scores: dict[MetamorphicVariantKind, StrictFloat]
     affected_criterion_ids: dict[MetamorphicVariantKind, tuple[Identifier, ...]] = {}
+
+    @model_validator(mode="after")
+    def require_complete_score_evidence(self) -> JudgeFairnessCase:
+        if len(set(self.covered_rule_ids)) != len(self.covered_rule_ids):
+            raise ValueError("fairness case rule identifiers must be unique")
+        if set(self.primary_scores) != set(MetamorphicVariantKind):
+            raise ValueError("fairness case must provide every primary score relation")
+        if any(not 0.0 <= score <= 1.0 for score in self.primary_scores.values()):
+            raise ValueError("fairness primary scores must be within [0, 1]")
+        return self
 
 
 class FairnessQualification(VersionedRecord):

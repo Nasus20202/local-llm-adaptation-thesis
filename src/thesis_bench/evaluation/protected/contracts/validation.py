@@ -1,6 +1,11 @@
 from __future__ import annotations
 
 from ....pilot.models import Language, TaskClass
+from ..inputs import (
+    ApprovedInputRegistry,
+    approved_input_registry,
+    validate_approved_input_registry,
+)
 from .config import ProtectedSemanticContract
 from .records import ProtectedArtifact, ProtectedArtifactState
 
@@ -8,20 +13,20 @@ from .records import ProtectedArtifact, ProtectedArtifactState
 def validate_protected_contract(
     contract: ProtectedSemanticContract,
     *,
-    approved_family_id: str,
-    approved_input_id: str,
-    approved_input_sha256: str,
+    approved_registry: ApprovedInputRegistry | None = None,
     require_frozen: bool = False,
     approved_task_class: TaskClass | None = None,
     approved_language: Language | None = None,
 ) -> ProtectedSemanticContract:
     contract = ProtectedSemanticContract.model_validate(contract.model_dump(mode="python"))
-    if contract.family_id != approved_family_id:
+    registry = validate_approved_input_registry(approved_registry or approved_input_registry())
+    binding = registry.binding_for(contract.family_id)
+    if contract.scenario_input_id != binding.scenario_input_id:
         raise ValueError("protected contract family binding does not match approved input")
-    if contract.scenario_input_id != approved_input_id:
+    if contract.scenario_input_sha256 != binding.input_sha256:
         raise ValueError("protected contract input binding does not match approved input")
-    if contract.scenario_input_sha256 != approved_input_sha256:
-        raise ValueError("protected contract input hash does not match approved input")
+    if contract.task_class != binding.task_class or contract.language != binding.language:
+        raise ValueError("protected contract task/language does not match approved input")
     if require_frozen and contract.artifact.state != ProtectedArtifactState.FROZEN:
         raise ValueError("score contract is not frozen")
     if approved_task_class is not None and contract.task_class != approved_task_class:

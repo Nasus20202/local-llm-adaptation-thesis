@@ -5,6 +5,7 @@ import pytest
 from thesis_bench.evaluation.protected import (
     ProtectedArtifactState,
     SourceEvidenceReference,
+    approved_input_registry,
     validate_protected_contract,
     validate_source_identity,
     validate_successor,
@@ -18,9 +19,7 @@ def test_contract_validation_binds_family_input_root_and_frozen_source() -> None
     assert (
         validate_protected_contract(
             contract,
-            approved_family_id="synthetic-family-1",
-            approved_input_id="synthetic-input-1",
-            approved_input_sha256="d" * 64,
+            approved_registry=approved_input_registry(),
             require_frozen=True,
         )
         == contract
@@ -28,9 +27,7 @@ def test_contract_validation_binds_family_input_root_and_frozen_source() -> None
     with pytest.raises(ValueError):
         validate_protected_contract(
             contract,
-            approved_family_id="different-family",
-            approved_input_id="synthetic-input-1",
-            approved_input_sha256="d" * 64,
+            approved_registry=approved_input_registry().model_copy(update={"entries": ()}),
         )
     altered = contract.model_copy(
         update={
@@ -46,10 +43,20 @@ def test_contract_validation_binds_family_input_root_and_frozen_source() -> None
     with pytest.raises(ValueError):
         validate_protected_contract(
             altered,
-            approved_family_id="synthetic-family-1",
-            approved_input_id="synthetic-input-1",
-            approved_input_sha256="d" * 64,
+            approved_registry=approved_input_registry(),
         )
+
+
+def test_contract_cannot_self_certify_an_unapproved_input_binding() -> None:
+    forged = knowledge_contract().model_copy(
+        update={
+            "family_id": "unapproved-family",
+            "scenario_input_id": "unapproved-input",
+            "scenario_input_sha256": "f" * 64,
+        }
+    )
+    with pytest.raises(ValueError, match="approved input"):
+        validate_protected_contract(forged, require_frozen=True)
 
 
 def test_contract_rejects_review_note_and_unfrozen_source_identity() -> None:

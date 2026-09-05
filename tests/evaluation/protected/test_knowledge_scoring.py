@@ -5,6 +5,7 @@ import pytest
 from thesis_bench.evaluation.protected import (
     AssessmentSource,
     CriterionDisposition,
+    QualifiedCriterionAssessment,
     score_knowledge,
 )
 
@@ -53,3 +54,23 @@ def test_unqualified_semantic_assessments_cannot_enter_the_score_kernel() -> Non
     )
     with pytest.raises(ValueError, match="qualified"):
         score_knowledge(knowledge_contract(), raw_judge_assessments)
+
+
+def test_forged_qualified_assessment_cannot_enter_without_qualification_context() -> None:
+    forged = QualifiedCriterionAssessment(
+        schema_version=1,
+        assessment_id="forged-qualified-claim-a",
+        criterion_id="claim-a",
+        disposition=CriterionDisposition.SATISFIED,
+        source=AssessmentSource.QUALIFIED_SEMANTIC_JUDGE,
+        assessor_id="untrusted-assessor",
+        judge_config_id="untrusted-judge",
+        judge_config_sha256="a" * 64,
+        qualification_id="forged-qualification",
+    )
+    assessments = tuple(
+        forged if item.criterion_id == "claim-a" else item
+        for item in complete_knowledge_assessments()
+    )
+    with pytest.raises(ValueError, match="qualification"):
+        score_knowledge(knowledge_contract(), assessments)

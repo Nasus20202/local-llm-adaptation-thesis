@@ -22,6 +22,7 @@ from .contracts import (
 )
 from .custody import (
     AccessDecision,
+    JudgeAccessGrant,
     ProtectedCustodyEvent,
     SafeProtectedHandle,
     authorize_protected_access,
@@ -29,6 +30,13 @@ from .custody import (
     model_facing_safe_handle,
     record_protected_event,
     safe_protected_handle,
+    validate_judge_access_grant,
+)
+from .inputs import (
+    ApprovedInputBinding,
+    ApprovedInputRegistry,
+    approved_input_registry,
+    validate_approved_input_registry,
 )
 from .judge import (
     AuditPolicy,
@@ -47,6 +55,8 @@ from .judge import (
     qualify_judge_configuration,
     validate_fairness_coverage,
     validate_judge_configuration,
+    validate_judge_qualification,
+    validate_judge_qualification_successor,
     validate_judge_successor,
     validate_primary_judge_assessment,
 )
@@ -90,6 +100,8 @@ __all__ = [
     "APPROVED_SOURCE_RIGHTS_MANIFEST",
     "AccessDecision",
     "AcceptedSemanticAlternative",
+    "ApprovedInputBinding",
+    "ApprovedInputRegistry",
     "AssessmentRoute",
     "AssessmentSource",
     "AuditPolicy",
@@ -106,6 +118,7 @@ __all__ = [
     "FrozenSourceIdentity",
     "HumanReviewRoute",
     "JudgeConfiguration",
+    "JudgeAccessGrant",
     "JudgeFairnessCase",
     "JudgeQualification",
     "JudgeResponseSchema",
@@ -135,6 +148,7 @@ __all__ = [
     "SourceKind",
     "TaskClass",
     "authorize_protected_access",
+    "approved_input_registry",
     "check_copying_neutral_fairness",
     "derive_primary_score",
     "load_protected_payload",
@@ -148,9 +162,13 @@ __all__ = [
     "score_mixed",
     "score_procedural",
     "validate_audit_selection",
+    "validate_approved_input_registry",
     "validate_fairness_coverage",
     "validate_human_adjudication",
     "validate_judge_configuration",
+    "validate_judge_qualification",
+    "validate_judge_qualification_successor",
+    "validate_judge_access_grant",
     "validate_judge_successor",
     "validate_primary_judge_assessment",
     "validate_protected_contract",

@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import hashlib
 from collections.abc import Callable, Mapping, Sequence
-from datetime import UTC, datetime
-from uuid import uuid4
+from typing import TYPE_CHECKING
 
 from ....pilot.models import ProtectedArtifactReference
 from ....records import AppendOnlyEventStore, DecisionStatus, ProtectedRootReference, ReasonCode
@@ -13,7 +12,12 @@ from ..contracts.records import (
     ProtectedArtifact,
 )
 from ..source import APPROVED_PROTECTED_ROOT, protected_policy
+from .events import append_access_event
+from .judge_access import JudgeAccessGrant, validate_judge_access_grant
 from .records import AccessDecision, ProtectedCustodyEvent, SafeProtectedHandle
+
+if TYPE_CHECKING:
+    from ..judge.records import JudgeConfiguration, JudgeQualification
 
 
 def _coerce_role(value: CustodyRole | str) -> CustodyRole:
@@ -52,6 +56,16 @@ def _allowed_purposes(role: CustodyRole) -> set[CustodyPurpose]:
         raise ValueError("protected access policy is invalid") from exc
 
 
+def _requires_exact_judge_scope(role: CustodyRole) -> bool:
+    policy = protected_policy().get("access_policy")
+    if not isinstance(policy, Mapping):
+        raise ValueError("protected access policy is unavailable")
+    scoped_roles = policy.get("scope_required_roles")
+    if not isinstance(scoped_roles, (tuple, list)):
+        raise ValueError("protected access policy is unavailable")
+    return role.value in scoped_roles
+
+
 def authorize_protected_access(
     *,
     actor_role: CustodyRole | str,
@@ -71,35 +85,6 @@ def authorize_protected_access(
     )
 
 
-def _append_access_event(
-    event_store: AppendOnlyEventStore,
-    artifact: ProtectedArtifact,
-    role: CustodyRole,
-    purpose: CustodyPurpose,
-    status: DecisionStatus,
-    reason: ReasonCode,
-) -> None:
-    event = ProtectedCustodyEvent(
-        schema_version=1,
-        event_id=f"protected-access-{uuid4().hex}",
-        event_type="protected-access",
-        occurred_at=datetime.now(UTC).isoformat().replace("+00:00", "Z"),
-        status=status,
-        reason_codes=(reason,),
-        artifact_id=artifact.artifact_id,
-        artifact_kind=artifact.artifact_kind,
-        root_id=APPROVED_PROTECTED_ROOT,
-        artifact_revision=artifact.revision,
-        artifact_sha256=artifact.content_sha256,
-        actor_role=role,
-        purpose=purpose,
-    )
-    try:
-        event_store.append(event)
-    except ValueError:
-        pass
-
-
 def load_protected_payload(
     reference: ProtectedRootReference,
     *,
@@ -107,8 +92,13 @@ def load_protected_payload(
     actor_role: CustodyRole | str,
     purpose: CustodyPurpose | str,
     reader: Callable[[str], bytes],
-    event_store: AppendOnlyEventStore | None = None,
+    event_store: AppendOnlyEventStore,
+    judge_access: JudgeAccessGrant | None = None,
+    judge_configuration: JudgeConfiguration | None = None,
+    judge_qualification: JudgeQualification | None = None,
 ) -> bytes:
+    if event_store is None:
+        raise ValueError("protected custody evidence store is required")
     try:
         reference = ProtectedRootReference.model_validate(reference.model_dump(mode="python"))
         artifact = ProtectedArtifact.model_validate(artifact.model_dump(mode="python"))
@@ -116,6 +106,15 @@ def load_protected_payload(
         raise ValueError("protected payload access denied") from None
     role = _coerce_role(actor_role)
     access_purpose = _coerce_purpose(purpose)
+    if _requires_exact_judge_scope(role):
+        if judge_access is None or judge_configuration is None or judge_qualification is None:
+            raise ValueError("judge access scope is required")
+        validate_judge_access_grant(
+            judge_access,
+            configuration=judge_configuration,
+            qualification=judge_qualification,
+            artifact=artifact,
+        )
     decision = authorize_protected_access(
         actor_role=role, purpose=access_purpose, root_id=reference.root_id
     )
@@ -124,15 +123,15 @@ def load_protected_payload(
             update={"allowed": False, "reason_code": ReasonCode.DENIED_OPERATION}
         )
     if not decision.allowed:
-        if event_store is not None:
-            _append_access_event(
-                event_store,
-                artifact,
-                role,
-                access_purpose,
-                DecisionStatus.AMEND,
-                decision.reason_code,
-            )
+        append_access_event(
+            event_store,
+            artifact,
+            role,
+            access_purpose,
+            DecisionStatus.AMEND,
+            decision.reason_code,
+            judge_access=judge_access,
+        )
         raise ValueError("protected payload access denied")
     try:
         payload = reader(reference.relative_path)
@@ -142,20 +141,25 @@ def load_protected_payload(
         ):
             raise ValueError
     except Exception:
-        if event_store is not None:
-            _append_access_event(
-                event_store,
-                artifact,
-                role,
-                access_purpose,
-                DecisionStatus.AMEND,
-                ReasonCode.CAPTURE_HASH_MISMATCH,
-            )
-        raise ValueError("protected payload integrity validation failed") from None
-    if event_store is not None:
-        _append_access_event(
-            event_store, artifact, role, access_purpose, DecisionStatus.GO, ReasonCode.OK
+        append_access_event(
+            event_store,
+            artifact,
+            role,
+            access_purpose,
+            DecisionStatus.AMEND,
+            ReasonCode.CAPTURE_HASH_MISMATCH,
+            judge_access=judge_access,
         )
+        raise ValueError("protected payload integrity validation failed") from None
+    append_access_event(
+        event_store,
+        artifact,
+        role,
+        access_purpose,
+        DecisionStatus.GO,
+        ReasonCode.OK,
+        judge_access=judge_access,
+    )
     return payload
 
 

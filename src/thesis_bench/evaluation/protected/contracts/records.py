@@ -129,6 +129,21 @@ class DeterministicPredicate(_ProtectedRecord):
     @model_validator(mode="after")
     def reject_convenience_note(self) -> DeterministicPredicate:
         reject_reviewer_note(self.model_dump(mode="python"))
+        required_fields = {
+            "parse": "schema_id",
+            "schema": "schema_id",
+            "exact_literal": "exact_literal",
+            "exact_value": "exact_value",
+            "exact_structure": "exact_structure_id",
+            "count": "expected_count",
+            "command_bound": "command_rule_id",
+            "action_bound": "action_rule_id",
+            "mutation_scope": "mutation_scope_id",
+            "final_state": "final_state_id",
+        }
+        required = required_fields.get(self.predicate_kind)
+        if required is not None and getattr(self, required) is None:
+            raise ValueError("deterministic predicate is missing its kind-specific rule")
         return self
 
 

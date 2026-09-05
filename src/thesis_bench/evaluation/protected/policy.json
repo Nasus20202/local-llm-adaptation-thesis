@@ -6,6 +6,183 @@
   "preauthoring_freeze": "development-pilot-preauthoring-freeze-v1",
   "evaluation_clarification": "development-pilot-evaluation-clarification-v1",
   "kubernetes_release": "v1.36.4",
+  "approved_input_manifest": {
+    "manifest_id": "development-pilot-scenario-inputs-v1",
+    "manifest_path": "data/benchmark/development/model-facing/development-pilot-scenario-inputs-v1.json",
+    "manifest_sha256": "c23af39a049e992692865aa6e7a3ab5cab0d17e01db812e58e9daf15143ca3ad",
+    "root_id": "development-model-facing-v1",
+    "scenario_count": 24,
+    "entries": [
+      {
+        "family_id": "dev-k-pl-01",
+        "scenario_input_id": "dev-k-pl-01-input-v1",
+        "input_sha256": "d8824e1bd0dde581e0cc43d15c84d2251dc4c91298001ddb6ea1132c2abe5a42",
+        "task_class": "knowledge",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-k-pl-02",
+        "scenario_input_id": "dev-k-pl-02-input-v1",
+        "input_sha256": "72c2b8cf9a2fe836643d6f510547d37cc01c220f3d7e88ae7c37c09e7579c167",
+        "task_class": "knowledge",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-k-pl-03",
+        "scenario_input_id": "dev-k-pl-03-input-v1",
+        "input_sha256": "ffac9af9e2e8f5eb3c7ad29c2fb9ee6ea286f1f1393498f68ee7d029f59628ed",
+        "task_class": "knowledge",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-k-pl-04",
+        "scenario_input_id": "dev-k-pl-04-input-v1",
+        "input_sha256": "8a16e7d5e082da798b0c14570ae9dbe3dc462a320b465d70265c7813126272d8",
+        "task_class": "knowledge",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-k-en-01",
+        "scenario_input_id": "dev-k-en-01-input-v1",
+        "input_sha256": "7afd1deae655b31eda368ba6aa6bc8b9f6f2f3bfcbeffcf31ef51453654e4aee",
+        "task_class": "knowledge",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-k-en-02",
+        "scenario_input_id": "dev-k-en-02-input-v1",
+        "input_sha256": "5a2e1f4673f3a844ecf7528798141c30d8a77a160e7c8c54c7c95b592bc37712",
+        "task_class": "knowledge",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-k-en-03",
+        "scenario_input_id": "dev-k-en-03-input-v1",
+        "input_sha256": "b12c72e565b22f6cd7aa2a1a5afde747dd815cbd618d80a18b1c26d0d9972232",
+        "task_class": "knowledge",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-k-en-04",
+        "scenario_input_id": "dev-k-en-04-input-v1",
+        "input_sha256": "e85a2acbabff4ecaf766ca134c838fdd94453962e6c757c1f88161ea6dbacf72",
+        "task_class": "knowledge",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-p-pl-01",
+        "scenario_input_id": "dev-p-pl-01-input-v1",
+        "input_sha256": "c9e57e5c525c31c9035b646e55e9f4a7c6d39db0c5dc1118add55d1e0dbf941a",
+        "task_class": "procedural",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-p-pl-02",
+        "scenario_input_id": "dev-p-pl-02-input-v1",
+        "input_sha256": "56c2b53cddca6def3d0e5db483b2d0008206843f3401da75832e0d0ccedf64a3",
+        "task_class": "procedural",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-p-pl-03",
+        "scenario_input_id": "dev-p-pl-03-input-v1",
+        "input_sha256": "817ec96e8d4c5f7ae722b7f0cc181f53c0a27c0b1e17415a72c392091771a36b",
+        "task_class": "procedural",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-p-pl-04",
+        "scenario_input_id": "dev-p-pl-04-input-v1",
+        "input_sha256": "aaba01e847f65e7eb43029f34f60179fbf53e9b1d85cc95f09641827dee7daed",
+        "task_class": "procedural",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-p-en-01",
+        "scenario_input_id": "dev-p-en-01-input-v1",
+        "input_sha256": "a61b8e664ae1a424ebe2976979d723b6e17544aae0f80969eadb429f9b414b69",
+        "task_class": "procedural",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-p-en-02",
+        "scenario_input_id": "dev-p-en-02-input-v1",
+        "input_sha256": "2d96a329ce95d939671ea827b94b9168d0c3edb359ce9469a67cf92e5d238d29",
+        "task_class": "procedural",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-p-en-03",
+        "scenario_input_id": "dev-p-en-03-input-v1",
+        "input_sha256": "88393f4f74b945e47b5af9430a17311b67a1634d3c60c3a4d7a4a5b32a31f7af",
+        "task_class": "procedural",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-p-en-04",
+        "scenario_input_id": "dev-p-en-04-input-v1",
+        "input_sha256": "560ecd9bb5fa3a2cd4f9e2e5b255be1b1e0c5637e3d9a9037acba46c12167b50",
+        "task_class": "procedural",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-m-pl-01",
+        "scenario_input_id": "dev-m-pl-01-input-v1",
+        "input_sha256": "a83256b1389f27edb35a01dd420e8b3387b98695163a3ff047b703dca5a53529",
+        "task_class": "mixed",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-m-pl-02",
+        "scenario_input_id": "dev-m-pl-02-input-v1",
+        "input_sha256": "1fb96420ce4013e5efba52435814a6741d5e13baf92bfe3fe9e7c84311d69238",
+        "task_class": "mixed",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-m-pl-03",
+        "scenario_input_id": "dev-m-pl-03-input-v1",
+        "input_sha256": "79236d780658dac4055c42fbc71f09e01bd41f703327d6464820940fc4178663",
+        "task_class": "mixed",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-m-pl-04",
+        "scenario_input_id": "dev-m-pl-04-input-v1",
+        "input_sha256": "1b3a8ee20eddb5e604018e9a8a77ca8ed5734b6ab3bec90aabe8620466721165",
+        "task_class": "mixed",
+        "language": "pl"
+      },
+      {
+        "family_id": "dev-m-en-01",
+        "scenario_input_id": "dev-m-en-01-input-v1",
+        "input_sha256": "fc5aa48b3cc9c7f7391f86527bf40655c984ba0ebc21ee8a3cb491092c1167da",
+        "task_class": "mixed",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-m-en-02",
+        "scenario_input_id": "dev-m-en-02-input-v1",
+        "input_sha256": "223220d0b05a101e9cd89abb4995bd2ce54604fc662689e9568f65f99ee945e9",
+        "task_class": "mixed",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-m-en-03",
+        "scenario_input_id": "dev-m-en-03-input-v1",
+        "input_sha256": "7a4dfc3d96b19dbc28a3c9bb8c6eda721b58610d4b36d932dbdce48d6ceb4100",
+        "task_class": "mixed",
+        "language": "en"
+      },
+      {
+        "family_id": "dev-m-en-04",
+        "scenario_input_id": "dev-m-en-04-input-v1",
+        "input_sha256": "94ebb59c031cbdb5469e35af036f8be3f7a5c4860014f889a9602ef2bba00fa4",
+        "task_class": "mixed",
+        "language": "en"
+      }
+    ]
+  },
   "source_inventories": {
     "website-v1.36.4-development-pilot-v1": {
       "source_kind": "website_markdown",
@@ -58,7 +235,184 @@
         "content/en/docs/reference/kubernetes-api/batch/job-v1.md",
         "content/en/docs/reference/kubernetes-api/batch/cron-job-v1.md"
       ],
-      "exact_hashes": {}
+      "exact_hashes": {
+        "content/en/docs/concepts/overview/working-with-objects/labels.md": {
+          "git_blob_sha1": "7b4c9166fa4a1cbf9c7bf51855eecd20c6a86756",
+          "content_sha256": "f1761665a0c702f80c256489e2778bfcb3055246a12c874fd86211183be838d4"
+        },
+        "content/en/docs/concepts/configuration/configmap.md": {
+          "git_blob_sha1": "aa3e6ac3c18b995a2057bd1f8ca19eb6861606e7",
+          "content_sha256": "2e3860f6aeb7d86e6d2dd8f32493dbc1d52ce1c54606cb08455107b297a63a2a"
+        },
+        "content/en/docs/concepts/configuration/secret.md": {
+          "git_blob_sha1": "f10717fc581d4d149a958dc32c6e4b5ff9531218",
+          "content_sha256": "30bb29e4040f1464a8cb299524f51e0a1ae2279a63f45b7182b1b8faf27af194"
+        },
+        "content/en/docs/concepts/configuration/manage-resources-containers.md": {
+          "git_blob_sha1": "f0c8adbd7aaecbf3a5af49fdc6db37c35dffa6b2",
+          "content_sha256": "34371f30326f7f9f859a20d1edbcef5fc1cc007f92e38e420f0f043ef4cf2637"
+        },
+        "content/en/docs/concepts/scheduling-eviction/assign-pod-node.md": {
+          "git_blob_sha1": "2e3b71391a91f17b64577d2e9b25c582f8523654",
+          "content_sha256": "c8a9ec85ae5aa20d7f5fc28e6e91e039f6e1f3e53346d426bfd7cc41ccb9c5b2"
+        },
+        "content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md": {
+          "git_blob_sha1": "2819bcf9f0645c9d9486575115e23834be04b2d2",
+          "content_sha256": "ca66753e66c25635eae0f770c3c3db50be1b62b854122abb494ae5171abd7d9c"
+        },
+        "content/en/docs/concepts/scheduling-eviction/topology-spread-constraints.md": {
+          "git_blob_sha1": "7c853260970f1fd57a6ae2bee25e70a946a099b6",
+          "content_sha256": "4efffa8a1aa5651cc192886fdba74b4adedbb3d45c01d67cace78f0a7afa5dad"
+        },
+        "content/en/docs/concepts/scheduling-eviction/pod-priority-preemption.md": {
+          "git_blob_sha1": "2dc0ab337a806e711e403e15914f697031131446",
+          "content_sha256": "74b69a09d7fe62921f77b9d709f8fdf73193dc5cd7f88ce23a900034fc1face9"
+        },
+        "content/en/docs/concepts/workloads/controllers/deployment.md": {
+          "git_blob_sha1": "2ec9ba7c01996e278991f54886d4f9fd97c2c20b",
+          "content_sha256": "b4896e5d45a7d97b0d36ca5fe9e2cac2188ab46ce9cfbc61b4c143220e550c98"
+        },
+        "content/en/docs/concepts/workloads/controllers/job.md": {
+          "git_blob_sha1": "10e4b48e8e6a8b404ab26aa3aa25803a55da5ff5",
+          "content_sha256": "a388680aefd82bbc18541be8f7e557495b492d106d754d1fbcb108e6d3f55447"
+        },
+        "content/en/docs/concepts/workloads/controllers/cron-jobs.md": {
+          "git_blob_sha1": "6d27f5d88d37b21f520a7b303c3014f777ca2a09",
+          "content_sha256": "bd9f8ec1b5e89a32db7f7d33d8774849fa32e816375bbb1da4a99def4604a5f0"
+        },
+        "content/en/docs/concepts/workloads/controllers/daemonset.md": {
+          "git_blob_sha1": "090c5477b28b1ec3579eb1019fd928b3d4efbb34",
+          "content_sha256": "f785013513269d60e125244193bcfb345ca244507bc4874ddafd12f62d1dae97"
+        },
+        "content/en/docs/concepts/workloads/controllers/statefulset.md": {
+          "git_blob_sha1": "963f6aa206a18ae765de8e77c7994536ff4350a1",
+          "content_sha256": "4d078d89baf4c8e81e37a51d8f1fcc66739fe8e4732694758ad90cb7529e5707"
+        },
+        "content/en/docs/concepts/workloads/pods/pod-lifecycle.md": {
+          "git_blob_sha1": "da4d0f437e596a171022f427f0ec9e4696f9eef6",
+          "content_sha256": "a22f3a96a41e7613e61beb292fc28fa45b9f68e8f65e493e3e940ed1d35a8b51"
+        },
+        "content/en/docs/concepts/workloads/pods/probes.md": {
+          "git_blob_sha1": "d29f8a3d535195e4a06f6a5de4fdc3231b46bce1",
+          "content_sha256": "ac0f526d6708c6cd720982d2c7e02ce5a61547cddc07f964957daa946f38372f"
+        },
+        "content/en/docs/concepts/workloads/pods/init-containers.md": {
+          "git_blob_sha1": "8e4525254f84ceac18fb6a794624145d8d154c86",
+          "content_sha256": "770728807f4f2d66ef63a5cbd2e8f94df60dd1286136190c5317c2c00dfda417"
+        },
+        "content/en/docs/concepts/workloads/pods/pod-qos.md": {
+          "git_blob_sha1": "ae028682a2522c48ea58d8ab9d62f1a9ec21b7c9",
+          "content_sha256": "4779ca55d8811a8a7eac0a187e2e404f023d89ca2de638462e72e3fcbee0c5ef"
+        },
+        "content/en/docs/concepts/services-networking/service.md": {
+          "git_blob_sha1": "f38269db88267ec64b2027384345e3666a68fbad",
+          "content_sha256": "124a280dfbc2dad83498c579e960e5d199ca612b727033e2a88da1103e1acb51"
+        },
+        "content/en/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md": {
+          "git_blob_sha1": "41cae40fb94440d75d66c130cd853c382713f4c5",
+          "content_sha256": "158e1b10e7dbd1eb1d7db987d6843583ef3181a6a67e82682e3edd3bdef56038"
+        },
+        "content/en/docs/tasks/configure-pod-container/configure-pod-configmap.md": {
+          "git_blob_sha1": "5a7bbfd02019b027c74341d2861906a3e72e1f88",
+          "content_sha256": "7d9679531fda13c00956f049d70c1c90efc474cd76415147a3e2103b0d0e76f5"
+        },
+        "content/en/docs/tasks/configure-pod-container/assign-cpu-resource.md": {
+          "git_blob_sha1": "b50ed6b404cd141118fae292d0a343a3e064b581",
+          "content_sha256": "c0483eb0d4c85d0f60365a332a0b2aa39fbb94ca7d034253f781a0184c4d86c2"
+        },
+        "content/en/docs/tasks/configure-pod-container/assign-memory-resource.md": {
+          "git_blob_sha1": "8bf3d4748f1a87bc10a4ab865e9f3ec22db34327",
+          "content_sha256": "0d8b53e0a6268bd6305f19b1ec57e061a58480ee3eed8fac02f0635077f3b726"
+        },
+        "content/en/docs/tasks/configure-pod-container/assign-pods-nodes.md": {
+          "git_blob_sha1": "6253a0233f63d9fd0c5b466c3542eb0a59a5a3cb",
+          "content_sha256": "62f6dfe64d447c4e6e57018fb78a0142d2ea89a12ba6c50f7b361075e39d7c1d"
+        },
+        "content/en/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity.md": {
+          "git_blob_sha1": "b63d7cc0469eff940194bac55591cba45c9e6fa3",
+          "content_sha256": "34802f776b05b9123f6569937945f2eec41ddeedad1897100c2d488be9718b0d"
+        },
+        "content/en/docs/tasks/configmap-secret/managing-secret-using-config-file.md": {
+          "git_blob_sha1": "2f3dd8dc0ae928198fc0ed1ddd2960aec10d9c81",
+          "content_sha256": "bb70cc915ea1a2294ee223d4fce26ae9a5841166bc0eefd75f9bd385509d3894"
+        },
+        "content/en/docs/tasks/debug/debug-application/debug-init-containers.md": {
+          "git_blob_sha1": "8323527be2efa28b2a4cb8e194595b67ca778108",
+          "content_sha256": "9ba39ad75be1775d25a5f9432cbb93702cb19fb63636ecaa9ed3253240a53249"
+        },
+        "content/en/docs/tasks/debug/debug-application/debug-pods.md": {
+          "git_blob_sha1": "f3b93a3abef2797b598026765bb459b36eb3b3b8",
+          "content_sha256": "fa0695bdcee4608cf1ebd4d7a3891e353e7764e566eb40ef738c5b98f5bc3645"
+        },
+        "content/en/docs/tasks/debug/debug-application/debug-service.md": {
+          "git_blob_sha1": "debcff5ee490b6e7b033a09f71563a5c481ff118",
+          "content_sha256": "76915e474e88fbedecbfe205fb45a85867ea4612453358eda73a330ec991262d"
+        },
+        "content/en/docs/tasks/debug/debug-application/debug-statefulset.md": {
+          "git_blob_sha1": "428b8d0ee563e96a98125e62c6ede24d8e19a488",
+          "content_sha256": "58b7fd144331cdbcc9a939f62076a94a554385eca92c7fde3287e56c693c89d3"
+        },
+        "content/en/docs/tasks/debug/debug-application/determine-reason-pod-failure.md": {
+          "git_blob_sha1": "c007fd9afe52ed4441c56939beaadc2ac5ebc15a",
+          "content_sha256": "b43a3dad47d2428042e5a5d2b32c586fa1b0504cdcdfd9513874b8bfce35f57d"
+        },
+        "content/en/docs/tasks/run-application/run-stateless-application-deployment.md": {
+          "git_blob_sha1": "1f343fb72833266fa6ffd92c75a197eb0aec7209",
+          "content_sha256": "acff7e08d666bc0f1bcb6585536ddeb99f8e2e6f304ec7e11f16cf2085704502"
+        },
+        "content/en/docs/tasks/run-application/scale-deployment.md": {
+          "git_blob_sha1": "331af0370170c9ddbcafd01c0b8fa156aaed4a2b",
+          "content_sha256": "105a890582b705dc708f166ff74b3574116112f754d4f331a8cbb8056f622326"
+        },
+        "content/en/docs/tasks/run-application/update-deployment-rolling.md": {
+          "git_blob_sha1": "183bd295235a6e7b4b039d921af832f5e3495b2e",
+          "content_sha256": "4daa04153f44116329c176235e82078db7283c12de4916f2c44893a72d786fee"
+        },
+        "content/en/docs/tasks/job/automated-tasks-with-cron-jobs.md": {
+          "git_blob_sha1": "1f91a2da870548f93543eee1570954fbb3b269d5",
+          "content_sha256": "2c5591423e6c00ce8fd120677437d90b240884706b442c319d079df88182721f"
+        },
+        "content/en/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch.md": {
+          "git_blob_sha1": "96dca7d4d32e56427bc355597394d15fffed39e5",
+          "content_sha256": "f7cbba7fe74d9d6ad0d1fd60aaa62d0c8010f94afc567140fb5cdfecbe32c283"
+        },
+        "content/en/docs/reference/kubernetes-api/core/pod-v1.md": {
+          "git_blob_sha1": "5af1a8d0438892703ed10dc3c6a6eb5081ce224c",
+          "content_sha256": "a47abd906228cbd7f5a215627ee7e2cb3ac1c095f435ac2ac5c525d56716c9a3"
+        },
+        "content/en/docs/reference/kubernetes-api/core/service-v1.md": {
+          "git_blob_sha1": "fd642ca1fd74bc27e5b023855c7c19e14bef0b6c",
+          "content_sha256": "2cec441c1c999a0cd822682969f8ef0a9d4625ccb5db9ba1e11a583eb17066cb"
+        },
+        "content/en/docs/reference/kubernetes-api/core/config-map-v1.md": {
+          "git_blob_sha1": "1a3913b90409ecb332cc2659b2a5e473cb89ee1e",
+          "content_sha256": "aca66b9bb9d7a3cf285f7261557d5a1f3510d3a9547c09592a458d5f1033070f"
+        },
+        "content/en/docs/reference/kubernetes-api/core/secret-v1.md": {
+          "git_blob_sha1": "db3b0322d69b137cc324b3fc04df71fd8b192c9a",
+          "content_sha256": "07d60d2ca2e47ccfebeb64900f598ef482e7171a8e1cf2a7a398dd43bfdbfbba"
+        },
+        "content/en/docs/reference/kubernetes-api/apps/deployment-v1.md": {
+          "git_blob_sha1": "01debc7d060dc51374da6a8010bcea185ef65342",
+          "content_sha256": "abd26fd89a51d3ebc1473fcaf99301d2d73958748ece9fd2cefcc464c4e22eac"
+        },
+        "content/en/docs/reference/kubernetes-api/apps/daemon-set-v1.md": {
+          "git_blob_sha1": "a667d50dd863bfae4744b89a3485548f1b34b80b",
+          "content_sha256": "da9478c2542e105c345e5e393fff94189037e4ac83bd2a8e4e6add6b6800821c"
+        },
+        "content/en/docs/reference/kubernetes-api/apps/stateful-set-v1.md": {
+          "git_blob_sha1": "815c2315eb69f8cb177e06d542127f64c255e170",
+          "content_sha256": "b131577c924b288897eca8ab65ea7f39adbbeaedebc574390bfb78d14cf557de"
+        },
+        "content/en/docs/reference/kubernetes-api/batch/job-v1.md": {
+          "git_blob_sha1": "c7569ef332d18475a6899f1e6c19650598413853",
+          "content_sha256": "e1608345b39ae9a4b3f2e02b2a57d17eae614d578c65914b5c946fb313284978"
+        },
+        "content/en/docs/reference/kubernetes-api/batch/cron-job-v1.md": {
+          "git_blob_sha1": "3f0c73b90afe99f9cff55faa039f5b7b15f9c4f6",
+          "content_sha256": "3bc934fd1d762a7d777501b3b9e6888505764b1aaff216a60d5a0125be1cf707"
+        }
+      }
     },
     "openapi-v1.36.4-development-pilot-v1": {
       "source_kind": "openapi_schema",
@@ -74,6 +428,13 @@
     "future-training-builder-or-trainer"
   ],
   "access_policy": {
+    "scope_required_roles": ["qualified-semantic-judge"],
+    "human_escalation_reasons": [
+      "unresolved_criterion",
+      "ambiguous",
+      "malformed",
+      "invalid_configuration"
+    ],
     "allowed_purposes": {
       "human-researcher-custodian": [
         "read",

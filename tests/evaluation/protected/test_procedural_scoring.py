@@ -4,6 +4,7 @@ import pytest
 
 from thesis_bench.evaluation.protected import (
     AssessmentSource,
+    CriterionAssessment,
     CriterionDisposition,
     MixedScoreConfiguration,
     score_mixed,
@@ -31,6 +32,24 @@ def test_human_assessments_cannot_bypass_deterministic_predicates() -> None:
                     AssessmentSource.HUMAN_ADJUDICATION,
                     review_id="arbitrary-review",
                 ),
+            ),
+        )
+
+
+def test_deterministic_assessment_binds_the_executed_predicate() -> None:
+    with pytest.raises(ValueError, match="predicate"):
+        score_procedural(
+            procedural_contract(),
+            (
+                CriterionAssessment(
+                    schema_version=1,
+                    assessment_id="missing-predicate-binding",
+                    criterion_id="required-state",
+                    disposition=CriterionDisposition.SATISFIED,
+                    source=AssessmentSource.DETERMINISTIC,
+                    assessor_id="deterministic-runner",
+                ),
+                assessment("prohibited-action", CriterionDisposition.NOT_SATISFIED),
             ),
         )
 

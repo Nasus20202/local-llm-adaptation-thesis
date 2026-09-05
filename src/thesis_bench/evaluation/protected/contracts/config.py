@@ -93,6 +93,16 @@ class ProtectedSemanticContract(_ProtectedRecord):
                 != predicate.predicate_id
             ):
                 raise ValueError("deterministic predicate is not bound to its criterion")
+        deterministic_ids = {
+            criterion.criterion_id
+            for criterion in self.criteria
+            if CriterionRole.DETERMINISTIC in criterion.roles
+        }
+        predicate_criterion_ids = [predicate.criterion_id for predicate in self.predicates]
+        if len(predicate_criterion_ids) != len(set(predicate_criterion_ids)):
+            raise ValueError("each deterministic criterion requires one predicate")
+        if deterministic_ids != set(predicate_criterion_ids):
+            raise ValueError("deterministic criteria and predicates must bind one-to-one")
         for semantic in self.semantic_criteria:
             semantic_criterion = criteria_by_id.get(semantic.criterion_id)
             if semantic_criterion is None or CriterionRole.SEMANTIC not in semantic_criterion.roles:

@@ -13,7 +13,7 @@ from thesis_bench.evaluation.protected import (
 )
 
 from .contracts import procedural_contract
-from .fixtures import assessment, knowledge_contract
+from .fixtures import assessment, semantic_knowledge_contract
 
 
 def test_route_prefers_deterministic_and_routes_unresolved_semantics_to_human() -> None:
@@ -34,7 +34,7 @@ def test_route_prefers_deterministic_and_routes_unresolved_semantics_to_human() 
     assert routed.route == HumanReviewRoute.NONE
 
     unresolved = route_criterion_assessment(
-        knowledge_contract(),
+        semantic_knowledge_contract(),
         "claim-a",
         judge_assessment=assessment(
             "claim-a",
@@ -48,7 +48,7 @@ def test_route_prefers_deterministic_and_routes_unresolved_semantics_to_human() 
     assert unresolved.request is not None
     with pytest.raises(ValueError, match="audit selection"):
         route_criterion_assessment(
-            knowledge_contract(),
+            semantic_knowledge_contract(),
             "claim-a",
             judge_assessment=assessment(
                 "claim-a",

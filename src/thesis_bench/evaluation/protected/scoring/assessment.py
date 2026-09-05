@@ -49,6 +49,8 @@ class CriterionAssessment(VersionedRecord):
     assessor_id: Identifier
     judge_config_id: Identifier | None = None
     review_id: Identifier | None = None
+    predicate_id: Identifier | None = None
+    predicate_version: Identifier | None = None
 
     @field_validator("disposition", mode="before")
     @classmethod
@@ -74,6 +76,12 @@ class CriterionAssessment(VersionedRecord):
                 raise ValueError("human assessment cannot carry a judge configuration identity")
         elif self.judge_config_id is not None or self.review_id is not None:
             raise ValueError("deterministic assessment cannot carry judge or review identity")
+        if (self.predicate_id is None) != (self.predicate_version is None):
+            raise ValueError("deterministic predicate binding must be complete")
+        if self.source != AssessmentSource.DETERMINISTIC and (
+            self.predicate_id is not None or self.predicate_version is not None
+        ):
+            raise ValueError("semantic assessments cannot carry deterministic predicate identity")
         return self
 
 

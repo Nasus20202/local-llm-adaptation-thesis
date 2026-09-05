@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import Mapping
 
-from ....records import DecisionStatus, content_sha256
+from ....records import DecisionStatus, ProtectedRootReference, content_sha256
 from ..scoring.assessment import CriterionDisposition
 from .records import JudgeConfiguration, JudgeQualification
 
@@ -22,10 +22,11 @@ def validate_qualification_metrics(
     unresolved_count: int,
     schema_failure_count: int,
     agreement_statistic: float | None,
+    malformed_output_count: int = 0,
 ) -> None:
     if any(not 0.0 <= value <= 1.0 for value in criterion_agreement.values()):
         raise ValueError("criterion agreement must be within [0, 1]")
-    if unresolved_count < 0 or schema_failure_count < 0:
+    if unresolved_count < 0 or schema_failure_count < 0 or malformed_output_count < 0:
         raise ValueError("qualification failure counts cannot be negative")
     if agreement_statistic is not None and not -1.0 <= agreement_statistic <= 1.0:
         raise ValueError("agreement statistic must be within [-1, 1]")
@@ -70,7 +71,16 @@ def thresholds_satisfied(
         unresolved_rate <= maximum_unresolved
         and kappa_ok
         and qualification.schema_failure_count == 0
+        and qualification.malformed_output_count == 0
     )
+
+
+def qualification_digest(qualification: JudgeQualification) -> str:
+    payload = qualification.model_dump(mode="json", exclude={"content_sha256"})
+    root_reference = payload["qualification_root_reference"]
+    if isinstance(root_reference, dict):
+        root_reference["content_sha256"] = ""
+    return content_sha256(payload)
 
 
 def qualification_id(
@@ -82,7 +92,15 @@ def qualification_id(
     agreement_statistic: float | None,
     fairness_status: DecisionStatus,
     fairness_scope_status: Mapping[str, DecisionStatus],
+    *,
+    qualification_revision: str,
+    qualification_root_reference: ProtectedRootReference,
+    qualification_adjudication_ids: tuple[str, ...],
+    malformed_output_count: int,
+    supersedes_qualification_id: str | None = None,
 ) -> str:
+    root_reference = qualification_root_reference.model_dump(mode="json")
+    root_reference["content_sha256"] = ""
     evidence = {
         "judge_config_id": configuration.judge_config_id,
         "judge_config_sha256": configuration.content_sha256,
@@ -95,12 +113,18 @@ def qualification_id(
         "agreement_statistic": agreement_statistic,
         "fairness_status": fairness_status,
         "fairness_scope_status": fairness_scope_status,
+        "qualification_revision": qualification_revision,
+        "qualification_root_reference": root_reference,
+        "qualification_adjudication_ids": qualification_adjudication_ids,
+        "malformed_output_count": malformed_output_count,
+        "supersedes_qualification_id": supersedes_qualification_id,
     }
     return f"qualification-{configuration.judge_config_id}-{content_sha256(evidence)[:24]}"
 
 
 __all__ = [
     "confusion_total",
+    "qualification_digest",
     "qualification_id",
     "thresholds_satisfied",
     "validate_qualification_metrics",

@@ -19,6 +19,8 @@ from .validation import (
     qualify_judge_configuration,
     validate_fairness_coverage,
     validate_judge_configuration,
+    validate_judge_qualification,
+    validate_judge_qualification_successor,
     validate_judge_successor,
     validate_primary_judge_assessment,
 )
@@ -40,6 +42,8 @@ __all__ = [
     "qualify_judge_configuration",
     "validate_fairness_coverage",
     "validate_judge_configuration",
+    "validate_judge_qualification",
+    "validate_judge_qualification_successor",
     "validate_judge_successor",
     "validate_primary_judge_assessment",
 ]

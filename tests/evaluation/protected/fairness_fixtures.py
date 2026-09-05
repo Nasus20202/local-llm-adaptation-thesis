@@ -22,6 +22,7 @@ def fairness_group(task_class: TaskClass, language: Language) -> MetamorphicFixt
             MetamorphicVariant(schema_version=1, variant_id=kind.value, kind=kind)
             for kind in MetamorphicVariantKind
         ),
+        covered_rule_ids=("synthetic-rule",),
         protected_fixture_reference=ProtectedRootReference(
             schema_version=1,
             root_id=APPROVED_PROTECTED_ROOT,

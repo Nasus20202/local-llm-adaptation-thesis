@@ -6,6 +6,7 @@ import pytest
 
 from thesis_bench.evaluation.protected import (
     APPROVED_PROTECTED_ROOT,
+    FrozenSourceIdentity,
     protected_policy,
 )
 
@@ -25,3 +26,21 @@ def test_protected_policy_is_the_single_source_for_frozen_root_and_allowlist() -
 
     with pytest.raises(TypeError):
         policy["protected_root"] = "other-root"  # type: ignore[index]
+
+
+def test_website_source_requires_a_frozen_per_file_hash() -> None:
+    with pytest.raises(ValueError, match="hash"):
+        FrozenSourceIdentity(
+            schema_version=1,
+            source_entry_id="website-source-without-file-hash",
+            source_registry_id="development-pilot-source-rights-v1",
+            inventory_id="website-v1.36.4-development-pilot-v1",
+            source_kind="website_markdown",
+            repository="https://github.com/kubernetes/website",
+            release="v1.36.4",
+            revision="1de955ebabe7e17da1ebb4f582635491227f4157",
+            path_or_selector="content/en/docs/concepts/configuration/configmap.md",
+            git_blob_sha1="aa3e6ac3c18b995a2057bd1f8ca19eb6861606e7",
+            content_sha256="2" * 64,
+            content_index_sha256="ff6e098274f45cf35dd669d0de61e566129e891baad8e0e49d7fe6922c432127",
+        )

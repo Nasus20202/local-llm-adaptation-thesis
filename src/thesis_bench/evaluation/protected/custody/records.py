@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from pydantic import field_validator
+from pydantic import field_validator, model_validator
 from pydantic.types import StrictBool
 
 from ....records import AppendOnlyEvent, DecisionStatus, ReasonCode, VersionedRecord
@@ -19,6 +19,9 @@ class ProtectedCustodyEvent(AppendOnlyEvent):
     artifact_sha256: Sha256
     actor_role: CustodyRole
     purpose: CustodyPurpose
+    assessor_configuration_id: Identifier | None = None
+    qualification_id: Identifier | None = None
+    criterion_id: Identifier | None = None
     supersedes_artifact_id: Identifier | None = None
 
     @field_validator("status", mode="before")
@@ -53,6 +56,19 @@ class ProtectedCustodyEvent(AppendOnlyEvent):
         if value != APPROVED_PROTECTED_ROOT:
             raise ValueError("protected event root is not approved")
         return value
+
+    @model_validator(mode="after")
+    def require_judge_scope(self) -> ProtectedCustodyEvent:
+        if self.purpose == CustodyPurpose.JUDGE_ASSESSMENT and any(
+            value is None
+            for value in (
+                self.assessor_configuration_id,
+                self.qualification_id,
+                self.criterion_id,
+            )
+        ):
+            raise ValueError("judge custody events require exact qualification scope")
+        return self
 
 
 class AccessDecision(VersionedRecord):

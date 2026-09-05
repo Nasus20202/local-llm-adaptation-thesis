@@ -85,6 +85,64 @@ def test_protected_access_denies_model_facing_roles_before_read_and_redacts_erro
     assert loaded == b"secret-payload"
 
 
+def test_protected_access_requires_append_only_evidence_store(tmp_path: Path) -> None:
+    payload = b"custody-required-payload"
+    reference = ProtectedRootReference(
+        schema_version=1,
+        root_id=APPROVED_PROTECTED_ROOT,
+        relative_path="contracts/custody-required.json",
+        content_sha256=hashlib.sha256(payload).hexdigest(),
+    )
+    protected_artifact = artifact().model_copy(
+        update={"root_reference": reference, "content_sha256": reference.content_sha256}
+    )
+    with pytest.raises(TypeError, match="event_store"):
+        load_protected_payload(
+            reference,
+            artifact=protected_artifact,
+            actor_role=CustodyRole.EVALUATOR_AUTHOR_REVIEWER,
+            purpose=CustodyPurpose.READ,
+            reader=lambda _: payload,
+        )
+
+    class BrokenStore(AppendOnlyEventStore):
+        def append(self, event):
+            del event
+            raise ValueError("synthetic append failure")
+
+    with pytest.raises(ValueError, match="evidence"):
+        load_protected_payload(
+            reference,
+            artifact=protected_artifact,
+            actor_role=CustodyRole.EVALUATOR_AUTHOR_REVIEWER,
+            purpose=CustodyPurpose.READ,
+            reader=lambda _: payload,
+            event_store=BrokenStore(tmp_path),
+        )
+
+
+def test_qualified_judge_access_requires_an_exact_scope_grant(tmp_path: Path) -> None:
+    payload = b"judge-scope-payload"
+    reference = ProtectedRootReference(
+        schema_version=1,
+        root_id=APPROVED_PROTECTED_ROOT,
+        relative_path="contracts/judge-scope.json",
+        content_sha256=hashlib.sha256(payload).hexdigest(),
+    )
+    protected_artifact = artifact().model_copy(
+        update={"root_reference": reference, "content_sha256": reference.content_sha256}
+    )
+    with pytest.raises(ValueError, match="scope"):
+        load_protected_payload(
+            reference,
+            artifact=protected_artifact,
+            actor_role=CustodyRole.QUALIFIED_SEMANTIC_JUDGE,
+            purpose=CustodyPurpose.READ,
+            reader=lambda _: payload,
+            event_store=AppendOnlyEventStore(tmp_path),
+        )
+
+
 def test_repeated_protected_reads_append_distinct_custody_events(tmp_path: Path) -> None:
     payload = b"repeatable-synthetic-payload"
     reference = ProtectedRootReference(
