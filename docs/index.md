@@ -13,7 +13,7 @@ This site is the human-readable documentation for the MSc thesis project compari
 
 ## Current development pilot
 
-The development-only pilot package is documented in the [pilot protocol](research/benchmark-pilot-protocol.md), [authorization](research/development-pilot-authorization.md), [approved scenario inputs](research/development-pilot-scenario-inputs.md), [human review record](research/development-pilot-scenario-review.md), and approved [protected evaluator design](research/development-pilot-protected-evaluator-design.md). Human Gate A for the evaluator contract passed in PR #47; bounded generic Codex implementation is now authorized. Protected answer-bearing bundles, concrete semantic-judge selection/execution, participant-model execution, training, and final-test material remain closed behind later gates.
+The development-only pilot package is documented in the [pilot protocol](research/benchmark-pilot-protocol.md), [authorization](research/development-pilot-authorization.md), [approved scenario inputs](research/development-pilot-scenario-inputs.md), [human review record](research/development-pilot-scenario-review.md), and approved [protected evaluator design](research/development-pilot-protected-evaluator-design.md). Human Gate A for the evaluator contract passed in PR #47, and the resulting generic protected-evaluator implementation was independently reviewed and squash-merged in PR #50. The next research step is preparation and review of the 24 protected evaluator bundles under `development-protected-evaluator-v1`. Concrete semantic-judge selection/execution, participant-model execution, training, and final-test material remain closed behind later gates.
 
 ## Documentation areas
 
