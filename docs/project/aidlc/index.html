@@ -496,6 +496,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Research-driven change preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation-readability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation readability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1807,6 +1824,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Research-driven change preparation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementation-readability" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation readability
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1963,6 +1997,17 @@
 <p><code>explore → create change → proposal → specs → design → tasks → cross-artifact review → validate → Human Gate A</code></p>
 <p>The package is ready only if a competent Budget Implementation Model can implement it without making major architectural or methodological decisions. Resolve invariants, errors, edge cases, acceptance criteria, and scientific constraints upstream without overspecifying internals.</p>
 <p>Generated OpenSpec skills live under <code>.agents/skills/</code>. Do not edit them manually or hard-code an OpenSpec release in stable policy. During an upgrade, inspect the current installation and documentation, regenerate skills, review the diff, and validate active changes.</p>
+<h3 id="implementation-readability">Implementation readability<a class="headerlink" href="#implementation-readability" title="Permanent link">&para;</a></h3>
+<p>The archived <code>2026-09-03-modularize-codebase-readability</code> change establishes the
+repository's implementation-organization rule: hand-written Python under <code>src/</code> and
+<code>tests/</code> should normally be no more than 250 physical lines per file. Use cohesive
+capability boundaries and a one-way dependency flow rather than mechanical class-per-
+file splitting or line-count workarounds. When reorganizing an existing public module,
+retain its import surface through an explicit, side-effect-free facade and verify
+public names, validation, serialization, hashes, errors, and external-effect
+boundaries. Review organized tests by behavior, keep scientific assertions visible,
+and do not retain structure-only tests. A narrow cohesion-based exception requires
+documentation in the implementation handoff and explicit human-researcher approval.</p>
 <h2 id="handoffs">Handoffs<a class="headerlink" href="#handoffs" title="Permanent link">&para;</a></h2>
 <h3 id="work-to-codex">Work to Codex<a class="headerlink" href="#work-to-codex" title="Permanent link">&para;</a></h3>
 <p>Stop before implementation and present the scientific goal, implementation goal, scope, non-goals, decisions, requirements, acceptance criteria, tasks, and unresolved risks. After approval, provide one concise prompt that directs Codex to repository sources rather than restating the thesis.</p>
