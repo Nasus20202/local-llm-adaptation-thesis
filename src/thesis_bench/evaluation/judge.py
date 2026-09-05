@@ -1,4 +1,4 @@
-from __future__ import annotations
+"""Compatibility facade for judge policy and protected semantic qualification."""
 
 from typing import Literal
 
@@ -8,6 +8,28 @@ from pydantic.types import StrictBool
 from ..records import VersionedRecord
 from ..schemas import Identifier
 from .calibration import CalibrationStatus
+from .protected.judge.records import (
+    AuditPolicy,
+    DecodingPolicy,
+    FairnessQualification,
+    JudgeConfiguration,
+    JudgeFairnessCase,
+    JudgeQualification,
+    JudgeResponseSchema,
+    JudgeScope,
+    MetamorphicFixtureGroup,
+    MetamorphicVariant,
+    MetamorphicVariantKind,
+    QualificationThresholds,
+)
+from .protected.judge.validation import (
+    check_copying_neutral_fairness,
+    qualify_judge_configuration,
+    validate_fairness_coverage,
+    validate_judge_configuration,
+    validate_judge_successor,
+    validate_primary_judge_assessment,
+)
 
 
 class JudgePolicy(VersionedRecord):
@@ -32,3 +54,28 @@ def validate_judge_policy(policy: JudgePolicy) -> JudgeValidation:
     if set(policy.languages) != {"en", "pl"}:
         raise ValueError("LLM judge must be calibrated in both languages")
     return JudgeValidation(schema_version=1, status=CalibrationStatus.GO, supplemental_only=True)
+
+
+__all__ = [
+    "AuditPolicy",
+    "DecodingPolicy",
+    "FairnessQualification",
+    "JudgeConfiguration",
+    "JudgeFairnessCase",
+    "JudgePolicy",
+    "JudgeQualification",
+    "JudgeResponseSchema",
+    "JudgeScope",
+    "JudgeValidation",
+    "MetamorphicFixtureGroup",
+    "MetamorphicVariant",
+    "MetamorphicVariantKind",
+    "QualificationThresholds",
+    "check_copying_neutral_fairness",
+    "qualify_judge_configuration",
+    "validate_fairness_coverage",
+    "validate_judge_configuration",
+    "validate_judge_policy",
+    "validate_judge_successor",
+    "validate_primary_judge_assessment",
+]

@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "policy_id": "development-protected-evaluator-policy-v1",
+  "protected_root": "development-protected-evaluator-v1",
+  "source_rights_manifest": "development-pilot-source-rights-v1",
+  "preauthoring_freeze": "development-pilot-preauthoring-freeze-v1",
+  "evaluation_clarification": "development-pilot-evaluation-clarification-v1",
+  "kubernetes_release": "v1.36.4",
+  "source_inventories": {
+    "website-v1.36.4-development-pilot-v1": {
+      "source_kind": "website_markdown",
+      "repository": "https://github.com/kubernetes/website",
+      "revision": "1de955ebabe7e17da1ebb4f582635491227f4157",
+      "content_index_sha256": "ff6e098274f45cf35dd669d0de61e566129e891baad8e0e49d7fe6922c432127",
+      "allowed_paths": [
+        "content/en/docs/concepts/overview/working-with-objects/labels.md",
+        "content/en/docs/concepts/configuration/configmap.md",
+        "content/en/docs/concepts/configuration/secret.md",
+        "content/en/docs/concepts/configuration/manage-resources-containers.md",
+        "content/en/docs/concepts/scheduling-eviction/assign-pod-node.md",
+        "content/en/docs/concepts/scheduling-eviction/taint-and-toleration.md",
+        "content/en/docs/concepts/scheduling-eviction/topology-spread-constraints.md",
+        "content/en/docs/concepts/scheduling-eviction/pod-priority-preemption.md",
+        "content/en/docs/concepts/workloads/controllers/deployment.md",
+        "content/en/docs/concepts/workloads/controllers/job.md",
+        "content/en/docs/concepts/workloads/controllers/cron-jobs.md",
+        "content/en/docs/concepts/workloads/controllers/daemonset.md",
+        "content/en/docs/concepts/workloads/controllers/statefulset.md",
+        "content/en/docs/concepts/workloads/pods/pod-lifecycle.md",
+        "content/en/docs/concepts/workloads/pods/probes.md",
+        "content/en/docs/concepts/workloads/pods/init-containers.md",
+        "content/en/docs/concepts/workloads/pods/pod-qos.md",
+        "content/en/docs/concepts/services-networking/service.md",
+        "content/en/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes.md",
+        "content/en/docs/tasks/configure-pod-container/configure-pod-configmap.md",
+        "content/en/docs/tasks/configure-pod-container/assign-cpu-resource.md",
+        "content/en/docs/tasks/configure-pod-container/assign-memory-resource.md",
+        "content/en/docs/tasks/configure-pod-container/assign-pods-nodes.md",
+        "content/en/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity.md",
+        "content/en/docs/tasks/configmap-secret/managing-secret-using-config-file.md",
+        "content/en/docs/tasks/debug/debug-application/debug-init-containers.md",
+        "content/en/docs/tasks/debug/debug-application/debug-pods.md",
+        "content/en/docs/tasks/debug/debug-application/debug-service.md",
+        "content/en/docs/tasks/debug/debug-application/debug-statefulset.md",
+        "content/en/docs/tasks/debug/debug-application/determine-reason-pod-failure.md",
+        "content/en/docs/tasks/run-application/run-stateless-application-deployment.md",
+        "content/en/docs/tasks/run-application/scale-deployment.md",
+        "content/en/docs/tasks/run-application/update-deployment-rolling.md",
+        "content/en/docs/tasks/job/automated-tasks-with-cron-jobs.md",
+        "content/en/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch.md",
+        "content/en/docs/reference/kubernetes-api/core/pod-v1.md",
+        "content/en/docs/reference/kubernetes-api/core/service-v1.md",
+        "content/en/docs/reference/kubernetes-api/core/config-map-v1.md",
+        "content/en/docs/reference/kubernetes-api/core/secret-v1.md",
+        "content/en/docs/reference/kubernetes-api/apps/deployment-v1.md",
+        "content/en/docs/reference/kubernetes-api/apps/daemon-set-v1.md",
+        "content/en/docs/reference/kubernetes-api/apps/stateful-set-v1.md",
+        "content/en/docs/reference/kubernetes-api/batch/job-v1.md",
+        "content/en/docs/reference/kubernetes-api/batch/cron-job-v1.md"
+      ],
+      "exact_hashes": {}
+    },
+    "openapi-v1.36.4-development-pilot-v1": {
+      "source_kind": "openapi_schema",
+      "repository": "https://github.com/kubernetes/kubernetes",
+      "revision": "bb826b1d48562f110659e64e8ec444327433db95",
+      "path_or_selector": "api/openapi-spec/swagger.json",
+      "git_blob_sha1": "fe0a7b9b1da4e54e43c4d77be20f257c10bc9c34",
+      "content_sha256": "dcede2063da1d7ad62ecb5af8adb6d7fabd0b52385a7fa0048afb491dac90450"
+    }
+  },
+  "model_facing_denied_roles": [
+    "model-facing-runner-retriever-prompt-harness-skill-or-w1",
+    "future-training-builder-or-trainer"
+  ],
+  "access_policy": {
+    "allowed_purposes": {
+      "human-researcher-custodian": [
+        "read",
+        "write",
+        "freeze",
+        "review",
+        "judge-assessment",
+        "adjudication",
+        "audit",
+        "supersession"
+      ],
+      "development-author": [],
+      "evaluator-author-reviewer": [
+        "read",
+        "write",
+        "freeze",
+        "review",
+        "judge-assessment",
+        "adjudication",
+        "audit",
+        "supersession"
+      ],
+      "blinded-rater-adjudicator": ["read", "adjudication", "audit"],
+      "model-facing-runner-retriever-prompt-harness-skill-or-w1": [],
+      "future-training-builder-or-trainer": [],
+      "qualified-semantic-judge": ["read", "judge-assessment"]
+    }
+  }
+}
