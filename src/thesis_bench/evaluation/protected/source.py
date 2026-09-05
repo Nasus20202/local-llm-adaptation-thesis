@@ -36,6 +36,7 @@ def _freeze(value: object) -> object:
 
 _POLICY = protected_policy()
 APPROVED_PROTECTED_ROOT = str(_POLICY["protected_root"])
+APPROVED_REPOSITORY_SUBTREE = str(_POLICY["repository_protected_subtree"])
 APPROVED_SOURCE_RIGHTS_MANIFEST = str(_POLICY["source_rights_manifest"])
 APPROVED_PREAUTHORING_FREEZE = str(_POLICY["preauthoring_freeze"])
 APPROVED_EVALUATION_CLARIFICATION = str(_POLICY["evaluation_clarification"])
@@ -62,6 +63,23 @@ def validate_protected_relative_path(value: str) -> str:
         or PurePosixPath(value).as_posix() != value
     ):
         raise ValueError("protected reference path must be canonical and root-relative")
+    return value
+
+
+def is_repository_protected_path(value: str) -> bool:
+    try:
+        validate_protected_relative_path(value)
+    except ValueError:
+        return False
+    return value == APPROVED_REPOSITORY_SUBTREE or value.startswith(
+        f"{APPROVED_REPOSITORY_SUBTREE}/"
+    )
+
+
+def validate_repository_protected_path(value: str) -> str:
+    validate_protected_relative_path(value)
+    if not is_repository_protected_path(value):
+        raise ValueError("protected reference is outside the approved repository subtree")
     return value
 
 
@@ -173,13 +191,16 @@ __all__ = [
     "APPROVED_EVALUATION_CLARIFICATION",
     "APPROVED_PREAUTHORING_FREEZE",
     "APPROVED_PROTECTED_ROOT",
+    "APPROVED_REPOSITORY_SUBTREE",
     "APPROVED_SOURCE_RIGHTS_MANIFEST",
     "FrozenSourceIdentity",
     "KUBERNETES_RELEASE",
     "SourceEvidenceReference",
     "SourceKind",
     "protected_policy",
+    "is_repository_protected_path",
     "reject_reviewer_note",
     "validate_protected_relative_path",
+    "validate_repository_protected_path",
     "validate_source_identity",
 ]

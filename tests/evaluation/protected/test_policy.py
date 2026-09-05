@@ -6,8 +6,11 @@ import pytest
 
 from thesis_bench.evaluation.protected import (
     APPROVED_PROTECTED_ROOT,
+    APPROVED_REPOSITORY_SUBTREE,
     FrozenSourceIdentity,
+    is_repository_protected_path,
     protected_policy,
+    validate_repository_protected_path,
 )
 
 
@@ -44,3 +47,12 @@ def test_website_source_requires_a_frozen_per_file_hash() -> None:
             content_sha256="2" * 64,
             content_index_sha256="ff6e098274f45cf35dd669d0de61e566129e891baad8e0e49d7fe6922c432127",
         )
+
+
+def test_repository_binding_accepts_only_the_dedicated_subtree() -> None:
+    valid = f"{APPROVED_REPOSITORY_SUBTREE}/dev-k-pl-01/contract.json"
+    assert is_repository_protected_path(valid)
+    assert validate_repository_protected_path(valid) == valid
+    assert not is_repository_protected_path("data/benchmark/development/model-facing/x.json")
+    with pytest.raises(ValueError, match="repository subtree"):
+        validate_repository_protected_path("contracts/contract.json")

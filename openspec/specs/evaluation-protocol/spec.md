@@ -361,3 +361,19 @@ Judge assessment provenance SHALL bind the exact qualified judge-configuration i
 
 - **WHEN** protected bytes do not match the frozen reference hash
 - **THEN** evaluation fails before any score is emitted and the payload is not copied into diagnostics
+
+### Requirement: Public development evaluator custody
+
+Development-only evaluator contracts, evidence mappings, review artifacts, and evaluator fixtures MAY be stored in the public repository under the dedicated repository-relative subtree configured for `development-protected-evaluator-v1`. Public storage is intentional disclosure of development evaluator truth and SHALL NOT be treated as evaluator-answer secrecy. It SHALL NOT change the evaluator hierarchy, deterministic score derivation, source-evidence binding, semantic-judge freeze gate, human-review gate, class-specific metrics, or final-test custody.
+
+The evaluator subtree SHALL remain excluded from participant-model-facing exports, RAG corpora, training manifests, prompts, skills, harness inputs, W1 inputs, participant workspaces, ordinary logs, and diagnostics. A model-facing role attempting to resolve an evaluator artifact SHALL fail closed before reading it.
+
+#### Scenario: Public evaluator storage does not grant model access
+
+- **WHEN** a participant-model run is prepared from the approved model-facing manifest
+- **THEN** evaluator payloads are absent from the run workspace and cannot be resolved through model-facing serialization
+
+#### Scenario: Public evaluator content is disclosed
+
+- **WHEN** a public repository reader inspects a development evaluator artifact
+- **THEN** the artifact is treated as intentionally disclosed development material, and contamination reporting does not claim evaluator-answer secrecy

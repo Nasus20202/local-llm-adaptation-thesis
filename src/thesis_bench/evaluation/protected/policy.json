@@ -2,6 +2,7 @@
   "schema_version": 1,
   "policy_id": "development-protected-evaluator-policy-v1",
   "protected_root": "development-protected-evaluator-v1",
+  "repository_protected_subtree": "data/benchmark/development/protected-evaluator",
   "source_rights_manifest": "development-pilot-source-rights-v1",
   "preauthoring_freeze": "development-pilot-preauthoring-freeze-v1",
   "evaluation_clarification": "development-pilot-evaluation-clarification-v1",

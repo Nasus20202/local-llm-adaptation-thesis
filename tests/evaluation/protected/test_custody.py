@@ -7,6 +7,7 @@ import pytest
 
 from thesis_bench.evaluation.protected import (
     APPROVED_PROTECTED_ROOT,
+    APPROVED_REPOSITORY_SUBTREE,
     CustodyPurpose,
     CustodyRole,
     JudgeAccessGrant,
@@ -14,6 +15,7 @@ from thesis_bench.evaluation.protected import (
     ProtectedArtifactState,
     ProtectedCustodyEvent,
     load_protected_payload,
+    load_repository_protected_payload,
     record_protected_event,
 )
 from thesis_bench.records import (
@@ -223,3 +225,53 @@ def test_repeated_protected_reads_append_distinct_custody_events(tmp_path: Path)
         )
 
     assert len(tuple(tmp_path.glob("*.json"))) == 2
+
+
+def test_repository_binding_reads_only_from_the_approved_subtree(tmp_path: Path) -> None:
+    payload = b"repository-bound-payload"
+    relative_path = f"{APPROVED_REPOSITORY_SUBTREE}/dev-k-pl-01/contract.json"
+    destination = tmp_path / relative_path
+    destination.parent.mkdir(parents=True)
+    destination.write_bytes(payload)
+    reference = ProtectedRootReference(
+        schema_version=1,
+        root_id=APPROVED_PROTECTED_ROOT,
+        relative_path=relative_path,
+        content_sha256=hashlib.sha256(payload).hexdigest(),
+    )
+    protected_artifact = artifact().model_copy(
+        update={"root_reference": reference, "content_sha256": reference.content_sha256}
+    )
+    assert (
+        load_repository_protected_payload(
+            reference,
+            artifact=protected_artifact,
+            repository_root=tmp_path,
+            actor_role=CustodyRole.EVALUATOR_AUTHOR_REVIEWER,
+            purpose=CustodyPurpose.READ,
+            event_store=AppendOnlyEventStore(tmp_path / "events"),
+        )
+        == payload
+    )
+
+
+def test_repository_binding_rejects_paths_outside_the_subtree(tmp_path: Path) -> None:
+    payload = b"outside-payload"
+    reference = ProtectedRootReference(
+        schema_version=1,
+        root_id=APPROVED_PROTECTED_ROOT,
+        relative_path="contracts/outside.json",
+        content_sha256=hashlib.sha256(payload).hexdigest(),
+    )
+    protected_artifact = artifact().model_copy(
+        update={"root_reference": reference, "content_sha256": reference.content_sha256}
+    )
+    with pytest.raises(ValueError, match="repository subtree"):
+        load_repository_protected_payload(
+            reference,
+            artifact=protected_artifact,
+            repository_root=tmp_path,
+            actor_role=CustodyRole.EVALUATOR_AUTHOR_REVIEWER,
+            purpose=CustodyPurpose.READ,
+            event_store=AppendOnlyEventStore(tmp_path / "events"),
+        )
