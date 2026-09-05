@@ -42,6 +42,15 @@ This repository supports a theoretical-experimental MSc thesis comparing prompt 
 - A stronger implementation model is an exception for a clear implementation problem that the budget model could not solve; it is not a substitute for a complete specification.
 - The human researcher approves specifications and merges. Codex never merges its own substantial change.
 
+## Generative AI provenance
+
+- Treat [`docs/genai-log/`](docs/genai-log/) as the audit trail for material generative-AI use and follow its README. A material AI-assisted pull request must add or update the relevant GenAI entry in the same pull request.
+- Log significant AI contribution to research, methodology/specification, consequential architecture, code/tests, analysis, thesis/content generation, or substantive review that changes repository artifacts or decisions. Do not create entries for trivial autocomplete, formatting-only edits, dependency bumps, or mechanical bookkeeping with no substantive AI contribution.
+- Record the date, tool/product/model or repository model role when known, task/contribution, affected artifacts, human verification, and related Issue/PR/commit where applicable. Never guess an exact model, prompt, session, or tool detail that is not retained in evidence.
+- Mark retrospective entries explicitly and state the repository evidence from which they were reconstructed. Missing historical metadata stays unknown rather than being inferred.
+- Keep GenAI logs non-answer-bearing. They must not contain protected evaluator truth, protected/final-test payloads, secrets, credentials, or other content that is forbidden from the normal repository boundary.
+- Before claiming completion of material AI-assisted work, verify that its GenAI entry is present and consistent with the actual diff, review record, and scientific boundaries.
+
 ## AIDLC routing
 
 Use [`docs/project/aidlc.md`](docs/project/aidlc.md) for the complete lifecycle. The durable route is:
@@ -54,7 +63,7 @@ Use [`docs/project/aidlc.md`](docs/project/aidlc.md) for the complete lifecycle.
 6. Open a pull request and stop. An independent Chat review checks scientific fidelity, correctness, reproducibility, scope, tests, and unnecessary complexity.
 7. Fix implementation defects in Codex. Return methodology, architecture, or specification defects to Work. Re-review material fixes.
 8. The human researcher merges only after review passes.
-9. After merge, Work archives/synchronizes OpenSpec and updates status, roadmap, Issue, and evidence logs.
+9. After merge, Work archives/synchronizes OpenSpec and updates status, roadmap, Issue, and evidence logs, including `docs/genai-log/` when the merged work materially used generative AI.
 
 Use `$openspec-explore` for investigation, `$openspec-propose` for a new change, `$openspec-update-change` for an existing package, `$openspec-apply-change` only after Gate A, `$openspec-sync-specs` when reviewed delta specifications must be synchronized, and `$openspec-archive-change` only after merge. Do not edit the generated OpenSpec skills manually; regenerate and review them during a deliberate OpenSpec upgrade.
 
@@ -63,6 +72,7 @@ Use `$openspec-explore` for investigation, `$openspec-propose` for a new change,
 - `docs/research/`: scientific purpose and methodology—why the study is designed this way.
 - `openspec/specs/`: normative software behavior—what the system must do.
 - `docs/adr/`: consequential decisions and alternatives.
+- `docs/genai-log/`: material generative-AI provenance and disclosure support; never a source of scientific truth or protected answer content.
 - GitHub Issues: work queue and status, not duplicated specifications.
 - Source and tests: implementation of approved specifications.
 - `results/raw/`: immutable observations.
@@ -149,7 +159,7 @@ The foundation CLI intentionally has no inference, model-management, lifecycle-e
 
 ## Completion evidence
 
-Before claiming completion, run every relevant test, static check, configuration validation, and OpenSpec validation; inspect `git diff` and verify each acceptance criterion. Report exact commands and outcomes.
+Before claiming completion, run every relevant test, static check, configuration validation, and OpenSpec validation; inspect `git diff` and verify each acceptance criterion. Report exact commands and outcomes. For material AI-assisted work, also verify the corresponding `docs/genai-log/` entry against the actual contribution and review evidence.
 
 ## Git history
 
