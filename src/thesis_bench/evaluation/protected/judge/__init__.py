@@ -5,6 +5,7 @@ from .records import (
     DecodingPolicy,
     FairnessQualification,
     JudgeConfiguration,
+    JudgeCriterionAuthorization,
     JudgeFairnessCase,
     JudgeQualification,
     JudgeResponseSchema,
@@ -12,6 +13,7 @@ from .records import (
     MetamorphicFixtureGroup,
     MetamorphicVariant,
     MetamorphicVariantKind,
+    QualificationAdjudicationBinding,
     QualificationThresholds,
 )
 from .validation import (
@@ -30,6 +32,7 @@ __all__ = [
     "DecodingPolicy",
     "FairnessQualification",
     "JudgeConfiguration",
+    "JudgeCriterionAuthorization",
     "JudgeFairnessCase",
     "JudgeQualification",
     "JudgeResponseSchema",
@@ -38,6 +41,7 @@ __all__ = [
     "MetamorphicVariant",
     "MetamorphicVariantKind",
     "QualificationThresholds",
+    "QualificationAdjudicationBinding",
     "check_copying_neutral_fairness",
     "qualify_judge_configuration",
     "validate_fairness_coverage",

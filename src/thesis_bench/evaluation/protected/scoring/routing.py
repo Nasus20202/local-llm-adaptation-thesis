@@ -18,6 +18,7 @@ from .assessment import (
     HumanReviewRoute,
     QualifiedCriterionAssessment,
 )
+from .audit import audit_selection_identity, validate_audit_selection
 
 if TYPE_CHECKING:
     from ..judge.records import JudgeConfiguration, JudgeQualification
@@ -86,27 +87,6 @@ def _human_escalation_reasons() -> set[ReasonCode]:
         raise ValueError("protected access policy is invalid") from None
 
 
-def validate_audit_selection(selection: AuditSelection, policy: object | None) -> AuditSelection:
-    if selection.route != HumanReviewRoute.BLINDED_AUDIT:
-        raise ValueError("audit selection must use the blinded-audit route")
-    if selection.selected_before_outcomes is not True or selection.outcome_inspected is not False:
-        raise ValueError("audit membership must be predeclared and blinded")
-    if policy is not None:
-        from ..judge.records import AuditPolicy
-
-        if not isinstance(policy, AuditPolicy):
-            raise ValueError("audit policy is invalid") from None
-        try:
-            policy = AuditPolicy.model_validate(policy.model_dump(mode="python"))
-        except ValueError:
-            raise ValueError("audit policy is invalid") from None
-        if policy.audit_policy_id != selection.audit_policy_id:
-            raise ValueError("audit selection does not match the frozen policy")
-        if not policy.frozen_before_outcomes or not policy.blinded:
-            raise ValueError("audit policy is not frozen and blinded")
-    return selection
-
-
 def route_criterion_assessment(
     contract: ProtectedSemanticContract,
     criterion_id: str,
@@ -132,14 +112,16 @@ def route_criterion_assessment(
     )
     if criterion is None:
         raise ValueError("assessment references an unknown criterion")
+    if audit_selection is None and audit_selection_id is not None:
+        raise ValueError("audit selection identity requires the frozen selection record")
     if audit_selection is not None:
         if review_route != HumanReviewRoute.BLINDED_AUDIT:
             raise ValueError("audit selection requires the blinded-audit route")
         if audit_policy is None:
             raise ValueError("audit selection requires a frozen audit policy")
-        audit_selection = validate_audit_selection(audit_selection, audit_policy)
-        if response_id is None or audit_selection.response_id != response_id:
-            raise ValueError("audit selection does not match the response identity")
+        audit_selection = validate_audit_selection(
+            audit_selection, audit_policy, response_id=response_id
+        )
         audit_selection_id = audit_selection.selection_id
     elif review_route == HumanReviewRoute.BLINDED_AUDIT:
         raise ValueError("blinded audit requires a predeclared audit selection")
@@ -194,7 +176,10 @@ def route_criterion_assessment(
             audit_selection_id=None,
         )
     if human_assessment is not None:
-        if escalation_reason not in _human_escalation_reasons():
+        audit_route_authorized = (
+            review_route == HumanReviewRoute.BLINDED_AUDIT and audit_selection is not None
+        )
+        if not audit_route_authorized and escalation_reason not in _human_escalation_reasons():
             raise ValueError("human assessment requires an approved judge escalation reason")
         if human_assessment.source != AssessmentSource.HUMAN_ADJUDICATION:
             raise ValueError("human route requires a human assessment")
@@ -235,6 +220,7 @@ def route_criterion_assessment(
 __all__ = [
     "AssessmentRoute",
     "SemanticReviewRequest",
+    "audit_selection_identity",
     "route_criterion_assessment",
     "validate_audit_selection",
 ]

@@ -4,9 +4,6 @@ from thesis_bench.evaluation.protected import (
     APPROVED_PROTECTED_ROOT,
     APPROVED_SOURCE_RIGHTS_MANIFEST,
     AcceptedSemanticAlternative,
-    AssessmentSource,
-    CriterionAssessment,
-    CriterionDisposition,
     CriterionRole,
     DeterministicPredicate,
     FrozenSourceIdentity,
@@ -22,6 +19,19 @@ from thesis_bench.evaluation.protected import (
     approved_input_registry,
 )
 from thesis_bench.records import ProtectedRootReference
+
+from .assessment_fixtures import assessment, complete_knowledge_assessments
+
+__all__ = [
+    "assessment",
+    "complete_knowledge_assessments",
+    "artifact",
+    "evidence",
+    "input_binding",
+    "knowledge_contract",
+    "semantic_knowledge_contract",
+    "source_identity",
+]
 
 
 def source_identity() -> FrozenSourceIdentity:
@@ -197,52 +207,4 @@ def semantic_knowledge_contract() -> ProtectedSemanticContract:
         contract.model_copy(update={"criteria": criteria, "predicates": ()}).model_dump(
             mode="python"
         )
-    )
-
-
-def assessment(
-    criterion_id: str,
-    disposition: CriterionDisposition,
-    source: AssessmentSource = AssessmentSource.DETERMINISTIC,
-    *,
-    judge_config_id: str | None = None,
-    review_id: str | None = None,
-) -> CriterionAssessment:
-    predicate_ids = {
-        "claim-a": "predicate-claim-a",
-        "claim-b": "predicate-claim-b",
-        "unsupported-a": "predicate-unsupported-a",
-        "required-state": "predicate-state",
-        "prohibited-action": "predicate-action",
-        "semantic-point": "predicate-semantic-point",
-    }
-    return CriterionAssessment(
-        schema_version=1,
-        assessment_id=f"assessment-{criterion_id}-{disposition.value}",
-        criterion_id=criterion_id,
-        disposition=disposition,
-        source=source,
-        assessor_id="assessor-1",
-        judge_config_id=judge_config_id,
-        review_id=review_id,
-        predicate_id=(
-            predicate_ids.get(criterion_id) if source == AssessmentSource.DETERMINISTIC else None
-        ),
-        predicate_version=(
-            "predicate-v1"
-            if source == AssessmentSource.DETERMINISTIC and criterion_id in predicate_ids
-            else None
-        ),
-    )
-
-
-def complete_knowledge_assessments(
-    claim_a: CriterionDisposition = CriterionDisposition.SATISFIED,
-    claim_b: CriterionDisposition = CriterionDisposition.SATISFIED,
-    unsupported: CriterionDisposition = CriterionDisposition.NOT_SATISFIED,
-) -> tuple[CriterionAssessment, ...]:
-    return (
-        assessment("claim-a", claim_a),
-        assessment("claim-b", claim_b),
-        assessment("unsupported-a", unsupported),
     )

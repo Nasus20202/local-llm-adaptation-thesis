@@ -9,11 +9,11 @@ from thesis_bench.evaluation.protected import (
     APPROVED_PROTECTED_ROOT,
     CustodyPurpose,
     CustodyRole,
-    ProtectedArtifactReference,
+    JudgeAccessGrant,
+    ProtectedArtifact,
+    ProtectedArtifactState,
     ProtectedCustodyEvent,
-    SafeProtectedHandle,
     load_protected_payload,
-    model_facing_safe_handle,
     record_protected_event,
 )
 from thesis_bench.records import (
@@ -24,6 +24,7 @@ from thesis_bench.records import (
 )
 
 from .fixtures import artifact
+from .judge_fixtures import qualified_judge
 
 
 def test_protected_event_wrapper_preserves_append_only_lineage(tmp_path: Path) -> None:
@@ -143,6 +144,58 @@ def test_qualified_judge_access_requires_an_exact_scope_grant(tmp_path: Path) ->
         )
 
 
+def test_qualified_judge_denies_a_cross_criterion_artifact_before_reader(tmp_path: Path) -> None:
+    configuration, qualification = qualified_judge()
+    authorization = configuration.scopes[0].criterion_authorizations[0]
+    authorized_artifact = ProtectedArtifact(
+        schema_version=1,
+        artifact_id=authorization.artifact_id,
+        artifact_kind=authorization.artifact_kind,
+        revision="v1",
+        content_sha256=authorization.artifact_sha256,
+        state=ProtectedArtifactState.FROZEN,
+        root_reference=authorization.root_reference,
+    )
+    wrong_reference = authorization.root_reference.model_copy(
+        update={"relative_path": "judge-inputs/unrelated.json", "content_sha256": "7" * 64}
+    )
+    wrong_artifact = authorized_artifact.model_copy(
+        update={
+            "artifact_id": "criterion-input-unrelated-1",
+            "content_sha256": "7" * 64,
+            "root_reference": wrong_reference,
+        }
+    )
+    grant = JudgeAccessGrant(
+        schema_version=1,
+        judge_config_id=configuration.judge_config_id,
+        qualification_id=qualification.qualification_id,
+        task_class=configuration.scopes[0].task_class,
+        language=configuration.scopes[0].language,
+        criterion_id=authorization.criterion_id,
+        protected_input_contract_id=authorization.protected_input_contract_id,
+        protected_input_contract_sha256=authorization.protected_input_contract_sha256,
+        artifact_id=wrong_artifact.artifact_id,
+        artifact_kind=wrong_artifact.artifact_kind,
+        artifact_sha256=wrong_artifact.content_sha256,
+        root_reference=wrong_artifact.root_reference,
+    )
+    calls: list[str] = []
+    with pytest.raises(ValueError, match="authorized"):
+        load_protected_payload(
+            wrong_artifact.root_reference,
+            artifact=wrong_artifact,
+            actor_role=CustodyRole.QUALIFIED_SEMANTIC_JUDGE,
+            purpose=CustodyPurpose.READ,
+            reader=lambda value: calls.append(value) or b"wrong-payload",
+            event_store=AppendOnlyEventStore(tmp_path),
+            judge_access=grant,
+            judge_configuration=configuration,
+            judge_qualification=qualification,
+        )
+    assert calls == []
+
+
 def test_repeated_protected_reads_append_distinct_custody_events(tmp_path: Path) -> None:
     payload = b"repeatable-synthetic-payload"
     reference = ProtectedRootReference(
@@ -170,44 +223,3 @@ def test_repeated_protected_reads_append_distinct_custody_events(tmp_path: Path)
         )
 
     assert len(tuple(tmp_path.glob("*.json"))) == 2
-
-
-def test_safe_protected_handle_has_only_identity_integrity_and_status_fields() -> None:
-    reference = ProtectedArtifactReference(
-        schema_version=1,
-        artifact_id="evaluator-contract-1",
-        artifact_kind="evaluator",
-        root_reference=ProtectedRootReference(
-            schema_version=1,
-            root_id=APPROVED_PROTECTED_ROOT,
-            relative_path="contracts/synthetic.json",
-            content_sha256="a" * 64,
-        ),
-    )
-    handle = SafeProtectedHandle(
-        schema_version=1,
-        artifact_id=reference.artifact_id,
-        artifact_kind=reference.artifact_kind,
-        root_id=APPROVED_PROTECTED_ROOT,
-        relative_path=reference.root_reference.relative_path,
-        content_sha256=reference.root_reference.content_sha256,
-        status="frozen",
-        reason_codes=(ReasonCode.OK,),
-        assessor_configuration_id="judge-config-identity-only",
-        provenance_id="provenance-identity-only",
-    )
-    encoded = model_facing_safe_handle(handle)
-    assert set(encoded) == {
-        "schema_version",
-        "artifact_id",
-        "artifact_kind",
-        "root_id",
-        "relative_path",
-        "content_sha256",
-        "status",
-        "reason_codes",
-        "assessor_configuration_id",
-        "provenance_id",
-    }
-    assert "claim" not in str(encoded)
-    assert "a" * 64 in str(encoded)

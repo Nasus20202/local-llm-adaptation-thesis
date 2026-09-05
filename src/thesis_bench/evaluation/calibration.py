@@ -8,8 +8,10 @@ from typing import Literal
 from pydantic import Field, model_validator
 from pydantic.types import StrictBool, StrictInt
 
+from ..pilot.models import Language, TaskClass
 from ..records import VersionedRecord
-from ..schemas import Identifier, NonBlankStr
+from ..records import content_sha256 as record_content_sha256
+from ..schemas import Identifier, NonBlankStr, Sha256
 from .statistics import adjacent_agreement, exact_agreement
 
 
@@ -31,6 +33,11 @@ class CalibrationSummary(VersionedRecord):
     systematic_critical_disagreement: StrictBool
     systematic_disagreement_reason: NonBlankStr | None = None
     qualification_attempt: StrictInt = Field(default=1, ge=1)
+    task_class: TaskClass | None = None
+    language: Language | None = None
+    contract_id: Identifier | None = None
+    contract_sha256: Sha256 | None = None
+    content_sha256: Sha256 | None = None
 
     @model_validator(mode="after")
     def require_systematic_disagreement_reason(self) -> CalibrationSummary:
@@ -41,6 +48,12 @@ class CalibrationSummary(VersionedRecord):
             and self.systematic_disagreement_reason is not None
         ):
             raise ValueError("systematic disagreement reason requires the disagreement flag")
+        if self.content_sha256 is not None:
+            expected = record_content_sha256(
+                self.model_dump(mode="json", exclude={"content_sha256"})
+            )
+            if self.content_sha256 != expected:
+                raise ValueError("calibration summary hash does not cover its record")
         return self
 
 
@@ -56,6 +69,10 @@ def calibration_summary(
     qualification_attempt: int = 1,
     systematic_critical_disagreement: bool = False,
     systematic_disagreement_reason: str | None = None,
+    task_class: TaskClass | None = None,
+    language: Language | None = None,
+    contract_id: str | None = None,
+    contract_sha256: str | None = None,
 ) -> CalibrationSummary:
     # Resolve patchable public collaborators at call time for compatibility
     # with callers that replace the facade functions in deterministic tests.
@@ -121,7 +138,7 @@ def calibration_summary(
         criterion: {row: dict(columns) for row, columns in table.items()}
         for criterion, table in tables.items()
     }
-    return CalibrationSummary(
+    candidate = CalibrationSummary(
         schema_version=1,
         summary_id=summary_id,
         status=status,
@@ -134,4 +151,17 @@ def calibration_summary(
         systematic_critical_disagreement=systematic_critical_disagreement,
         systematic_disagreement_reason=systematic_disagreement_reason,
         qualification_attempt=qualification_attempt,
+        task_class=task_class,
+        language=language,
+        contract_id=contract_id,
+        contract_sha256=contract_sha256,
     )
+    digest = record_content_sha256(candidate.model_dump(mode="json", exclude={"content_sha256"}))
+    return candidate.model_copy(update={"content_sha256": digest})
+
+
+def calibration_digest(summary: CalibrationSummary) -> str:
+    return record_content_sha256(summary.model_dump(mode="json", exclude={"content_sha256"}))
+
+
+__all__ = ["CalibrationStatus", "CalibrationSummary", "calibration_digest", "calibration_summary"]

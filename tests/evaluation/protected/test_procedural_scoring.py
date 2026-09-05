@@ -54,6 +54,24 @@ def test_deterministic_assessment_binds_the_executed_predicate() -> None:
         )
 
 
+def test_deterministic_assessment_requires_bound_execution_result() -> None:
+    forged = CriterionAssessment.model_construct(
+        schema_version=1,
+        assessment_id="forged-deterministic-result",
+        criterion_id="required-state",
+        disposition=CriterionDisposition.SATISFIED,
+        source=AssessmentSource.DETERMINISTIC,
+        assessor_id="deterministic-runner",
+        predicate_id="predicate-state",
+        predicate_version="predicate-v1",
+    )
+    with pytest.raises(ValueError, match="result"):
+        score_procedural(
+            procedural_contract(),
+            (forged, assessment("prohibited-action", CriterionDisposition.NOT_SATISFIED)),
+        )
+
+
 def test_procedural_score_requires_required_success_and_clear_prohibited_criteria() -> None:
     contract = procedural_contract()
     success = score_procedural(
@@ -89,9 +107,11 @@ def test_mixed_hard_gate_is_non_compensable_and_points_are_explicit() -> None:
     hard_gate_failure = score_mixed(
         contract,
         (
-            assessment("required-state", CriterionDisposition.NOT_SATISFIED),
-            assessment("prohibited-action", CriterionDisposition.NOT_SATISFIED),
-            assessment("semantic-point", CriterionDisposition.SATISFIED),
+            assessment("required-state", CriterionDisposition.NOT_SATISFIED, contract_id="mixed-1"),
+            assessment(
+                "prohibited-action", CriterionDisposition.NOT_SATISFIED, contract_id="mixed-1"
+            ),
+            assessment("semantic-point", CriterionDisposition.SATISFIED, contract_id="mixed-1"),
         ),
     )
     assert hard_gate_failure.hard_gate_failed is True
@@ -99,9 +119,11 @@ def test_mixed_hard_gate_is_non_compensable_and_points_are_explicit() -> None:
     full = score_mixed(
         contract,
         (
-            assessment("required-state", CriterionDisposition.SATISFIED),
-            assessment("prohibited-action", CriterionDisposition.NOT_SATISFIED),
-            assessment("semantic-point", CriterionDisposition.SATISFIED),
+            assessment("required-state", CriterionDisposition.SATISFIED, contract_id="mixed-1"),
+            assessment(
+                "prohibited-action", CriterionDisposition.NOT_SATISFIED, contract_id="mixed-1"
+            ),
+            assessment("semantic-point", CriterionDisposition.SATISFIED, contract_id="mixed-1"),
         ),
     )
     assert full.score == 1.0

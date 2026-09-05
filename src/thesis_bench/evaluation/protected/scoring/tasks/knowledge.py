@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import TYPE_CHECKING
 
 from .....pilot.models import TaskClass
@@ -13,7 +14,10 @@ from ..kernel_helpers import (
 )
 
 if TYPE_CHECKING:
-    from ...judge.records import JudgeConfiguration, JudgeQualification
+    from ....calibration import CalibrationSummary
+    from ....rubrics import AdjudicationRecord
+    from ...judge.records import AuditPolicy, JudgeConfiguration, JudgeQualification
+    from ..assessment import AuditSelection
 
 
 def score_knowledge(
@@ -22,6 +26,11 @@ def score_knowledge(
     *,
     judge_configuration: JudgeConfiguration | None = None,
     judge_qualification: JudgeQualification | None = None,
+    human_calibration: CalibrationSummary | None = None,
+    human_adjudications: dict[str, AdjudicationRecord] | None = None,
+    human_audit_selection: AuditSelection | None = None,
+    human_audit_policy: AuditPolicy | None = None,
+    response_id: str | None = None,
 ) -> PrimaryScore:
     _require_scoreable_contract(contract)
     configuration = contract.score_configuration
@@ -39,19 +48,36 @@ def score_knowledge(
         required_ids,
         judge_configuration=judge_configuration,
         judge_qualification=judge_qualification,
+        human_calibration=human_calibration,
+        human_adjudications=human_adjudications,
+        human_audit_selection=human_audit_selection,
+        human_audit_policy=human_audit_policy,
+        response_id=response_id,
     )
+    return _score_knowledge_dispositions(
+        contract,
+        {criterion_id: item.disposition for criterion_id, item in assessment_map.items()},
+    )
+
+
+def _score_knowledge_dispositions(
+    contract: ProtectedSemanticContract,
+    dispositions: Mapping[str, CriterionDisposition],
+) -> PrimaryScore:
+    configuration = contract.score_configuration
+    if not isinstance(configuration, KnowledgeScoreConfiguration):
+        raise ValueError("knowledge scoring requires a knowledge configuration")
     true_positives = sum(
-        assessment_map[item].disposition == CriterionDisposition.SATISFIED
+        dispositions[item] == CriterionDisposition.SATISFIED
         for item in configuration.required_criterion_ids
     )
     false_negatives = sum(
-        assessment_map[item].disposition
+        dispositions[item]
         in {CriterionDisposition.NOT_SATISFIED, CriterionDisposition.CONTRADICTED}
         for item in configuration.required_criterion_ids
     )
     false_positives = sum(
-        assessment_map[item].disposition
-        in {CriterionDisposition.SATISFIED, CriterionDisposition.CONTRADICTED}
+        dispositions[item] in {CriterionDisposition.SATISFIED, CriterionDisposition.CONTRADICTED}
         for item in configuration.unsupported_criterion_ids
     )
     denominator = 2 * true_positives + false_positives + false_negatives

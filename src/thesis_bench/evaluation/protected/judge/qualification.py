@@ -12,7 +12,12 @@ from .evidence import (
     validate_qualification_metrics,
 )
 from .fairness import check_copying_neutral_fairness
-from .records import JudgeConfiguration, JudgeFairnessCase, JudgeQualification
+from .records import (
+    JudgeConfiguration,
+    JudgeFairnessCase,
+    JudgeQualification,
+    QualificationAdjudicationBinding,
+)
 
 
 def qualify_judge_configuration(
@@ -26,7 +31,7 @@ def qualify_judge_configuration(
     agreement_statistic: float | None = None,
     qualification_revision: str,
     qualification_root_reference: ProtectedRootReference,
-    qualification_adjudication_ids: tuple[str, ...],
+    qualification_adjudications: tuple[QualificationAdjudicationBinding, ...] = (),
     malformed_output_count: int = 0,
     supersedes_qualification_id: str | None = None,
 ) -> JudgeQualification:
@@ -56,7 +61,7 @@ def qualify_judge_configuration(
         and len({case.scope_key for case in cases}) == len(cases)
         and scope_pairs <= case_pairs
         and {criterion_id for scope in configuration.scopes for criterion_id in scope.criterion_ids}
-        <= {rule_id for case in cases for rule_id in case.covered_rule_ids}
+        <= {rule_id for case in cases for rule_id in case.exercised_rule_ids()}
     )
     fairness_status = (
         DecisionStatus.GO
@@ -106,7 +111,7 @@ def qualify_judge_configuration(
         fairness_scope_status,
         qualification_revision=qualification_revision,
         qualification_root_reference=qualification_root_reference,
-        qualification_adjudication_ids=qualification_adjudication_ids,
+        qualification_adjudications=qualification_adjudications,
         malformed_output_count=malformed_output_count,
         supersedes_qualification_id=supersedes_qualification_id,
     )
@@ -121,7 +126,7 @@ def qualify_judge_configuration(
         protected_input_contract_sha256=configuration.protected_input_contract_sha256,
         qualification_revision=qualification_revision,
         qualification_root_reference=qualification_root_reference,
-        qualification_adjudication_ids=qualification_adjudication_ids,
+        qualification_adjudications=qualification_adjudications,
         malformed_output_count=malformed_output_count,
         state="frozen",
         content_sha256="0" * 64,

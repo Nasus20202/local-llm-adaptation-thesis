@@ -54,15 +54,37 @@ def validate_judge_access_grant(
         raise ValueError("judge access scope configuration does not match")
     if grant.qualification_id != qualification.qualification_id:
         raise ValueError("judge access scope qualification does not match")
-    if grant.task_class not in {scope.task_class for scope in configuration.scopes}:
-        raise ValueError("judge access scope task class is not qualified")
-    if not any(
-        scope.task_class == grant.task_class
-        and scope.language == grant.language
-        and grant.criterion_id in scope.criterion_ids
-        for scope in configuration.scopes
-    ):
+    scope = next(
+        (
+            scope
+            for scope in configuration.scopes
+            if scope.task_class == grant.task_class and scope.language == grant.language
+        ),
+        None,
+    )
+    if scope is None:
+        raise ValueError("judge access scope task/language is not qualified")
+    if grant.criterion_id not in scope.criterion_ids:
         raise ValueError("judge access scope criterion is not qualified")
+    authorization = next(
+        (
+            item
+            for item in scope.criterion_authorizations
+            if item.criterion_id == grant.criterion_id
+        ),
+        None,
+    )
+    if authorization is None:
+        raise ValueError("judge access scope has no criterion artifact authorization")
+    if (
+        grant.protected_input_contract_id != authorization.protected_input_contract_id
+        or grant.protected_input_contract_sha256 != authorization.protected_input_contract_sha256
+        or grant.artifact_id != authorization.artifact_id
+        or grant.artifact_kind != authorization.artifact_kind
+        or grant.artifact_sha256 != authorization.artifact_sha256
+        or grant.root_reference != authorization.root_reference
+    ):
+        raise ValueError("judge access scope artifact is not authorized for this criterion")
     if (
         grant.protected_input_contract_id != configuration.protected_input_contract_id
         or grant.protected_input_contract_sha256 != configuration.protected_input_contract_sha256

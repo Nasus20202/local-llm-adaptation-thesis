@@ -1,17 +1,26 @@
 from __future__ import annotations
 
-from enum import StrEnum
 from typing import Literal
 
-from pydantic import ConfigDict, Field, field_validator, model_validator
+from pydantic import Field, model_validator
 from pydantic.types import StrictBool, StrictFloat, StrictInt
 
-from ....pilot.models import Language, TaskClass
 from ....records import DecisionStatus, ProtectedRootReference, VersionedRecord
 from ....schemas import Identifier, Sha256
-from ..contracts.config import ProtectedSemanticContract
-from ..scoring.assessment import CriterionAssessment
 from ..source import APPROVED_PROTECTED_ROOT, validate_protected_relative_path
+from .fairness_records import (
+    FairnessQualification,
+    JudgeFairnessCase,
+    MetamorphicFixtureGroup,
+    MetamorphicVariant,
+    MetamorphicVariantKind,
+)
+from .policy import (
+    AuditPolicy,
+    JudgeCriterionAuthorization,
+    JudgeScope,
+    QualificationAdjudicationBinding,
+)
 
 
 class DecodingPolicy(VersionedRecord):
@@ -45,35 +54,6 @@ class QualificationThresholds(VersionedRecord):
         )
 
 
-class AuditPolicy(VersionedRecord):
-    audit_policy_id: Identifier
-    sampling_identity: Identifier
-    frozen_before_outcomes: Literal[True]
-    blinded: Literal[True]
-
-
-class JudgeScope(VersionedRecord):
-    task_class: TaskClass
-    language: Language
-    criterion_ids: tuple[Identifier, ...] = Field(min_length=1)
-
-    @field_validator("task_class", mode="before")
-    @classmethod
-    def parse_task_class(cls, value: object) -> object:
-        return TaskClass(value) if isinstance(value, str) else value
-
-    @field_validator("language", mode="before")
-    @classmethod
-    def parse_language(cls, value: object) -> object:
-        return Language(value) if isinstance(value, str) else value
-
-    @model_validator(mode="after")
-    def require_unique_scope_criteria(self) -> JudgeScope:
-        if len(set(self.criterion_ids)) != len(self.criterion_ids):
-            raise ValueError("judge scope criterion identifiers must be unique")
-        return self
-
-
 class JudgeConfiguration(VersionedRecord):
     judge_config_id: Identifier
     revision: Identifier
@@ -98,11 +78,32 @@ class JudgeConfiguration(VersionedRecord):
     supersedes_judge_config_id: Identifier | None = None
 
     @model_validator(mode="after")
-    def require_suspension_reason(self) -> JudgeConfiguration:
+    def validate_configuration_scope(self) -> JudgeConfiguration:
         if self.suspension_state == "active" and self.suspension_reason is not None:
             raise ValueError("active judge configurations cannot carry a suspension reason")
         if self.suspension_state != "active" and self.suspension_reason is None:
             raise ValueError("suspended judge configurations require a reason")
+        scope_keys = {
+            (scope.task_class, scope.language, criterion_id)
+            for scope in self.scopes
+            for criterion_id in scope.criterion_ids
+        }
+        authorization_keys = {
+            (scope.task_class, scope.language, item.criterion_id)
+            for scope in self.scopes
+            for item in scope.criterion_authorizations
+        }
+        if scope_keys != authorization_keys:
+            raise ValueError(
+                "judge configuration must authorize every scoped criterion exactly once"
+            )
+        if any(
+            item.protected_input_contract_id != self.protected_input_contract_id
+            or item.protected_input_contract_sha256 != self.protected_input_contract_sha256
+            for scope in self.scopes
+            for item in scope.criterion_authorizations
+        ):
+            raise ValueError("judge criterion authorization protected input does not match")
         return self
 
 
@@ -116,7 +117,7 @@ class JudgeQualification(VersionedRecord):
     protected_input_contract_sha256: Sha256
     qualification_revision: Identifier
     qualification_root_reference: ProtectedRootReference
-    qualification_adjudication_ids: tuple[Identifier, ...] = Field(min_length=1)
+    qualification_adjudications: tuple[QualificationAdjudicationBinding, ...] = ()
     malformed_output_count: StrictInt = Field(ge=0)
     state: Literal["frozen", "superseded"]
     content_sha256: Sha256
@@ -138,9 +139,8 @@ class JudgeQualification(VersionedRecord):
         validate_protected_relative_path(self.qualification_root_reference.relative_path)
         if self.qualification_root_reference.content_sha256 != self.content_sha256:
             raise ValueError("judge qualification root hash must match its content hash")
-        if len(set(self.qualification_adjudication_ids)) != len(
-            self.qualification_adjudication_ids
-        ):
+        adjudication_ids = [item.adjudication_id for item in self.qualification_adjudications]
+        if len(set(adjudication_ids)) != len(adjudication_ids):
             raise ValueError("judge qualification adjudication evidence must be unique")
         if self.state == "superseded" and self.supersedes_qualification_id is None:
             raise ValueError("superseded qualification must identify its predecessor")
@@ -149,95 +149,12 @@ class JudgeQualification(VersionedRecord):
         return self
 
 
-class MetamorphicVariantKind(StrEnum):
-    CONCISE_CORRECT_PARAPHRASE = "concise_correct_paraphrase"
-    CORRECT_SOURCE_LIKE = "correct_source_like"
-    ACCEPTED_SYNONYM_REORDERING = "accepted_synonym_reordering"
-    LEXICALLY_SIMILAR_WRONG = "lexically_similar_wrong"
-    PARTIAL_MISSING_CLAIM = "partial_missing_claim"
-    IRRELEVANT_SOURCE_APPENDED = "irrelevant_source_appended"
-
-
-class MetamorphicVariant(VersionedRecord):
-    variant_id: Identifier
-    kind: MetamorphicVariantKind
-
-    @field_validator("kind", mode="before")
-    @classmethod
-    def parse_kind(cls, value: object) -> object:
-        return MetamorphicVariantKind(value) if isinstance(value, str) else value
-
-
-class MetamorphicFixtureGroup(VersionedRecord):
-    group_id: Identifier
-    task_class: TaskClass
-    language: Language
-    variant_ids: tuple[Identifier, ...] = Field(min_length=6)
-    variants: tuple[MetamorphicVariant, ...] = Field(min_length=6)
-    covered_rule_ids: tuple[Identifier, ...] = Field(min_length=1)
-    protected_fixture_reference: ProtectedRootReference
-
-    @field_validator("task_class", mode="before")
-    @classmethod
-    def parse_task_class(cls, value: object) -> object:
-        return TaskClass(value) if isinstance(value, str) else value
-
-    @field_validator("language", mode="before")
-    @classmethod
-    def parse_language(cls, value: object) -> object:
-        return Language(value) if isinstance(value, str) else value
-
-    @model_validator(mode="after")
-    def require_six_distinct_variants(self) -> MetamorphicFixtureGroup:
-        if (
-            len(self.variant_ids) != 6
-            or len(set(self.variant_ids)) != 6
-            or len(self.variants) != 6
-            or len({variant.variant_id for variant in self.variants}) != 6
-        ):
-            raise ValueError("fairness fixture group must contain six distinct variants")
-        if set(self.variant_ids) != {variant.variant_id for variant in self.variants}:
-            raise ValueError("fairness fixture identifiers must bind their variants")
-        if {variant.kind for variant in self.variants} != set(MetamorphicVariantKind):
-            raise ValueError("fairness fixture group must cover all approved variant relations")
-        if self.protected_fixture_reference.root_id != APPROVED_PROTECTED_ROOT:
-            raise ValueError("fairness fixture must use the approved protected root")
-        validate_protected_relative_path(self.protected_fixture_reference.relative_path)
-        return self
-
-
-class JudgeFairnessCase(VersionedRecord):
-    model_config = ConfigDict(extra="forbid", strict=True, frozen=True, hide_input_in_errors=True)
-
-    case_id: Identifier
-    scope_key: Identifier
-    contract: ProtectedSemanticContract
-    variants: dict[MetamorphicVariantKind, tuple[CriterionAssessment, ...]]
-    covered_rule_ids: tuple[Identifier, ...] = Field(min_length=1)
-    primary_scores: dict[MetamorphicVariantKind, StrictFloat]
-    affected_criterion_ids: dict[MetamorphicVariantKind, tuple[Identifier, ...]] = {}
-
-    @model_validator(mode="after")
-    def require_complete_score_evidence(self) -> JudgeFairnessCase:
-        if len(set(self.covered_rule_ids)) != len(self.covered_rule_ids):
-            raise ValueError("fairness case rule identifiers must be unique")
-        if set(self.primary_scores) != set(MetamorphicVariantKind):
-            raise ValueError("fairness case must provide every primary score relation")
-        if any(not 0.0 <= score <= 1.0 for score in self.primary_scores.values()):
-            raise ValueError("fairness primary scores must be within [0, 1]")
-        return self
-
-
-class FairnessQualification(VersionedRecord):
-    status: DecisionStatus
-    violations: tuple[Identifier, ...] = ()
-
-
 __all__ = [
     "AuditPolicy",
     "DecodingPolicy",
     "FairnessQualification",
     "JudgeConfiguration",
+    "JudgeCriterionAuthorization",
     "JudgeFairnessCase",
     "JudgeQualification",
     "JudgeResponseSchema",
@@ -246,4 +163,5 @@ __all__ = [
     "MetamorphicVariant",
     "MetamorphicVariantKind",
     "QualificationThresholds",
+    "QualificationAdjudicationBinding",
 ]

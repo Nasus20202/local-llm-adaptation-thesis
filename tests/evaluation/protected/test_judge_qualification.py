@@ -8,6 +8,7 @@ from thesis_bench.evaluation.protected import (
     CriterionDisposition,
     JudgeQualification,
     Language,
+    QualificationAdjudicationBinding,
     QualificationThresholds,
     QualifiedCriterionAssessment,
     TaskClass,
@@ -53,7 +54,7 @@ def test_judge_configuration_fails_closed_when_thresholds_are_deferred() -> None
         schema_failure_count=0,
         qualification_revision="v1",
         qualification_root_reference=qualification_root_reference("deferred", "a" * 64),
-        qualification_adjudication_ids=("adjudication-deferred",),
+        qualification_adjudications=(),
         malformed_output_count=0,
         state="frozen",
         content_sha256="a" * 64,
@@ -113,7 +114,7 @@ def test_judge_qualification_requires_frozen_thresholds_and_binds_exact_config()
         fairness_cases=(judge_fairness_case(config),),
         qualification_revision="v1",
         qualification_root_reference=qualification_root_reference("green"),
-        qualification_adjudication_ids=("adjudication-green",),
+        qualification_adjudications=(),
     )
     assert qualification.status == DecisionStatus.GO
     assert qualification.thresholds_satisfied is True
@@ -173,7 +174,7 @@ def test_forged_green_qualification_cannot_authorize_a_judge() -> None:
         schema_failure_count=0,
         qualification_revision="v1",
         qualification_root_reference=qualification_root_reference("forged", "a" * 64),
-        qualification_adjudication_ids=("adjudication-forged",),
+        qualification_adjudications=(),
         malformed_output_count=0,
         state="frozen",
         content_sha256="a" * 64,
@@ -217,7 +218,17 @@ def test_judge_qualification_requires_nonempty_bound_confusion_evidence() -> Non
         fairness_cases=(judge_fairness_case(config),),
         qualification_revision="v1",
         qualification_root_reference=qualification_root_reference("empty"),
-        qualification_adjudication_ids=("adjudication-empty",),
+        qualification_adjudications=(),
     )
     assert qualification.status == DecisionStatus.AMEND
     assert qualification.thresholds_satisfied is False
+
+
+def test_qualification_adjudication_binding_requires_matching_protected_hash() -> None:
+    with pytest.raises(ValueError, match="hash"):
+        QualificationAdjudicationBinding(
+            schema_version=1,
+            adjudication_id="adjudication-1",
+            content_sha256="a" * 64,
+            root_reference=qualification_root_reference("adjudication", "b" * 64),
+        )

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import TYPE_CHECKING
 
 from pydantic import Field
@@ -12,14 +13,16 @@ from ..contracts.records import CriterionRole
 from ..contracts.validation import validate_protected_contract
 from .assessment import (
     AssessmentSource,
-    CalibratedHumanCriterionAssessment,
     CriterionAssessment,
     CriterionDisposition,
     QualifiedCriterionAssessment,
 )
 
 if TYPE_CHECKING:
-    from ..judge.records import JudgeConfiguration, JudgeQualification
+    from ...calibration import CalibrationSummary
+    from ...rubrics import AdjudicationRecord
+    from ..judge.records import AuditPolicy, JudgeConfiguration, JudgeQualification
+    from .assessment import AuditSelection
 
 
 class PrimaryScore(VersionedRecord):
@@ -69,12 +72,21 @@ def _require_resolved(
     *,
     judge_configuration: JudgeConfiguration | None = None,
     judge_qualification: JudgeQualification | None = None,
+    human_calibration: CalibrationSummary | None = None,
+    human_adjudications: Mapping[str, AdjudicationRecord] | None = None,
+    human_audit_selection: AuditSelection | None = None,
+    human_audit_policy: AuditPolicy | None = None,
+    response_id: str | None = None,
 ) -> None:
     criteria = {criterion.criterion_id: criterion for criterion in contract.criteria}
     for criterion_id in required_ids:
         assessment = assessments.get(criterion_id)
         if assessment is None:
             raise ValueError("missing primary criterion assessment")
+        try:
+            assessment = type(assessment).model_validate(assessment.model_dump(mode="python"))
+        except ValueError:
+            raise ValueError("criterion assessment result provenance is invalid") from None
         if assessment.disposition == CriterionDisposition.UNRESOLVED:
             raise ScoreBlockedError()
         criterion = criteria[criterion_id]
@@ -84,16 +96,9 @@ def _require_resolved(
             raise ValueError("semantic judge assessment is not qualified for primary scoring")
         if (
             CriterionRole.DETERMINISTIC in criterion.roles
-            and CriterionRole.SEMANTIC not in criterion.roles
             and assessment.source != AssessmentSource.DETERMINISTIC
         ):
-            raise ValueError("deterministic criterion cannot use a semantic assessor")
-        if (
-            CriterionRole.DETERMINISTIC in criterion.roles
-            and assessment.source == AssessmentSource.DETERMINISTIC
-            and (assessment.predicate_id is None or assessment.predicate_version is None)
-        ):
-            raise ValueError("deterministic predicate binding is required")
+            raise ValueError("deterministic criteria require deterministic resolution")
         if assessment.source == AssessmentSource.DETERMINISTIC:
             if CriterionRole.DETERMINISTIC not in criterion.roles:
                 raise ValueError("deterministic assessment requires a declared predicate")
@@ -105,6 +110,13 @@ def _require_resolved(
                 or assessment.predicate_version != predicate.predicate_version
             ):
                 raise ValueError("deterministic assessment predicate binding is invalid")
+            result = assessment.deterministic_result
+            if result is None or (
+                result.contract_id != contract.evaluator_identity.identity_id
+                or result.contract_sha256 != contract.evaluator_identity.content_sha256
+                or result.disposition != assessment.disposition
+            ):
+                raise ValueError("deterministic assessment lacks bound execution result")
         if assessment.source == AssessmentSource.QUALIFIED_SEMANTIC_JUDGE:
             if judge_configuration is None or judge_qualification is None:
                 raise ValueError("judge qualification context is required for primary scoring")
@@ -119,10 +131,24 @@ def _require_resolved(
             )
             if validated.model_dump(mode="python") != assessment.model_dump(mode="python"):
                 raise ValueError("semantic judge assessment provenance is not qualified")
-        if assessment.source == AssessmentSource.HUMAN_ADJUDICATION and not isinstance(
-            assessment, CalibratedHumanCriterionAssessment
-        ):
-            raise ValueError("human assessment is not calibrated for primary scoring")
+        if assessment.source == AssessmentSource.HUMAN_ADJUDICATION:
+            if (
+                human_calibration is None
+                or human_adjudications is None
+                or criterion_id not in human_adjudications
+            ):
+                raise ValueError("human calibration and adjudication context is required")
+            from .human import validate_primary_human_assessment
+
+            validate_primary_human_assessment(
+                contract,
+                assessment,
+                calibration=human_calibration,
+                adjudication=human_adjudications[criterion_id],
+                audit_selection=human_audit_selection,
+                audit_policy=human_audit_policy,
+                response_id=response_id,
+            )
 
 
 __all__ = [

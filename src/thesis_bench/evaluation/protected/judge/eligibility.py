@@ -56,7 +56,7 @@ def validate_judge_qualification(
         qualification.fairness_scope_status,
         qualification_revision=qualification.qualification_revision,
         qualification_root_reference=qualification.qualification_root_reference,
-        qualification_adjudication_ids=qualification.qualification_adjudication_ids,
+        qualification_adjudications=qualification.qualification_adjudications,
         malformed_output_count=qualification.malformed_output_count,
         supersedes_qualification_id=qualification.supersedes_qualification_id,
     )

@@ -72,5 +72,5 @@ def test_forged_qualified_assessment_cannot_enter_without_qualification_context(
         forged if item.criterion_id == "claim-a" else item
         for item in complete_knowledge_assessments()
     )
-    with pytest.raises(ValueError, match="qualification"):
+    with pytest.raises(ValueError, match="deterministic"):
         score_knowledge(knowledge_contract(), assessments)

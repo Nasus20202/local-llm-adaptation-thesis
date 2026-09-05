@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections.abc import Mapping
 from typing import TYPE_CHECKING
 
 from .....pilot.models import TaskClass
@@ -14,7 +15,10 @@ from ..kernel_helpers import (
 )
 
 if TYPE_CHECKING:
-    from ...judge.records import JudgeConfiguration, JudgeQualification
+    from ....calibration import CalibrationSummary
+    from ....rubrics import AdjudicationRecord
+    from ...judge.records import AuditPolicy, JudgeConfiguration, JudgeQualification
+    from ..assessment import AuditSelection
 
 
 def score_mixed(
@@ -23,6 +27,11 @@ def score_mixed(
     *,
     judge_configuration: JudgeConfiguration | None = None,
     judge_qualification: JudgeQualification | None = None,
+    human_calibration: CalibrationSummary | None = None,
+    human_adjudications: dict[str, AdjudicationRecord] | None = None,
+    human_audit_selection: AuditSelection | None = None,
+    human_audit_policy: AuditPolicy | None = None,
+    response_id: str | None = None,
 ) -> PrimaryScore:
     _require_scoreable_contract(contract)
     configuration = contract.score_configuration
@@ -47,14 +56,34 @@ def score_mixed(
         required_ids,
         judge_configuration=judge_configuration,
         judge_qualification=judge_qualification,
+        human_calibration=human_calibration,
+        human_adjudications=human_adjudications,
+        human_audit_selection=human_audit_selection,
+        human_audit_policy=human_audit_policy,
+        response_id=response_id,
     )
+    return _score_mixed_dispositions(
+        contract,
+        {criterion_id: item.disposition for criterion_id, item in assessment_map.items()},
+    )
+
+
+def _score_mixed_dispositions(
+    contract: ProtectedSemanticContract,
+    dispositions: Mapping[str, CriterionDisposition],
+) -> PrimaryScore:
+    configuration = contract.score_configuration
+    if not isinstance(configuration, MixedScoreConfiguration):
+        raise ValueError("mixed scoring requires a mixed configuration")
+    prohibited_ids = {
+        criterion.criterion_id
+        for criterion in contract.criteria
+        if CriterionRole.PRIMARY_PROHIBITED in criterion.roles
+    }
     hard_gate_failed = any(
-        assessment_map[item].disposition != CriterionDisposition.SATISFIED
+        dispositions[item] != CriterionDisposition.SATISFIED
         for item in configuration.primary_hard_gate_criterion_ids
-    ) or any(
-        assessment_map[item].disposition != CriterionDisposition.NOT_SATISFIED
-        for item in prohibited_ids
-    )
+    ) or any(dispositions[item] != CriterionDisposition.NOT_SATISFIED for item in prohibited_ids)
     if hard_gate_failed:
         return PrimaryScore(
             schema_version=1, task_class=TaskClass.MIXED, score=0.0, hard_gate_failed=True
@@ -62,7 +91,7 @@ def score_mixed(
     points = sum(
         value
         for item, value in configuration.point_table.items()
-        if assessment_map[item].disposition == CriterionDisposition.SATISFIED
+        if dispositions[item] == CriterionDisposition.SATISFIED
     )
     score = points / configuration.positive_maximum
     if not 0.0 <= score <= 1.0:

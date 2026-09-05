@@ -1,20 +1,24 @@
 from __future__ import annotations
 
 from thesis_bench.evaluation.protected import (
+    APPROVED_PROTECTED_ROOT,
     AssessmentSource,
     AuditPolicy,
     CriterionDisposition,
     DecodingPolicy,
     JudgeConfiguration,
+    JudgeCriterionAuthorization,
     JudgeFairnessCase,
+    JudgeQualification,
     JudgeResponseSchema,
     JudgeScope,
     Language,
     MetamorphicVariantKind,
     QualificationThresholds,
     TaskClass,
+    qualify_judge_configuration,
 )
-from thesis_bench.records import content_sha256
+from thesis_bench.records import ProtectedRootReference, content_sha256
 
 from .fixtures import assessment, complete_knowledge_assessments, semantic_knowledge_contract
 
@@ -47,12 +51,39 @@ def judge_configuration() -> JudgeConfiguration:
         sampling_identity="predeclared-sampling-rule",
         frozen_before_outcomes=True,
         blinded=True,
+        membership_manifest_id="audit-membership-manifest-1",
+        membership_manifest_sha256="6" * 64,
+        membership_manifest_root_reference=ProtectedRootReference(
+            schema_version=1,
+            root_id=APPROVED_PROTECTED_ROOT,
+            relative_path="audit/membership-manifest-1.json",
+            content_sha256="6" * 64,
+        ),
+        selected_response_ids=("response-1",),
+    )
+    authorization = JudgeCriterionAuthorization(
+        schema_version=1,
+        task_class=TaskClass.KNOWLEDGE,
+        language=Language.EN,
+        criterion_id="claim-a",
+        protected_input_contract_id="protected-input-contract-v1",
+        protected_input_contract_sha256="4" * 64,
+        artifact_id="criterion-input-claim-a-1",
+        artifact_kind="semantic-criterion-input",
+        artifact_sha256="5" * 64,
+        root_reference=ProtectedRootReference(
+            schema_version=1,
+            root_id=APPROVED_PROTECTED_ROOT,
+            relative_path="judge-inputs/claim-a.json",
+            content_sha256="5" * 64,
+        ),
     )
     scope = JudgeScope(
         schema_version=1,
         task_class=TaskClass.KNOWLEDGE,
         language=Language.EN,
         criterion_ids=("claim-a",),
+        criterion_authorizations=(authorization,),
     )
     candidate = JudgeConfiguration.model_construct(
         schema_version=1,
@@ -86,6 +117,36 @@ def rehash_judge_configuration(
     return candidate.model_copy(update={"content_sha256": digest})
 
 
+def qualified_judge() -> tuple[JudgeConfiguration, JudgeQualification]:
+    config = rehash_judge_configuration(
+        judge_configuration(),
+        qualification_thresholds=QualificationThresholds(
+            schema_version=1,
+            threshold_set_id="synthetic-test-thresholds",
+            minimum_criterion_agreement=0.0,
+            minimum_kappa=None,
+            maximum_unresolved_rate=1.0,
+        ),
+    )
+    qualification = qualify_judge_configuration(
+        config,
+        criterion_agreement={"claim-a": 1.0},
+        confusion_matrix={"claim-a": {"satisfied": {"satisfied": 4}}},
+        unresolved_count=0,
+        schema_failure_count=0,
+        fairness_cases=(judge_fairness_case(config),),
+        qualification_adjudications=(),
+        qualification_revision="v1",
+        qualification_root_reference=ProtectedRootReference(
+            schema_version=1,
+            root_id=APPROVED_PROTECTED_ROOT,
+            relative_path="qualification/synthetic-green.json",
+            content_sha256="0" * 64,
+        ),
+    )
+    return config, qualification
+
+
 def judge_fairness_case(config: JudgeConfiguration) -> JudgeFairnessCase:
     def judge_variant(assessments: tuple) -> tuple:
         return tuple(
@@ -103,15 +164,6 @@ def judge_fairness_case(config: JudgeConfiguration) -> JudgeFairnessCase:
         case_id="judge-fairness-case-1",
         scope_key="knowledge-en",
         contract=semantic_knowledge_contract(),
-        covered_rule_ids=("claim-a", "claim-b"),
-        primary_scores={
-            MetamorphicVariantKind.CONCISE_CORRECT_PARAPHRASE: 1.0,
-            MetamorphicVariantKind.CORRECT_SOURCE_LIKE: 1.0,
-            MetamorphicVariantKind.ACCEPTED_SYNONYM_REORDERING: 1.0,
-            MetamorphicVariantKind.LEXICALLY_SIMILAR_WRONG: 0.5,
-            MetamorphicVariantKind.PARTIAL_MISSING_CLAIM: 0.5,
-            MetamorphicVariantKind.IRRELEVANT_SOURCE_APPENDED: 1.0,
-        },
         variants={
             MetamorphicVariantKind.CONCISE_CORRECT_PARAPHRASE: judge_variant(
                 complete_knowledge_assessments()
@@ -129,11 +181,7 @@ def judge_fairness_case(config: JudgeConfiguration) -> JudgeFairnessCase:
                 complete_knowledge_assessments(claim_b=CriterionDisposition.NOT_SATISFIED)
             ),
             MetamorphicVariantKind.IRRELEVANT_SOURCE_APPENDED: judge_variant(
-                complete_knowledge_assessments()
+                complete_knowledge_assessments(unsupported=CriterionDisposition.SATISFIED)
             ),
-        },
-        affected_criterion_ids={
-            MetamorphicVariantKind.LEXICALLY_SIMILAR_WRONG: ("claim-a",),
-            MetamorphicVariantKind.PARTIAL_MISSING_CLAIM: ("claim-b",),
         },
     )

@@ -4,7 +4,7 @@ from collections.abc import Mapping
 
 from ....records import DecisionStatus, ProtectedRootReference, content_sha256
 from ..scoring.assessment import CriterionDisposition
-from .records import JudgeConfiguration, JudgeQualification
+from .records import JudgeConfiguration, JudgeQualification, QualificationAdjudicationBinding
 
 
 def confusion_total(confusion_matrix: Mapping[str, Mapping[str, Mapping[str, int]]]) -> int:
@@ -95,7 +95,7 @@ def qualification_id(
     *,
     qualification_revision: str,
     qualification_root_reference: ProtectedRootReference,
-    qualification_adjudication_ids: tuple[str, ...],
+    qualification_adjudications: tuple[QualificationAdjudicationBinding, ...],
     malformed_output_count: int,
     supersedes_qualification_id: str | None = None,
 ) -> str:
@@ -115,7 +115,9 @@ def qualification_id(
         "fairness_scope_status": fairness_scope_status,
         "qualification_revision": qualification_revision,
         "qualification_root_reference": root_reference,
-        "qualification_adjudication_ids": qualification_adjudication_ids,
+        "qualification_adjudications": tuple(
+            item.model_dump(mode="json") for item in qualification_adjudications
+        ),
         "malformed_output_count": malformed_output_count,
         "supersedes_qualification_id": supersedes_qualification_id,
     }
